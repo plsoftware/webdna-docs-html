@@ -1,0 +1,227 @@
+/* —— animated logo —— */
+   
+.circle-wrapper {
+  display: inline-block;
+  height: 36px;
+  width: 36px;
+  background: rgba(255,255,255,1);
+  border-radius: 50%;
+  position: relative !important;
+  top: 7px;
+}
+.circle-wrapper__circle {
+  width: 100%;
+  height: 100%;
+  animation: rotate 4s linear infinite;
+}
+.circle-wrapper__circle:after, .circle-wrapper__circle:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 50%;
+}
+.circle-wrapper__circle:before {
+  border-radius: 36px 36px 0 0;
+  background-image: linear-gradient(to right, rgba(221, 0, 0, 0.1) 2%, rgba(221, 0, 0, 0.5) 20%, rgba(221, 0, 0, 1) 50%);
+}
+.circle-wrapper__circle:after {
+  top: 50%;
+  border-radius: 0 0 36px 36px;
+  background-image: linear-gradient(to right, rgba(221, 0, 0, 0.1) 2%, rgba(221, 0, 0, 0.5) 20%, rgba(221, 0, 0, 1) 50%);
+}
+.circle-wrapper__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  height: 70%;
+  width: 70%;
+  background: rgba(255,255,255,1);
+  border-radius: 50%;
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.wsc-red {
+	color:  #dd0000;
+}
+
+
+.border-bottom-dark {
+	border-bottom: 1px solid #cccccc;
+}
+
+p.note-general, p.note-warning, p.results {
+	background: transparent;
+	border: 1px solid #cccccc;
+	color: #707070;
+	padding: 10px 10px 10px 50px;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	text-indent: -25px;
+}
+
+p.note-general::before, p.note-warning::before, p.results::before {
+	font-family: "Font Awesome 5 Free"; 
+	font-weight: 900;
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	color:  rgba(0,0,0,0);
+	position: relative; left: -25px;
+
+}
+p.note-general::before {content: "\f0eb";}
+p.note-warning::before {content: "\f071";}
+p.results::before {content: "\f058";}
+
+
+p.note-general svg {color: #EEBF41;	}
+p.note-warning svg {color: #DD0000;}
+p.results svg {color: rgba(30,202,59,1.0);}
+p.note-general svg, p.note-warning svg, p.results svg {
+	transform: scale(1.5);
+	position: relative;
+	left: -15px;	
+}
+
+/* @group code & pre */
+
+.hljs {
+	background-color: #e8e8e8 !important;
+	background: #e8e8e8 !important;
+}
+
+code {
+	background: rgba(0,0,0,0.0);
+}
+
+code, code.example {
+	padding: 0;
+}
+
+pre.example {
+	background-color: #e8e8e8 !important;
+	background: #e8e8e8 !important;
+	width: 100%;
+	padding: 5px;
+	padding: 1em;
+    margin: .5em 0;
+    overflow: auto;
+    border-radius: 0.3em;
+	overflow-x: auto;
+    white-space: nowrap;
+	max-width: 1046px;
+	position: relative;
+}
+
+
+.pre-max-932 {
+	max-width: 932px !important;
+}
+
+a.ctype:link, a.ctype:visited {
+	display:inline-block;
+	font-size:60%;
+	margin-left:10px;
+	font-weight:normal;
+	font-style:italic;
+	color:#767676;
+}
+
+a.ctype:hover, a.ctype:visited:hover, a.ctype:active {
+	color:#DD0000 !important;
+}
+/* @end */
+
+/* @group text */
+.text-small {
+	font-size: 80%;
+}
+
+/* @end */
+
+button.copy {
+	background-color: #dd0000;
+	color: #ffffff;
+	padding: 2px;
+	font-size: 90%;
+	float: right;
+	position: absolute;
+    top: 12px;
+    right: 12px;
+}
+
+button.copy:hover {
+	background-color: #cccccc;
+	color: #222222;
+}
+
+button.copy:active {
+	background-color: #cccccc;
+	color: #222222;
+}
+
+span.docversion {
+	display:inline-block;
+	font-size:60%;
+	margin-left:10px;
+	font-weight: normal;
+	font-style: normal;
+	color:#767676;
+}
+
+i.linux {
+	background-image: url("../icons/linux-brands.svg");
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    display: inline-block;
+    color: #cccccc;
+    background-size: auto;
+    position: relative;
+    top: 6px;
+}
+
+i.apple {
+	background-image: url("../icons/apple-brands.svg");
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    display: inline-block;
+    color: #cccccc;
+    background-size: auto;
+    position: relative;
+    top: 6px;
+}
+
+i.windows {
+	background-image: url("../icons/windows-brands.svg");
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    display: inline-block;
+    color: #cccccc;
+    background-size: auto;
+    position: relative;
+    top: 6px;
+}
+
+
