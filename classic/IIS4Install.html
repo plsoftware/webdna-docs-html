@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>IIS4 Install</title>
+	</head>
+
+	<body bgcolor="white">
+<font size="5"><b>Appendix A: Installing WebDNA for IIS 4.x</b></font><br>
+		<br>
+		Starting with Microsoft IIS version 4, IIS no longer uses the Windows Registry to store their configuration settings. These IIS versions now use a separate database, called the 'Metabase', to store their settings. The WebDNA Installer program does update the Metabase automatically. However, if their are any problems, you may need to manually configure IIS using the Microsoft Management Console.<br>
+		<br>
+		The following instructions guide you through configuring a suffix mapping (so IIS knows to send .tpl files through WebDNA) and an ISAPI filter (so WebDNA can intercept username/password requests from remote browsers).<br>
+		<br>
+		First, open the Microsoft Management Console. You should see a screen similar to the following:<br>
+		<br>
+		<img src="IIS4_1.GIF" width="507" height="313" align="BOTTOM" border="0"><br>
+		<br>
+		Use the mouse to select your web server's computer name (highlighted as &quot;alpha&quot; in the picture above). Now right-click to choose the properties for this computer. You should see a dialog similar to the following:<br>
+		<br>
+		<img src="IIS4_2.GIF" width="376" height="417" align="BOTTOM" border="0"><br>
+		<br>
+		Click the <b>Edit</b> button for the WWW Service Master Properties, and on the following page click the <b>Home Directory</b> tab, and you should see the following:<br>
+		<br>
+		<img src="IIS4_3.GIF" width="461" height="453" align="BOTTOM" border="0"><br>
+		<br>
+		Click the <b>Configuration</b> button to bring up the following dialog:<br>
+		<br>
+		<img src="IIS4_4.GIF" width="406" height="448" align="BOTTOM" border="0"><br>
+		<br>
+		Your configuration will not have the &quot;.tpl&quot; entries yet. You need to add those now. Click the <b>Add</b> button and enter <b>.tpl</b> for the file extension. Either type the full path to $WebCat.dll (similar to what you see in the window above) or use the Browse button to find $WebCat.dll. 
+		<p><b>Note:</b> your Windows Explorer may be configured to 'hide' files with the extension &quot;.dll,&quot; and may not show you $WebCat.dll when you navigate to that folder. In that case, either type the full path, or change the options on Explorer so it does not hide .dll files.</p>
+		<p>There is a bug in IIS 3.0 and 4.0 allowing certain sensitive data to be downloaded using an obscure &quot;$DATA&quot; command. You can overcome this security breach by creating a &quot;.tpl::$DATA&quot; suffix mapping like the one shown in the screen above. WebDNA then intercepts and prevents such data from being viewed from your site.<br>
+		<br>
+		Next, set up WebDNA as an IIS Filter so it can intercept passwords from remote browsers. Click <b>OK</b> on the screen shown above, then click the <b>ISAPI Filters</b> tab to see the screen shown below:<br>
+		<br>
+		<img src="IIS4_5.GIF" width="461" height="453" align="BOTTOM" border="0"><br>
+		<br>
+		Click the <b>Add</b> button to see the following screen:<br>
+		<br>
+		<img src="IIS4_6.GIF" width="332" height="163" align="BOTTOM" border="0"><br>
+		<br>
+		Type <b>WebCatalog</b> into the Filter Name, and then either type or browse to $WebCat.dll (the same one you used in the previous suffix mapping dialogs). Apply all changes, then <b>restart IIS</b>, and your system should be configured properly. 
+	</body>
+
+</html>

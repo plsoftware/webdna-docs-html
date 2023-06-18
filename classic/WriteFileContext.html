@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"><!--last modified on Thu, Oct 23, 1997 6:00 PM-->
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>WriteFile Context</title>
+		<!--[Raw]-->
+		<meta name="Author" content="Grant Hulbert">
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[WriteFile <i>FileName</i>]Text[/WriteFile]</font>
+		<dl>
+			<dd>Writes the specified text to a file, replacing any previous text.
+		</dl>
+		<p>To write text to an arbitrary text file, put a [WriteFile] context into a template. WriteFile creates a new file if one does not exist already, and erases any existing text if the file was already there. The file should <b>not</b> be a database file WebDNA currently has open. See <a href="AppendFileContext.html">[AppendFile]</a>.</p>
+		<dl>
+			<dd><b>Note</b>: WriteFile does not 'understand' databases. If you want to write a new record to the end of a database, use <a href="AppendContext.html">Append</a> instead.
+		</dl>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[WriteFile SomeTextFile]Hello, my name is Grant. The time is [time]
+			<dd>This is a second line[/WriteFile]
+		</dl>
+		<p>The text file &quot;SomeTextFile&quot; is created and opened, and the text:</p>
+		<pre>Hello, my name is Grant. The time is 13:43:01
+This is a second line</pre>
+		<p>is written to the file. Notice that carriage returns inside the context are written to the file exactly as they appear. Also notice that any WebDNA [xxx] tags inside the context are substituted for their real values before being written to the file. You may specify a full or partial URL to the file, as in &quot;/Some Folder/file.txt&quot; or &quot;LocalFolder/file.txt.&quot;</p>
+		<dl>
+			<dd><b>Security Note</b>: By default, all files created by WebDNA are tagged with a special code telling WebSTAR not to display them via URL. If you want files to be visible to outside browsers, use the optional settings below.
+		</dl>
+		<p>
+		<table border="1" cellpadding="0" width="100%" height="75">
+			<tr height="17">
+				<th width="14%" height="17" bgcolor="#cccccc">Parameter</th>
+				<th width="86%" height="17" bgcolor="#cccccc">Description</th>
+			</tr>
+			<tr height="30">
+				<td width="14%" height="30">
+					<div align="right">
+						<img src="MacOS.gif" width="18" height="18" align="LEFT" border="0">secure</div>
+				</td>
+				<td width="86%" height="30">
+					<dl>
+						<dt>&quot;T&quot; for files that should be secure -- WebSTAR will not display them.<br>
+						&quot;F&quot; for files that should be visible via URL -- WebSTAR will display them.<br>
+						Example: [WriteFile secure=F&amp;file=SomeFile]...[/WriteFile]
+					</dl>
+				</td>
+			</tr>
+			<tr height="17">
+				<td width="14%" height="17">
+					<div align="right">
+						file</div>
+				</td>
+				<td width="86%" height="17">When you use the secure option above, you must also provide the name (or URL path) of the file to create.</td>
+			</tr>
+		</table>
+		<!--[/Raw]-->
+	</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>  
+<HEAD>
+  <META NAME="GENERATOR" CONTENT="Adobe PageMill 3.0 Mac">
+  <META HTTP-EQUIV="content-type" CONTENT="text/html;charset=iso-8859-1">
+  <TITLE>DOS Context</TITLE>
+  <!--[Raw]-->
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<P><FONT SIZE="+2">[DOS]DOS Batch Commands[/DOS]</FONT></P>
+
+<DL>
+  <DD><IMG SRC="winlogo.gif" WIDTH="20" HEIGHT="16" ALIGN="LEFT"
+  BORDER="0" NATURALSIZEFLAG="3">Executes the DOS batch file commands
+  contained in the context and displays the results.
+</DL>
+
+<P>To embed the results of a DOS Batch file into one of your pages,
+put a DOS context into a template. The DOS program contained inside
+the context is executed, and any returned value is displayed in
+place of the context. Any [xxx] tags inside the context are substituted
+first for their real values before the batch file is executed.</P>
+
+<P><B>Example</B> (normally you would put the following text into
+a .TPL file on your server and use a web browser to link to it):</P>
+
+<DL>
+  <DD>&lt;pre&gt;<BR>
+  [DOS]dir c:[/DOS]<BR>
+  &lt;/pre&gt;
+</DL>
+
+<P>In this example, the DOS command &quot;dir c:&quot; is executed,
+and the results (a listing of all the files at the root of C:
+drive) is displayed. The &lt;pre&gt; tags are used to format the
+results in an HTML page.</P>
+
+<DL>
+  <DD><B>Caution!</B> DOS has complete access to your hard disk
+  and all programs on your web server. You can write a DOS context
+  to erase the contents of your hard disk. However, remote visitors
+  to your web site have no way of executing their own DOS contexts
+  remotely. They can only execute DOS commands inside a template
+  file that <B>you</B> have saved on your web server's hard disk.
+</DL>
+
+<P><!--[/Raw]-->
+
+</BODY>
+</HTML>

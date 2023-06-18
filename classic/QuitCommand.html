@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Quit Command</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">Quit </font> 
+<dl> 
+  <dd><b>Note: This command is no longer supported as of Version 4.0.</b><br>
+    Commits all databases to disk and quits the CGI. 
+</dl>
+		<p>To commit and close all databases at once, send a Quit command to WebDNA. This is most often used when you have copied (or FTP-ed) new database files to the disk and you want WebDNA to reload them all. Plugins cannot quit, so if you are using the plugin version of WebDNA, it will just commit and close databases.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>http://www.yourserver.com/WebCatalog/xx.tpl?command=<b>Quit</b>
+		</dl>
+		<p>There are no parameters to the Quit command.</p>
+		<p>
+		<table border="1" cellpadding="0" width="100%" cellspacing="2">
+			<tr>
+				<th width="57%" bgcolor="#bbbbbb">HTML Source</th>
+				<th width="43%" bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td width="57%">
+					<dl>
+						<dt>&lt;a href=&quot;xx.tpl?command=<b>Quit</b>&quot;&gt;
+					</dl>
+				</td>
+				<td width="43%">Hyperlink to WebDNA plugin. The template is ignored.</td>
+			</tr>
+			<tr>
+				<td width="57%">
+					<dl>
+						<dt>&lt;form method=&quot;POST&quot; action=&quot;xx.tpl&quot;&gt;<br>
+						&lt;input type=&quot;hidden&quot; name=&quot;<b>command</b>&quot; value=&quot;Quit&quot;&gt;<br>
+						&lt;input type=&quot;submit&quot;&gt;<br>
+						&lt;/form&gt;
+					</dl>
+				</td>
+				<td width="43%">
+					<dl>
+						<dt>Form-based command to plugin<br>
+						(notice the template is part of the action, but it is ignored).
+					</dl>
+				</td>
+			</tr>
+		</table>
+		<p></p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

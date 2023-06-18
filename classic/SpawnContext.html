@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Spawn Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[Spawn]Some Complex WebDNA[/Spawn]</font>
+		<dl>
+			<dd>Creates a new thread to execute WebDNA simultaneously with the current template.
+		</dl>
+		<p>To perform WebDNA simultaneously, place it inside a Spawn context. All WebDNA inside the Spawn context begins to execute immediately, and the remainder of the template is returned to the visiting browser immediately.</p>
+		<dl>
+			<dd><b>Note</b>: The HTML output from within a Spawn context is never displayed to the browser. While this may seem unhelpful at first, realize that the purpose of Spawn is to allow you to execute very lengthy operations <i>without</i> forcing the visitor to wait for them. The WebDNA in the spawned context could update a database several minutes later, wait for a 15 second credit card operation, create a WebDelivery file, or many other useful things.
+		</dl>
+		<p>Not all WebDNA information is available inside a [Spawn] context, because often the outer template that created the spawn is already gone from memory, and thus its context information is gone as well. Only the following values are available inside the spawn, because a copy of them is made before creating the spawn context:</p>
+		<ol>
+			<li>MIME headers from the browser.
+			<li>Cookies from the browser.
+			<li>Form variables (or URL parameters from HREF hyperlink).
+			<li>Math variables created in this template.
+			<li>Text variables created in this template.
+		</ol>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>Before the spawn [elapsedtime]&lt;br&gt;<br>
+			[Spawn]<br>
+			-- Some WebDNA that takes a long time to finish<br>
+			[Loop start=1&amp;end=5000][ShowIf 1=1][/ShowIf][/Loop]<br>
+			[/Spawn]<br>
+			After the spawn [elapsedtime]&lt;br&gt;
+		</dl>
+		<p>The example above yields:<br>
+		Before the spawn 1<br>
+		After the spawn 3<br>
+		<br>
+		Notice that the elapsedtime is very small, even though the loop inside the spawn could take several seconds. This is because your web browser sees the results of the template before the spawned WebDNA is finished.</p>
+		<p>Here are some common mistakes you should avoid:</p>
+		<p>
+		<table border="1">
+			<tr>
+				<th bgcolor="#dddddd">Incorrect</th>
+				<th bgcolor="#dddddd">Correct</th>
+				<th bgcolor="#dddddd">Why</th>
+			</tr>
+			<tr>
+				<td valign="top">
+					<pre>[Loop start=1&amp;end=10]
+  [Spawn]
+  [ShowIf [index]=5]
+    stuff
+  [/ShowIf]
+  [/Spawn]
+[/Loop]</pre>
+				</td>
+				<td valign="top">
+					<pre>[Loop start=1&amp;end=10]
+  <b>[Math]LoopIndex=[index][/Math]</b>
+  [Spawn]
+  [ShowIf <b>[LoopIndex]</b>=5]
+    stuff
+  [/ShowIf]
+  [/Spawn]
+[/Loop]</pre>
+				</td>
+				<td valign="top">Remember Spawn might start executing long <b>after</b> the original template that was created has gone away. Spawn has no idea what the value of [index] is, because that comes from the outer [Loop] context, which really 'belongs' to the now-gone exterior template. The correct method is to create a math variable to hold the [index] value, because Spawn <b>does</b> keep a copy of all the math variables in existence when it was created.</td>
+			</tr>
+			<tr>
+				<td valign="top">
+					<pre>[Search blah]
+  [FoundItems]
+    [Spawn]
+      [FieldFromDB]
+    [/Spawn]
+  [/FoundItems]
+[/Search]</pre>
+				</td>
+				<td valign="top">
+					<pre>[Search blah<b>&amp;max=10</b>]
+  [FoundItems]
+    <b>[Text]value=[FieldFromDB][/Text]</b>
+    [Spawn]
+      [value]
+    [/Spawn]
+  [/FoundItems]
+[/Search]</pre>
+				</td>
+				<td valign="top">This is bad for two reasons. Similar to the first example, Spawn has no idea what the database field values are, because it is not truly inside the [FoundItems] context. Second, be very careful you do no create too many spawns -- they can use a lot of memory, and in this case if the [FoundItems] is more than a dozen or so; web server performance can degrade considerably. The correct example limits the number of spawns, and also uses a text variable to hold the value of the database field.</td>
+			</tr>
+		</table>
+		</p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

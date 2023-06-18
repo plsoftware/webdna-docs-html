@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!--last modified on Fri, Jun 19, 1998 5:15 PM-->
+<HTML>  
+<HEAD>
+  <META NAME="GENERATOR" CONTENT="Adobe PageMill 3.0 Mac">
+  <META HTTP-EQUIV="content-type" CONTENT="text/html;charset=iso-8859-1">
+  <TITLE>Search Command</TITLE>
+  <!--[Raw]-->
+  <META NAME="Author" CONTENT="Grant Hulbert">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<P><FONT SIZE="+2">Search?db=DatabaseName&amp;search1data=xx&amp;search2data=yy</FONT></P>
+
+<DL>
+  <DD>Searches for matching records in a database and returns the
+  found ones.
+</DL>
+
+<P>The search command looks through every record in the database
+and returns records matching the search criteria. It is extremely
+fast and flexible - you can search through multiple fields and
+sort the results in just about any way imagineable. The &quot;matched&quot;
+or &quot;hit&quot; records in the database are displayed in a
+<A HREF="FoundItemsContext.html">[FoundItems]</A> loop.</P>
+
+<DL>
+  <DD><B>SQL/ODBC Note</B>: To search through ODBC-compliant database,
+  use the <A HREF="SQLContext.html">[SQL]</A> context.
+</DL>
+
+<P>Searching can be very sophisticated, so we have dedicated a
+complete section to it <A HREF="SearchTOC.html" TARGET="Contexts">here</A>.</P>
+
+<P><B>Example</B> (normally you would link to a URL or form containing
+the following information):</P>
+
+<DL>
+  <DD>http://yourserver.com/xx.tpl?command=<B>Search</B>&amp;<B>db</B>=SomeDatabase.db&amp;<B>eqNAMEdata</B>=Grant
+</DL>
+
+<P>The database &quot;SomeDatabase.db&quot; opens, all records
+whose <B>name</B> field is &quot;Grant&quot; found, and any <A
+HREF="FoundItemsContext.html">[FoundItems]..[/FoundItems]</A>
+contexts in the template xx.tpl filled with the list of found
+records.</P>
+
+<P>Here are some equivalent ways to send the same command: <TABLE
+BORDER="1" CELLPADDING="0" CELLSPACING="2">
+  <TR>
+    <TH BGCOLOR="#bbbbbb">HTML Source</TH> 
+    <TH BGCOLOR="#bbbbbb">Description</TH> 
+  </TR>
+  <TR>
+    <TD>
+      <DL>
+        <DT>&lt;a href=&quot;xx.tpl?<B>command</B>=Search&amp;<B>db</B>=SomeDatabase.db&amp;<B>eqNAMEdata</B>=Grant&quot;&gt;
+      </DL>
+    </TD>
+    <TD>Hyperlink command</TD> 
+  </TR>
+  <TR>
+    <TD>
+      <DL>
+        <DT>&lt;form method=&quot;POST&quot; action=&quot;xx.tpl&quot;&gt;<BR>
+        &lt;input type=&quot;hidden&quot; name=&quot;<B>command</B>&quot;
+        value=&quot;Search&quot;&gt;<BR>
+        &lt;input type=&quot;hidden&quot; name=&quot;<B>template</B>&quot;
+        value=&quot;xx.tpl&quot;&gt;<BR>
+        &lt;input type=&quot;hidden&quot; name=&quot;<B>db</B>&quot;
+        value=&quot;SomeDatabase.db&quot;&gt;<BR>
+        &lt;input name=&quot;<B>eqNAMEdata</B>&quot; value=&quot;Grant&quot;&gt;<BR>
+        &lt;input type=&quot;submit&quot;&gt;<BR>
+        &lt;/form&gt;
+      </DL>
+    </TD>
+    <TD>
+      <DL>
+        <DT>Form-based command
+      </DL>
+    </TD>
+  </TR>
+</TABLE><!--[/Raw]-->
+
+</BODY>
+</HTML>

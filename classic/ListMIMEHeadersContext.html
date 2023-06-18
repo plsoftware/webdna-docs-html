@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>ListMIMEHeaders Context</title>
+		<!-- [Raw] -->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[ListMIMEHeaders <i>params</i>]MIME Header Tags[/ListMIMEHeaders]</font>
+		<dl>
+			<dd>Lists all the MIME header names and values sent from the remote browser.
+		</dl>
+		<p>To display a list of all the MIME headers available, put a [ListMIMEHeaders] context into a template.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>The following are all the MIME headers available to this page:&lt;br&gt;<br>
+			[ListMIMEHeaders]<br>
+			[index],[name],[value]&lt;br&gt;<br>
+			[/ListMIMEHeaders]
+		</dl>
+		<p>The [ListMIMEHeaders] context has optional parameters that are placed within the beginning tag in order to modify the list of MIME headers produced. The exact spelling of the MIME headers changes from web server to web server, so you may have to experiment with them. For instance, Accept_Language on Macintosh web servers may be HTTP_ACCEPT_LANGUAGE on Windows web servers.</p>
+		<p><b>Example</b>:</p>
+		<dl>
+			<dd>Your web browser preferences show that your native language is:&lt;br&gt;<br>
+			[ListMIMEHeaders name=HTTP_ACCEPT_LANGUAGE]<br>
+			[value]<br>
+			[/ListMIMEHeaders]
+		</dl>
+		<p><b>Example</b>:</p>
+		<dl>
+			<dd>The following are the values of all the MIME headers whose name begins with &quot;HTTP_ACCEPT&quot;:&lt;br&gt;<br>
+			[ListMIMEHeaders name=HTTP_ACCEPT&amp;exact=F]<br>
+			[index],[value]&lt;br&gt;<br>
+			[/ListMIMEHeaders]
+		</dl>
+		<p>The following parameters are optional to the [ListMIMEHeaders] context:
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Parameter</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						Name</div>
+				</td>
+				<td>The name of the MIME header to list.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;Exact</div>
+				</td>
+				<td>T(rue) or F(alse) whether to exactly match the name of the parameter or match any name that contains the &quot;name&quot; value. (Default value is true.)</td>
+			</tr>
+		</table>
+		</p>
+		<p>The following tags are available inside a [ListMIMEHeaders] context:
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Tag</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[Name]</div>
+				</td>
+				<td>The name of the MIME header.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[Value]</div>
+				</td>
+				<td>The value associated with the MIME header.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[Index]</div>
+				</td>
+				<td>A number from 1 to the total number of MIME headers, indicating this header's index position in the list.</td>
+			</tr>
+		</table>
+		</p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

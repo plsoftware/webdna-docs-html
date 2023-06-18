@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"><!--last modified on Tue, Jan 20, 1998 10:45 PM-->
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>ShowNext Context</title>
+		<!--[Raw]-->
+		<meta name="Author" content="Grant Hulbert">
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[ShowNext <i>Parameters</i>]&lt;a href=&quot;..&quot;&gt;[/ShowNext]</font>
+		<dl>
+			<dd>Creates a list of hyperlinks or buttons that display more found items.
+		</dl>
+		<p>To display a list of hyperlinks displaying more items found in a search, place one or more [ShowNext] contexts inside a [Search] context. This context is only valid inside a [Search] context, and will only be used if the search specified a max=N, and the number of found items is greater than max.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[ShowNext position=begin]<br>
+			&lt;a href=&quot;SearchResults.tpl?command=search&amp;[SearchString]&quot;&gt;Show items [start]-[end]&lt;/a&gt;&lt;br&gt;<br>
+			[/ShowNext]<br>
+			&nbsp;<br>
+			[foundItems]<br>
+			[/foundItems]<br>
+			&nbsp;<br>
+			[ShowNext position=end]<br>
+			&lt;a href=&quot;SearchResults.tpl?command=search&amp;[SearchString]&quot;&gt;Show items [start]-[end]&lt;/a&gt;&lt;br&gt;<br>
+			[/ShowNext]
+		</dl>
+		<p>If a search returns 50 found items, and max is set to 10, then [ShowNext] loops through all the &quot;chunks&quot; of 10 necessary to create hyperlinks for each set of 10 items <b>not</b> displayed inside the <a href="FoundItemsContext.html">[FoundItems]</a> loop:</p>
+		<dl>
+			<dd>&nbsp;
+			<dd>Show Items 1-10 (this comes from position=begin)
+			<dd>Show Items 11-20
+			<dd>(Items 21-30 are displayed) (this comes from [foundItems]
+			<dd>Show Items 31-40 (this comes from position=end)
+			<dd>Show Items 41-50
+		</dl>
+		<p>The following parameters can be used to modify the [ShowNext] context:
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">&nbsp;Parameter</th>
+				<th bgcolor="#bbbbbb">&nbsp;Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						position</div>
+				</td>
+				<td>
+					<dl>
+						<dt>Optional, one of
+					</dl>
+					<ul>
+						<li><b>Begin</b> - loop through &quot;chunks&quot; of indices preceding the ones displayed inside the [foundItems] loop.
+						<li><b>Middle</b> - Display range of indices that are inside [foundItems] loop (rarely, if ever, used).
+						<li><b>End</b> - loop through &quot;chunks&quot; of indices after the ones displayed inside the [foundItems] loop.
+					</ul>
+					<dl>
+						<dt>If no position is specified, the default is to loop through <b>both</b> begin and end &quot;chunks&quot;, thus displaying all possible &quot;Show Next&quot; hyperlinks.
+					</dl>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;method</div>
+				</td>
+				<td>
+					<dl>
+						<dt>Optional, one of
+					</dl>
+					<ul>
+						<li><b>GET</b> - [SearchString] displays HREF-style (hyperlink) parameters for the search.
+						<li><b>POST</b> - [SearchString] displays FORM METHOD=POST style parameters for the search. Use this only if your search is so complex it requires more than 255 characters worth of search parameters.
+					</ul>
+					<dl>
+						<dt>If no method is specified, then &quot;GET&quot; is assumed, which means that HREF-style links are generated.
+					</dl>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						max</div>
+				</td>
+				<td>Optional, maximum number of &quot;Next&quot; links to show at one time. Useful if you want to simply show a single &quot;More&quot; button, rather than showing a long list of &quot;Show 1-10,&quot; &quot;Show 11-20,&quot; etc. links.</td>
+			</tr>
+		</table>
+		<p></p>
+		<p>The following tags are available inside a [ShowNext] context:
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Tag</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[SearchString]</div>
+				</td>
+				<td>All search parameters necessary to find this &quot;chunk&quot; of items in the range [Start] - [End].</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[Start]</div>
+				</td>
+				<td>A number indicating the index position of the first item that will be displayed in this range of found items.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[End]</div>
+				</td>
+				<td>A number indicating the index position of the last item that will be displayed in this range of found items.</td>
+			</tr>
+		</table>
+		<p></p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

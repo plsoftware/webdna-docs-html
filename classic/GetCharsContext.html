@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>GetChars Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[GetChars start=x<i>&amp;end=y</i>]Any Text[/GetChars]</font> 
+<dl>
+			<dd>Extracts a portion of the text (also known as substring or Mid$).
+		</dl>
+		<p>To display a subsection of text, place the text inside a [GetChars] context.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[GetChars start=14&amp;end=18]Hello there, Edwina[/GetChars]
+		</dl>
+		<p>The example above returns &quot;Edwin,&quot; which is the sequence of letters starting at the 14th position and extending to the 18th position. Extracting sub-portions of text is useful when you need to get text from within files.</p>
+		<dl>
+			<dd>[GetChars start=1&amp;end=2&amp;from=end]Hello there, Edwina[/GetChars]
+		</dl>
+		<p>The example above returns &quot;na,&quot; which is the sequence of letters starting at the 1st position <b>from the end</b> and extending to the 2nd position <b>from the end</b>.<br>
+		<br>
+		The following parameters are optional to the [GetChars] context:
+		
+<table border="1" cellpadding="0">
+  <tr> 
+    <th bgcolor="#bbbbbb">Parameter</th>
+    <th bgcolor="#bbbbbb">Description</th>
+  </tr>
+  <tr> 
+    <td> <div align="right"> start</div></td>
+    <td>Index placement of the first character to return.</td>
+  </tr>
+  <tr> 
+    <td> <div align="right"> end</div></td>
+    <td>(Optional) The index placement of the last character to return. If no 
+      end is specified, all of the text up to the end of the string is returned.</td>
+  </tr>
+  <tr> 
+    <td> <div align="right"> from</div></td>
+    <td>(Optional) Set to &quot;end&quot; to get characters from the ending of 
+      the string instead of the beginning.</td>
+  </tr>
+  <tr> 
+    <td><div align="right">Trim</div></td>
+    <td>(Optional) To remove leading and trailing white space in a given text 
+      string. </td>
+  </tr>
+</table>
+		
+<p>To display a subsection of some text, put the text inside a [getchars] context. 
+  Most often, the contents of the [getchars] context will be the value of an input 
+  field or database field that WebDNA will replace.<br>
+  <br>
+  Example 1:</p>
+<blockquote>
+  <p><br>
+    [getchars start=1&amp;end=2][field1][/getchars]</p>
+</blockquote>
+<p><br>
+  Example 2:</p>
+<blockquote>
+  <p><br>
+    [GetChars start=14&amp;end=18]Hello there, Edwina[/GetChars]</p>
+</blockquote>
+<p><br>
+  Example 2 returns &#8220;Edwin&#8221;, which is the sequence of letters starting 
+  at the 14th position and extending to the 18th position. Extracting sub-portions 
+  of text is useful when you need to get text from files.<br>
+  <br>
+  Example 3:</p>
+<blockquote>
+  <p><br>
+    [GetChars start=1&amp;end=2&amp;from=end]Hello there, Edwina[/GetChars]</p>
+</blockquote>
+<p><br>
+  Example 3 returns &#8220;na&#8221;, which is the sequence of letters starting 
+  at the 1st position from the end and extending to the 2nd position from the 
+  end.</p>
+<p></p>
+<p>You can use the new <strong>'TRIM=Right/Left/Both'</strong> parameter for the 
+  [GetChars] context to remove leading and trailing white space in a given text 
+  string. <br>
+  <br>
+  Example WebDNA: </p>
+<blockquote>
+  <p><br>
+    [text]test_string=<br>
+    This is a test. <br>
+    [/text]</p>
+  <p><br>
+    Example input string: &quot;[test_string]&quot;</p>
+  <p>Remove leading white space:<br>
+    &gt;[getchars start=1&amp;end=&amp;trim=left][test_string][/getchars]&lt;</p>
+  <p>Remove trailing white space:<br>
+    &gt;[getchars start=1&amp;end=&amp;trim=right][test_string][/getchars]&lt;</p>
+  <p>Remove leading and trailing white space:<br>
+    &gt;[getchars start=1&amp;end=&amp;trim=both][test_string][/getchars]&lt;</p>
+  <p>Remove leading and trailing white space, and retrieve characters in the 1-4 
+    positions:<br>
+    &gt;[getchars start=1&amp;end=4&amp;trim=both][test_string][/getchars]&lt;</p>
+  <p>Remove leading and trailing white space, and retrieve characters in the 1-5 
+    positions, from the end:<br>
+    &gt;[getchars start=1&amp;end=5&amp;trim=both&amp;from=end][test_string][/getchars]&lt;</p>
+</blockquote>
+<p><br>
+  <br>
+  Results... </p>
+<blockquote>
+  <p><br>
+    Example input string: &quot;<br>
+    This is a test. <br>
+    &quot;<br>
+    Remove leading white space:<br>
+    &gt;This is a test. <br>
+    &lt;<br>
+    Remove trailing white space:<br>
+    &gt;<br>
+    This is a test.&lt;<br>
+    Remove leading and trailing white space:<br>
+    &gt;This is a test.&lt;<br>
+    Remove leading and trailing white space, and retrieve characters in the 1-4 
+    positions:<br>
+    &gt;This&lt;</p>
+  <p>Remove leading and trailing white space, and retrieve characters in the 1-5 
+    positions, from the end:<br>
+    &gt;test.&lt;</p>
+</blockquote>
+<p><br>
+  <strong>Note that you still need to supply the 'start' and 'end' parameters. 
+  </strong><br>
+</p>
+<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

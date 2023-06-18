@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"><!--last modified on Thu, Sep 3, 1998 10:49 AM-->
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>ReturnRaw Context</title>
+		<!--[Raw]-->
+		<meta name="Author" content="Grant Hulbert">
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[ReturnRaw]MIME Headers and Body content[/ReturnRaw]</font>
+		<dl>
+			<dd>Sends 'raw' MIME headers and data back to browser.
+		</dl>
+		<p>To get more control over the exact MIME header information sent to the browser, place a [ReturnRaw] context into a template. You can create 'true' URL-redirect pages this way, or use it to force the remote browser to display password dialogs. Probably the most common use for this feature is to create &quot;click-through&quot; statistics on pages where you place advertisements with hyperlinks leading away from your site. ReturnRaw allows you to insert some WebDNA (to increment a hit counter, for instance) before leading the customer away from your site.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[ReturnRaw]<b>HTTP/1.0 200 OK<br>
+			Status: 200<br>
+			Content-type: text/html<br>
+			<br>
+			</b>&lt;html&gt;<br>
+			...your HTML here...<br>
+			&lt;/html&gt;[/ReturnRaw]
+			<dd>
+			<dd><b>Note:</b> the above example <b>must</b> have &lt;Carriage Return&gt;&lt;LineFeed&gt; at the end of each line in order to work. On a PC, simply using NotePad to create the file will put CR/LF in the proper places. On a Macintosh you may use BBEdit or another text editor to set the file type to DOS-style line endings.
+		</dl>
+		<p>For illustration purposes, the example above shows the MIME headers automatically created for you whenever you display any normal page from WebDNA. Of course, since these headers are always created automatically, this example does nothing special -- the real usefulness of this feature comes when you change the MIME headers to do something special, like a URL-redirect.<br>
+		<br>
+		The following example causes the remote browser to immediately redirect to a different URL. This is better that the META tag some newer browsers support, because almost all browsers understand the low-level MIME header URL redirect.</p>
+		<dl>
+			<dd>[ReturnRaw]<b>HTTP/1.0 302 Found<br>
+			Location: http://www.webdna.us/<br>
+			<br>
+			</b>(some WebDNA here that does something interesting)<br>
+			[/ReturnRaw]
+		</dl>
+		<blockquote>
+			<p><b>Note:</b> when you put a [ReturnRaw] context into a template, any text outside the [ReturnRaw] container is ignored. So if you want to display some HTML after the raw MIME headers, you must put that HTML inside the context.</p>
+		</blockquote>
+		<p>
+		<b>"New for WebDNA 5.1" - 'BinaryBody' option:</b>
+		<p>
+		<dl>
+		<dd>[ReturnRaw <b>binarybody=...</b>]
+		</dl>
+		<p>
+		Allows the WebDNA programmer to designate a file (binary or text) to be
+attached as the 'body' of an HTTP response.  This makes it possible to send a binary file (image, executable, etc...) back to the client. 
+For example, you can create download links for any type of file, and that would force the 'save as'
+dialog to open on the client machine.
+<p><dl><dd><xmp>
+Example code: Creates a download link for every file in the current folder, binary or text.
+
+<!--HAS_WEBDNA_TAGS-->
+<HTML>
+<HEAD></HEAD>
+<BODY>
+[!]Initailize the getfile variable[/!]
+[text secure=f]getfile=[/text]
+
+[!]Check if filename was passed in[/!]
+[showif [getfile]!]
+[text]line_ending=%0D%0A[/text]
+
+[!]Generate the response[/!]
+[ReturnRaw binarybody=[getfile]]HTTP/1.0 200 OK[unurl][line_ending][/unurl][!]
+[/!]Status: 200[unurl][line_ending][/unurl][!]
+[/!]Content-Type: application/octet-stream[unurl][line_ending][/unurl][!]
+[/!]Content-Disposition: attachment; filename="[getfile]"[unurl][line_ending][line_ending][/unurl][!]
+[/!][/ReturnRaw]
+
+[/showif]
+
+[!] Generate a list of download links for all files in local directory [/!]
+Click on a filename to download.<p>
+[listfiles path=.]
+[showif [isfile]=T]
+<a href=[thisurl]?getfile=[url][filename][/url]>[filename]</a><br>
+[/showif]
+[/listfiles]
+</BODY>
+</HTML>
+</xmp></dl>
+		
+		<!--[/Raw]-->
+		
+	</body>
+
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+
+<HEAD>
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html;CHARSET=iso-8859-1">
+	<META NAME="GENERATOR" Content="Symantec Visual Page 1.0.3">
+	<TITLE>WebMerchant MacAuthorize Hub Help</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#CCCCFF">
+
+<P><FONT SIZE="5">Setting up WebMerchant for MacAuthorize Hub</FONT></P>
+
+<DL>
+	<DD><FONT COLOR="#FF0000"><B>Note:</B></FONT> these instructions are only to be used
+	when you have MacAuthorize Hub installed on the same machine as WebDNA itself,
+	and you want WebMerchant to control the Hub directly. If instead you have MacAuthorize
+	Hub installed on a different Macintosh, then you must set up WebMerchant to control
+	MacAuthorize Client locally, which in turn will control MacAuthorize Hub on the remote
+	machine.
+</DL>
+
+<P>
+<TABLE BORDER="1" CELLPADDING="5" BGCOLOR="#FFFFFF">
+	<TR>
+		<TD>This configuration is described in this document.  It is the recommended standard
+			configuration for WebMerchant and MacAuthorize.</TD>
+		<TD VALIGN="MIDDLE"><IMG SRC="SingleMachineHub.GIF" WIDTH="214" HEIGHT="90" ALIGN="BOTTOM" BORDER="0"></TD>
+	</TR>
+	<TR>
+		<TD>This configuration can work, but is not recommended because the single-user version
+			of MacAuthorize cannot Settle transactions automatically -- you must manually Settle
+			every day.</TD>
+		<TD VALIGN="MIDDLE"><IMG SRC="SingleMachineSingleUser.GIF" WIDTH="201" HEIGHT="90" ALIGN="BOTTOM" BORDER="0"></TD>
+	</TR>
+	<TR>
+		<TD>This configuration works fine, too, but is not described in this help document. 
+			Simply choose &quot;MacAuthorize&quot; in the pulldown menu in WebMerchant's Preferences,
+			and type the name of the MacAuthorize Client application.  You will need to configure
+			MacAuthorize Client according to the instructions provided by Tellan.</TD>
+		<TD VALIGN="MIDDLE"><IMG SRC="DualMachine.GIF" WIDTH="391" HEIGHT="90" ALIGN="BOTTOM" BORDER="0"></TD>
+	</TR>
+</TABLE>
+</P>
+
+<P>MacAuthorize Hub requires some extra information from WebMerchant, in order for
+it to know which bank merchant account to apply credit card charges to. When you
+configure your MacAuthorize Hub, you must create a Merchant Account preference for
+each of the merchant accounts that the Hub will control. Choose the &quot;Merchant
+Accounts...&quot; menu item from the &quot;Setup&quot; menu, as seen below:</P>
+<P><IMG SRC="MacAuthHub1.gif" WIDTH="520" HEIGHT="348" ALIGN="BOTTOM" BORDER="0"></P>
+<P>If you have not set up MacAuthorize Hub before, then the list of merchant accounts
+in the window will be empty. In this case, you will need to use the &quot;New&quot;
+button to create your merchant preferences. Type some text that identifies this merchant
+account into this sreen.</P>
+<P><IMG SRC="MacAuthHub3.gif" WIDTH="319" HEIGHT="204" ALIGN="BOTTOM" BORDER="0"></P>
+<P><BR>
+Now that you have a merchant account created, you must type its name into WebMerchant's
+preferences for &quot;Hub Merchant Identifier&quot;. If you create more stores in
+WebMerchant, then you must create a MacAuthorize Hub Merchant Account for each one,
+and type the name of the merchant account into WebMerchant's preferences for that
+particular store. This assures that each individual store will apply credit to the
+correct merchant account.</P>
+
+<P><IMG SRC="MacAuthHub2.gif" WIDTH="512" HEIGHT="324" ALIGN="BOTTOM" BORDER="0">
+
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<!--[Raw]-->
+<head>
+<title>XMLParse Context</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+<p><font size="5">[xmlparse var=...&amp;source=...]&lt;optional inline XML content&gt;[/xmlparse]</font></p>
+<blockquote>
+  <p><br>
+    Enable the WebDNA programmer to input XML data into a WebDNA variable, after 
+    which any part of the XML structure can be readily examined using the new 
+    WebDNA XML contexts. </p>
+</blockquote>
+<p><br>
+  <strong>Optional Tag Parameters:</strong><br>
+  <br>
+  <strong>&middot; var</strong> - The variable name you specify to represent the 
+  XML parsed object.<br>
+  <br>
+  <strong>&middot; source</strong> - A URL reference to an external XML file. 
+  If 'source' is provided, the content between the [xmlparse...] and [/xmlparse] 
+  tags is ignored.<br>
+  <br>
+  For example, to parse a sample XML document file <a href="example1.xml">example1.xml</a> 
+  into a WebDNA variable called 'xml_var1' ...<br>
+  <br>
+  We use the following code... </p>
+<blockquote>
+  <p><br>
+    [xmlparse var=xml_var1][include file=example1.xml][/xmlparse]</p>
+</blockquote>
+<p><br>
+  Note that the<strong> [include]</strong> tag was used to place the xml file 
+  contents between the xmlparse tags. We could just as easily 'pasted' the xml 
+  contents there as well. <br>
+  <br>
+  Internally, the WebDNA engine 'saves' this parsed instance as an internal variable 
+  named 'xml_var1'. This saved instance can then be referenced in the other WebDNA 
+  XML contexts. <br>
+  <br>
+  <br>
+</body>
+<!--[/Raw]-->
+</html>

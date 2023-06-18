@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>ListWords Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[ListChars <i>Chars</i>]Some Text[/ListChars]</font>
+		<dl>
+			<dd>Breaks a string of text into separate characters.
+		</dl>
+		<p>To display a list of all the separate characters in a string, use a [ListChars] context.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[ListChars chars=WebDNA 6.0]<br>
+			[index]: [char]&lt;br&gt;<br>
+			[/ListChars]
+		</dl>
+		<p>The example above yields:</p>
+		<pre>1: W
+2: e
+3: b
+4: D
+5: N
+6: A
+7:
+8: 6
+9: .
+10: 0</pre>
+		<p>The following parameters are used in the [ListChars] context:
+		<table border="1" cellpadding="0" cellspacing="2">
+			<tr>
+				
+    <th bgcolor="#bbbbbb" width="92">Parameter</th>
+				
+    <th bgcolor="#bbbbbb" width="621">Description</th>
+			</tr>
+			<tr>
+				
+    <td width="92" height="17"> 
+      <div align="right">
+						chars</div>
+				</td>
+				
+    <td>(Required) string of text to break up.</td>
+			</tr>
+			<tr>
+				
+    <td> 
+      <div align="right"> from</div>
+				</td>
+				
+    <td>(Optional) Sets the direction the 'chars' string is parsed. Default is 'START'. If set to 'END' , characters will be listed starting from the end of the 'chars' string, to the beginning. 
+</td>
+			</tr>
+			<tr>
+				
+    <td> 
+      <div align="right"> start</div>
+				</td>
+				
+    <td>(Optional) Sets the start posotion, in the 'chars' string, from which to list the characters. If not specified, characters will be listed starting from the first position in the string. If the 'From' parameter is set to 'END', the 'start' position is relative to the end of the 'chars' string. 
+</td>
+			</tr>
+			<tr>
+				
+    <td> 
+      <div align="right"> end</div>
+				</td>
+				
+    <td>(Optional) Sets the end posotion, in the 'chars' string, from which to stop listing the characters. If not specified, characters will be listed starting from the 'start' position, and up to the last position in the string. If the 'From' parameter is set to 'END', the 'last' position is relative to the end of the 'chars' string. 
+</td>
+			</tr>
+		</table>
+		<br>
+		<br>
+		The following tags are available inside a [ListChars] context:
+		
+<table border="1" cellpadding="0" height="81" cellspacing="2">
+  <tr height="17">
+				<th bgcolor="#bbbbbb" height="17">Tag</th>
+				<th bgcolor="#bbbbbb" height="17">Description</th>
+			</tr>
+			<tr height="17">
+				<td height="17">
+					<div align="right">
+						[index]</div>
+				</td>
+				
+    <td height="17">A number from 1 to the total number of chars in the text indicating 
+      the iteration index.</td>
+			</tr>
+			<tr height="17">
+				<td height="17">
+					<div align="right">
+						[char]</div>
+				</td>
+				
+    <td height="17">The current character of the 'chars' string being iterated.</td>
+			</tr>
+			<tr height="17">
+				<td height="17">
+					<div align="right">
+						[position]</div>
+				</td>
+				
+    <td height="17">The current character position. The position is '1' based, and is relative to the start of the 'chars' string, unless the from parameters is set to 'END', in which case 'position' is relative to the end of the 'chars' string. 
+</td>
+			</tr>
+		</table>
+		<p>
+		<p><b>Example 2</b><p>
+		<dl>
+			<dd>		
+[listchars chars=1234567890.abcdefg&start=4&end=10&from=end]
+Character at string position [position] = '[char]'<br>
+[/listchars]
+</dl>
+
+		<p>The example above yields:</p>
+		<pre>Character at string position 4 = 'd'
+Character at string position 5 = 'c'
+Character at string position 6 = 'b'
+Character at string position 7 = 'a'
+Character at string position 8 = '.'
+Character at string position 9 = '0'
+Character at string position 10 = '9'
+</pre>
+		</p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

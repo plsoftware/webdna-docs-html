@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<title>IIS4 Install</title>
+	</head>
+
+	<body bgcolor="white">
+<font size="5"><b>Installing WebDNA for IIS 6.x (Windows 2003)</b></font><br>
+		<br>
+		After running the WebDNA install program, you will need to execute the following steps to manually configure IIS6 using the Microsoft IIS "Internet Information Services Manager" application.<br>
+		<br>
+		The following instructions guide you through configuring a suffix mapping (so IIS knows to send .tpl files through WebDNA).<br>
+		<br>
+		First, open the Microsoft IIS 'Internet Information Services Manager'.<br>
+		<br>
+		Expand the left tree view and 'right click' on the 'Web Sites' folder, select 'Properties', As shown here:<br>
+		<br>
+		<img src="IIS6_1.gif" width="625" height="295" align="BOTTOM" border="0"><br>
+		<br>
+		In the 'Web Site Properties' dialog, select the 'Home Directory' tab and set 'Execute Permissions' to 'Scripts Only':<br>
+		<br>
+		<img src="IIS6_2.GIF" width="462" height="458" align="BOTTOM" border="0"><br>
+		<br>
+		Click the 'Configuration' Button ...<br>
+		<br>
+		In the 'Application Configuration' dialog, select the 'Mappings' tab and click the 'Add' button:<br>
+		<br>
+		<img src="IIS6_3.GIF" width="406" height="447" align="BOTTOM" border="0"><br>
+		<br>
+		In the '...Extension Mapping' dialog...<br>
+		Set the 'Executable' path to the $WebCat.dll file<br>
+		The $WebCat.dll is usually located here -"c:\Inetpub\scripts\WebCatalogEngine\$WebCat.dll"<br>
+		Set 'Extension' to '.tpl'<br>
+		<br>
+		<img src="IIS6_4.GIF" width="429" height="242" align="BOTTOM" border="0"><br>
+		Click 'OK' to exit '...Extension Mapping' dialog<br>
+		<br>
+		Repeat the 'Add' step for any additional extentions you want mapped to WebDNA. <b>At the very least you should add '.tpl' and '.db' file mappings.</b><br>
+		<br>
+		Click 'OK' to exit 'Application Configuration' dialog<br>
+		<br>
+		Click 'OK' to exit 'Web Site Properties' dialog<br>
+		<br>
+		Back in the IIS 'Internet Informatin Services Manager' application...<br>
+		<br>
+		In the left tree view, 'right click', on the 'Web Services' folder, select 'Add a new Web Service Extension'.<br>
+		<br>
+		In the 'New Web Service Extension' dialog...<br>
+		Set Extension Name (optional - usually 'WebCat')<br>
+		Click 'Add' button to add path to $WebCat.dll (Using the same path you entered before)<br>
+		Check box 'Set extension status to allowed'<br>
+		The dialog should now look something like this:<br>
+		<br>
+		<img src="IIS6_5.GIF" width="395" height="336" align="BOTTOM" border="0"><br>
+		<br>
+		Click 'OK' to exit the 'New Web Service Extension' dialog<br>
+		<br>
+		Back in the IIS 'Internet Informatin Services Manager' application...<br>
+		<br>
+		At root of the left tree view, 'right click' on the node labeled <Computer Name> (local computer)...<br>
+		Select All Tasks –> Save Config to Disk, as shown below:<br>
+		<br>
+		<img src="IIS6_6.GIF" width="625" height="294" align="BOTTOM" border="0"><br>
+		<br>
+		Lastly, repeat the last step, choosing, 'Restart IIS'<br>
+		
+	</body>
+
+</html>

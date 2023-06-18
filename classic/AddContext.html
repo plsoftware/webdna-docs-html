@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Add Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[AddLineItem <i>Parameters</i>]values[/AddLineItem]</font> 
+<dl>
+			<dd>Adds a product to the specified shopping cart.
+		</dl>
+		<p>To add products to a visitor's shopping cart, put an AddLineItem context into a template (alternately, you may use the <a href="AddCommand.html">Add</a> command from a URL or a FORM). Whenever WebDNA encounters an AddLineItem context, it opens the shopping cart file (creating a new one if necessary) and adds the product (identified by its SKU) to the end of the <a href="LineItemsContext.html">LineItems</a> in the shopping cart. The item's price, taxable, canEmail, and unitShipCost information is found by looking for the values of those fields in the product database. You can use a different price by creating a <a href="FormulaFormat.html">Formulas.db</a> database. Also see <a href="RemoveCommand.html">Remove</a>, <a href="ClearCommand.html">Clear</a>, <a href="ShowCartCommand.html">ShowCart</a>, <a href="SetLineItemContext.html">[SetLineItem]</a> and <a href="PurchaseCommand.html">Purchase</a>.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[AddLineItem cart=5678&amp;sku=1234&amp;db=catalog.txt]<b>quantity</b>=5&amp;<b>textA</b>=Red[/AddLineItem]
+			<dd>
+			<dd><b>Note:</b> you may also add line items to order files that are not inside the ShoppingCarts folder. Using <b>file</b>=/folder/folder/cartname instead of <b>cart</b>=cartname, you can affect any order file in any folder. This is most often used for &quot;back door&quot; administrative maintenance by people inside your organization.<br>
+			<b><br>
+			Note:</b> you may add a maximum of 100 line items to a shopping cart.
+		</dl>
+		<p>The database &quot;catalog.txt&quot; opens, and sku 1234 is found. Shopping cart file &quot;5678&quot; opens, and a new line item is added to the bottom of the list, with a <b>quantity</b> of 5 and <b>textA</b> set to &quot;Red&quot; (as specified in the context above). The price is taken from the database's price field (or, if a formula for [price] is available in Formulas.db, the price is calculated using that formula).</p>
+		<p>Here are the parameters to the AddLineItem context:
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#cccccc">Parameter</th>
+				<th bgcolor="#cccccc">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						<dl>
+							db
+						</dl>
+					</div>
+				</td>
+				<td>Product database containing the SKU, price, and other information.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						<dl>
+							sku
+						</dl>
+					</div>
+				</td>
+				<td>Uniquely identifies which product should be added to the cart.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						cart</div>
+				</td>
+				<td>Affected shopping cart file (from ShoppingCarts folder)</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						file</div>
+				</td>
+				<td>(alternative to <b>cart</b>) Alternate affected shopping cart file (from any folder). Unlike <b>cart</b>, this file can be in any folder. Specify the file URL-relative to the template.</td>
+			</tr>
+			<tr>
+				<th bgcolor="#cccccc">Context values</th>
+				<th bgcolor="#cccccc">Description (these values go inside the context)</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						password</div>
+				</td>
+				<td>(Optional) In order to change the price (see below) you must provide the line item change password, which can be set in the preferences.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						price</div>
+				</td>
+				<td>(Optional) Sometimes you may need to change the price of a product while adding it to the cart. Normally you use a <a href="FormulaFormat.html">formula</a> to vary pricing, but sometimes this alternate technique is preferred. Remember to put the line item change password into the parameters. There is a security risk when using this technique, because outsiders can change the price to anything they like.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						textA</div>
+				</td>
+				<td>(Optional) Extra information of any kind that you want associated with this line item. Often used to store extra product information, such as &quot;shoe size&quot; or &quot;color.&quot; Also used to pass catalog database fields such as [title] through to the order file so they may be viewed later without needing the original database to look for the value of [title].</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						textB</div>
+				</td>
+				<td>Same as textA above.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						textC</div>
+				</td>
+				<td>Same as textA above.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						textD</div>
+				</td>
+				<td>Same as textA above.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						textE</div>
+				</td>
+				<td>Same as textA above.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						<dl>
+							quantity
+						</dl>
+					</div>
+				</td>
+				<td>
+					<dl>
+						<dt>(Optional) Indicates how many of this SKU should be added to the cart. This quantity is used when calculating subtotals, unitShipCost, etc.
+					</dl>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						taxable</div>
+				</td>
+				<td>(Optional) &quot;<b>T</b>&quot; or &quot;<b>F</b>&quot;. Overrides &quot;taxable&quot; field in the database - normally the information about the item's taxable status is taken from a field called &quot;taxable.&quot;</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						canEmail</div>
+				</td>
+				<td>(Optional) &quot;<b>T</b>&quot; or &quot;<b>F</b>&quot;. Overrides &quot;canEmail&quot; field in the database - normally the information about the item's canEmail (electronically deliverable) status is taken from a field called &quot;canEmail.&quot;</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						unitShipCost</div>
+				</td>
+				<td>(Optional) A number indicating the item's price for shipping. Overrides &quot;unitShipCost&quot; field in the database - normally the information about the item's unitShipCost status is taken from a field called &quot;unitShipCost.&quot; ShipTotal and GrandTotal use this number (multiplied by quantity) to determine the total shipping and grand total.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						<a href="PurchaseCommand.html#HeaderFields"><i>Header Field</i></a></div>
+				</td>
+				<td>You may set any shopping cart header field (such as Name, taxRate, Address1, etc.) at the same time you add a product to the cart.</td>
+			</tr>
+		</table>
+		<!--[/Raw]-->
+	</body>
+
+</html>

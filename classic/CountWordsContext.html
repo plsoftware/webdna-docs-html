@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>CountWords Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[CountWords]Any Text[/CountWords]</font> 
+<dl>
+			<dd>Counts the number of words inside the context.
+		</dl>
+		<p>To count the number of words in something, put the text inside a [CountWords] context.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[CountWords Delimiters= ,]This is a big long sentence, don't you think?[/CountWords]
+		</dl>
+		<p>In the example above, the displayed text will be:</p>
+		<pre>9</pre>
+		<p>The number displayed is the number of words inside the context -- the number of words found depends on the delimiters you specify. If you specify spaces, commas, and periods as delimiters, then those characters will not be counted, and words will be defined as any text that is <i>not</i> a delimiter. Long runs of delimiters are ignored, so more than one space between words will not increase the word count.</p>
+		<dl>
+			<dd><b>Tip:</b> If you want to count the number of lines in a multi-line string (such as the number of paragraphs in a story,) you can specify carriage return as the delimiter, as in<br>
+			<br>
+			[CountWords Delimiters=%0D]first line<br>
+			second line<br>
+			third line<br>
+			[/CountWords]<br>
+			<br>
+			This will return 3, where the 'words' are actually defined as whole lines of text. Blank lines do not count. %0D is the hexadecimal equivalent to carriage return. You could type a carriage return in the Delimiters parameter, but for formatting reasons in this document we use the equivalent hexadecimal notation.
+		</dl>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

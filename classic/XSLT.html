@@ -1,0 +1,775 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<!--[Raw]-->
+<head>
+<title>XSLT Context</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+<p><font size="5">[XSLT xslref=...(or xslsource=...)&amp;xmlsource=][/XSLT]</font></p>
+<blockquote>
+  <p><br>
+    The [XSLT] Context allows the WebDNA programmer to 'apply' an XSL style sheet 
+    to an XML document and thus 'transform' the XML data into any format the programmer 
+    desires (usually HTML).</p>
+</blockquote>
+<p><br>
+  <strong>Optional Tag Parameters:</strong><br>
+  <br>
+  <strong>xslref -</strong> named reference to a previously compiled block of 
+  XSL source. <br>
+  <br>
+  <strong>xslsource - </strong>URL path to an external XSL document. This is an 
+  alternative to using the xslref parameter. Meaning that it is possible to use 
+  the [XSLT] context without having used the [XSL] context to pre-compile XSL 
+  source code. However, if you plan to use the same XSL code several times throughout 
+  the template, then it would be more efficient to compile the XSL source code 
+  once, using [XSL], then just use the XSL object reference when needed. <br>
+  <br>
+  <strong>xmlsource -</strong> URL reference to an external XML document on which 
+  to apply the XSL transformation. If this parameter is supplied, then any in-line 
+  XML code that exists between the [XSLT] tags will be ignored. </p>
+<p><br>
+  Example - Select all the 'CD' nodes in the <a href="example1.xml">example1.xml</a> 
+  XML document and transform the results into an HTML table, with the 'text' data 
+  of each CD node tree displayed in the table rows. <br>
+  <br>
+  Here is the code... </p>
+  <p>
+<blockquote> 
+  <blockquote>
+    <p>[!] First use the [XSL] Context to parse the style sheet [/!]<br>
+      [xsl var=xsl_var1]<br>
+      &lt;xsl:stylesheet version=&quot;1.0&quot;<br>
+      xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;<br>
+      &lt;xsl:template match=&quot;/&quot;&gt;<br>
+      &lt;html&gt;<br>
+      &lt;body&gt;<br>
+      &lt;h2&gt;My CD Collection&lt;/h2&gt;<br>
+      &lt;table border=&quot;1&quot;&gt;<br>
+      &lt;tr bgcolor=&quot;#9acd32&quot;&gt;<br>
+      &lt;th&gt;Title&lt;/th&gt;<br>
+      &lt;th&gt;Artist&lt;/th&gt;<br>
+      &lt;/tr&gt;<br>
+      &lt;xsl:for-each select=&quot;CATALOG/CD&quot;&gt;<br>
+      &lt;tr&gt;<br>
+      &lt;td&gt;&lt;xsl:value-of select=&quot;TITLE&quot;/&gt;&lt;/td&gt;<br>
+      &lt;td&gt;&lt;xsl:value-of select=&quot;ARTIST&quot;/&gt;&lt;/td&gt;<br>
+      &lt;/tr&gt;<br>
+      &lt;/xsl:for-each&gt;<br>
+      &lt;/table&gt;<br>
+      &lt;/body&gt;<br>
+      &lt;/html&gt;<br>
+      &lt;/xsl:template&gt;<br>
+      &lt;/xsl:stylesheet&gt;<br>
+      [/xsl]</p>
+    <p>[xslt xslref=xsl_var1][include file=example1.xml][/xslt]<br>
+    </p>
+  </blockquote>
+</blockquote>
+<p><br>
+  Results... </p>
+<blockquote>
+  <p>&nbsp;</p>
+  <p>My CD Collection<br>
+  </p>
+  <table width="75%" border="1">
+    <tr bgcolor="#66CC00"> 
+      <td width="49%"><strong>Title </strong></td>
+      <td width="51%"><strong>Artist</strong></td>
+    </tr>
+    <tr> 
+      <td>Empire Burlesque </td>
+      <td>Bob Dylan</td>
+    </tr>
+    <tr> 
+      <td>Hide your heart </td>
+      <td>Bonnie Tylor</td>
+    </tr>
+    <tr> 
+      <td>Greatest Hits </td>
+      <td>Dolly Parton</td>
+    </tr>
+    <tr> 
+      <td>Still got the blues </td>
+      <td>Gary More</td>
+    </tr>
+    <tr> 
+      <td>Eros Eros </td>
+      <td>Ramazzotti</td>
+    </tr>
+    <tr> 
+      <td>One night only </td>
+      <td>Bee Gees</td>
+    </tr>
+    <tr> 
+      <td>Sylvias Mother </td>
+      <td>Dr.Hook</td>
+    </tr>
+    <tr> 
+      <td>Maggie May </td>
+      <td>Rod Stewart</td>
+    </tr>
+    <tr> 
+      <td>Romanza </td>
+      <td>Andrea Bocelli</td>
+    </tr>
+    <tr> 
+      <td>When a man loves a woman </td>
+      <td>Percy Sledge</td>
+    </tr>
+    <tr> 
+      <td>Black angel </td>
+      <td>Savage Rose</td>
+    </tr>
+    <tr> 
+      <td>1999 Grammy Nominees </td>
+      <td>Many</td>
+    </tr>
+    <tr> 
+      <td>For the good times </td>
+      <td>Kenny Rogers</td>
+    </tr>
+    <tr> 
+      <td>Big Willie style </td>
+      <td>Will Smith</td>
+    </tr>
+    <tr> 
+      <td>Tupelo Honey </td>
+      <td>Van Morrison</td>
+    </tr>
+    <tr> 
+      <td>Soulsville </td>
+      <td>Jorn Hoel</td>
+    </tr>
+    <tr> 
+      <td>The very best of </td>
+      <td>Cat Stevens</td>
+    </tr>
+    <tr> 
+      <td>Stop </td>
+      <td>Sam Brown</td>
+    </tr>
+    <tr> 
+      <td>Bridge of Spies </td>
+      <td>T`Pau</td>
+    </tr>
+    <tr> 
+      <td>Private Dancer </td>
+      <td>Tina Turner</td>
+    </tr>
+    <tr> 
+      <td>Midt om natten </td>
+      <td>Kim Larsen</td>
+    </tr>
+    <tr> 
+      <td>Pavarotti Gala Concert </td>
+      <td>Luciano Pavarotti</td>
+    </tr>
+    <tr> 
+      <td>The dock of the bay </td>
+      <td>Otis Redding</td>
+    </tr>
+    <tr> 
+      <td>Picture book </td>
+      <td>Simply Red</td>
+    </tr>
+    <tr> 
+      <td>Red </td>
+      <td>The Communards</td>
+    </tr>
+    <tr> 
+      <td>Unchain my heart </td>
+      <td>Joe Cocker</td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+</blockquote>
+<p>This is a pretty simple table, but it should give you an idea of what you can 
+  do with XSL(T). <br>
+  <br>
+  Here is the same example, but without using the XSL context to pre-compile the 
+  in-line XSL code. Instead, a URL reference is made to an external xsl file, 
+  which happens to match the XSL code block above. It also uses the 'xmlsource' 
+  parameter to reference an external xml file to transform. <br>
+  <br>
+  Here is the source... </p>
+<blockquote>
+  <p><br>
+    [!] build the URL path to this lab folder [/!]<br>
+    [text]host=[listmimeheaders name=HOST&amp;exact=F][value][/listmimeheaders][/text]<br>
+    [text]path=[url][listpath pathonly=T&amp;path=[thisurl]][name]/[/listpath][/url][/text]</p>
+  <p>[xslt xslsource=http://[host]/[path]example1.xsl&amp;xmlsource=http://[host]/[path]example1.xml][/xslt]</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>Results (should be the same as above)... </p>
+<blockquote>
+  <p>&nbsp;</p>
+  <p>My CD Collection<br>
+  </p>
+  <table width="75%" border="1">
+    <tr bgcolor="#66CC00"> 
+      <td width="49%"><strong>Title </strong></td>
+      <td width="51%"><strong>Artist</strong></td>
+    </tr>
+    <tr> 
+      <td>Empire Burlesque </td>
+      <td>Bob Dylan</td>
+    </tr>
+    <tr> 
+      <td>Hide your heart </td>
+      <td>Bonnie Tylor</td>
+    </tr>
+    <tr> 
+      <td>Greatest Hits </td>
+      <td>Dolly Parton</td>
+    </tr>
+    <tr> 
+      <td>Still got the blues </td>
+      <td>Gary More</td>
+    </tr>
+    <tr> 
+      <td>Eros Eros </td>
+      <td>Ramazzotti</td>
+    </tr>
+    <tr> 
+      <td>One night only </td>
+      <td>Bee Gees</td>
+    </tr>
+    <tr> 
+      <td>Sylvias Mother </td>
+      <td>Dr.Hook</td>
+    </tr>
+    <tr> 
+      <td>Maggie May </td>
+      <td>Rod Stewart</td>
+    </tr>
+    <tr> 
+      <td>Romanza </td>
+      <td>Andrea Bocelli</td>
+    </tr>
+    <tr> 
+      <td>When a man loves a woman </td>
+      <td>Percy Sledge</td>
+    </tr>
+    <tr> 
+      <td>Black angel </td>
+      <td>Savage Rose</td>
+    </tr>
+    <tr> 
+      <td>1999 Grammy Nominees </td>
+      <td>Many</td>
+    </tr>
+    <tr> 
+      <td>For the good times </td>
+      <td>Kenny Rogers</td>
+    </tr>
+    <tr> 
+      <td>Big Willie style </td>
+      <td>Will Smith</td>
+    </tr>
+    <tr> 
+      <td>Tupelo Honey </td>
+      <td>Van Morrison</td>
+    </tr>
+    <tr> 
+      <td>Soulsville </td>
+      <td>Jorn Hoel</td>
+    </tr>
+    <tr> 
+      <td>The very best of </td>
+      <td>Cat Stevens</td>
+    </tr>
+    <tr> 
+      <td>Stop </td>
+      <td>Sam Brown</td>
+    </tr>
+    <tr> 
+      <td>Bridge of Spies </td>
+      <td>T`Pau</td>
+    </tr>
+    <tr> 
+      <td>Private Dancer </td>
+      <td>Tina Turner</td>
+    </tr>
+    <tr> 
+      <td>Midt om natten </td>
+      <td>Kim Larsen</td>
+    </tr>
+    <tr> 
+      <td>Pavarotti Gala Concert </td>
+      <td>Luciano Pavarotti</td>
+    </tr>
+    <tr> 
+      <td>The dock of the bay </td>
+      <td>Otis Redding</td>
+    </tr>
+    <tr> 
+      <td>Picture book </td>
+      <td>Simply Red</td>
+    </tr>
+    <tr> 
+      <td>Red </td>
+      <td>The Communards</td>
+    </tr>
+    <tr> 
+      <td>Unchain my heart </td>
+      <td>Joe Cocker</td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+</blockquote>
+<p>This xsl example will display all the CD 'Titles' and 'Artists' and add a pink 
+  background-color to the artist column WHEN the price of the cd is higher than 
+  10. <br>
+  <br>
+  Here is the code... </p>
+<blockquote> 
+  <blockquote>
+    <p><br>
+      [xsl var=xsl_var1]<br>
+      &lt;xsl:stylesheet version=&quot;1.0&quot;<br>
+      xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;<br>
+      &lt;xsl:template match=&quot;/&quot;&gt;<br>
+      &lt;html&gt;<br>
+      &lt;body&gt;<br>
+      &lt;h2&gt;My CD Collection&lt;/h2&gt;<br>
+      &lt;table border=&quot;1&quot;&gt;<br>
+      &lt;tr bgcolor=&quot;#9acd32&quot;&gt;<br>
+      &lt;th&gt;Title&lt;/th&gt;<br>
+      &lt;th&gt;Artist&lt;/th&gt;<br>
+      &lt;/tr&gt;<br>
+      &lt;xsl:for-each select=&quot;CATALOG/CD&quot;&gt;<br>
+      &lt;tr&gt;<br>
+      &lt;td&gt;&lt;xsl:value-of select=&quot;TITLE&quot;/&gt;&lt;/td&gt;<br>
+      &lt;xsl:choose&gt;<br>
+      &lt;xsl:when test=&quot;PRICE&amp;gt;'10'&quot;&gt;<br>
+      &lt;td bgcolor=&quot;#ff00ff&quot;&gt;<br>
+      &lt;xsl:value-of select=&quot;ARTIST&quot;/&gt;&lt;/td&gt;<br>
+      &lt;/xsl:when&gt;<br>
+      &lt;xsl:otherwise&gt;<br>
+      &lt;td&gt;&lt;xsl:value-of select=&quot;ARTIST&quot;/&gt;&lt;/td&gt;<br>
+      &lt;/xsl:otherwise&gt;<br>
+      &lt;/xsl:choose&gt;<br>
+      &lt;/tr&gt;<br>
+      &lt;/xsl:for-each&gt;<br>
+      &lt;/table&gt;<br>
+      &lt;/body&gt;<br>
+      &lt;/html&gt;<br>
+      &lt;/xsl:template&gt;<br>
+      &lt;/xsl:stylesheet&gt;<br>
+      [/xsl]</p>
+    <p>[xslt xslref=xsl_var1][include file=example1.xml][/xslt]<br>
+    </p>
+  </blockquote>
+</blockquote>
+<p>&nbsp;</p>
+<p>Results... </p>
+<blockquote> 
+  <p><br>
+    My CD Collection<br>
+  </p>
+  <table width="75%" border="1">
+    <tr bgcolor="#66CC00"> 
+      <td width="49%"><strong>Title </strong></td>
+      <td width="51%"><strong>Artist</strong></td>
+    </tr>
+    <tr> 
+      <td>Empire Burlesque </td>
+      <td bgcolor="#FF00FF">Bob Dylan</td>
+    </tr>
+    <tr> 
+      <td>Hide your heart </td>
+      <td>Bonnie Tylor</td>
+    </tr>
+    <tr> 
+      <td>Greatest Hits </td>
+      <td>Dolly Parton</td>
+    </tr>
+    <tr> 
+      <td>Still got the blues </td>
+      <td bgcolor="#FF00FF">Gary More</td>
+    </tr>
+    <tr> 
+      <td>Eros Eros </td>
+      <td>Ramazzotti</td>
+    </tr>
+    <tr> 
+      <td>One night only </td>
+      <td bgcolor="#FF00FF">Bee Gees</td>
+    </tr>
+    <tr> 
+      <td>Sylvias Mother </td>
+      <td>Dr.Hook</td>
+    </tr>
+    <tr> 
+      <td>Maggie May </td>
+      <td>Rod Stewart</td>
+    </tr>
+    <tr> 
+      <td>Romanza </td>
+      <td bgcolor="#FF00FF">Andrea Bocelli</td>
+    </tr>
+    <tr> 
+      <td>When a man loves a woman </td>
+      <td>Percy Sledge</td>
+    </tr>
+    <tr> 
+      <td>Black angel </td>
+      <td bgcolor="#FF00FF">Savage Rose</td>
+    </tr>
+    <tr> 
+      <td>1999 Grammy Nominees </td>
+      <td bgcolor="#FF00FF">Many</td>
+    </tr>
+    <tr> 
+      <td>For the good times </td>
+      <td>Kenny Rogers</td>
+    </tr>
+    <tr> 
+      <td>Big Willie style </td>
+      <td>Will Smith</td>
+    </tr>
+    <tr> 
+      <td>Tupelo Honey </td>
+      <td>Van Morrison</td>
+    </tr>
+    <tr> 
+      <td>Soulsville </td>
+      <td>Jorn Hoel</td>
+    </tr>
+    <tr> 
+      <td>The very best of </td>
+      <td>Cat Stevens</td>
+    </tr>
+    <tr> 
+      <td>Stop </td>
+      <td>Sam Brown</td>
+    </tr>
+    <tr> 
+      <td>Bridge of Spies </td>
+      <td>T`Pau</td>
+    </tr>
+    <tr> 
+      <td>Private Dancer </td>
+      <td>Tina Turner</td>
+    </tr>
+    <tr> 
+      <td>Midt om natten </td>
+      <td>Kim Larsen</td>
+    </tr>
+    <tr> 
+      <td>Pavarotti Gala Concert </td>
+      <td>Luciano Pavarotti</td>
+    </tr>
+    <tr> 
+      <td>The dock of the bay </td>
+      <td>Otis Redding</td>
+    </tr>
+    <tr> 
+      <td>Picture book </td>
+      <td>Simply Red</td>
+    </tr>
+    <tr> 
+      <td>Red </td>
+      <td>The Communards</td>
+    </tr>
+    <tr> 
+      <td>Unchain my heart </td>
+      <td>Joe Cocker</td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+</blockquote>
+<p><br>
+  This example will display all the CD 'Titles' and 'Artists' sorting them by 
+  artist. <br>
+  <br>
+  Here is the code... </p>
+<blockquote> 
+  <blockquote>
+    <p><br>
+      [xsl var=xsl_var1]<br>
+      &lt;xsl:stylesheet version=&quot;1.0&quot;<br>
+      xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;<br>
+      &lt;xsl:template match=&quot;/&quot;&gt;<br>
+      &lt;html&gt;<br>
+      &lt;body&gt;<br>
+      &lt;h2&gt;My CD Collection&lt;/h2&gt;<br>
+      &lt;table border=&quot;1&quot;&gt;<br>
+      &lt;tr bgcolor=&quot;#9acd32&quot;&gt;<br>
+      &lt;th&gt;Title&lt;/th&gt;<br>
+      &lt;th&gt;Artist&lt;/th&gt;<br>
+      &lt;/tr&gt;<br>
+      &lt;xsl:for-each select=&quot;CATALOG/CD&quot;&gt;<br>
+      &lt;xsl:sort select=&quot;ARTIST&quot;/&gt;<br>
+      &lt;tr&gt;<br>
+      &lt;td&gt;&lt;xsl:value-of select=&quot;TITLE&quot;/&gt;&lt;/td&gt;<br>
+      &lt;td&gt;&lt;xsl:value-of select=&quot;ARTIST&quot;/&gt;&lt;/td&gt;<br>
+      &lt;/tr&gt;<br>
+      &lt;/xsl:for-each&gt;<br>
+      &lt;/table&gt;<br>
+      &lt;/body&gt;<br>
+      &lt;/html&gt;<br>
+      &lt;/xsl:template&gt;<br>
+      &lt;/xsl:stylesheet&gt;<br>
+      [/xsl]</p>
+    <p>[xslt xslref=xsl_var1][include file=example1.xml][/xslt]<br>
+    </p>
+  </blockquote>
+</blockquote>
+<p>&nbsp;</p>
+<p>Results... </p>
+<blockquote> 
+  <p><br>
+    My CD Collection<br>
+  </p>
+  <table width="75%" border="1">
+    <tr bgcolor="#66CC00"> 
+      <td width="48%"><strong>Title </strong></td>
+      <td width="52%"><strong>Artist</strong></td>
+    </tr>
+    <tr> 
+      <td>Romanza </td>
+      <td>Andrea Bocelli</td>
+    </tr>
+    <tr> 
+      <td>One night only </td>
+      <td>Bee Gees</td>
+    </tr>
+    <tr> 
+      <td>Empire Burlesque </td>
+      <td>Bob Dylan</td>
+    </tr>
+    <tr> 
+      <td>Hide your heart </td>
+      <td>Bonnie Tylor</td>
+    </tr>
+    <tr> 
+      <td>The very best of </td>
+      <td>Cat Stevens</td>
+    </tr>
+    <tr> 
+      <td>Greatest Hits </td>
+      <td>Dolly Parton</td>
+    </tr>
+    <tr> 
+      <td>Sylvias Mother </td>
+      <td>Dr.Hook</td>
+    </tr>
+    <tr> 
+      <td>Eros </td>
+      <td>Eros Ramazzotti</td>
+    </tr>
+    <tr> 
+      <td>Still got the blues </td>
+      <td>Gary More</td>
+    </tr>
+    <tr> 
+      <td>Unchain my heart </td>
+      <td>Joe Cocker</td>
+    </tr>
+    <tr> 
+      <td>Soulsville </td>
+      <td>Jorn Hoel</td>
+    </tr>
+    <tr> 
+      <td>For the good times </td>
+      <td>Kenny Rogers</td>
+    </tr>
+    <tr> 
+      <td>Midt om natten </td>
+      <td>Kim Larsen</td>
+    </tr>
+    <tr> 
+      <td>Pavarotti Gala Concert </td>
+      <td>Luciano Pavarotti</td>
+    </tr>
+    <tr> 
+      <td>1999 Grammy Nominees </td>
+      <td>Many</td>
+    </tr>
+    <tr> 
+      <td>The dock of the bay </td>
+      <td>Otis Redding</td>
+    </tr>
+    <tr> 
+      <td>When a man loves a woman </td>
+      <td>Percy Sledge</td>
+    </tr>
+    <tr> 
+      <td>Maggie May </td>
+      <td>Rod Stewart</td>
+    </tr>
+    <tr> 
+      <td>Stop </td>
+      <td>Sam Brown</td>
+    </tr>
+    <tr> 
+      <td>Black angel </td>
+      <td>Savage Rose</td>
+    </tr>
+    <tr> 
+      <td>Picture book </td>
+      <td>Simply Red</td>
+    </tr>
+    <tr> 
+      <td>Bridge of Spies </td>
+      <td>T`Pau</td>
+    </tr>
+    <tr> 
+      <td>Red </td>
+      <td>The Communards</td>
+    </tr>
+    <tr> 
+      <td>Private Dancer </td>
+      <td>Tina Turner</td>
+    </tr>
+    <tr> 
+      <td>Tupelo Honey </td>
+      <td>Van Morrison</td>
+    </tr>
+    <tr> 
+      <td>Big Willie style </td>
+      <td>Will Smith</td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+</blockquote>
+<p><strong>Append XML data to a database </strong><br>
+  <br>
+  In this example we use XSLT to generate WebDNA [replace] code to replace/append 
+  XML data to a WebDNA database. It is a little tricky embedding the WebDNA into 
+  the XSL code, but it can be done. <br>
+  <br>
+  Here is the code... </p>
+<blockquote>
+  <p><br>
+    [xsl var=xsl_var1]</p>
+  <p><br>
+    [!]<br>
+    [/!]%5Breplace db=music.db[url]&amp;[/url]eqTITLEdata=[url]&amp;[/url]append=T%5D[!]<br>
+    [/!]TITLE=[url]&amp;[/url][!]<br>
+    [/!]ARTIST=%5B/replace%5D</p>
+  <p>&nbsp;</p>
+  <p>[/xsl]</p>
+  <p>[text]result=[unurl][xslt xslref=xsl_var1][include file=example1.xml][/xslt][/unurl][/text]</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>The XSLT operation produced the following WebDNA code...</p>
+<blockquote>
+  <p><br>
+    [result]</p>
+</blockquote>
+<p> We then use the interpret context to 'parse' WebDNA code. And use the search 
+  context to confirm that the entries where added.</p>
+<blockquote>
+  <p><br>
+    [!]clear out the database entries[/!]<br>
+    [delete db=music.db&amp;neTITLEdata=[blank]]</p>
+  <p>[interpret]<br>
+    [result]<br>
+    [/interpret]</p>
+  <p>[search db=music.db&amp;neTITLEdata=[blank]]</p>
+  <p><br>
+    Found [numfound] CD entries in the music database.</p>
+  <p><br>
+    [founditems]<br>
+    [TITLE] - [ARTIST]</p>
+  <p>[/founditems]<br>
+    [/search]</p>
+  <p>[closedatabase db=music.db]</p>
+</blockquote>
+<p>Results... </p>
+<blockquote>
+  <p><br>
+    The XSLT operation produced the following WebDNA code... </p>
+  <p>[replace db=music.db&amp;eqTITLEdata=Empire Burlesque&amp;append=T]TITLE=Empire 
+    Burlesque&amp;ARTIST=Bob Dylan[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=Hide your heart&amp;append=T]TITLE=Hide 
+    your heart&amp;ARTIST=Bonnie Tylor[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=Greatest Hits&amp;append=T]TITLE=Greatest 
+    Hits&amp;ARTIST=Dolly Parton[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=Still got the blues&amp;append=T]TITLE=Still 
+    got the blues&amp;ARTIST=Gary More[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=Eros&amp;append=T]TITLE=Eros&amp;ARTIST=Eros 
+    Ramazzotti[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=One night only&amp;append=T]TITLE=One 
+    night only&amp;ARTIST=Bee Gees[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=Sylvias Mother&amp;append=T]TITLE=Sylvias 
+    Mother&amp;ARTIST=Dr.Hook[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=Maggie May&amp;append=T]TITLE=Maggie 
+    May&amp;ARTIST=Rod Stewart[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=Romanza&amp;append=T]TITLE=Romanza&amp;ARTIST=Andrea 
+    Bocelli[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=When a man loves a woman&amp;append=T]TITLE=When 
+    a man loves a woman&amp;ARTIST=Percy Sledge[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=Black angel&amp;append=T]TITLE=Black 
+    angel&amp;ARTIST=Savage Rose[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=1999 Grammy Nominees&amp;append=T]TITLE=1999 
+    Grammy Nominees&amp;ARTIST=Many[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=For the good times&amp;append=T]TITLE=For 
+    the good times&amp;ARTIST=Kenny Rogers[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=Big Willie style&amp;append=T]TITLE=Big 
+    Willie style&amp;ARTIST=Will Smith[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=Tupelo Honey&amp;append=T]TITLE=Tupelo 
+    Honey&amp;ARTIST=Van Morrison[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=Soulsville&amp;append=T]TITLE=Soulsville&amp;ARTIST=Jorn 
+    Hoel[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=The very best of&amp;append=T]TITLE=The 
+    very best of&amp;ARTIST=Cat Stevens[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=Stop&amp;append=T]TITLE=Stop&amp;ARTIST=Sam 
+    Brown[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=Bridge of Spies&amp;append=T]TITLE=Bridge 
+    of Spies&amp;ARTIST=T`Pau[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=Private Dancer&amp;append=T]TITLE=Private 
+    Dancer&amp;ARTIST=Tina Turner[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=Midt om natten&amp;append=T]TITLE=Midt 
+    om natten&amp;ARTIST=Kim Larsen[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=Pavarotti Gala Concert&amp;append=T]TITLE=Pavarotti 
+    Gala Concert&amp;ARTIST=Luciano Pavarotti[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=The dock of the bay&amp;append=T]TITLE=The 
+    dock of the bay&amp;ARTIST=Otis Redding[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=Picture book&amp;append=T]TITLE=Picture 
+    book&amp;ARTIST=Simply Red[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=Red&amp;append=T]TITLE=Red&amp;ARTIST=The 
+    Communards[/replace]<br>
+    [replace db=music.db&amp;eqTITLEdata=Unchain my heart&amp;append=T]TITLE=Unchain 
+    my heart&amp;ARTIST=Joe Cocker[/replace]</p>
+</blockquote>
+<p>We then use the interpret context to 'parse' WebDNA code. And use the search 
+  context to confirm that the entries where added. </p>
+<blockquote>
+  <p>Found 26 CD entries in the music database. </p>
+  <p>Bridge of Spies - T`Pau<br>
+    The dock of the bay - Otis Redding<br>
+    Black angel - Savage Rose<br>
+    The very best of - Cat Stevens<br>
+    Unchain my heart - Joe Cocker<br>
+    Romanza - Andrea Bocelli<br>
+    Midt om natten - Kim Larsen<br>
+    Eros - Eros Ramazzotti<br>
+    Red - The Communards<br>
+    For the good times - Kenny Rogers<br>
+    Soulsville - Jorn Hoel<br>
+    Big Willie style - Will Smith<br>
+    Maggie May - Rod Stewart<br>
+    Stop - Sam Brown<br>
+    Still got the blues - Gary More<br>
+    Private Dancer - Tina Turner<br>
+    When a man loves a woman - Percy Sledge<br>
+    Pavarotti Gala Concert - Luciano Pavarotti<br>
+    Hide your heart - Bonnie Tylor<br>
+    Picture book - Simply Red<br>
+    1999 Grammy Nominees - Many<br>
+    One night only - Bee Gees<br>
+    Empire Burlesque - Bob Dylan<br>
+    Greatest Hits - Dolly Parton<br>
+    Sylvias Mother - Dr.Hook<br>
+    Tupelo Honey - Van Morrison<br>
+  </p>
+</blockquote>
+</body>
+<!--[/Raw]-->
+</html>

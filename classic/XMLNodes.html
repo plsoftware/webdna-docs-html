@@ -1,0 +1,328 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<!--[Raw]-->
+<head>
+<title>XMLNodes & XMLNode Context</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+<p><font size="5">[xmlnodes ref=...&amp;path=...&amp;name=...&amp;exact=T/F] &lt;WebDNA&gt;[/xmlnodes]</font></p>
+<p><strong><br>
+  Parameters:</strong><br>
+  <br>
+  <strong>&middot; ref</strong> - Reference to an xml parsed object variable. 
+  If this parameter is not provided, then it is assumed that there is an 'outer' 
+  [xmlnodes] context from which to reference a particular XML node. (This is explained 
+  further on in this tutorial). <br>
+  <br>
+  <strong>&middot; path</strong> - Depending on which path method is used (see 
+  below), this will either be a path to the parent xml element (node) from which 
+  to iterate the child elements (nodes), or a path 'expression' representing a 
+  collection of XML nodes. If a path is not provided, then the child nodes of 
+  the 'ref' node will be iterated<br>
+  <br>
+  <strong>&middot; name </strong>- A string used to filter the resulting xml nodes. 
+  Only the xml nodes that match the 'name' string will be iterated. <br>
+  <br>
+  <strong>&middot; exact</strong> - Used with the 'name' parameter. Either 'T' 
+  or 'F'. Specifies whether the 'name' parameter is a 'whole' string match or 
+  a 'sub-string' match.</p>
+<p><br>
+  <strong>Context Tags available from within the [XMLNodes] Context:</strong><br>
+  <br>
+  <strong>&middot; [name]</strong> - The name of the current iterated XML node.<br>
+  <strong><br>
+  &middot; [value]</strong> - The value of the current iterated XML node. Will 
+  be empty if the node is a 'container' node, i.e. contains other XML nodes.<br>
+  <br>
+  <strong>&middot; [index] </strong>- The 'count' of the current iterated node.<br>
+  <br>
+  <strong>&middot; [numfound]</strong> - The total 'count' of iterated nodes.<br>
+  <br>
+  <strong>&middot; [content]</strong> - The 'raw' xml content of the current node.<br>
+  <br>
+  <strong>&middot; [iscontainer]</strong> - 'T' if the current node contains other 
+  XML nodes. </p>
+<p>
+  The default behavior of this context is to iterate the child XML nodes of a 
+  parent node. The location of the parent node, in the xml 'tree', is determined 
+  by the 'path' parameter. If a path parameter is not provided, then the child 
+  nodes of the ' ref 's root are iterated.<br>
+  <br>
+  The path parameter can take three different forms: <strong>'named:'</strong>, 
+  <strong>'indexed:'</strong>, or<strong> 'xpath:'</strong>. <br>
+  <br>
+  - The <strong>'named:'</strong> method expresses a literal path to the parent 
+  node, i.e.<strong> 'path=named:CATALOG/CD(n)'</strong>. If there are more than 
+  one similarly named 'sibling' nodes, then the '(n)' part specifies which node 
+  to select as part of the path. <br>
+</p>
+<p>- The <strong>'indexed:'</strong> method expresses an numerical 'step' wise 
+  path to the parent node, i.e. <strong>'path=indexed:1/2/3'</strong>. This example 
+  could be expressed as: 'The third child node of the second child node of the 
+  first child node of the xml root'. <br>
+</p>
+<p>- The <strong>'xpath:'</strong> method is an XPath 'expression' that evaluates 
+  to a collection of nodes in the XML tree. In this case, the iterated nodes are 
+  those of the resulting 'collection' of nodes. This is a bit different from the 
+  'named' and 'indexed' method in that the collection of node are not the 'child' 
+  nodes of a given 'parent' node. This is the most powerful method for selecting 
+  XML nodes. There are several online 'xpath' tutorials that you can visit that 
+  will help you develop your XPath skills. <br>
+  <br>
+  We will be using the 'named' method in the next few tutorial pages.<br>
+  <br>
+  Now lets use the<strong> [xmlnodes] </strong>context to iterate the xml child 
+  nodes of the root xml node of the '<a href="example1.xml">example1.xml</a>' 
+  document. <br>
+  <br>
+  The code is as follows... </p>
+<blockquote>
+  <p><br>
+    [xmlparse var=xml_var1][include file=example1.xml][/xmlparse]</p>
+  <p>[xmlnodes ref=xml_var1]<br>
+    [name]=[value]</p>
+  <p>[/xmlnodes]</p>
+</blockquote>
+<p><br>
+  Results.... </p>
+<blockquote>
+  <p><br>
+    CATALOG= </p>
+</blockquote>
+<p>&nbsp;</p>
+<p>We see that the 'CATALOG' node is the only child node from the root of the 
+  xml file. Notice that the 'value' is empty. This is because the 'CATALOG' node 
+  has no value, and is actually a 'container' node for other xml nodes. So a 'value' 
+  will only be displayed for a 'leaf' xml node, i.e. <br>
+  <br>
+  JOHN<br>
+  <br>
+  In this case, [name] would evaluate to 'FIRSTNAME' and [value] would be 'JOHN'.<br>
+  <br>
+  Lets dive a little deeper into the xml file and iterate the 'child' nodes of 
+  the root 'catalog' node of the <a href="example1.xml">example1.xml</a> file... 
+  <br>
+  <br>
+  We now use... </p>
+<blockquote>
+  <p><br>
+    [xmlparse var=xml_var1][include file=example1.xml][/xmlparse]</p>
+  <p>[xmlnodes ref=xml_var1&amp;path=named:Catalog]<br>
+    [name]=[value]</p>
+  <p>[/xmlnodes]</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>Results.... </p>
+<p>&nbsp;</p>
+<blockquote>
+  <p>CD= <br>
+    CD= <br>
+    CD= <br>
+    CD= <br>
+    CD= </p>
+</blockquote>
+<p>&nbsp;</p>
+<p>We see that we have iterated all the 'CD' child nodes of the 'Catalog' parent 
+  node. Again, none of the resulting child nodes contain a value as they are all 
+  'container' nodes.<br>
+  <br>
+  You can embed any number of [xmlnodes] contexts within each other. Lets do this 
+  to iterate the child nodes of all the 'CD' nodes of the <a href="example1.xml">example1.xml</a> 
+  file... <br>
+  <br>
+  We use... </p>
+<blockquote>
+  <p><br>
+    [xmlparse var=xml_var1][include file=example1.xml][/xmlparse]</p>
+  <p>[xmlnodes ref=xml_var1&amp;path=named:Catalog]<br>
+    [name] - [index]</p>
+  <p> [xmlnodes]<br>
+    - [name]=[value]</p>
+  <p> [/xmlnodes]<br>
+    [/xmlnodes]</p>
+</blockquote>
+<p><br>
+  Results.... </p>
+<p>&nbsp;</p>
+<blockquote>
+  <p>CD - 1<br>
+    - TITLE=Empire Burlesque<br>
+    - ARTIST=Bob Dylan<br>
+    - COUNTRY=USA<br>
+    - COMPANY=Columbia<br>
+    - PRICE=10.90<br>
+    - YEAR=1985<br>
+    CD - 2<br>
+    - TITLE=Hide your heart<br>
+    - ARTIST=Bonnie Tylor<br>
+    - COUNTRY=UK<br>
+    - COMPANY=CBS Records<br>
+    - PRICE=9.90<br>
+    - YEAR=1988<br>
+    CD - 3<br>
+    - TITLE=Greatest Hits<br>
+    - ARTIST=Dolly Parton<br>
+    - COUNTRY=USA<br>
+    - COMPANY=RCA<br>
+    - PRICE=9.90<br>
+    - YEAR=1982<br>
+    CD - 4<br>
+    - TITLE=Still got the blues<br>
+    - ARTIST=Gary More<br>
+    - COUNTRY=UK<br>
+    - COMPANY=Virgin records<br>
+    - PRICE=10.20<br>
+    - YEAR=1990</p>
+</blockquote>
+<p>&nbsp;</p>
+<p><br>
+  Now we are getting some interesting results. Note that the 'inner' xmlnodes 
+  context did not need a 'ref' parameter. This is because the inner xmlnodes context 
+  inherited the outer xmlnodes' current iterated node. Also notice that the inner 
+  xmlnodes context did not use a 'path' parameter. So it uses the 'root' path 
+  of the outer xmlnodes' current iterated node. <br>
+  <br>
+  Did you also notice the use of the [index] tag in the outer xmlnodes context? 
+  As with most 'iterative' WebDNA contexts, the [index] tag resolves to the current 
+  iteration 'count'. <br>
+  <br>
+  Lets refine the named path parameter to go directly to a particular 'CD' node. 
+  <br>
+  <br>
+  With a minor change to the 'path' parameter, we can retrieve all the child nodes 
+  of the fifth 'CD' node of the <a href="example1.xml">example1.xml</a> file...</p>
+<blockquote>
+  <p><br>
+    [xmlparse var=xml_var1][include file=example1.xml][/xmlparse]</p>
+  <p>[xmlnodes ref=xml_var1&amp;path=named:Catalog/CD(5)]<br>
+    [name]=[value]</p>
+  <p>[/xmlnodes]</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>Results.... </p>
+<p>&nbsp;</p>
+<blockquote>
+  <p>TITLE=Eros<br>
+    ARTIST=Eros Ramazzotti<br>
+    COUNTRY=EU<br>
+    COMPANY=BMG<br>
+    PRICE=9.90<br>
+    YEAR=1997</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>Using the 'name' parameter we can filter the results to display only the 'TITLE' 
+  node of the fifth 'CD' node of the <a href="example1.xml">example1.xml</a> file...</p>
+<blockquote>
+  <p><br>
+    [xmlparse var=xml_var1][include file=example1.xml][/xmlparse]</p>
+  <p>[xmlnodes ref=xml_var1&amp;path=named:Catalog/CD(5)&amp;name=TITLE]<br>
+    [name]=[value]</p>
+  <p>[/xmlnodes]</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>Results.... </p>
+<blockquote>
+  <p><br>
+    TITLE=Eros</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>Using the 'name' and 'exact' parameters, we can filter the results to display 
+  only those nodes, of the fifth 'CD' node, where the node name matches a given 
+  sub-string, 'CO' of the <a href="example1.xml">example1.xml</a> file...</p>
+<blockquote>
+  <p><br>
+    [xmlparse var=xml_var1][include file=example1.xml][/xmlparse]</p>
+  <p>[xmlnodes ref=xml_var1&amp;path=named:Catalog/CD(5)&amp;name=CO&amp;exact=F]<br>
+    [name]=[value]</p>
+  <p>[/xmlnodes]</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>Results.... </p>
+<blockquote>
+  <p><br>
+    COUNTRY=EU<br>
+    COMPANY=BMG<br>
+  </p>
+</blockquote>
+
+Lets move on to the [XMLNode] context... 
+<p><hr><p>
+<a name=XMLNode></a>
+<p><font size="5">[xmlnode ref=...&var=...&path=...]&lt;WebDNA&gt;[/xmlnode]</font></p>
+<p><strong><br>
+  Parameters:</strong><br>
+  <br>
+<strong>&middot; ref</strong> - Reference to an xml object variable. If this parameter is not provided, then it is assumed that there is an 'outer' [xmlnode/s] context from which to reference a particular XML node. <br><br>
+
+<strong>&middot; var</strong> - User defined name for this persisted node instance. If this parameter is not provided, then this node instance will not be persisted <br><br>
+
+<strong>&middot; path</strong> - Path to the desired XML node. If an XPath expression is used, it should evaluate to a single node.
+
+<p><strong><br>
+WebDNA Tags available from within an [xmlnode] context... 
+</strong><br>
+<strong>&middot; [name]</strong> - The name of the XML node.<br><br> 
+<strong>&middot; [value]</strong> - The value of the XML node. Will be empty if the node is a 'container' node, i.e. contains other XML nodes. <br><br>
+<strong>&middot; [content]</strong> - The 'raw' xml content of the node. <br><br>
+<strong>&middot; [iscontainer]</strong> - 'T' if the current node contains other XML nodes. 
+
+
+<p>This context is used to retrieve the contents of the specific node. The 'path' 
+  parameter is used to locate the node. As with the [XMLNodes] context, the 'path' 
+  parameter has three modes;<strong> 'named:'</strong>, <strong>'indexed:'</strong>, 
+  and <strong>'xpath:'</strong>.<strong> [XMLNode]</strong> can also be used to 
+  persist a 'pointer' to a specific node. This reference can then be used in subsequent 
+  calls to other XML contexts. <br>
+  <br>
+  Lets use the XMLNode context to retrieve the TITLE information of the third 
+  CD node of the <a href="example1.xml">example1.xml</a> file.... <br>
+  <br>
+  Code used... </p>
+<blockquote>
+  <p><br>
+    [xmlparse var=xml_var1][include file=example1.xml][/xmlparse]</p>
+  <p>[xmlnode ref=xml_var1&amp;path=indexed:1/3/1]<br>
+    [name]=[value]</p>
+  <p>[/xmlnode]</p>
+</blockquote>
+<p><br>
+  You'll notice that we used the 'indexed' path method. This is because we have 
+  explicit knowledge of the XML file, and can there for use the indexed method 
+  to jump quickly to the desired XML node. <br>
+  <br>
+  Results... </p>
+<blockquote>
+  <p><br>
+    TITLE=Greatest Hits</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>Now lets use the<strong> [XMLNode] </strong>context to persist a reference 
+  to the third 'CD' node, then use that reference in an XMLNodes context to retrieve 
+  the child nodes of the <a href="example1.xml">example1.xml</a> file... <br>
+  <br>
+  Code used... </p>
+<blockquote>
+  <p><br>
+    [xmlparse var=xml_var1][include file=example1.xml][/xmlparse]</p>
+  <p>[xmlnode ref=xml_var1&amp;path=indexed:1/3&amp;var=xml_CD3][/xmlnode]</p>
+  <p>[xmlnodes ref=xml_CD3]<br>
+    [name]=[value]</p>
+  <p>[/xmlnodes]</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>Results... </p>
+<p>&nbsp;</p>
+<blockquote>
+  <p>TITLE=Greatest Hits<br>
+    ARTIST=Dolly Parton<br>
+    COUNTRY=USA<br>
+    COMPANY=RCA<br>
+    PRICE=9.90<br>
+    YEAR=1982<br>
+  </p>
+</blockquote>
+</body>
+<!--[/Raw]-->
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"><!--last modified on Mon, Jan 5, 1998 1:43 PM-->
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>ArraySet Context</title>
+		<!--[Raw]-->
+		<meta name="Author" content="Grant Hulbert">
+	</head>
+
+	<body bgcolor="white">
+<p><font size="5">[arrayset name=&#8230;&amp;dim=&#8230;]&lt;WebDNA that resolves 
+  to array element assignments&gt;[/arrayset]</font></p>
+<blockquote>
+  <p><br>
+    The array context will allow the WebDNA programmer to create an array data 
+    object with up to five dimensions.</p>
+</blockquote>
+<p><br>
+  <strong>Parameters:</strong><br>
+  <br>
+  <strong>&middot; Name -</strong> The variable name you specify to represent 
+  the array object.<br>
+  <br>
+  <strong>&middot; Dim - </strong>Comma delimited series of numbers representing 
+  the array dimension sizes, i.e. '3,3,3', which would represent a 3x3x3 dimensioned 
+  array.</p>
+<p><br>
+  To create a three-dimensional array, insert a [arrayset] context into a template.<br>
+  <br>
+  For example:</p>
+<blockquote>
+  <p><br>
+    [arrayset name=myarray&amp;dim=2,2,2]<br>
+    (1,1,1)=aaa&amp;(1,1,2)=aab&amp;(1,2,1)=aba&amp;(1,2,2)=abb<br>
+    [/arrayset]</p>
+</blockquote>
+<p><br>
+  This creates an array, called 'myarray', that will persist for the duration 
+  of the template. Note that the 'index=value' pairs within the [arrayset] tags 
+  are optional when creating a new array. Array indices can be assigned at any 
+  time. <br>
+  <br>
+  When the <strong>'dim'</strong> parameter is supplied with the arrayset context, 
+  it implies that this will be a new array object. Subsequent calls to arrayset, 
+  using the same variable name (and without using the &#8216;dim&#8217; parameter, 
+  imply new index assignments to an existing array object. <br>
+  <br>
+  So after we have created the 'myarray' object using the line shown above, we 
+  can assign index value at a later time using:</p>
+<blockquote>
+  <p><br>
+    [arrayset name=myarray](2,2,2)=xxx&amp;(2,2,2)=zzz[/arrayset]<br>
+  </p>
+</blockquote>
+<p><hr>
+<a name=ARRAY_TAG>
+Once you have created an array, you can access the 'elements' of the array using the following methods:
+<p>
+Use the <a href=ArrayGetContext.html>[ArrayGet]</a> context to retrieve one or more array elements at once, or....
+<p>
+Use a 'global tag' reference to retrieve a single array element.  Here is the syntax for the global method:
+<blockquote>
+<b>[&lt;arrayname&gt;(&lt;index&gt;)]</b>&nbsp;&nbsp;&nbsp;<smallNote that there is no space between the 'arrayname' and the first '('</small>
+<p>
+So, for example, given the following array definition...
+<p>
+[arrayset name=DOW&dim=7](1)=Sun&(2)=Mon&(3)=Tue&(4)=Wed&(5)=Thu&(6)=Fri&(7)=Sat[/arrayset]
+<p>
+...the tag '[DOW(7)]' would resolve to 'Sat'
+</blockquote>
+<!--[/Raw]-->
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</body>
+
+</html>

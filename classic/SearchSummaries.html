@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"><!--last modified on Tue, Jan 20, 1998 10:34 PM-->
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Search Summaries</title>
+		<!--[Raw]-->
+		<meta name="Author" content="Grant Hulbert">
+	</head>
+
+	<body bgcolor="white">
+<font size="5"> Searching - Summaries</font> <font size="5"><i>FieldName</i><b>summ=T</b></font> 
+<dl>
+			<dd>Creates summaries from a search.
+		</dl>
+		<p>Sometimes you want WebDNA to summarize information in a database by only showing records that are unique in a particular field. For instance, if your database contains a list of names and addresses, you may want to see how many unique zip codes are in the database. To summarize records, add &quot;<i>FieldName</i><b>summ=T</b>&quot; to a search command.</p>
+		<p>If your database has a field called &quot;ZipCode,&quot; and you want to look for records with unique values and greater than 90000 in the ZipCode field, then enter a URL something like this:</p>
+		<p>http://Results.tpl?command=search&amp;<b>ge</b>ZipCode<b>data</b>=90000&amp;ZipCode<b>summ=T</b>&amp;ZipCode<b>sort=1</b>&amp;db=SomeDatabase.db</p>
+		<p>The template &quot;Results.tpl&quot; display after the search, and any <a href="FoundItemsContext.html">[FoundItems] </a>contexts in it fill with found records. &quot;ge&quot; stands for &quot;greater than or equal,&quot; meaning the ZipCode field must be greater than or equal to 90000, otherwise it will not be considered a match. ZipCode<b>sort=1</b> causes the results to be sorted in ascending order by ZipCode. ZipCode<b>summ=T</b> tells WebDNA that if one or more zip code are identical, they are removed from the list of found items. Only the first matching ZipCode record is displayed.</p>
+		<dl>
+			<dd><b>Note:</b> it is important to sort by the same field you wish to summarize -- this sorting enables WebDNA to easily see when a field changes from one value to another in the sequence of found items.
+		</dl>
+		<p>
+		<table border="1" cellpadding="0">
+			<tr>
+				<th colspan="2" bgcolor="#cccccc">Sort by ZipCode (not summarized)<br>
+					<br>
+					ZipCodesort=1</th>
+			</tr>
+			<tr>
+				<td>John</td>
+				<td>92069</td>
+			</tr>
+			<tr>
+				<td>Grant</td>
+				<td>92128</td>
+			</tr>
+			<tr>
+				<td>Jay</td>
+				<td>92128</td>
+			</tr>
+			<tr>
+				<th colspan="2" bgcolor="#cccccc">Sort by ZipCode (summarized by ZipCode)<br>
+					<br>
+					ZipCodeSort=1&amp;ZipCodeSumm=T</th>
+			</tr>
+			<tr>
+				<td>John</td>
+				<td>92069</td>
+			</tr>
+			<tr>
+				<td>Grant</td>
+				<td>92128</td>
+			</tr>
+		</table>
+		<p></p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

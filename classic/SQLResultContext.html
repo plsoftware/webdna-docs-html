@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<title>SQLResult Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[SQLResult <i>Params</i>]Found Items[/SQLResult]</font> 
+<dl>
+			<dd>Used to access info and result sets resulting from a <a href="SQLExecuteContext.html">[SQLExecute]</a>.
+		</dl>
+		<p>Example:<dl><dd><pre><xmp>
+[SQLConnect dbType=MySQL&host=192.168.1.1&database=SMSITest&uid=sa&pwd=pass&conn_var=conn1]
+Connected successfully<br>
+[/SQLConnect]
+
+[SQLExecute conn_ref=conn1&result_var=rs1]
+select firstName,lastName from employees;
+[/SQLExecute]
+
+[SQLResult result_ref=rs1]
+[numFound] records found<br>
+<table border=1><tr><th>First Name</th><th>Last Name</th></tr>
+[FoundItems]
+<tr><td>[firstName]</td><td>[lastName]</td></tr>
+[/FoundItems]
+</table>
+[/SQLResult]</xmp></pre></dl>
+		<p><table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Parameter</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						<nobr>result_ref (or just 'ref')</nobr></div>
+				</td>
+				<td>(Required) - The name of the SQLResult variable you created with a prior execution of [SQLExecute] (the value you set for the "result_var" or "var" parameter)</td>
+			</tr>
+		</table>
+		<p></p>
+		<p>The following tags are available inside a [SQLResult] context:
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Tag</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[CommandText]</div>
+				</td>
+				
+    <td>The SQL command string that was executed via the [SQLExecute] context.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[NumFound]</div>
+				</td>
+				
+    <td>A number indicating how many records were returned as the result of the SQL statemtnt (a 'select' staement in most cases).  Some SQL statements will not result in a record set, i.e. DELETE, INSERT, DROP, etc...  In these cases [numfound] will be zero.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[NumFields]</div>
+				</td>
+				
+    <td>A number indicating the number of fields in the returned record set.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[NumRowsAffected]</div>
+				</td>
+				
+    <td>The number of rows changed by an INSERT/UPDATE/DELETE command.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[InsertID]</div>
+				</td>
+				
+    <td>The insert ID of a successfull INSERT command.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[FoundItems]...[/FoundItems]</div>
+				</td>
+				<td>Normally you put a <a href="FoundItemsContext.html">[FoundItems]</a> loop inside a [SQLResult] context to retrieve the records resulting from a SQL SELECT statement, so you can display all the matching records. You can put any record set field name inside the [FoundItems] loop to display them in HTML.
+				There are other SQL commands that will return a records set.  For example, in MySQL, the following statements will return a record set:
+				<br>
+				"show tables;"<br>
+				"show processlist;"<br>
+				"describe &lt;table&gt;;"<br></td>
+			</tr>
+		</table>
+		<p>It may sometimes be the case when you will not know all or any of the field names returned in a record set. 
+
+Executing 'Select * from mytable' will pull all field values into the record set, but will you *know* what those field names are? If not, you can use the <a href="ListFieldsContext.html">[ListFields]</a> context to iterate the field names of a result set. 
+<br>For example: <dl><dd><pre><xmp>
+[SQLConnect dbType=MySQL&host=192.168.1.1&database=SMSITest&uid=sa&pwd=pass&conn_var=conn1]
+[/SQLConnect]
+
+[SQLExecute conn_ref=conn1&result_var=rs1]
+select * from employees;
+[/SQLExecute]
+
+[SQLResult result_ref=rs1]
+[numFound] records found<br>
+<table border=1>
+<tr>
+[ListFields]<th>[fieldname]</th>[/ListFields]
+</tr>
+[FoundItems]
+<tr>
+[ListFields]<td>[interpret][[fieldname]][/interpret]</td>[/ListFields]
+</tr>
+[/FoundItems]
+</table>
+[/SQLResult]
+</xmp></pre></dl>
+</p>
+<p>You can also use the new [Field], inside [FoundItems], to retrieve field data by the fields position in the records set.
+<br>
+For example: <dl><dd><pre><xmp>
+[SQLConnect dbType=MySQL&host=192.168.1.1&database=SMSITest&uid=sa&pwd=pass&conn_var=conn1]
+[/SQLConnect]
+
+[SQLExecute conn_ref=conn1&result_var=rs1]
+select * from employees; 
+[/SQLExecute]
+
+[SQLResult result_ref=rs1]
+[FoundItems]
+[loop start=1&end=[numFields]]
+[field seek=ordinal:[index]&get=NAME]: <b>[field seek=ordinal:[index]&get=VALUE]</b> [hideif [index]=[numfields]]- [/hideif]
+[/loop]<br>
+[/FoundItems]
+[/SQLResult]
+</xmp></pre></dl>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

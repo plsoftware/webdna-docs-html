@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>HideIf Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[HideIf <i>Comparison</i>]Hide This HTML[/HideIf]</font>
+		<dl>
+			<dd>Hides HTML conditionally only if the comparison is true.
+		</dl>
+		<p>To hide some HTML (or [xxx] tags) only if certain conditions are met, place the text inside a [HideIf] container. The comparison, which may contain any [xxx] tags, is first evaluated to see if it is true, and if true then the contained text is hidden. If not true, then any text or [xxx] tags inside the container displays. See <a href="ShowIfContext.html">[ShowIf]</a>.</p>
+		<dl>
+			<dd><b>Note</b>: HideIf 'does the correct thing' when it hides its container: any contexts inside the [HideIf] container (e.g. [Append] or [Replace] or [Delete]) will <b>not</b> be executed if HideIf evaluates to true.
+		</dl>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[HideIf [username]=Grant][Authenticate User Grant][/HideIf]
+		</dl>
+		<p>Comparisons are always case-insensitive so &quot;grant&quot; equals &quot;GRANT&quot;.</p>
+		<p>
+		<table border="1" cellpadding="0">
+			<tr>
+				<td bgcolor="#bbbbbb">
+					<center>
+						<b>Comparison</b></center>
+				</td>
+				<td bgcolor="#bbbbbb"></td>
+				<td bgcolor="#bbbbbb">
+					<center>
+						<b>Example</b></center>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						equal</div>
+				</td>
+				<td>
+					<center>
+						&nbsp;=</center>
+				</td>
+				<td>[HideIf [username]=SAGEHEN]You're not Mr. Sagehen![/HideIf]</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						not equal</div>
+				</td>
+				<td>
+					<center>
+						&nbsp;!</center>
+				</td>
+				<td>[HideIf [random]!45]...[/HideIf]</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						contains</div>
+				</td>
+				<td>
+					<center>
+						&nbsp;^</center>
+				</td>
+				<td>[HideIf [browsername]^Mozilla]</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						begins with</div>
+				</td>
+				<td>
+					<center>
+						&nbsp;~</center>
+				</td>
+				<td>[HideIf [ipaddress]~245.078.013]...[/HideIf].<br>
+					<br>
+					<b>Notice the IP address has been typed with 3 digits in each portion of the address</b>. This is very important for making these comparison work as expected.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						less than</div>
+				</td>
+				<td>
+					<center>
+						&nbsp;&lt;</center>
+				</td>
+				<td>[HideIf [random]&lt;50]...[/HideIf]</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						greater than</div>
+				</td>
+				<td>
+					<center>
+						&nbsp;&gt;</center>
+				</td>
+				<td>[HideIf [lastrandom]&gt;25]...[/HideIf]</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						divisible by</div>
+				</td>
+				<td>
+					<center>
+						\</center>
+				</td>
+				<td>[HideIf [index]\3]...[/HideIf]</td>
+			</tr>
+		</table>
+		<p></p>
+		<dl>
+			<dd><b>Note:</b> if both sides of the equation are numbers, then the comparison for greater than, less than, and equals is performed numerically. If either side is not a number, then the comparison is performed alphabetically.<br>
+			&nbsp;<br>
+			<b>Tip</b>: make sure neither side of the comparison equation contains any of the special comparison letters listed above. For example, [HideIf I'm Friendly! Are you?=[question]] contains an exclamation point <b>inside</b> the sentence being compared, so WebDNA sees this as &quot;I'm Friendly&quot; <b>is not equal to</b> &quot; Are you?=[question]&quot;, which is not what the author meant to compare.<br>
+			<br>
+			The solution is to wrap each side of the comparison with [URL] contexts, like this:<br>
+			[HideIf [URL]I'm Friendly! Are you?[/URL]=[URL][question][/URL]]. This causes any embedded !=&gt;&lt; symbols to be converted to their URL equivalents, which can then be compared correctly.
+		</dl>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

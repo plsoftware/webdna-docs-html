@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>ListPath Context</title>
+		<!-- [Raw] -->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[ListPath <i>Path</i>]Path Tags[/ListPath]</font>
+		<dl>
+			<dd>Breaks a path into separate foldernames and a filename.
+		</dl>
+		<p>To display a list of all the separate folder names in a path (text separated by &quot;/&quot;), use a [ListPath] context. You may optionally specify that only the filename will be displayed (subtracting any path leading to it), or only the folder names (subtracting the filename from the end).<br>
+		<br>
+		ListPath is only used for text-manipulation -- it does not actually look at your hard disk. If you want to find all the files in a folder on your hard disk, use <a href="ListFilesContext.html">[ListFiles]</a> instead.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[ListPath path=/folder1/folder2/folder3/filename.txt]<br>
+			Path part #[index]: [name]&lt;br&gt;<br>
+			[/ListPath]
+		</dl>
+		<p>The example above yields:</p>
+		<pre>Path part #1: folder1
+Path part #2: folder2
+Path part #3: folder3
+Path part #4: filename.txt</pre>
+		<dl>
+			<dd>[ListPath path=/folder1/folder2/folder3/filename.txt&amp;<b>FileOnly=T</b>]<br>
+			Path part #[index]: [name]&lt;br&gt;<br>
+			[/ListPath]
+		</dl>
+		<p>The example above yields:</p>
+		<pre>Path part #1: filename.txt</pre>
+		<dl>
+			<dd>[ListPath path=/folder1/folder2/folder3/filename.txt&amp;<b>PathOnly=T</b>]<br>
+			Path part #[index]: [name]&lt;br&gt;<br>
+			[/ListPath]
+		</dl>
+		<p>The example above yields:</p>
+		<pre>Path part #1: folder1
+Path part #2: folder2
+Path part #3: folder3</pre>
+		<p><br>
+		The following parameters are used in the [ListPath] context:
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Parameter</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						path</div>
+				</td>
+				<td>(Required) Path text to break apart.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						FileOnly</div>
+				</td>
+				<td>(Optional) Set to &quot;T&quot; if you only want to display the filename at the end of the path.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						PathOnly</div>
+				</td>
+				<td>(Optional) Set to &quot;T&quot; if you want to display only the folder names, but not the filename at the end of the path.</td>
+			</tr>
+		</table>
+		<br>
+		<br>
+		The following tags are available inside a [ListPath] context:
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Tag</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[index]</div>
+				</td>
+				<td>A number from 1 to the total number of names in the path text indicating the item's index position in the list.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[name]</div>
+				</td>
+				<td>Text of the path piece currently being displayed. This can either be a folder name or a filename, depending on the placement of the text in the path (the text after the last &quot;/&quot; is considered to be the filename).</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[filename]</div>
+				</td>
+				<td>Text of the filename, leaving off the folder names leading to it.</td>
+			</tr>
+		</table>
+		</p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

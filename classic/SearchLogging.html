@@ -1,0 +1,29 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Search Logging</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5"> Searching - Logging What Visitors Search For</font> 
+<p>WebDNA does not &quot;know&quot; what searches are important to keep track of, so it makes no attempt to log every search or database access. It is easy, however, for you to track as much or as little information about how people look through your databases.</p>
+		<p>To log every search of a particular database, put an <a href="AppendFileContext.html">[AppendFile]</a> context somewhere in your search results template. An example might look like the following:</p>
+		<pre>-----------Results.tpl File-----------
+Your search for [woDescriptiondata] found [numFound] items:
+[FoundItems]
+[SKU], [Description], [Price]&lt;br&gt;
+[/FoundItems]
+
+[AppendFile WebDNA.log][Date]	[Time]	[Command]	[woDescriptiondata]
+[/AppendFile]
+----------------------------------------</pre>
+		<p>If you are careful to format the text in tab-delimited columns and put fieldnames at the top of the log file, you may even use WebDNA to open the log file as a database. This allows you to create summaries, search, and sort the log information just like any other WebDNA database.</p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

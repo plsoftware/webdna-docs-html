@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>SQL Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[SQL <i>Statement</i>]Found Items[/SQL]</font> 
+<dl>
+			<dd>Performs a SQL statement on an ODBC data source.
+		</dl>
+		<p>To search through an ODBC-compliant database (or add new records, or delete or replace records,) place a [SQL] context into a WebDNA template. You may specify any dsn (Data Source Name) that has been properly configured through the ODBC setup control panel on the web server computer.<br>
+		<br>
+		The [SQL] context is not limited to searching -- you may perform any legal SQL statement, such as SELECT, INSERT, DROP, etc. The SQL language is too broad to describe here; it is assumed you have a working knowledge of SQL before using this context.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[SQL dsn=Pubs&amp;statement=SELECT * from Authors]<br>
+			Found [NumFound] items&lt;br&gt;<br>
+			[FoundItems]<br>
+			[au_lname], [au_fname], [title]&lt;br&gt;<br>
+			[/FoundItems]<br>
+			[/SQL]
+		</dl>
+		<p>Whenever WebDNA encounters a [SQL] context, it uses ODBC to attempt to make a connection to the DSN you specify. It then executes the SQL statement and retrieves the results, if any. For SQL SELECT statements, you almost always put a <a href="FoundItemsContext.html">[FoundItems]</a>...[/FoundItems] context inside the [SQL] context so you can display the information from the matching records.</p>
+		<p>Notice: you can substitute any [xxx] tags in the SQL parameters, as in [SQL dsn=Pubs&amp;statement=SELECT * from Authors where au_lname &gt; '[form.name]'].</p>
+		<p>Notice: UNIX users can get infomation on how to setup ODBC with WebDNA <a href="UNIXODBCSetup.html">here</a>.<br>
+		<p><table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Parameter</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						dsn</div>
+				</td>
+				<td>Name of the database you wish to search.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						username</div>
+				</td>
+				<td>Username required to access this ODBC database (Optional for Window platform, if none specified, &quot;sa&quot; is used).</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						password</div>
+				</td>
+				<td>Password required to access this ODBC database (Optional for Window platform, if none is specified, a blank password is used).</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						statement</div>
+				</td>
+				<td>Any legal SQL statement.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						max</div>
+				</td>
+				<td>A number indicating how many records should be displayed at once before showing a list of &quot;Show Items xx-yy&quot; hyperlinks.</td>
+			</tr>
+		</table>
+		<p></p>
+		<p>The following tags are available inside a [SQL] context:
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Tag</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[NumFound]</div>
+				</td>
+				
+    <td>A number indicating how many records matched the search request. Some 
+      ODBC drivers do not support this feature, so WebDNA compensates by visiting 
+      every record in the database in order to count them. For large datasets, 
+      this can be very slow, and you should consider writing a SQL statement that 
+      performs a count instead. Do <b>not</b> put [NumFound] inside a SQL context 
+      that INSERTS new records, because the statement will be executed twice in 
+      order to perform the count. This will cause invalid a second record to be 
+      added to your database.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[FoundItems]...[/FoundItems]</div>
+				</td>
+				<td>Normally you put a <a href="FoundItemsContext.html">[FoundItems]</a> loop inside a [SQL] context that has performed a SELECT statement, so you can display all the matching records. You can put any database field names inside the [FoundItems] loop to display them in HTML.</td>
+			</tr>
+		</table>
+		<p></p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

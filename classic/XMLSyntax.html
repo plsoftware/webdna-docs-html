@@ -1,0 +1,78 @@
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+<!--[raw]-->
+<body bgcolor="#FFFFFF">
+<h2>XML Syntax Explanation</h2>
+<p>To give everyone a head start on playing with the new-style syntax, here's 
+  a primer. We are calling it XML syntax only because it is not HTML and it tends 
+  to follow the guidelines of XML and it looks a lot like XML. It is basically 
+  just the type of syntax that most graphical editors like Dreamweaver tend to 
+  expect, and *not* chew up like the original [classic] syntax. </p>
+<p>The general rules is to substitute &quot;[&quot; with &quot;&lt;DNA_&quot;, 
+  &quot;]&quot; with &quot;&gt;&quot;, and named quoted-value pairs instead of 
+  ampersand-delimited pairs. You can see a the new syntax in the included TeaRoomXML 
+  example, which has been ported to XML syntax. So the following classic syntax:</p>
+<pre align="left">&lt;!--HAS_WEBDNA_TAGS-->
+[loop start=1&end=10] 
+[index]
+[/loop] </pre>
+<p>becomes </p>
+<pre>&lt;!--HAS_WEBDNA_TAGS_XML-->
+&lt;DNA_loop start=&quot;1&quot; end=&quot;10&quot;&gt; 
+&lt;DNA_index&gt;
+&lt;/DNA_loop&gt; </pre>
+<dna_index> 
+<p>All parameters *must* be named, and *must* be quoted, even if they are numeric 
+  or have no spaces in them (also a rule of XML). At some point we may even go 
+  so far as to require lowercase tag and parameter names, as XML does, in order 
+  to help out with future XML editors.</p>
+<p> Certain contexts such as [ShowIf] are required to have a named parameter, 
+  so they become: </p>
+<pre>&lt;DNA_ShowIf expr=&quot;12&lt;13&quot;&gt;...&lt;/DNA_ShowIf&gt;</pre>
+<p>You can't get away with unnamed parameters for [Include] either:</p>
+<pre>&lt;DNA_Include file=&quot;fred&quot;&gt;</pre>
+<p> Again, all of these named things may look funny when you type them out, but 
+  they help products like Dreamweaver immensely.</p>
+<p> In order to make it easier for you to port sites one-page-at-a-time, we have 
+  gone to great lengths to let you intermix the syntax. [include], for instance, 
+  automatically assumes the file you're including will be the same syntax as the 
+  template you're including *from*. </p>
+<p><font face="Courier New, Courier, mono">&lt;!--HAS_WEBDNA_TAGS--&gt;</font> 
+  means classic syntax for this whole page<br>
+  <font face="Courier New, Courier, mono">&lt;!--HAS_WEBDNA_TAGS_XML--&gt;</font> 
+  means XML syntax for this whole page</p>
+<p><font face="Courier New, Courier, mono">[include file=fred.inc]</font> will 
+  parse fred.inc using classic syntax<br>
+  <font face="Courier New, Courier, mono">[include file=fred.inc&xmlSyntax=T]</font> 
+  will parse fred.inc using XML syntax </p>
+<p> <font face="Courier New, Courier, mono">&lt;DNA_Include file=&quot;fred.inc&quot;&gt;</font> 
+  will parse fred.inc using XML syntax<br>
+  <font face="Courier New, Courier, mono">&lt;DNA_Include file=&quot;fred.inc&quot; 
+  xmlSyntax=&quot;F&quot;&gt;</font>will parse fred.inc using classic syntax </p>
+<p> Be careful with quotes! It is easy to forget and write something like <font face="Courier New, Courier, mono">[include 
+  file="fred.inc"]</font> <-- those quotes are literal in classic syntax, and 
+  will create wrong results, where it will look for the literal quote in the filename. 
+</p>
+<p>Embedded quotes need to be escaped, also to help with Dreamweaver parsers:<br>
+</p>
+<pre>&lt;DNA_ShowIf expr=&quot;the letter \&quot;a\" ! \&quot;b\&quot;&gt;&quot;&gt;&quot;</pre>
+<p> The idea here is that expr="...a bunch of stuff..." must know when it's hit 
+  the ending quote. So any embedded quotes you put inside have to be preceded 
+  by \, just like you do in JavaScript. </p>
+<p>Arrays: the old trick of using [interpret][array[index]][/interpret] still 
+  works in XML syntax, but we had to do some fancy footwork to recognize it. <br>
+  The syntax looks like this:</p>
+<pre>&lt;DNA_Interpret&gt;&lt;DNA_array&lt;DNA_Index&gt;&gt;&lt;/DNA_Interpret&gt;</pre>
+<dna_array><dna_index>Undefined variables: classic syntax still treats undefined 
+[x] as literally "[x]", in order to handle the case where you're just typing some 
+plain text on a page that happens to have brackets around it. We did this because 
+we have no way of knowing when you mean literal text and when you mean WebDNA 
+variables. But under XML syntax, we know for certain that you are trying to get 
+at a variable, because there is no ambiguity about <dna_x> being a WebDNA construct. 
+So in that case we output "undefined" in its place. 
+<!--[/raw]-->
+</body>
+</html>

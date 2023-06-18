@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Search Groups</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5"> Searching - Multiple Fields at Once</font> <font size="5"><i>GroupNField</i><b>=fieldname1+fieldname2</b></font> 
+<dl>
+			<dd>Searches multiple fields at once.
+		</dl>
+		<p>Sometimes you want to search in many fields at once. For instance, you may want to look in the FirstName field and the LastName field without forcing the visitor to type the same thing into two separate form fields in the web page. Use group fields to combine several database fields into a single search.</p>
+		<p>If your database has a FirstName, LastName, and Address field that you want to look for the word &quot;Lane&quot; in, the URL might look like the following:</p>
+		<p>http://Results.tpl?command=search&amp;<b>group1field</b>=FirstName+LastName+Address&amp;<b>wo</b>group1<b>data</b>=Lane</p>
+		<p>If the word &quot;Lane&quot; appears in any of the 3 fields FirstName, LastName or Address, then that record is considered a match.</p>
+		<center>
+			<p>
+			<table border="1" width="75%" bgcolor="#ffcccc">
+				<tr>
+					<td width="100%"><b>Important:</b> If your database fieldnames contain non-alphanumeric characters (such as the plus sign, space, comma, period, etc.) then WebDNA could have trouble distinguishing them in the list of multiple fields. In this case, you should use the alternate form for specifying groups (by adding an 's' to the end of 'GroupNField' and listing each field separately):
+						<pre>Group1Field<b>s</b>=first.name&amp;Group1Field<b>s</b>=last.name</pre>
+					</td>
+				</tr>
+				<tr>
+					<td width="100%"><b>Also:</b> You MUST number your groups sequentially, beginning with 1. If you 
+fail to do this, some of your group fields may be ignored.
+
+					</td>
+				</tr>
+			</table>
+			<p></p>
+		</center>
+		<p>You can also use Group fields to search through different database fields depending on the radio button or popup a user chooses. The following HTML presents a form allowing the user to choose to search in different fields, or all fields at once.<br>
+		<br>
+		<b>Example 1</b>: Allow the user to choose which field will be searched:</p>
+		<pre>&lt;form method=&quot;POST&quot; action=&quot;Results.tpl&quot;&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;command&quot; value=&quot;Search&quot;&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;db&quot; value=&quot;catalog.txt&quot;&gt;
+&lt;input type=&quot;radio&quot; name=&quot;group1field&quot; value=&quot;Description&quot; checked&gt;Description&lt;br&gt;
+&lt;input type=&quot;radio&quot; name=&quot;group1field&quot; value=&quot;SKU&quot; checked&gt;Product Number&lt;br&gt;
+&lt;input type=&quot;radio&quot; name=&quot;group1field&quot; value=&quot;Manufacturer&quot; checked&gt;Manufacturer&lt;br&gt;
+&lt;input type=&quot;radio&quot; name=&quot;group1field&quot; value=&quot;Description+SKU+Manufacturer&quot; checked&gt;All&lt;br&gt;
+&lt;input name=&quot;woGroup1data&quot;&gt;
+&lt;input type=&quot;submit&quot;&gt;
+&lt;/form&gt;</pre>
+		<p><b>Example 2</b>: Search two fields from a single text box:</p>
+		<pre>&lt;form method=&quot;POST&quot; action=&quot;Results.tpl&quot;&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;command&quot; value=&quot;Search&quot;&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;db&quot; value=&quot;catalog.txt&quot;&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;group1field&quot; value=&quot;Description+SKU&quot;&gt;
+Type a Description or SKU:&lt;input name=&quot;woGroup1data&quot;&gt;
+&lt;input type=&quot;submit&quot;&gt;
+&lt;/form&gt;</pre>
+		<p><b>Example 3</b>: Apply more than one comparison to a single field:</p>
+		<pre>&lt;form method=&quot;POST&quot; action=&quot;Results.tpl&quot;&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;command&quot; value=&quot;Search&quot;&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;db&quot; value=&quot;catalog.txt&quot;&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;group1field&quot; value=&quot;Date&quot;&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;group2field&quot; value=&quot;Date&quot;&gt;
+Date:&lt;input name=&quot;eqGroup1data&quot;&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;grGroup2datarq&quot; value=&quot;[date]&quot;&gt;
+&lt;input type=&quot;submit&quot;&gt;
+&lt;/form&gt;
+
+<!--[/Raw]--></pre>
+	</body>
+
+</html>

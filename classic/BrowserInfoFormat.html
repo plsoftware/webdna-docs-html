@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Browser Info Format</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">File Formats - Browser Info.txt</font> 
+<dl>
+  <dt><b>Note: This appendix will be available through version 4.0. It will be 
+    eliminated in version 5.0.</b></dt>
+</dl>
+<p>The Browser Info.txt file is a list of information about various web browsers (e.g. Netscape, Microsoft Information Explorer) informing WebDNA of the HTML capabilities of each browser. WebDNA can hide HTML from browsers that do not understand certain tags: for example, Netscape 1.0 cannot understand &lt;TABLE&gt;, but Netscape 1.1 can. This helps you design a single web page automatically tailored for each browser visiting that page.<br>
+		<br>
+		Browser Name &lt;tab&gt; HTML Level &lt;tab&gt; SSL-Aware?</p>
+		<pre>Mozilla/1.0&nbsp;&nbsp;1&nbsp;&nbsp;T
+Mozilla/1.1&nbsp;&nbsp;1&nbsp;&nbsp;T
+Mozilla/1.2&nbsp;&nbsp;2&nbsp;&nbsp;F
+Mozilla/1.&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;T
+Mozilla/2.&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;T
+Mozilla/3.&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;T</pre>
+		
+<p>The list above says that:</p>
+		<ul>
+			<li>Netscape 1.0x (Mozilla/1.0) will see text inside WebDNA's [HTML1][/HTML1] tags, and that it is SSL-aware.
+			<li>The same is true for Netscape 1.1x (Mozilla/1.1).
+			<li>Microsoft's Information Explorer identifies itself as Mozilla/1.2, but MSIE does not understand SSL, so we have marked it as &quot;F&quot; (false) in the list above. This means WebDNA will not show any text inside [secureBrowser][/secureBrowser] to MSIE browsers.
+			<li>Netscape 1.3 and above are marked as [HTML2], with SSL true
+			<li>Netscape 2.x and above are marked as [HTML2], with SSL true
+			<li>Netscape 3.x and above are marked as [HTML3], with SSL true
+		</ul>
+		<p>Any browser not listed will be assumed to be [HTML1] and non-SSL.<br>
+		<br>
+		As new browsers reach the market, you can modify this file so WebDNA can display correct HTML for each one.</p>
+		<p>One thing to remember is that <a href="HTML1Context.html">[HTML1]</a>, <a href="HTML2Context.html">[HTML2]</a>, <a href="HTML3Context.html">[HTML3]</a> are arbitrary classifications not corresponding to W3.org's definitions of HTML levels. They are just 3 different classifications you can make however you wish. If you do not include special HTML code for Netscape 3.x, then Browser Info.txt would work better if the last line of the file was 'Mozilla/3. 2 T.' If you want to set up a site to display information as a table to table-capable browsers and use a non-table way to display the information to non table-capable browsers, then there is no need to use [HTML3] at all. You would only use table [HTML2] and non-table [HTML1] ways to display information. Even if you used frames, only 2 different sets of [HTML] need to be used because the frame information is put inside of a HTML comment.</p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

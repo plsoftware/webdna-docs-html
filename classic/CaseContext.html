@@ -1,0 +1,74 @@
+<HTML>  
+<HEAD>
+  <META NAME="GENERATOR" CONTENT="Adobe PageMill 3.0 Mac">
+  <META HTTP-EQUIV="content-type" CONTENT="text/html;charset=iso-8859-1">
+  <TITLE>Case Context</TITLE>
+  <!-- [Raw] -->
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<P><FONT SIZE="+2">[Case <I>Value</I>]Text or WebDNA to display[/Case]</FONT></P>
+
+<DL> 
+  <DD><B><font color="#FF0000"><b>New in 4.0</b></font><br>
+    </B>Executes the WebDNA 
+    inside its body only if the value matches the given value from the surrounding 
+    <A HREF="SwitchContext.html">[Switch]</A> context. 
+</DL>
+
+<P>To display some HTML (or execute some WebDNA) from a list of
+known text options, put the text value inside a [Switch] context.
+For each possible option, put a [Case] context inside the <A 
+HREF="SwitchContext.html">[Switch]</A>. You may optionally specify
+a default case by inserting a <A HREF="DefaultContext.html">[Default]</A>
+context. The [Default] context <B>must</B> be the very last context
+inside the [Switch]. This context can only be used within a [Switch]
+context.</P>
+
+<P><B>Example</B> (normally you would put the following text into
+a .tpl file on your server and use a web browser to link to it):</P>
+
+<BLOCKQUOTE>
+  <PRE>[text]x=5[/text]
+[Switch value=[x]]
+&nbsp;&nbsp;[Case value=1]
+&nbsp;&nbsp;&nbsp;&nbsp;The value of x was 1
+&nbsp;&nbsp;[/Case]
+&nbsp;&nbsp;[Case value=2]
+&nbsp;&nbsp;&nbsp;&nbsp;The value of x was 2
+&nbsp;&nbsp;[/Case]
+&nbsp;&nbsp;[Default]
+&nbsp;&nbsp;&nbsp;&nbsp;The value of x was neither 1 nor 2; it was [x]
+&nbsp;&nbsp;[/Default]
+[/Switch]
+
+[text]title=Mrs[/text]
+[Switch value=[title]]
+&nbsp;&nbsp;[Case value=Mr]
+&nbsp;&nbsp;&nbsp;&nbsp;You're a male
+&nbsp;&nbsp;[/Case]
+  [Case value=Mrs]
+&nbsp;&nbsp;&nbsp;&nbsp;You're a female
+&nbsp;&nbsp;[/Case]
+[/Switch]</PRE>
+</BLOCKQUOTE>
+
+<P>In the first example above, the text &quot;The value of x was
+neither 1 nor 2; it was 5&quot; will display, because the two
+cases for &quot;1&quot; and &quot;2&quot; did not match the actual
+value of x, which was &quot;5&quot;. In the second example above,
+the text &quot;You're a female&quot; will display. Any WebDNA
+inside the other [Case] contexts will not execute, and any text
+inside those contexts will not display.</P>
+
+<DL>
+  <DD><B>Note:</B> The values are compared as case-insensitive
+  text only. This means that the number &quot;1.0&quot; is not
+  the same as the number &quot;1&quot; when determining which of
+  the [Case] contexts to execute.
+</DL>
+
+<P><!--[/Raw]-->
+
+</BODY>
+</HTML>

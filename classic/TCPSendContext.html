@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>TCPSend Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[TCPSend]Text to Send[/TCPSend]</font>
+		<dl>
+			
+  <dd>Sends text to a TCP server program on a remote machine.<font color=red> 
+    </font> 
+</dl>
+		<p>To embed the results of a TCP session into one of your pages, place a <a href="TCPConnectContext.html">[TCPConnect]</a> context into a template, and place [TCPSend] contexts inside of that. The TCPSend steps contained inside the context execute, and any returned value displays in place of the context. Any [xxx] tags inside the context are first substituted for their real values before the TCPSend executes.<br>
+		<br>
+		TCPConnect does nothing by itself; you must insert one or more [TCPSend] contexts inside it to perform any real work. TCPConnect establishes a connection to the TCP server program, and provides an environment for the TCPSend contexts to do their work and return text results.</p>
+		<p><b>Example</b> (normally you would put the following text into a .TPL file on your server and use a web browser to link to it):</p>
+		<dl>
+			
+  <dd>[TCPConnect host=webdna.us&amp;port=80]<br>
+			[TCPSend]GET / HTTP/1.0[UnURL]%0D%0A%0D%0A[/UnURL][/TCPSend]<br>
+			[/TCPConnect]
+		</dl>
+		
+<p>In this example, the http command equivalent to the URL &quot;http://www.webdna.us&quot; 
+  executes, and the results (the home page for that site) display. Notice the 
+  use of <a href="UnURLContext.html">[UnURL]</a> to send &lt;Carriage Return&gt;&lt;LineFeed&gt;&lt;Carriage 
+  Return&gt;&lt;LineFeed&gt; as part of the TCPSend text. If you do not send the 
+  correct sequence of 2 CR/LF characters, the remote web server never returns 
+  any text, and the TCPSend times out while waiting for a response.</p>
+		<dl>
+			<dd>[TCPConnect host=internic.net&amp;port=43]<br>
+			&lt;pre&gt;[TCPSend]webdna.us[unURL]%0D%0A[/unURL][/TCPSend]&lt;/pre&gt;<br>
+			[/TCPConnect]
+		</dl>
+		<p>This example performs the equivalent of a WHOIS command which queries the Internet for information about a particular domain name. Substitute your own domain name and see what you get!<br>
+		
+<table border="1" cellpadding="0">
+  <tr> 
+    <th bgcolor="#bbbbbb">Parameter</th>
+    <th bgcolor="#bbbbbb">Description</th>
+  </tr>
+  <tr> 
+    <td> <div align="right"> end</div></td>
+    <td>(Optional) text to look for indicating end of line. Often [TCPSend end=%0D%0A] 
+      is used to look for &lt;carriage return&gt;&lt;line feed&gt; as the end 
+      of line indicator, as is necessary when communicating with email POP servers 
+      or FTP servers.<br> <br>
+      Not necessary for communication with HTTP protocol, because the remote server 
+      disconnects automatically at the end of the session.</td>
+  </tr>
+  <tr> 
+    <td><div align="right">skipheader=T </div></td>
+    <td>(Optional) instructs the WebDNA engine to'strip' the MIME headers from 
+      the result</td>
+  </tr>
+</table>
+		
+<p><br>
+</p>
+<p>Using 'SKIPHEADER=T' in the [TCPSend] context will instruct the WebDNA engine 
+  to'strip' the MIME headers from the result (assuming that you are invoking an 
+  HTTP Get or Post). <br>
+  <br>
+  For example:<br>
+  <br>
+  A simple HTTP GET without the SKIPHEADER set to 'T' </p>
+<blockquote>
+  <p><br>
+    [text]host=[listmimeheaders name=host&amp;exact=false][value][/listmimeheaders][/text] 
+  </p>
+  <p>[tcpconnect host=[host]][tcpsend]<br>
+    GET [thisurl]?get=false HTTP/1.0<br>
+    HOST: [host]</p>
+  <p>[/tcpsend][/tcpconnect]</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>Result: </p>
+<blockquote>
+  <p><br>
+    HTTP/1.0 200 OK<br>
+    Content-type: text/html<br>
+    Content-Length: 29</p>
+  <p><br>
+    <strong>Hello World!</strong></p>
+</blockquote>
+<p><br>
+  With the 'SKIPHEADER=T' parameter... </p>
+<blockquote>
+  <p><br>
+    [tcpconnect host=[host]][tcpsend skipheader=T]<br>
+    GET [thisurl]?get=false HTTP/1.0<br>
+    HOST: [host]</p>
+  <p>[/tcpsend][/tcpconnect]</p>
+</blockquote>
+<p>Results:</p>
+<blockquote>
+  <p><br>
+    <strong>Hello World!</strong></p>
+</blockquote>
+<p>
+The 'skipheader' option is also handy when using TCPSend to fetch a binary file from a remote server.<br>
+For Example:
+<pre>
+[tcpconnect host=[host]]
+[writefile file=test.jpg][tcpsend skipheader=T]GET /[path_to_jpg] HTTP/1.0[unurl]%0D%0A[/unurl][!]
+[/!]Host: [host][unurl]%0D%0A%0D%0A[/unurl][!]
+[/!][/tcpsend][/writefile]
+[/tcpconnect]
+</pre>
+</p>
+<!--[/Raw]-->
+	</body>
+
+</html>

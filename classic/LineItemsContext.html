@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"><!--last modified on Thu, Oct 8, 1998 10:13 AM-->
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>LineItems Context</title>
+		<!--[Raw]-->
+		<meta name="Author" content="Grant Hulbert">
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[LineItems]LineItem Variables[/LineItems]</font>
+		<dl>
+			<dd>Loops through all the line items in an order file.
+		</dl>
+		<p>To display a list of all the line items in a shopping cart or order file, put a [LineItems] context into a template. This is typically in a template displaying the results of a <a href="ShowCartCommand.html">ShowCart</a>, <a href="AddCommand.html">Add</a>, <a href="RemoveCommand.html">Remove</a>, or <a href="PurchaseCommand.html">Purchase</a> command. You may also put a [LineItems] context inside an <a href="OrderFileContext.html">[OrderFile]</a> context embedded in any page.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[LineItems]
+			<dd>[sku], [price], [quantity]&lt;br&gt;
+			<dd>[/LineItems]
+		</dl>
+		<p>The following tags are available inside a [LineItems] context:
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Tag</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[LineIndex]</div>
+				</td>
+				<td>A number from 1 to the maximum number of line items, indicating this item's index position in the list.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[SKU]</div>
+				</td>
+				<td>The SKU of this line item in the shopping cart.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[Quantity]</div>
+				</td>
+				<td>Quantity of this line item the visitor wants to purchase.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[Price]</div>
+				</td>
+				<td>Price of this line item.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[Taxable]</div>
+				</td>
+				<td>&quot;T&quot; if this item is taxable, &quot;F&quot; if not.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[CanEmail]</div>
+				</td>
+				<td>&quot;T&quot; if this item is electronically deliverable, &quot;F&quot; if not.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[UnitShipCost]</div>
+				</td>
+				<td>Price to ship one unit of this item.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[TextA]</div>
+				</td>
+				<td>Extra text field to be used for any purpose. Often used to store extra product information, such as &quot;shoe size&quot; or &quot;color.&quot; Also used to pass catalog fields such as [title] through to the order file.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[TextB]</div>
+				</td>
+				<td>Extra text field to be used for any purpose. Often used to store extra product information, such as &quot;shoe size&quot; or &quot;color.&quot; Also used to pass catalog fields such as [title] through to the order file.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[TextC]</div>
+				</td>
+				<td>Extra text field to be used for any purpose. Often used to store extra product information, such as &quot;shoe size&quot; or &quot;color.&quot; Also used to pass catalog fields such as [title] through to the order file.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[TextD]</div>
+				</td>
+				<td>Extra text field to be used for any purpose. Often used to store extra product information, such as &quot;shoe size&quot; or &quot;color.&quot; Also used to pass catalog fields such as [title] through to the order file.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[TextE]</div>
+				</td>
+				<td>Extra text field to be used for any purpose. Often used to store extra product information, such as &quot;shoe size&quot; or &quot;color.&quot; Also used to pass catalog fields such as [title] through to the order file.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						<strike>[QuantityPrice]</strike></div>
+				</td>
+				<td>No longer available. Use [math][quantity]*[price][/math] instead</td>
+			</tr>
+		</table>
+		<p></p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

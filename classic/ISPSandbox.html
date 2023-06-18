@@ -1,0 +1,265 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<!--[Raw]-->
+<head>
+<title>ISP Sandbox</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+
+<table width="770" border="0" cellpadding="0" cellspacing="0">
+  <!--DWLayoutTable-->
+  <tr> 
+    <td width="1" height="27">&nbsp;</td>
+    <td width="735">&nbsp;</td>
+    <td width="34"></td>
+  </tr>
+  <tr> 
+    <td height="1245">&nbsp;</td>
+    <td valign="top"><h1>ISP Sandbox</h1>
+      <h2><br>
+        What does a WebDNA Sandbox do? </h2>
+      <p><br>
+        Basically it provides a way for a WebDNA admin to designate a particular 
+        folder, and its subfolders, as a WebDNA Sandbox. This means that WebDNA 
+        templates running from within that folder will not be able to view, manipulate, 
+        delete, or create any files outside of their root Sandbox folder. <br>
+        <br>
+        This enables a WebDNA ISP to allow multiple WebDNA developers access to 
+        the same machine knowing that each sites is 'locked down' to its own root 
+        folder. <br>
+        <br>
+        But that's not all... <br>
+        <br>
+        Each sandbox site has its own 'WebCatalog Prefs' file called <strong>Sandbox 
+        Prefs</strong>, which includes nearly every preference you would find 
+        in the master WebCatalog Prefs file. <br>
+        <br>
+        Each Sandbox has its own <strong>Triggers</strong> process <br>
+        <br>
+        Each Sandbox has its own <strong>Emailer</strong> process <br>
+        <br>
+        Each Sandbox has its own <strong>Users database</strong> <br>
+        <br>
+        Each Sandbox has its own <strong>Admin</strong> section, which includes 
+        nearly all the templates you would find in the main WebDNA admin pages. 
+        <br>
+        <br>
+        Each Sandbox has its own <strong>Globals</strong>, <strong>EmailFolder</strong>, 
+        <strong>EmailCompleted</strong> folder, etc.... <br>
+        <br>
+        If fact, each Sandbox has nearly every database, template, and system 
+        folder you would normally find in the main WebDNA engine folder. </p>
+      <p>&nbsp;</p>
+      <p><strong>Some Experimentation </strong><br>
+        <br>
+        Lets try a database search on an arbitrary db file that we know is outside 
+        the Sandbox... </p>
+      <blockquote> 
+        <p><br>
+          [search db=../../../../test.db&amp;eqIDdata=1]<br>
+          [numfound]<br>
+          [/search]</p>
+      </blockquote>
+      <p>&nbsp;</p>
+      <p>Results.... </p>
+      <blockquote> 
+        <p><br>
+          WebDNA Sandbox security does not allow access to: *\test.db*An unknown 
+          error occurred:<br>
+          DBError<br>
+          ../../../../test.db</p>
+      </blockquote>
+      <p>&nbsp;</p>
+      <p><strong>WebDNA Changes </strong><br>
+        <br>
+        Here is a list of WebDNA Tags and Contexts whose behavior is altered when 
+        used inside a WebDNA Sandbox... <br>
+        <br>
+        These contexts can only operate on files and or folders that exist within 
+        the Sandbox root folder, or the sandbox 'globals' folder when the '^' 
+        prefix is used.</p>
+      <blockquote> 
+        <p><br>
+          [appendfile]<br>
+          [writefile]<br>
+          [renamefile]<br>
+          [deletefile]<br>
+          [movefile]<br>
+          [copyfile]<br>
+          [fileinfo]<br>
+          [listfiles]<br>
+          [waitforfile]<br>
+          [copyfolder]<br>
+          [createfolder]<br>
+          [deletefolder]</p>
+      </blockquote>
+      <p><br>
+        These operations can only operate on a cart or files that exists within 
+        the sandbox root, or the sandbox 'globals' folder when the '^' prefix 
+        is used.</p>
+      <blockquote> 
+        <p><br>
+          [orderfile]<br>
+          [purchase]<br>
+          [removelineitem]<br>
+          [clearlineitem]<br>
+          [setlineitems]<br>
+          [setheader]</p>
+      </blockquote>
+      <p><br>
+        Will only flush the databases that exists within the sandbox root or globals 
+        folder.</p>
+      <blockquote> 
+        <p><br>
+          [flushdatabases]</p>
+      </blockquote>
+      <p><br>
+        These contexts will only operate on database files that exist within the 
+        sandbox root or globals folder.</p>
+      <blockquote> 
+        <p><br>
+          [commitdatabase]<br>
+          [listdatabases]<br>
+          [closedatabase]<br>
+          [listfields]<br>
+          [search]<br>
+          [lookup]<br>
+          [replace]<br>
+          [append]<br>
+          [delete]</p>
+      </blockquote>
+      <p><br>
+        Uses the 'local' sandbox 'users.db' file.</p>
+      <blockquote> 
+        <p><br>
+          [protect]</p>
+      </blockquote>
+      <p><br>
+        Both these tags use the 'format' preferences in the local sandbox prefs 
+        file.</p>
+      <blockquote> 
+        <p><br>
+          [date]<br>
+          [time]</p>
+      </blockquote>
+      <p><br>
+        Can only include a file that exists within the sandbox root or globals 
+        folder.</p>
+      <blockquote> 
+        <p><br>
+          [include]</p>
+      </blockquote>
+      <p><br>
+        Uses the local sandbox email settings. Resulting email files are written 
+        to the sandbox 'EmailFolder'.</p>
+      <blockquote> 
+        <p><br>
+          [sendmail]</p>
+      </blockquote>
+      <p><br>
+        These contexts require special handling, discussed later.</p>
+      <blockquote> 
+        <p><br>
+          [object]<br>
+          [dos]<br>
+          [applescript]</p>
+      </blockquote>
+      <p><br>
+        Uses the local sandbox 'StandardConversions.db' file. If a database is 
+        specified, it must exist within the sandbox root or globals folder.</p>
+      <blockquote> 
+        <p><br>
+          [convertchars]</p>
+      </blockquote>
+      <p><br>
+        Can only be used with a database that exists within the sandbox root or 
+        globals folder.</p>
+      <blockquote> 
+        <p><br>
+          [convertwords]</p>
+      </blockquote>
+      <p>&nbsp;</p>
+      <p><strong>Misc. Sandbox Notes </strong><br>
+        <br>
+        The '/' path prefix will be relative to the Sandbox root folder. <br>
+        <br>
+        The '^' global prefix will refer to the Sandbox globals folder and not 
+        the main WebDNA globals folder. <br>
+        <br>
+        The 'absolute path' specifier '*' can still be used with a sandbox, as 
+        long as it refers to a path that exists within the sandbox root or globals 
+        folder. <br>
+        <br>
+        WebDNA error messages will be retrieved from the sandbox ErrorMessages.db, 
+        and not the main WebDNA ErrorMessages.db <br>
+        <br>
+        WebDNA error logs and debug files will be created within the sandbox system 
+        folder, and not the main WebCatalogEngine folder. <br>
+      </p>
+      <p><strong>Shell, DOS, Applescript </strong><br>
+        <br>
+        The <strong>[shell]</strong>, <strong>[dos]</strong>, and <strong>[applescript]</strong> 
+        contexts require special handling when used within a WebDNA Sandbox. <br>
+        <br>
+        Shell, DOS, and Applescript code can no longer be explicitly defined within 
+        these contexts, when used in a WebDNA Sandbox. Instead, the desired code 
+        must be submitted to the WebDNA admin for approval. If approved, the 'code 
+        snippet' is added to the WebDNA Sandbox 'Scripts' database, with a unique 
+        ID code. This ID code is then used by the Sandbox programmer. <br>
+        <br>
+        For example... <br>
+        <br>
+        A WebDNA sandbox programmer wants to execute the DOS command. <strong>&quot;dir 
+        c:\&quot;</strong>. The programmer submits the code snippet, <strong>&quot;dir 
+        c:\&quot;</strong>, to the WebDNA admin. The admin approves the code, 
+        and inserts the code into the WebDNA Sandbox Scripts database with a unique 
+        ID of '111'. The WebDNA admin then returns the ID to the Sandbox programmer. 
+        The Sandbox programmer then uses the ID as follows... </p>
+      <blockquote> 
+        <p><br>
+          [DOS scriptID=111][/DOS] </p>
+      </blockquote>
+      <p>&nbsp;</p>
+      <p>The same applies when using the<strong> [shell] </strong>context. <br>
+        <br>
+        The<strong> [object]</strong> context is handled in a slightly different 
+        way. For this case, the submitted 'code snippet' is the 'parameter list' 
+        that would normally be passed into the context. <br>
+        <br>
+        For example...</p>
+      <blockquote> 
+        <p><br>
+          [OBJECT objname=SystemInfo.SysInfo.1&amp;type=0[!]<br>
+          [/!]&amp;call=GetFreeDiskSpace[!]<br>
+          [/!]&amp;param1=C:\&amp;param1type=str][/OBJECT]</p>
+      </blockquote>
+      <p>&nbsp;</p>
+      <p>would become...</p>
+      <p>&nbsp;</p>
+      <blockquote> 
+        <p>[OBJECT SCRIPTID=123][/OBJECT]</p>
+      </blockquote>
+      <p>&nbsp;</p>
+      <p>The WebDNA admin having recorded the text: </p>
+      <blockquote>
+        <p><br>
+          &quot;objname=SystemInfo.SysInfo.1&amp;type=0[!]<br>
+          [/!]&amp;call=GetFreeDiskSpace[!]<br>
+          [/!]&amp;param1=C:\&amp;param1type=str&quot;</p>
+      </blockquote>
+      <p>&nbsp;</p>
+      <p>into the Sandbox scripts database with an ID of 123.<br>
+      </p></td>
+    <td></td>
+  </tr>
+  <tr> 
+    <td height="42">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td></td>
+  </tr>
+</table>
+</body>
+<!--[/Raw]-->
+</html>

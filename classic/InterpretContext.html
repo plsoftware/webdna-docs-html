@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Interpret Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[Interpret]Any Text and [xxx][/Interpret]</font>
+		<dl>
+			<dd>Interprets the enclosed [xxx] values using the WebDNA interpreter.
+		</dl>
+		<p>To interpret [xxx] values stored in a database field, enclose them in an [Interpret] context. For example, if you put the text &quot;[date]&quot; into a field in a database (text1, for instance), then when you display [text1] in a template it only shows the literal text &quot;[date]&quot; -- it will not try to interpret the contents of the field. [Interpret][text1][/Interpret], however, first substitutes &quot;[date]&quot; for text1, then interprets the result as &quot;1/29/97.&quot;</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[Interpret]Some Text that contains [xxx] fields[/Interpret]
+		</dl>
+		<p>Any WebDNA [xxx] tags are first substituted for their real values, which may contain more [xxx] tags. Then the resulting text and tags are interpreted as though they were typed into the template directly.</p>
+		<p>Why? A good example is a banner advertisement database: let's say you want to create a list of advertisements to display randomly at the top of every page in your site. This works well if the ads do not contain any [xxx] tags. But if you want to put [cart] information into the banner ad, you must use the [Interpret] context to cause the [cart] variable to be substituted for its real value.</p>
+		<pre>-----BannerAds.db------
+AdNumber&nbsp;&nbsp;&nbsp;&nbsp;BannerHTML
+1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;a href=&quot;Invoice.tpl?cart=[cart]&quot;&gt;Invoice&lt;/a&gt;
+2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;img src=&quot;[random].gif&quot;&gt;
+-----------------------</pre>
+		<p>Now let's look at a sample template that <b>incorrectly</b> uses the database above to randomly choose 1 item from the list and display the results at the top of a page:</p>
+		<pre>&lt;html&gt;&lt;body&gt;
+[search db=BannerAds.db&amp;neAdNumberdata=0&amp;max=1&amp;AdNumbersdir=ra&amp;AdNumbersort=1]
+[foundItems][BannerHTML][/foundItems]
+[/search]
+&lt;/body&gt;&lt;/html&gt;</pre>
+		<p>The problem here is that the [BannerHTML] is indeed evaluated and displayed, but it is incorrect because the [random] tag <i>inside the field</i> has not been evaluated to its true value:</p>
+		<pre>&lt;img src=&quot;[random].gif&quot;&gt;</pre>
+		<p>Now let's look at a sample template that <b>correctly</b> uses the database above to randomly choose 1 item from the list and display the results at the top of a page:</p>
+		<pre>&lt;html&gt;&lt;body&gt;
+[search db=BannerAds.db&amp;neAdNumberdata=0&amp;max=1&amp;AdNumbersdir=ra&amp;AdNumbersort=1]
+[foundItems][Interpret][BannerHTML][/Interpret][/foundItems]
+[/search]
+&lt;/body&gt;&lt;/html&gt;</pre>
+		<p>The results here are what we expected:</p>
+		<pre>&lt;img src=&quot;47.gif&quot;&gt;<!--[/Raw]--></pre>
+	</body>
+
+</html>

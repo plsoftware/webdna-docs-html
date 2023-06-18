@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Search Combination</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">Searching - Combining</font> 
+<dl>
+			<dd>Combines multiple search criteria.
+		</dl>
+		<p>You may combine many search criteria into a single search command, effectively searching through many different fields at once, while sorting and even summarizing the results. To create a complex search, simply put all the search criteria into a single URL or HTML form, or even an embedded <a href="SearchContext.html">[Search]</a> context.</p>
+		<p><b>Examples</b>:</p>
+		<p>
+		<hr>
+		Find all product Descriptions containing <b>either</b> of the words &quot;Television&quot; or &quot;Stereo&quot; or both and sort the found items containing both words (best match) to the top of the list.<br>
+		<br>
+		Results.tpl?command=search&amp;woDescriptiondata=Television,Stereo&amp;db=Products.db<br clear="left">
+		<hr>
+		Find all product Descriptions containing <b>either</b> of the words &quot;Television&quot; or &quot;Stereo&quot; or both and sort the found items by <b>Price</b> in <b>descending</b> order.<p></p>
+		<p>Results.tpl?command=search&amp;woDescriptiondata=Television,Stereo&amp;Pricesort=1&amp;Pricesdir=de&amp;Pricetype=num&amp;db=Products.db<br clear="left">
+		</p>
+		<p>
+		<hr>
+		Find all product Descriptions containing <b>both</b> of the words &quot;Television&quot; <b>and</b> &quot;Stereo.&quot;<p></p>
+		<p>Results.tpl?command=search&amp;<b>wa</b>Descriptiondata=Television,Stereo&amp;db=Products.db<br clear="left">
+		</p>
+		<p>
+		<hr>
+		Find all product Descriptions containing <b>neither</b> the word &quot;Television&quot; nor &quot;Stereo.&quot;<p></p>
+		<p>Results.tpl?command=search&amp;<b>wn</b>Descriptiondata=Television,Stereo&amp;db=Products.db<br clear="left">
+		</p>
+		<p>
+		<hr>
+		Find all blank product Titles (contain no text whatsoever, not even a space).<p></p>
+		<p>Results.tpl?command=search&amp;<b>eq</b>Titledata=[blank]&amp;db=Products.db<br clear="left">
+		<hr>
+		Find all records whose product Description contains <b>at least one</b> of &quot;Television&quot; or &quot;Stereo&quot; <b>and also</b> whose product Title contains <b>at least one</b> of &quot;Car&quot; or &quot;Boat.&quot;<p></p>
+		<p>Results.tpl?command=search&amp;<b>wo</b>Descriptiondata<b>rq</b>=Television,Stereo&amp;<b>wo</b>Titledata<b>rq</b>=&amp;Car,Boat&amp;db=Products.db<br clear="left">
+		</p>
+		<p>
+		<hr>
+		<p></p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Formulas</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">File Formats - Formulas</font> 
+<p>When your customers <a href="AddCommand.html">Add</a> or <a href="AddContext.html">[AddLineItem]</a> products to their shopping cart, WebDNA gets the price of the product in one of two ways: the price can come from a field in the database called &quot;price,&quot; or it can be calculated based on a formula. To prevent &quot;hacking,&quot; WebDNA never allows remote users to set product prices -- but you can still customize pricing by creating a formula to calculate a different
+price based on any WebDNA tags, such as [username], [zip], [math] calculation, or any form, text or
+math variable that is active on that page.</p>
+		<dl>
+			
+  <dd><b>Note</b>: The TeaRoom example uses a formula to calculate price, taxRate, 
+    unitShipCost and overall shipping costs based on the customer's shipping address. 
+</dl>
+		<p>Every time a product is added to the shopping cart, WebDNA calculates the item's price, taxable, and unitShipCost as follows:</p>
+		<ol>
+			<li>Look for a file called Formulas.db in the same folder as the shopping cart template itself, and look for a formula called &quot;price.&quot;
+			<li>If Formulas.db contains a &quot;price&quot; formula, then evaluate the WebDNA expression (in the context of the current lineitem, so tags such as [price], [quantity], [zip] and [sku] are available,  as well as any form, text
+or math variables active on that page).
+			<li>Set the price of the product based on the calculated formula, or if no formula is found, simply use the &quot;price&quot; field from the product database corresponding to the item's SKU.
+			<li>Repeat the 3 steps above for &quot;unitShipCost.&quot;
+			<li>Repeat the 3 steps above for &quot;taxable.&quot;
+			<li>Repeat the 3 steps above for &quot;taxRate&quot;, which is applied to the entire order, not just the added item. If no formula is found, then look for a form variable called &quot;taxRate&quot; and use that instead.
+			<li>Repeat the 3 steps above for &quot;shipCost&quot;, which is applied to the entire order, not just the added item. If no formula is found, then look for a form variable called &quot;shipCost&quot; and use that instead.
+		</ol>
+		<p>
+		<table border="1" cellpadding="0" width="100%">
+			<tr>
+				<th width="19%" bgcolor="#cccccc">Variable<br>
+					(case-sensitive)</th>
+				<th width="81%" bgcolor="#cccccc">Description</th>
+			</tr>
+			<tr>
+				<td width="19%">
+					<div align="right">
+						price</div>
+				</td>
+				<td width="81%">lookup SKU in database, or calculate from formula (applied only to this lineItem being added).</td>
+			</tr>
+			<tr>
+				<td width="19%">
+					<div align="right">
+						unitShipCost</div>
+				</td>
+				<td width="81%">lookup SKU in database, or calculate from formula (applied only to this lineItem being added).</td>
+			</tr>
+			<tr>
+				<td width="19%">
+					<div align="right">
+						taxRate</div>
+				</td>
+				<td width="81%">optional parameter to Add command, or calculate from formula (applied to entire order file).</td>
+			</tr>
+			<tr>
+				<td width="19%">
+					<div align="right">
+						shipCost</div>
+				</td>
+				<td width="81%">optional parameter to Add command, or calculate from formula (applied to entire order file). This number is added to the sum total of all the unitShipCost values to arrive at the shippingTotal for the whole order.</td>
+			</tr>
+			<tr>
+				<td width="19%">
+					<div align="right">
+						taxable</div>
+				</td>
+				<td width="81%">lookup SKU in database, or calculate from formula (applied only to this lineItem being added). The result of the formula must be either T or F.</td>
+			</tr>
+		</table>
+		<p></p>
+		<p>The GeneralStore example uses the following formula for price:</p>
+		<p>[lookup db=catalog.txt&amp;lookInField=sku&amp;value=[sku]&amp;returnField=price]</p>
+		<p>This formula looks up the price of the product in the database and returns it unchanged. This is for demonstration purposes only, because in this particular case, the formula calculates exactly the same price as though you had not specified a formula at all. To do something more complex, you might perform some calculation based on the visitor's [username] information, like so:</p>
+		<p>[math][showif [username]=GRANT]0.0*[/showif][lookup db=catalog.txt&amp;lookInField=sku&amp;value=[sku]&amp;returnField=price][/math]</p>
+		<p>This example would set the price to $0 if the user was logged in as &quot;GRANT&quot;, otherwise the price would be unchanged.</P>
+		<p>There should be no carraige returns, other than signifing line endings, in the formula.  If carriage returns used (perhaps to make the formula more 'readable'), then they
+should be 'hidden' using comments ([!][/!]) to hide extra carraige returns.  For example:</p>
+<pre>
+"[if [username]=DONOVAN][!]
+[/!][then][math][_discount]*[lookup db=products.db&lookInField=sku&value=[sku]&returnField=price][/math][/then][!]
+[/!][else][lookup db=products.db&lookInField=sku&value=[sku]&returnField=price][/else][/if]"
+</pre>
+		<br>
+		<table border="1" cellpadding="0" width="100%">
+			<tr>
+				<th colspan="2" bgcolor="#cccccc">Example Shipping Cost Strategies</th>
+			</tr>
+			<tr>
+				<td valign="top">If your charges for shipping are...</td>
+				<td valign="top">...then the formulas would be as follows:</td>
+			</tr>
+			<tr>
+				<td valign="top">$6.95 + $2.00 per additional item</td>
+				<td valign="top">shipCost 4.95 (in Formulas.db)<br>
+					unitShipCost 2.00 (in Formulas.db)<br>
+					When there is 1 item in the cart, the shipTotal will be 4.95+2.00 = 6.95</td>
+			</tr>
+			<tr>
+				<td valign="top">$15.00 flat</td>
+				<td valign="top">shipCost 15.00 (in Formulas.db)<br>
+					unitShipCost 0.00 (in Formulas.db)</td>
+			</tr>
+			<tr>
+				<td valign="top">$9.95 base charge + each item has its own handling charge (often based on weight)</td>
+				<td valign="top">shipCost 9.95 (in Formulas.db)<br>
+					&quot;unitShipCost&quot; field in your product database contains numeric cost for each item<br>
+					Erase unitShipCost formula from Formulas.db, so product database field is used instead of formula.<br>
+					When there is one item in the cart, the shipTotal will be 9.95 + [unitShipCost] taken from that SKU's record in the product database.</td>
+			</tr>
+			<tr>
+				<td valign="top">$15.00 flat in the state of NJ, $35.00 everywhere else</td>
+				<td valign="top">shipCost [ShowIf [ShipToState]=NJ]15.00[/ShowIf][HideIf [ShipToState]=NJ]35.00[/HideIf]<br>
+					unitShipCost 0.00 (in Formulas.db)</td>
+			</tr>
+			<tr>
+				<td valign="top">15% of the subtotal</td>
+				<td valign="top">shipCost [math][subTotal]*.15[/math] (in Formulas.db)<br>
+					unitShipCost 0.00 (in Formulas.db)</td>
+			</tr>
+		</table>
+		<p></p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

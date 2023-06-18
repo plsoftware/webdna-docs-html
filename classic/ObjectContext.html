@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>  
+<HEAD>
+  <META NAME="GENERATOR" CONTENT="Adobe PageMill 3.0 Mac">
+  <META HTTP-EQUIV="content-type" CONTENT="text/html;charset=iso-8859-1">
+  <TITLE>Object Context</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<P><FONT SIZE="+2">[Object <I>Parameters</I>]Main Parameter[/Object]</FONT></P>
+
+<DL>
+  <DD><B><IMG SRC="SMALLNEW.GIF" HEIGHT="22" WIDTH="35" ALIGN="ABSBOTTOM"
+  NATURALSIZEFLAG="3"> </B>Executes the external Windows ActiveX
+  control or Java class file, and displays the text of the result.
+</DL>
+
+<P>To embed the results of an external function (which could be
+a Windows ActiveX DLL or Java class file on any platform) into
+one of your pages, put an Object context with appropriate parameters
+into a template. The parameters are sent to the external module,
+and the result of the external call are displayed as text in place
+of the context. Any [xxx] tags inside the context are first substituted
+for their real values before the Object is executed.</P>
+
+<P><B>Example</B> (normally you would put the following text into
+a .TPL file on your server and use a web browser to link to it):</P>
+
+<P>[OBJECT objname=MS.CUSTOM[!]<BR>
+[/!]&amp;call=MyFunction&amp;param1=Hello&amp;param1type=text&amp;param2=2000&amp;param2type=num]
+<BR>
+[/OBJECT]</P>
+
+<P>The ActiveX control DLL &quot;MS.CUSTOM&quot; will be loaded
+and &quot;MyFunction&quot; will be executed with the following
+parameters:<BR>
+<B>Parameter 1:</B> Hello   <B>Type:</B> text<BR>
+<B>Parameter 2:</B> 2000    <B>Type:</B> num<BR>
+<TABLE BORDER="1" CELLPADDING="0" CELLSPACING="2">
+  <TR>
+    <TH BGCOLOR="#bbbbbb">Parameter</TH> 
+    <TH BGCOLOR="#bbbbbb">Description</TH> 
+  </TR>
+  <TR>
+    <TD>
+      <P ALIGN=RIGHT>objname</TD>
+    <TD>ActiveX: The name of the ActiveX control<BR>
+      Java: The name of the Java class file</TD> 
+  </TR>
+  <TR>
+    <TD>
+      <P ALIGN=RIGHT>call</TD>
+    <TD>ActiveX: Name of function to call.<BR>
+      Java: Name of the method to call  (NOTE: the method must be be
+      able to receive &quot;java/lang/String&quot; and return
+      &quot;java/lang/String&quot;)</TD> 
+  </TR>
+  <TR>
+    <TD>
+      <P ALIGN=RIGHT>type</TD>
+    <TD>(Optional) The type of module to execute.<BR>
+      0 - ActiveX (Default)<BR>
+      1 &shy; Java .class file</TD> 
+  </TR>
+  <TR>
+    <TD>
+      <P ALIGN=RIGHT>classpath</TD>
+    <TD>(Required for Java) Location of the .class file and all the
+      supporting .jar files.  Can contain multiple locations separated
+      by semicolons &quot;;&quot;.  Only java modules require this
+      parameter.<BR><B>Note:</B> This is only used on Mac OS platforms and is ignored in all the other platforms. If you want to set the classpath for the other platforms, you have to manually change the JavaClassPath preference in the "WebCatalog Prefs" file, but make sure you shutdown WebDNA before doing this.</TD>
+  </TR>
+  <TR>
+    <TD>
+      <P ALIGN=RIGHT>Param1</TD>
+    <TD>(Optional) Value of the first parameter to be passed into
+      the ActiveX or Java function.<BR>
+      For boolean values, use 0 for FALSE and 1 for TRUE</TD>
+  </TR>
+  <TR>
+    <TD>
+      <P ALIGN=RIGHT>Param1Type</TD>
+    <TD>(Required for each parameter) Data type of the first parameter.
+      Choose from <B>bool</B>, <B>num</B>, or <B>text</B></TD>
+  </TR>
+  <TR>
+    <TD>
+      <P ALIGN=RIGHT>&nbsp;Param2</TD>
+    <TD>(Optional) Value of the second parameter to be passed into
+      the ActiveX or Java function</TD>
+  </TR>
+  <TR>
+    <TD>
+      <P ALIGN=RIGHT>&nbsp;Param2Type</TD>
+    <TD>(Required for each parameter) Data type of the second parameter</TD>
+  </TR>
+  <TR>
+    <TD>
+      <P ALIGN=RIGHT>...Param<I>N</I></TD>
+    <TD>(Optional) As many parameters as are necessary may be passed
+      into the ActiveX/Java function</TD>
+  </TR>
+  <TR>
+    <TD>...Param<I>N</I>Type</TD>
+    <TD>(Required for each parameter) For each value passed, you
+      must define its data type</TD>
+  </TR>
+</TABLE><p></P>
+
+<P><!--[/Raw]-->
+
+</BODY>
+</HTML>

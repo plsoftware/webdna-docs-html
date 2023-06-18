@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"><!--last modified on Fri, Aug 14, 1998 5:44 PM-->
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Grep Context</title>
+		<!--[Raw]-->
+		<meta name="Author" content="Grant Hulbert">
+	</head>
+
+	<body bgcolor="white">
+<p><font size="5">[Grep search=<i>regexp</i>&replace=<i>regexp</i>]Any Text[/Grep]</font></p>
+<dl> 
+  <dd><font color="#FF0000"><b> </b></font></dd>
+  <dd>Replaces text based on a regular expression. This popular UNIX utility has 
+    been adapted to WebDNA.</dd>
+</dl>
+<p><b>Example</b> (normally you would put the following text into a .tpl file 
+  on your server and use a web browser to link to it):</p>
+<dl> 
+  <dd> 
+    <p>[Grep search=([0-9]*-[0-9]*)&replace=&lt;b&gt;\1&lt;/b&gt;]Hi, my phone 
+      number is 555-1234, and I'd like you to call me[/Grep]</p>
+  
+</dl>
+<p>In the example above, the displayed text will be</p>
+<pre>Hi, my phone number is &lt;b&gt;555-1234&lt;/b&gt;, and I'd like you to call me<br>
+</pre>
+<dl>
+  <table border="1" cellpadding="0">
+    <tr> 
+      <th width="116" bgcolor="#bbbbbb">&nbsp;Parameter</th>
+      <th width="509" bgcolor="#bbbbbb">&nbsp;Description</th>
+    </tr>
+    <tr> 
+      <td> <div align="right">search</div></td>
+      <td>(Required) Regular expression that defines what text to search for in 
+        the body of the context</td>
+    </tr>
+    <tr> 
+      <td> <div align="right"> replace</div></td>
+      <td>(Required) Regular expression that defines how to output the resulting 
+        text </td>
+    </tr>
+    <tr> 
+      <td><div align="right"> 
+          <p>IgnoreCase</p>
+          <p><strong><font color="#FF0000">New for 5.0</font></strong> </p>
+        </div></td>
+      <td>(Optional) ignores case sensitivity while performing the grep function</td>
+    </tr>
+  </table>
+</dl>
+<p>There is a new 'IgnoreCase' parameter for the [GREP] context. Here is an example: 
+  <br>
+  <br>
+  Search for 'usa' and replace with 'USA'</p>
+<blockquote>
+  <p><br>
+    [grep search=usa&amp;replace=USA&amp;ignorecase=T]<br>
+    I was born in the usA</p>
+  <p>I was born in the uSa</p>
+  <p>I was born in the Usa</p>
+  <p>[/grep]</p>
+</blockquote>
+<p><br>
+  Other examples...</p>
+<blockquote>
+  <p>&nbsp;</p>
+  <p>[grep search=[0-9]*(ScOtT)[0-9]*&amp;replace=___\1___&amp;IgnoreCase=T]123scott321<br>
+    [/grep]<br>
+    [grep search=staging&amp;replace=development&amp;IgnoreCase=T]/Staging/myfile[/grep]</p>
+</blockquote>
+<p>Results: </p>
+<blockquote>
+  <p><br>
+    I was born in the USA<br>
+    I was born in the USA<br>
+    I was born in the USA</p>
+</blockquote>
+<p>Other examples... </p>
+<blockquote>
+  <p><br>
+    ___scott___<br>
+    /development/myfile<br>
+  </p>
+</blockquote>
+<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

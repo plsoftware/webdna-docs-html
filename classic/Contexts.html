@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Form Variables</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">Contexts</font>
+		<dl>
+			<dd>Any &quot;container&quot; of the form [<i>ContextName</i>]...[/<i>ContextName</i>]
+			<dd>&nbsp;
+			<dd><b>Note</b>: you have probably already used contexts in your day-to-day HTML design. HTML like &quot;&lt;b&gt;<b>This part is bold</b> &lt;i&gt;<i><b>this part is bold and italic</b></i>&lt;/i&gt;<b>..back to just bold</b>&lt;/b&gt;&quot; is an example of an italic context inside of a bold context.
+		</dl>
+		<p>WebDNA introduces the term <b>Contexts</b>. We chose this term because it means that certain information is available (or meaningful) only within particular surroundings. For instance, the tag [Date] has meaning everywhere, and typically displays today's date as &quot;12/16/1996.&quot; But the tag [NumFound] does not mean anything unless it is in the context of a database search -- WebDNA cannot know what to display unless it first knows what database to search in and exactly what to look for. Once it knows these things, WebCatalog knows [NumFound] should display the number of records matching the search.</p>
+		<p>Certain tags (such as [date] and [time]) are always available and have meaning everywhere. We call these <a href="TagsIndex.html" target="Contexts">Global Tags</a>. Other tags (such as [index] and [NumFound]) only make sense inside of certain contexts. In fact, [index] is available in many different contexts -- when used inside a [FoundItems] context it means the record number of the Nth found record, but when used inside a [Loop] context is means the number of iterations the loop has gone through.</p>
+		<p>You can put as many contexts into a page as you want, and contexts can be &quot;nested&quot; inside of each other.</p>
+		<dl>
+			<dd><b>Note</b>: Computer programmers sometimes call this concept &quot;Scope&quot;
+		</dl>
+		<p>Here are some examples of tags in their contexts. Normally you would type this text into a .tpl file and use your web browser to view it on your web server.</p>
+		<pre>------------ test.tpl -------------
+[date] &lt;!-- today's date, such as 12/16/1997 --&gt;
+
+[NumFound] &lt;!-- has no meaning here --&gt;
+
+[Search db=xx.db&amp;eqNAMEdata=Grant]
+&nbsp;&nbsp;[NumFound] &lt;!-- displays number of records where the name is &quot;Grant&quot; --&gt;
+[/Search]
+
+[NumFound] &lt;!-- has no meaning here (it's outside the [Search]) --&gt;
+-------------------------------------</pre>
+		<p>Every page (or template, as we call them) WebCatalog displays is automatically inside of a context providing meaning to certain tags. All of the information about the remote web browser, such as [BrowserName], [Username], [Password], is available, along with all of the form variables from a &lt;form&gt; submission, all the MIME headers, cookies, math variables, and text variables. Certain commands, such as <a href="SearchContext.html">Search</a>, also &quot;wrap&quot; a template inside of an implied context. Here are two example HTML pages:</p>
+		<pre>------- SearchForm.html ---------
+&lt;form method=POST action=Results.tpl&gt;
+&lt;input type=hidden name=command value=Search&gt;
+&lt;input type=hidden name=db value=xx.db&gt;
+Search for: &lt;input name=eqNAMEdata&gt;
+&lt;input type=hidden name=extraStuff value=&quot;Hello&quot;&gt;
+&lt;input type=submit&gt;
+&lt;/form&gt;
+----------------------------------</pre>
+		<p>Clicking the submit button leads to the following page:</p>
+		<pre>------- Results.tpl --------
+[Date] &lt;!-- always available --&gt;
+
+[extraStuff] &lt;!-- any form variable can be displayed --&gt;
+
+[NumFound] &lt;!-- works because we got to this page as a result of
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a Search command, which puts a [Search] context
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; around this entire page&nbsp;--&gt;
+
+[FoundItems] &lt;!-- only available inside a Search context --&gt;
+[NAME] &lt;!-- field from a database only available inside FoundItems --&gt;
+[/FoundItems]
+
+[eqNAMEdata] &lt;!-- looks funny, but this really is the name of a
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;form variable from the previous form --&gt;
+------------------------------
+<!--[/Raw]--></pre>
+	</body>
+
+</html>

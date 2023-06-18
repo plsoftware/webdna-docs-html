@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>FileInfo Context</title>
+		<!-- [Raw] -->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[FileInfo <i>file=FilePath</i>]File Tags[/FileInfo]</font> 
+<dl>
+			<dd>Displays information about a particular file or folder.
+		</dl>
+		<p>To display information about a file or folder (including whether it exists or not), place a [FileInfo] context into a WebDNA template. You may specify an absolute or relative path to the file just as you would specify an absolute or relative URL. The file name itself may be a WebDNA [xxx] tag.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			
+  <dd>[FileInfo file=../Pictures/1234.gif]<br>
+			File Name: [FileName]&lt;br&gt;<br>
+			Modified: [ModDate]&lt;br&gt;<br>
+			Size: [Size]&lt;br&gt;<br>
+			[/FileInfo]
+		</dl>
+		<p>The following tags are available inside a [FileInfo] context:
+		<table border="1" cellpadding="0" height="233" cellspacing="2">
+			<tr height="17">
+				
+    <th bgcolor="#bbbbbb" height="17" width="73">Tag</th>
+				
+    <th bgcolor="#bbbbbb" height="17" width="635">Description</th>
+			</tr>
+			<tr height="17">
+				
+    <td height="17" width="73"> 
+      <div align="right">
+						&nbsp;[IsFolder]</div>
+				</td>
+				
+    <td height="17" width="635">&quot;T&quot; if this item is actually a folder. 
+      &quot;F&quot; otherwise.</td>
+			</tr>
+			<tr height="17">
+				
+    <td height="17" width="73"> 
+      <div align="right">
+						[IsFile]</div>
+				</td>
+				
+    <td height="17" width="635">&quot;T&quot; if this item is actually a file. 
+      &quot;F&quot; otherwise.</td>
+			</tr>
+			<tr height="17">
+				
+    <td height="17" width="73"> 
+      <div align="right">
+						[Exists]</div>
+				</td>
+				
+    <td height="17" width="635">&quot;T&quot; if this file/folder actually exists 
+      on disk.</td>
+			</tr>
+			<tr height="17">
+				
+    <td height="17" width="73"> 
+      <div align="right">
+						[FileName]</div>
+				</td>
+				
+    <td height="17" width="635">Name of the file.</td>
+			</tr>
+			<tr height="17">
+				
+    <td height="17" width="73"> 
+      <div align="right">
+						[FullPath]</div>
+				</td>
+				
+    <td height="17" width="635">Full path to the file.</td>
+			</tr>
+			<tr height="17">
+				
+    <td height="17" width="73"> 
+      <div align="right">
+						[ModDate]</div>
+				</td>
+				
+    <td height="17" width="635">Last date the file was modified.</td>
+			</tr>
+			<tr height="17">
+				
+    <td height="17" width="73"> 
+      <div align="right">
+						[ModTime]</div>
+				</td>
+				
+    <td height="17" width="635">Last time the file was modified.</td>
+			</tr>
+			<tr height="17">
+				
+    <td height="17" width="73"> 
+      <div align="right">
+						[Size]</div>
+				</td>
+				
+    <td height="17" width="635">the file's size, in bytes.</td>
+			</tr>
+			<tr height="17">
+				
+    <td height="17" width="73"> 
+      <div align="right">
+						[StartPath]</div>
+				</td>
+				
+    <td height="17" width="635">The folder path leading to the file.</td>
+			</tr>
+			<tr height="17">
+				
+    <td height="17" width="73"> 
+      <div align="right"> <font color="#FF0000"><b><a name="FileInfoImageWidth"></a>New 
+        in 4.0</b></font><br>
+        [ImageWidth]</div>
+				</td>
+				
+    <td height="17" width="635">If the file is a GIF or JPEG file, displays the 
+      image's width in pixels. This can be very slow for large JPEG files, because 
+      the entire file must be read into memory first. We suggest you do this only 
+      once, then store the information in a database somewhere.</td>
+			</tr>
+			<tr height="17">
+				
+    <td height="17" width="73"> 
+      <div align="right"> <font color="#FF0000"><b>New in 4.0</b></font><br>
+        [ImageHeight]</div>
+				</td>
+				
+    <td height="17" width="635">If the file is a GIF or JPEG file, displays the 
+      image's height in pixels. This can be very slow for large JPEG files, because 
+      the entire file must be read into memory first. We suggest you do this only 
+      once, then store the information in a database somewhere.</td>
+			</tr>
+		</table>
+		<p></p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

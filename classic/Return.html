@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<!--[Raw]-->
+<head>
+<title>Return Context</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+<p><font size="5"><b>[return]</b>&lt;webdna&gt;<b>[/return]</b></font></p>
+<blockquote>
+  <p><br>
+    The textual output generated as a result of a WebDNA function call includes 
+    whatever text remains after the function code is executed. This may include 
+    unwanted spaces, carriage returns, and other 'white space' characters. The 
+    <b>[return]</b> context can be used to explicitly identify what text is returned 
+    from the function call, thereby avoiding unwanted characters.</p>
+</blockquote>
+<p> <br>
+  The <b>[return]</b> context is optional and can only be used from within the [Function] 
+  context. The <b>[return]</b> context does NOT 'break out' of a function call, so it 
+  is possible to use one or more <b>[return]</b> contexts to 'tailor' the functions output. 
+</p>
+<p><br>
+  <strong>Example without <b>[return]</b> </strong><br>
+  <br>
+  Below is a simple function that does not include a <b>[return]</b> context. This function 
+  simply adds the first ten positive numbers. We will execute the function, then 
+  wrap the execution in [url][/url] tags to 'reveal' the extra white space that 
+  can accumulate from a function call (much as it would when using the WebDNA 
+  [include] tag.) <br>
+  <br>
+  Here is the code: </p>
+<blockquote>
+  <p><br>
+    [function name=add_em_up]<br>
+    [text]result=0[/text]<br>
+    [loop start=1&amp;end=10]<br>
+    [text]result=[math][result]+[index][/math][/text]<br>
+    [/loop]<br>
+    [result]<br>
+    [/function]</p>
+</blockquote>
+<p><br>
+  Executing the function, we get: &quot; 55 &quot; <br>
+  <br>
+  Now, lets 'wrap' the function result with the [url] context to uncover the 'extra' 
+  stuff we accumulated a result of the function call. <br>
+  Here is the result:</p>
+<blockquote>
+  <p><br>
+    &quot;%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A55%0D%0A&quot;</p>
+</blockquote>
+<p> <br>
+  Note all the extra white space, in this case, carriage returns and line feeds.<br>
+  <br>
+  <strong>The 'old' Solution </strong><br>
+  <br>
+  One way that WebDNA programmers have dealt with unwanted return characters, 
+  is to wrap line-endings, or other unwanted white space, with WebDNA comments, 
+  i.e. [!]...[/!]. So the function definition on the previous page would look 
+  like...</p>
+<blockquote>
+  <p> <br>
+    [function name=add_em_up][!]<br>
+    [/!][text]result=0[/text][!]<br>
+    [/!][loop start=1&amp;end=10][!]<br>
+    [/!][text]result=[math][result]+[index][/math][/text][!]<br>
+    [/!][/loop][!]<br>
+    [/!][result][!]<br>
+    [/!][/function]</p>
+</blockquote>
+<p><br>
+  Executing the above function, and wrapping the result with URL tags, we get: 
+  &quot;55&quot; <br>
+  <br>
+  The extra 'garbage' is gone, but using all those [!][/!] pairs is cumbersome, 
+  and does add some extra parsing overhead. <br>
+  <br>
+  <strong>A Better Solution </strong><br>
+  <br>
+  The <b>[return]</b> context can now be used to target exactly what we want the function 
+  to return. So our example function now looks like... </p>
+<blockquote>
+  <p><br>
+    [function name=add_em_up]<br>
+    [text]result=0[/text]<br>
+    [loop start=1&amp;end=10]<br>
+    [text]result=[math][result]+[index][/math][/text]<br>
+    [/loop]<br>
+    <b>[return]</b>[result]<b>[/return]</b><br>
+    [/function] </p>
+  <p>&quot;[url][add_em_up][/url]&quot;</p>
+</blockquote>
+<p><br>
+  Executing the above code, we get: &quot;55&quot; <br>
+  <br>
+  The extra 'garbage' is gone, and we did not have to use all those [!][/!] contexts. 
+  <br>
+  <br>
+  Even if the explicit results of a function call are not significant, for example, 
+  when the function assigns the result to some global text variable. It is still 
+  a good idea to use the <b>[return]</b> context in order to cut down on the amount of 
+  white space that my be returned to the client browser. <br>
+  <br>
+  For example: </p>
+<blockquote>
+  <p><br>
+    [function name=add_em_up]<br>
+    [text]result=0[/text]<br>
+    [loop start=1&amp;end=10]<br>
+    [text]result=[math][result]+[index][/math][/text]<br>
+    [/loop]<br>
+    [text scope=global]result=[result][/text]<br>
+    <b>[return]</b><b>[/return]</b> [!] return nothing [/!]<br>
+    [/function]</p>
+  <p>[add_em_up]<br>
+    result=&quot;[result]&quot;</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>Executing the above code, we get: </p>
+<blockquote>
+  <p><br>
+    result=&quot;55&quot;</p>
+</blockquote>
+<p><br>
+  As mentioned in the first page of this tutorial, the <b>[return]</b> context does not 
+  actually 'return' or 'break out' of the function call. So, it is possible to 
+  have multiple <b>[return]</b> contexts in a given function definition. For example: 
+</p>
+<blockquote>
+  <p><br>
+    [function name=add_em_up]<br>
+    [text]result=0[/text]<br>
+    [loop start=1&amp;end=10]<br>
+    [text]result=[math][result]+[index][/math][/text]<br>
+    [showif [index]<br>
+    Results in... <br>
+    &quot;1+2+3+4+5+6+7+8+9+10=55&quot;</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>The <b>[return]</b> context is also very useful when creating 'recursive' functions 
+  (functions that call them selves until a terminating 'base case' is reached).<br>
+  <br>
+  Here is a sample recursive function that calculates the factorial for a given 
+  integer. </p>
+<blockquote>
+  <p><br>
+    [function name=factorial]<br>
+    [showif [num]&gt;1]<br>
+    <b>[return]</b>[math][num]*[factorial num=[math][num]-1[/math]][/math]<b>[/return]</b><br>
+    [/showif]<br>
+    [hideif [num]&gt;1]<br>
+    <b>[return]</b>1<b>[/return]</b><br>
+    [/hideif]<br>
+    [/function]</p>
+  <p>6! = [factorial num=6]</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>The results... </p>
+<blockquote>
+  <p><br>
+    6! = 720<br>
+  </p>
+</blockquote>
+</body>
+<!--[/Raw]-->
+</html>

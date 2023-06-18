@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"><!--last modified on Fri, May 22, 1998 5:36 PM-->
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Decrypt Context</title>
+		<!--[Raw]-->
+		<meta name="Author" content="Grant Hulbert">
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[Decrypt <i>seed=abcd</i>]Any Text[/Decrypt]</font> 
+<dl>
+			<dd>Decrypts text which was encrypted with <a href="EncryptContext.html">[Encrypt]</a>.
+		</dl>
+		<p>To convert text from encrypted to plain, put it inside a [Decrypt] context.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[Decrypt seed=abcdefg];)(*&amp;#$KLJFLKjkhegdlksdfg09814[/Decrypt]&lt;br&gt;
+		</dl>
+		<p>In the example above, pre-encrypted text is decrypted and displayed as it was before:</p>
+		<pre>Some Text that is private</pre>
+		<p>Use <a href="EncryptContext.html">[Encrypt]</a> to encode the text. To decrypt a sequence of text, you must set the seed value to exactly the same as when you encrypted it. The seed may be a sequence of up to 8 characters (anything you can type on the keyboard, except '&amp;' or '=' or '[' or ']'). Do not ever let anyone know what the seed value is, because that would allow them to decrypt the text.<br>
+		<br>
+		This context is most often used to retrieve passwords from a database (such as WebDNA's own Users.db), so that in the unlikely event that someone is able to download the file, the passwords will be unreadable.</p>
+		<dl>
+			<dd><b>Note:</b> Do not be concerned that someone can download a copy of WebDNA and use it to decrypt your passwords. Even if someone manages to get your Users.db file (which is very hard to do, because the web server will not allow it to be sent to a browser), the passwords in Users.db are encrypted in such a way they cannot be decrypted, even by WebDNA itself. WebDNA always compares these passwords in their encrypted form when checking for ADMIN privileges, and the passwords are never decoded into plain-text. Even WebDNA Software Corporation cannot decrypt your Users.db file.<br>
+			<br>
+			<b>However</b>: you must never allow your seed text to become public, because when you specify a seed value in the Encrypt/Decrypt contexts, that seed could be used by someone with WebDNA to decrypt text. So safeguard your template files by making sure that no other CGI or plugin can display them as plain-text without first being processed by WebDNA.
+		</dl>
+		<p>
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">&nbsp;Parameter</th>
+				<th bgcolor="#bbbbbb">&nbsp;Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						method</div>
+				</td>
+				<td>(Optional) Either &quot;CyberCash&quot; or &quot;Base64&quot;. If not specified, then standard WebDNA decryption is assumed. CyberCash is the triple-DES encryption used to communicate with the CyberCash Cash Register servers. Base64 is the encoding (not safe for encryption) that standard HTML browsers use for Basic Authentication.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						seed</div>
+				</td>
+				<td>(Required, except for Base64) Key used to decrypt the text. For CyberCash, this should be the MerchantKey you were assigned when you created a CyberCash merchant account. For standard WebDNA encryption, this is your secret key from encryption. CyberCash decryption only works with text sent <i>from</i> the CyberCash CashRegister server to you; it cannot be used to decrypt text that was encrypted by WebDNA itself.</td>
+			</tr>
+		</table>
+		<br>
+		<!--[/Raw]-->
+	</body>
+
+</html>

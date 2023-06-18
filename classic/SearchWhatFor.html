@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>What to Search For</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5"> Searching - What to Search For</font> <font size="5"><i>FieldName</i><b>data=value</b></font> 
+<dl>
+			<dd>Searches using exact matches.
+		</dl>
+		
+<p>You must tell WebDNA what <b>data</b> to search for, otherwise it will 
+  not know what to find. You tell WebDNA what field to look in, and the text 
+  to look for (we call it <b>data</b>) by typing the name of the field followed 
+  by the word &quot;data&quot; in a URL (or embedded <a href="SearchContext.html">[Search]</a> 
+  context).</p>
+		<p>If your database has a field called &quot;FirstName,&quot; and you want to look for records that have &quot;Grant&quot; in the FirstName field, then enter a URL something like this:</p>
+		<p>http://Results.tpl?command=search&amp;<b>eq</b>FirstName<b>data</b>=Grant&amp;db=SomeDatabase.db</p>
+		<p>The template &quot;Results.tpl&quot; displays after the search, and any <a href="FoundItemsContext.html">[FoundItems] </a>contexts in it fill with found records. &quot;eq&quot; stands for &quot;equals&quot;, meaning the FirstName field must <b>eq</b>ual &quot;Grant&quot; exactly, otherwise it will not be considered a match. &quot;eq&quot; is one of many different ways to compare data in your database -- see <a href="SearchComparisons.html">Comparisons</a> for a complete list of all the different ways to compare fields.</p>
+		<dl>
+			<dd><b>Note:</b> If visitors leave a field blank in a search form, WebDNA assumes they do not &quot;care&quot; to search that field -- it acts as though you had not even specified the field in the search criteria at all. If you want to <a href="SearchBlanks.html">search for blanks</a> (no text in the field whatsoever, not even a space), you can override this behavior by searching for &quot;[blank],&quot; as in eqTitledata=[blank].
+		</dl>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

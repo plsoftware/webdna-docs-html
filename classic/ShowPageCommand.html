@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"><!--last modified on Fri, Jun 19, 1998 5:14 PM-->
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>ShowPage Command</title>
+		<!--[Raw]-->
+		<meta name="Author" content="Grant Hulbert">
+	</head>
+
+	<body bgcolor="white">
+<font size="5">ShowPage </font> 
+<dl> 
+  <dd><b>Note: This command will be supported through version 4.0. It will be 
+    eliminated in version 5.0.</b><br>
+    Displays an HTML text file after substituting [xxx] tags for their real values. 
+</dl>
+<p>To display an HTML file, send WebDNA a ShowPage command with the name of the template file you want to display. Whenever WebDNA receives a ShowPage command, it immediately opens the specified file, looks for and interprets any [xxx] tags, and displays the results to the visiting web browser.</p>
+		<p>If you have defined an ACTION telling your web server to send all files of a certain extension (.tpl, .HTML) to WebDNA, then simply linking to a URL with that file extension automatically informs WebDNA to perform a ShowPage on that template.</p>
+		<p><b>Example</b> (normally you would link to a URL or form containing the following information):</p>
+		<dl>
+			<dd>http://yourserver.com/xx.tpl?command=<b>ShowPage</b>
+		</dl>
+		<p>Here are some other ways to send the same command:
+		<table border="1" cellpadding="0" width="100%">
+			<tr>
+				<th width="59%" bgcolor="#bbbbbb">HTML Source</th>
+				<th width="41%" bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td width="59%">
+					<dl>
+						<dt>&lt;a href=&quot;xx.tpl&quot;&gt;
+					</dl>
+				</td>
+				<td width="41%">Hyperlink to WebDNA (notice that when suffix-mapping for .tpl files is set to WebDNA's plugin, WebDNA assumes all .tpl files should be displayed with the ShowPage command). <b>You can set suffix-mapping for .html, and then all files will be sent through WebDNA's interpreter.</b></td>
+			</tr>
+			<tr>
+				<td width="59%">
+					<dl>
+						<dt>&lt;form method=&quot;POST&quot; action=&quot;xx.tpl&quot;&gt;<br>
+						&lt;/form&gt;
+					</dl>
+				</td>
+				<td width="41%">
+					<dl>
+						<dt>Form-based command<br>
+						(notice the template is part of the action, and ShowPage is automatic)
+					</dl>
+				</td>
+			</tr>
+		</table>
+		<p></p>
+		<dl>
+			<dd><img src="winlogo.gif" width="20" height="16" align="LEFT" border="0"><b>Security Note:</b> Files inside your cgi-bin (or Scripts) directory cannot be displayed from a remote browser unless you explicitly create an extension mapping telling WebDNA to process them. This prevents outsiders from downloading order files or shopping cart files that contain sensitive information.<br>
+			<br>
+			<img src="MacOS.gif" width="18" height="18" align="LEFT" border="0"><b>Security Note:</b> Files whose type is 'WWWO' (where the O is the Macintosh character option-Z) will not be displayed. These files are considered to contain sensitive information that should never be shown to an outside user. WebDNA automatically creates files with this type in order to prevent hackers from downloading your sensitive data.<!--[/Raw]-->
+		</dl>
+	</body>
+
+</html>

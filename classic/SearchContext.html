@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"><!--last modified on Fri, Jun 19, 1998 5:39 PM-->
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Search Context</title>
+		<!--[Raw]-->
+		<meta name="Author" content="Grant Hulbert">
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[Search <i>Criteria</i>]Found Items[/Search]</font>
+		<dl>
+			<dd>Searches a database and displays the found records.
+			<dd>
+			<dd><b>SQL/ODBC Note</b>: To search through an ODBC-compliant database, use the <a href="SQLContext.html">[SQL]</a> context.
+		</dl>
+		<p>To display search results from a database, place a [Search] context into a WebDNA template. You may specify any database and any <a href="SearchTOC.html">search criteria</a>. You may put as many [Search] contexts into a template as you want, and you may 'nest' them inside of each other to create relational searches between multiple databases. Alternately you may use the <a href="SearchCommand.html">Search </a>command from a form, and specify a template containing a <a href="FoundItemsContext.html">[FoundItems]</a> context.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[Search db=xx.db&amp;eqNAMEdata=Grant]
+			<dd>Found [NumFound] items&lt;br&gt;<br>
+			[Avg Price]&lt;br&gt; &lt;!-- Calculate the average of the price field of all found records --&gt;<br>
+			[Sum QtyOnHand]&lt;br&gt; &lt;!-- Calculate the total of the QtyOnHand field of all found records --&gt;
+			<dd>[FoundItems]
+			<dd>&lt;img src=&quot;[Picture].gif&quot;&gt;&lt;br&gt;
+			<dd>[Name], [Address], [City]&lt;br&gt;
+			<dd>[/FoundItems]
+			<dd>[/Search]
+		</dl>
+		<p>Whenever WebDNA encounters a [Search] context, it immediately opens the database and searches through it based on the search criteria you put into the search parameters. You nearly always place a <a href="FoundItemsContext.html">[FoundItems]</a>...[/FoundItems] context inside the [Search] context so you can display the information from the matching records.</p>
+		<p>Notice you can substitute any [xxx] tags in the search parameters, as in [Search db=[userDB]&amp;eqNAMEdata=[username]].<br>
+		<table border="1" cellpadding="0" cellspacing="2">
+			<tr>
+				<th bgcolor="#bbbbbb">Parameter</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						db</div>
+				</td>
+				<td>Name of the database you wish to search</td>
+			</tr>
+  <tr> 
+    <td> <div align="right"> &nbsp;table</div></td>
+    <td><b>New for WebDNA 5.x</b><br>In place of a db file, you can specify a named reference to a WebDNA <a href="Table.html">table</a> object.</td>
+  </tr>
+			<tr>
+				<td>
+					<div align="right">
+						max</div>
+				</td>
+				<td>A number indicating how many records should be displayed at once before showing a list of &quot;Show Items xx-yy&quot; hyperlinks.</td>
+			</tr>
+		</table>
+		<p></p>
+		<p>The following tags are available inside a [Search] context:
+		<table border="1" cellpadding="0" cellspacing="2" width="100%" height="228">
+			<tr height="17">
+				<th bgcolor="#bbbbbb" height="17">Tag</th>
+				<th bgcolor="#bbbbbb" height="17">Description</th>
+			</tr>
+			<tr height="17">
+				<td height="17">
+					<div align="right">
+						&nbsp;[NumFound]</div>
+				</td>
+				<td height="17">A number indicating how many records matched the search request.</td>
+			</tr>
+			<tr height="17">
+				<td height="17">
+					
+      <div align="right"> <font color="#FF0000"><b><a name="SearchSum"></a>New 
+        in 4.0</b></font>[Sum field=<i>fieldName</i>]</div>
+				</td>
+				<td height="17">Calculates the numerical sum of all the found records, using the <i>fieldName</i> column.</td>
+			</tr>
+			<tr height="17">
+				<td height="17">
+					
+      <div align="right"> <font color="#FF0000"><b>New in 4.0</b></font>[Avg field=<i>fieldName</i>]</div>
+				</td>
+				<td height="17">Calculates the numerical average of all the found records, using the <i>fieldName</i> column.</td>
+			</tr>
+			<tr height="17">
+				<td height="17">
+					
+      <div align="right"> <font color="#FF0000"><b>New in 4.0</b></font>[Min field=<i>fieldName</i>]</div>
+				</td>
+				<td height="17">Calculates the numerical minimum of all the found records, using the <i>fieldName</i> column.</td>
+			</tr>
+			<tr height="17">
+				<td height="17">
+					
+      <div align="right"> <font color="#FF0000"><b>New in 4.0</b></font>[Max field=<i>fieldName</i>]</div>
+				</td>
+				<td height="17">Calculates the numerical maximum of all the found records, using the <i>fieldName</i> column.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						<a href="FoundItemsContext.html">[FoundItems]...[/FoundItems]</a></div>
+				</td>
+				<td>Normally you place a <a href="FoundItemsContext.html">[FoundItems]</a> loop inside a [Search], so you can display all the matching records. You can put any database field names inside the [FoundItems] loop to display them in the HTML.</td>
+			</tr>
+			<tr>
+				<td><a href="ReplaceFoundItemsContext.html">&nbsp;[ReplaceFoundItems]...[/ReplaceFoundItems]</a></td>
+				<td>Loops though all the found items and replaces text in each record with the specified new text.</td>
+			</tr>
+			<tr height="17">
+				<td height="17">
+					<div align="right">
+						<a href="ShowNextContext.html">[ShowNext]...[/ShowNext]</a></div>
+				</td>
+				<td height="17">Creates a list of links that let visitors see 'chunks' of search results.</td>
+			</tr>
+		</table>
+		<p></p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

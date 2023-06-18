@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>WaitForFile Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[WaitForFile file=<i>FileName</i>]Text[/WaitForFile]</font>
+		<dl>
+			<dd>Waits for a file to appear on disk, then performs the WebDNA.
+		</dl>
+		<p>To perform an action as soon as a file appears on disk, put WebDNA inside of a [WaitForFile] context. The server waits until the specified file appears on disk, then executes the WebDNA inside the context.</p>
+		<dl>
+			<dd><b>Note</b>: WaitForFile will wait a specified number of seconds (default 30) until the file appears. The template will not finish executing and the HTML will not be returned to the visiting browser until the WaitForFile finishes.
+		</dl>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[WaitForFile file=ICVer001.ans]<br>
+			Some WebDNA to parse the ICVerify answer file format and do something important with it<br>
+			[/WaitForFile]
+		</dl>
+		<p>You can write WebDNA that learns if the WaitForFile timed out:</p>
+		<dl>
+			<dd>[text]succeeded=F[/text]<br>
+			[WaitForFile file=FileToWaitFor.txt]<br>
+			Some WebDNA to execute if the file is found<br>
+			[text]succeeded=T[/text]<br>
+			[/WaitForFile]<br>
+			[ShowIf [succeeded]=T] File was found! [/ShowIf]<br>
+			[ShowIf [succeeded]=F] File was not found! [/ShowIf]
+		</dl>
+		<p>The value of [succeeded] becomes either T or F, depending on whether or not the [WaitForFile] succeeded in finding the file on disk before the timeout expired.</p>
+		<p>
+		<table border="1" cellpadding="0" width="100%" height="75">
+			<tr height="17">
+				<th width="14%" height="17" bgcolor="#cccccc">Parameter</th>
+				<th width="86%" height="17" bgcolor="#cccccc">Description</th>
+			</tr>
+			<tr height="30">
+				<td width="14%" height="30">
+					<div align="right">
+						file</div>
+				</td>
+				<td width="86%" height="30">
+					<dl>
+						<dt>(Required) Path to the file that will appear in the future. If the file exists on disk already, there is no waiting.
+					</dl>
+				</td>
+			</tr>
+			<tr>
+				<td width="14%">
+					<div align="right">
+						timeout</div>
+				</td>
+				<td width="86%">(Optional) Number of seconds to wait before cancelling the operation. No WebDNA inside the [WaitForFile] context will be executed. Defaults to 30 seconds if not specified.</td>
+			</tr>
+		</table>
+		<!--[/Raw]-->
+	</body>
+
+</html>

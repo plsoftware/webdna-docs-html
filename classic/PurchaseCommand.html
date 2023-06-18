@@ -1,0 +1,725 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Purchase Command</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">Purchase?db=xx.db&amp;cart=123&amp;<i>options=xx</i></font>
+		<dl>
+			<dd>Submits a shopping cart for final order processing.
+		</dl>
+		<p>To purchase a shopping cart full of items, send WebDNA a Purchase command. WebDNA verifies the checksum of the credit card (if paying by credit card), sets any quantities, taxRates, or other order file header variables, and moves the <a href="OrderFileFormat.html">order file</a> from the Shopping Cart folder to the Orders folder. The template displayed is usually a &quot;Thank You&quot; template which can contain <a href="EmailContext.html">[Email]</a> contexts to send order verification and fulfillment requests to people in your company. The &quot;Thank You&quot; template can also contain any header variables from the cart, as well as a <a href="LineItemsContext.html">[LineItems]</a> context so you can display final grand totals and other verification of the items purchased.</p>
+		<p>WebDNA performs credit card validation or fulfillment of the order if you are using the WebMerchant feature.  WebDNA performs a simple check of the credit card number to see if it is a reasonable number, but it does not verify funds.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		
+<dl> 
+  <dd>http://www.yourserver.com/GeneralStore/ThankYou.tpl?command=<b>Purchase</b>&amp;db=xx.db&amp;cart=123<br>
+  
+  <dt>&nbsp; </dt>
+  <dd> 
+  <dd><font color=red><b><font color="#000000">Note:</font></b></font><font color="#000000"><b> 
+    </b></font>Normally all database file paths are relative to the local template, 
+    or if they begin with &quot;/,&quot; they are relative to the web server's 
+    virtual host root. You may optionally put &quot;^&quot; in front of the file 
+    path to indicate the file can be found in a global root folder called &quot;Globals&quot; 
+    inside the WebCatalogEngine folder. This global root folder is the same regardless 
+    of the virtual host. 
+</dl>
+		<p>You may set any of the following variables during a Purchase command by putting named form variables into the purchase form. Some are optional, and any you do not explicitly set will remain unchanged from their previous values obtained from <a href="AddCommand.html">Add</a> or <a href="ShowCartCommand.html">ShowCart</a> commands.<a name="HeaderVars"></a>
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">&nbsp;Parameter</th>
+				<th bgcolor="#bbbbbb">&nbsp;Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						template</div>
+				</td>
+				<td>(Required) The template displaying the &quot;Thank You&quot; page after the purchase command completes. If you are using suffix mapping, then the template is simply the URL of the &quot;Thank You&quot; page.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						db</div>
+				</td>
+				<td>(Required) Product Database use for looking up product [xxx] fields inside the [LineItems] loop.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						cart</div>
+				</td>
+				<td>(Required) Name of the shopping cart file to be purchased.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						PayMethod</div>
+				</td>
+				<td>(Required) Payment method chosen by customer. May be one of:
+					<dl>
+						<dd><b>CC</b> - Credit Card (WebDNA performs a checksum to make sure the number is reasonable)<br>
+						<b>AC</b> - ACcount number (purchase order) (WebDNA performs no validation, but WebMerchant AccountAuthorizer later does custom authorization)<br>
+						<b>BK</b> - Book this order (verify funds, but do not deposit money). Handled by WebMerchant<br>
+						<b>SH</b> - Ship this order (only from a previous <b>BK</b> order. Deposits money that was verified earlier). Handled by WebMerchant
+					</dl>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						AccountNum</div>
+				</td>
+				<td>(Required) Account number for payment. May be credit card number, purchase order, or First Virtual account.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						ExpMonth</div>
+				</td>
+				<td>(Required for credit cards) Month the credit card expires (between 1 and 12).</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						ExpYear</div>
+				</td>
+				<td>(Required for credit cards) Year the credit card expires.</td>
+			</tr>
+			<tr>
+				<td bgcolor="#bbbbbb">
+					<center>
+						<b>Optional Parameters</b></center>
+				</td>
+				<td bgcolor="#bbbbbb">
+					<center>
+						<b>Description</b></center>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						<a name="HeaderFields"></a>card</div>
+				</td>
+				<td>(optional) If you only accept certain types of credit card, then set this to a list of card names you accept. For example:
+					<p>VISA+MC will accept VISA and MasterCard, but no others</p>
+					<p>You may choose from VISA, MC, AMEX, DISC, JCB, CB, DINER, ALL, IGNORE</p>
+					<dl>
+						<dt>ALL - means accept all cards listed above (if checksum is correct)<br>
+						IGNORE - means accept any number, regardless of checksum.
+					</dl>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						Email</div>
+				</td>
+				<td>Bill-To: Email address the customer entered into the invoice page. Limited to 99 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						Name</div>
+				</td>
+				<td>Bill-To: Customer's name. Limited to 99 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						Company</div>
+				</td>
+				<td>Bill-To: Customer's company. Limited to 99 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						Address1</div>
+				</td>
+				<td>Bill-To: First address line entered by customer for shipment. Limited to 99 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						Address2</div>
+				</td>
+				<td>Bill-To: Second address line entered by customer for shipment. Limited to 99 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						City</div>
+				</td>
+				<td>Bill-To: Customer's city. Limited to 49 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						State</div>
+				</td>
+				<td>Bill-To: Customer's state. Limited to 49 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						Zip</div>
+				</td>
+				<td>Bill-To: Customer's zip code. Limited to 19 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						Country</div>
+				</td>
+				<td>Bill-To: Customer's country. Limited to 49 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						Phone</div>
+				</td>
+				<td>Bill-To: Customer's phone number. Limited to 24 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						ShipToEmail</div>
+				</td>
+				<td>Ship-To: Email address the customer entered into the invoice page. Limited to 99 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						ShipToName</div>
+				</td>
+				<td>Ship-To: Customer's name. Limited to 99 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						ShipToCompany</div>
+				</td>
+				<td>Ship-To: Customer's company. Limited to 99 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						ShipToAddress1</div>
+				</td>
+				<td>Ship-To: First address line entered by customer for shipment. Limited to 99 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						ShipToAddress2</div>
+				</td>
+				<td>Ship-To: Second address line entered by customer for shipment. Limited to 99 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						ShipToCity</div>
+				</td>
+				<td>Ship-To: Customer's city. Limited to 49 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						ShipToZip</div>
+				</td>
+				<td>Ship-To: Customer's zip code. Limited to 19 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						ShipToState</div>
+				</td>
+				<td>Ship-To: Customer's state. Limited to 19 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						ShipToCountry</div>
+				</td>
+				<td>ShipTo: Customer's country. Limited to 49 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						ShipToPhone</div>
+				</td>
+				<td>Ship-To: Customer's phone number. Limited to 24 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						TaxRate</div>
+				</td>
+				<td>Percentage tax rate for this order, such as 7.75.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						ShipVia</div>
+				</td>
+				<td>
+					<dl>
+						<dt>Method of delivery. May be one of:
+					</dl>
+					<ul>
+						<li><b>EMAIL</b> - Electronic delivery via email attachments (requires WebCommerce Solution's WebMerchant software to create Web Delivery pages)
+						<li><b>WEB</b> - Electronic delivery via automatically-built web pages (requires WebCommerce Solution's WebMerchant software to create Web Delivery pages)
+						<li>FEDEX - Any other text can be entered here. Has no special meaning, but can be passed through to fulfillment emails. Maximum of 63 characters.
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						header1</div>
+				</td>
+				<td>Any extra information you want to keep in the order file, up to 255 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						header2 - header40</div>
+				</td>
+				<td>Same as header1.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						<a name="grandTotal"></a>nonTaxableTotal</div>
+				</td>
+				<td>Normally this value is computed automatically, but if you explicitly set its value, you can 'override' the precomputed value with any new number you like. WebMerchant displays this value if it is explicitly set, otherwise it computes it from the numbers provided in the order file.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						taxableTotal</div>
+				</td>
+				<td>similar to nonTaxableTotal.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						taxTotal</div>
+				</td>
+				<td>similar to nonTaxableTotal.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						shippingTotal</div>
+				</td>
+				<td>similar to nonTaxableTotal.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						subTotal</div>
+				</td>
+				<td>Calculated: based on taxableTotal + nonTaxableTotal. This cannot be overridden directly; if you want to override the subTotal of an order, you must override both taxableTotal and nonTaxableTotal to force the calculation of subTotal to become a new value.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						CartIPAddress</div>
+				</td>
+				<td>This is not pre-set automatically, but you can set it to [ipAddress] if you want to remember the ip address of the visitor who last used the cart. Limited to 15 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						CartUsername</div>
+				</td>
+				<td>You can store the user name of the person who last used this cart here. It is not set automatically. Limited to 63 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						CartPassword</div>
+				</td>
+				<td>You can store the password of the person who last used this cart here. It is not set automatically. Limited to 63 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						Precision</div>
+				</td>
+				<td>International support: number of digits after the decimal that are considered important for tax, subtotal, grandtotal calculations. In the U.S., 2 digits is the normal precision. For Japan, 0 causes all calculations to round off at integer values. You can change this on a cart-by-cart basis with <a href="SetHeaderContext.html">[SetHeader]</a></td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						TaxableShipping</div>
+				</td>
+				<td>If set to <b>T</b>, causes shipping to be taxed. The tax and grand total are increased by [taxRate]*[shippingTotal]. Default value is <b>F</b>.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						AuthNumber</div>
+				</td>
+				<td>WebMerchant Only: Text authorization ticket# returned from bank network. This field is filled in by WebMerchant after calling the bank. Limited to 63 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						ResponseText</div>
+				</td>
+				<td>WebMerchant Only: Response text returned from bank network. This field is filled in by WebMerchant after calling the bank. Limited to 149 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						Status</div>
+				</td>
+				<td>WebMerchant Only: status of order, such as Approved/Hold/Call/Pending. This field is filled in by WebMerchant after calling the bank. Limited to 63 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						BatchNumber</div>
+				</td>
+				<td>WebMerchant Only: Batch# that PCAuthorize/MacAuthorize has stored this order in. This field is filled in by WebMerchant after calling the bank. Limited to 63 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						ReferenceNumber</div>
+				</td>
+				<td>WebMerchant Only: Reference# that PCAuthorize/MacAuthorize created for this order. This field is filled in by WebMerchant after calling the bank. Limited to 63 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						SequenceNumber</div>
+				</td>
+				<td>WebMerchant Only: Sequence# that PCAuthorize/MacAuthorize created for this order. This field is filled in by WebMerchant after calling the bank. Limited to 63 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						ItemNumber</div>
+				</td>
+				<td>WebMerchant Only: Item# (within the batch) that PCAuthorize/MacAuthorize created for this order. This field is filled in by WebMerchant after calling the bank. Limited to 63 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						RequiredFields</div>
+				</td>
+				<td>
+					<dl>
+						<dt>You may force the visitor to enter something into a field by using the <b>RequiredFields</b> parameter in the URL. Setting <b>RequiredFields</b>=field1+field2+field3 displays an error message if the visitor forgets to enter text into any of those 3 fields. <b>RequiredFields</b> works for all commands, not just this one.
+					</dl>
+				</td>
+			</tr>
+			<tr>
+				<td bgcolor="#bbbbbb"><a name="NewHeaderVars"></a>
+					<center>
+						<b>New Optional Parameters<br>for WebDNA 5.1</b></center>
+				</td>
+				<td bgcolor="#bbbbbb">
+					<center>
+						<b>Description</b></center>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						bankRoutingNumber</div>
+				</td>
+				<td>Typically required with e-Check transactions. Limited to 63 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						bankAccountNumber</div>
+				</td>
+				<td>Typically required with e-Check transactions. Limited to 63 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						bankAccountType</div>
+				</td>
+				<td>Typically required with e-Check transactions. Limited to 31 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						bankName</div>
+				</td>
+				<td>Typically required with e-Check transactions. Limited to 99 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						bankAccountName</div>
+				</td>
+				<td>Typically required with e-Check transactions. Limited to 99 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						CCID</div>
+				</td>
+				<td>More recently required by some merchants for Credit Card transactions.  Limited to 15 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						currencyCode</div>
+				</td>
+				<td>Limited to 15 characters</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						recurringBillingCode</div>
+				</td>
+				<td>Can be used to designate a weekly, monthly, yearly, etc... billing cycle.  Limited to 15 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						fax</div>
+				</td>
+				<td>'Bill To' fax number.  Limited to 31 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						ShipTofax</div>
+				</td>
+				<td>'Ship To' fax number.  Limited to 31 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						customerID</div>
+				</td>
+				<td>Limited to 31 characters</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						invouceNumber</div>
+				</td>
+				<td>Limited to 63 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						poNumber</div>
+				</td>
+				<td>Limited to 63 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						description</div>
+				</td>
+				<td>Limited to 255 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						customerType</div>
+				</td>
+				<td>Limited to 15 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						customerTaxID</div>
+				</td>
+				<td>Limited to 31 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						driversLicenseNumber</div>
+				</td>
+				<td>Limited to 31 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						driversLicenseState</div>
+				</td>
+				<td>Limited to 49 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						driversLicenseDOB</div>
+				</td>
+				<td>Limited to 15 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						lastName</div>
+				</td>
+				<td>'Bill To' last name. Limited to 99 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						ShipTolastname</div>
+				</td>
+				<td>'Ship To' last name. Limited to 99 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						Comment</div>
+				</td>
+				<td>Limited to 255 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						SameAsShipping</div>
+				</td>
+				<td>'T' or 'F'.  'T' if billing information is the same as the shipping information.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						AVS</div>
+				</td>
+				<td>Used to store the 'Address Verification Code'.  Limited to 31 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						MD5Hash</div>
+				</td>
+				<td>Used to store the Hash code returned by some Payment Processors.  Limited to 127 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						taxExempt</div>
+				</td>
+				<td>'T' or 'F'.  'T' if order is exempt from taxing.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						resellerNumber</div>
+				</td>
+				<td>Limited to 127 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						transactionIndex</div>
+				</td>
+				<td>Can be used to store the 'rank' in a related set of orders.  Limited to 63 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						relatedTransaction</div>
+				</td>
+				<td>Can be used to store a 'related' order id.  Limited to 63 characters.</td>
+			</tr>
+			<tr>
+				<td bgcolor="#bbbbbb">
+					<center>
+						<b>Line Item Variables</b></center>
+				</td>
+				<td bgcolor="#bbbbbb">
+					<center>
+						<b>Description</b></center>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						quantity[lineIndex]</div>
+				</td>
+				<td>You may optionally set the quantity (to be purchased) of any line item. For example: quantity1=12 sets the first line item's quantity to 12. Similarly, quantity5=3 sets the fifth line item's quantity to 3 (these quantities can also be set with a <a href="AddCommand.html">Add</a> or <a href="ShowCartCommand.html">ShowCart</a> command)</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						textA[lineIndex]</div>
+				</td>
+				<td>Any extra text you wish to associate with this line item. Sometimes used to store size, color, or pass catalog fields through to the shopping cart (can also be set with <a href="AddCommand.html">Add</a> or <a href="ShowCartCommand.html">ShowCart</a> command). Limited to 255 characters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						textB[lineIndex]</div>
+				</td>
+				<td>Similar to textA.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						textC[lineIndex]</div>
+				</td>
+				<td>Similar to textA.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						textD[lineIndex]</div>
+				</td>
+				<td>Similar to textA.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						textE[lineIndex]</div>
+				</td>
+				<td>Similar to textA.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						taxable[lineIndex]</div>
+				</td>
+				<td>You are not allowed to set this value. It comes from the product database field &quot;taxable,&quot; or from the taxable <a href="FormulaFormat.html">formula</a> in Formulas.db.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						canEmail[lineIndex]</div>
+				</td>
+				<td>Similar to taxable</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						unitShipCost[lineIndex]</div>
+				</td>
+				<td>To prevent &quot;hacking&quot; this value cannot be set remotely -- its value either comes from the product database field &quot;unitShipCost&quot;, or is computed from a <a href="FormulaFormat.html">formula</a> stored in Formulas.db.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						price[lineIndex]</div>
+				</td>
+				<td>Similar to unitShipCost.</td>
+			</tr>
+		</table>
+		<p></p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

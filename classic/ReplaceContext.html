@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Replace Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[Replace <i>Parameters</i>]new values[/Replace]</font>
+		<dl>
+			<dd>Replaces each found record in a database with the new field values.
+			<dd>
+			<dd><b>SQL/ODBC Note</b>: To replace records in an ODBC-compliant table controlled by a SQL server, use the <a href="SQLContext.html">[SQL]</a> context.
+		</dl>
+		<b>New for WebDNA 5.x</b> - You can specifiy a WebDNA table, in place of a db file, in the Replace context.  For example: <b>[Replace table=<i>TableName</i>&...]values[/Replace]</b> 
+		<p>To replace records in a database, put a [Replace] context into a template (alternately, you may use the <a href="ReplaceCommand.html">Replace</a> command from a URL or a FORM). Whenever WebDNA encounters a Replace, it immediately searches for the specified records in the database, and replaces those records' fields with the named field values inside the Replace.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[Replace db=SomeDatabase.db&amp;eqNAMEdata=Grant]<b>name</b>=John&amp;<b>address</b>=1492 Somewhere Lane&amp;<b>zip</b>=90000&amp;<b>date</b>=[date][/Replace]
+		</dl>
+		<p>The database &quot;SomeDatabase.db&quot; opens and all records whose <b>name</b> field is &quot;Grant&quot; are found. The field names &quot;<b>name</b>&quot; is set to &quot;John,&quot; &quot;<b>address</b>&quot; is set to &quot;1492 Somewhere Lane,&quot; &quot;<b>zip</b>&quot; is set to &quot;90000,&quot; and &quot;<b>date</b>&quot; is set to the current date. Notice that any WebDNA [xxx] tags inside the context are first substituted for their real values before being written to the database. The name of the database itself may also be an [xxx] tag, as in &quot;[Replace db=[FormVarable]]&quot;.</p>
+		<p>Any field names not existing in the database are ignored, and if you leave some existing field names out of the replace context, they will remain unchanged in the database. Certain letters are illegal, such as &lt;tab&gt; or &lt;carriage return&gt;, so they are converted to &lt;soft tab&gt; and &lt;soft return&gt; before being added to the database. Some computers use the two-character sequence &lt;carriage return&gt;&lt;line feed&gt; to indicate a single end of line, which is automatically converted to a single &lt;soft return&gt; character before being added to the database. These 'soft' characters are automatically converted back to 'hard' versions (the originals) whenever you retrieve fields from a search of the database.<br>
+		<br>
+		You may specify an absolute or relative path to the database file, as in &quot;/WebCatalog/GeneralStore/SomeDatabase.db&quot; or &quot;../SomeDatabase.db&quot;.</p>
+		<dl>
+			
+  <dd><b>Note:</b> Normally all database filepaths are relative to the local template, 
+    or if they begin with &quot;/&quot; they are relative to the web server's 
+    virtual host root (MacOS and Unix versions only; PC versions treat the DBServer.exe 
+    folder as root regardless of the virtual host). You may optionally put &quot;^&quot; 
+    in front of the file path to indicate the file can be found in a global root 
+    folder called &quot;Globals&quot; inside the WebCatalogEngine folder. This 
+    global root folder is the same regardless of the virtual host. 
+</dl>
+		<p>
+		
+<table border="1" cellpadding="0">
+  <tr> 
+    <th bgcolor="#bbbbbb">&nbsp;Parameter</th>
+    <th bgcolor="#bbbbbb">&nbsp;Description</th>
+  </tr>
+  <tr> 
+    <td> <div align="right"> &nbsp;db</div></td>
+    <td>path to database file, relative to this template.</td>
+  </tr>
+  <tr> 
+    <td> <div align="right"> &nbsp;table</div></td>
+    <td><b>New for WebDNA 5.x</b><br>In place of a db file, you can specify a named reference to a WebDNA <a href="Table.html">table</a> object.</td>
+  </tr>
+  <tr> 
+    <td> <div align="right"> &nbsp;<i>SearchParameters</i></div></td>
+    <td>Search information describing which records should be found and replaced. 
+      Can be any complex search criteria, works exactly like <a href="SearchCommand.html">Search</a> 
+      command or <a href="SearchContext.html">[Search]</a> context.</td>
+  </tr>
+  <tr> 
+    <td> <div align="right"> Append</div></td>
+    <td>(Optional) &quot;T&quot; if you want a new record to be added to the end 
+      of the database in the case where no records were found to be replaced. 
+      Any fields you do not specify are left blank in the new record.</td>
+  </tr>
+  <tr> 
+    <td><div align="right">autonumber</div></td>
+    <td>(Optional) Instructs WebDNA to automatically generate the 'next highest 
+      number' value for the given fieldname.</td>
+  </tr>
+</table>
+		
+<p>&nbsp;</p>
+<p>You can use the <strong>'AUTONUMBER='</strong> parameter with the [append] 
+  or [replace] context to instruct WebDNA to automatically generate the 'next 
+  highest number' value for the given fieldname. This is useful for 'ID' type 
+  fields, where unique values are required. <br>
+  <br>
+  Here is a demonstration of the AUTONUMBER feature using a WebDNA TABLE (of course 
+  this will work on database files as well). <br>
+  <br>
+  Example WebDNA code: </p>
+<blockquote> 
+  <p><br>
+    [table name=table_1&amp;fields=ID,NAME,EMAIL][/table]</p>
+  <p>[append table=table_1&amp;AUTONUMBER=ID]NAME=Scott&amp;EMAIL=scott@here.com[/append]<br>
+    [append table=table_1&amp;AUTONUMBER=ID]NAME=Lee&amp;EMAIL=lee@there.com[/append]<br>
+    [append table=table_1&amp;AUTONUMBER=ID]NAME=OMNI&amp;EMAIL=omni@everywhere.com[/append]<br>
+    [delete table=table_1&amp;eqIDdata=2]<br>
+    [append table=table_1&amp;AUTONUMBER=ID]NAME=Lee&amp;EMAIL=lee@there.com[/append]</p>
+  <p><br>
+    [search table=table_1&amp;neIDdata=[blank]]<br>
+    [founditems]<br>
+    [ID] - [NAME] - [EMAIL]</p>
+  <p>[/founditems]<br>
+    [/search]</p>
+</blockquote>
+<p><br>
+  Results:</p>
+<blockquote> 
+  <p>1 - Scott - scott@here.com<br>
+    3 - OMNI - omni@everywhere.com<br>
+    4 - Lee - lee@there.com</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>You can see that WebDNA automatically generated the ID value by calculating 
+  the 'next largest value', given the existing ID values in the table. <br>
+</p>
+		<b>New for WebDNA 5.1</b> - You use the new [ThisAutonumber] tag from within an Append or Replace context, to retrieve the current auto-generated number (if the AUTONUMBER parameter was used).
+<!--[/Raw]-->
+	</body>
+
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>SetLineItemContext.html</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[SetLineItem <i>Parameters</i>]values[/SetLineItem]</font>
+		<dl>
+			<dd>Changes a line item in a shopping cart.
+		</dl>
+		<p>To change a line item in a visitor's shopping cart, put a SetLineItem context into a template (alternately, you may use the <a href="ShowCartCommand.html">ShowCart</a> command from a URL or a FORM). Whenever WebDNA encounters a SetLineItem context, it opens the shopping cart file and changes values in a line item (identified by its index). The item's quantity, textA-E, and cart header fields are all changeable. You can use a different price by creating a Formulas.db database. Also see <a href="RemoveCommand.html">Remove</a>, <a href="ClearCommand.html">Clear</a>, <a href="ShowCartCommand.html">ShowCart</a>, <a href="AddContext.html">[AddLineItem]</a> and <a href="PurchaseCommand.html">Purchase</a>.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[SetLineItem cart=5678&amp;index=3&amp;db=catalog.txt]<b>quantity</b>=4&amp;<b>textA</b>=Blue[/SetLineItem]
+		</dl>
+		<p>Shopping cart file &quot;5678&quot; opens, and line item 3's <b>quantity</b> changes to 4 and <b>textA</b> changes to &quot;Blue&quot; (as specified in the context above).</p>
+		<p>Here are the parameters to the SetLineItem context:
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#cccccc">
+					<dl>
+						Parameter
+					</dl>
+				</th>
+				<th bgcolor="#cccccc">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						<dl>
+							db
+						</dl>
+					</div>
+				</td>
+				<td>Product database containing the SKU, price, and other information.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						<dl>
+							index
+						</dl>
+					</div>
+				</td>
+				<td>Uniquely identifies which line item should be modified.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						cart</div>
+				</td>
+				<td>Affected shopping cart file (from ShoppingCarts folder).</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						file</div>
+				</td>
+				<td>(alternative to <b>cart</b>) Affected shopping cart file (from any folder). Unlike <b>cart</b>, this file can be in any folder. Specify the file URL-relative to the template.</td>
+			</tr>
+			<tr>
+				<th bgcolor="#cccccc">Context value</th>
+				<th bgcolor="#cccccc">Description (these values go inside the context)</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						password</div>
+				</td>
+				<td>(Optional) In order to change the price (see below) you must provide the line item change password, which can be set in the preferences.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						price</div>
+				</td>
+				<td>(Optional) Sometimes you may need to change the price of a product <i>after</i> it has already been added to the cart. Normally you use a <a href="FormulaFormat.html">formula</a> to vary pricing, but since formulas only apply if a product is <i>first</i> added to the cart, this alternate technique may be needed. Remember to put the line item change password (see above) into the parameters.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						textA</div>
+				</td>
+				<td>(Optional) Extra information of any kind you want associated with this line item. Often used to store extra product information, such as &quot;shoe size&quot; or &quot;color.&quot; Also used to copy catalog database fields such as [title] through to the order file.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						textB</div>
+				</td>
+				<td>(Optional) Same as textA above.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						textC</div>
+				</td>
+				<td>(Optional) Same as textA above.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						textD</div>
+				</td>
+				<td>(Optional) Same as textA above.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						textE</div>
+				</td>
+				<td>(Optional) Same as textA above.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						<dl>
+							quantity
+						</dl>
+					</div>
+				</td>
+				<td>
+					<dl>
+						<dt>(Optional) Tells how many of this SKU should be added to the cart. This quantity is used when calculating totals, unitShipCost, etc.
+					</dl>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						taxable</div>
+				</td>
+				<td>(Optional) &quot;<b>T</b>&quot; or &quot;<b>F</b>&quot;. Overrides &quot;taxable&quot; field in the database - normally the information about the item's taxable status is taken from a field called &quot;taxable.&quot;</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						canEmail</div>
+				</td>
+				<td>(Optional) &quot;<b>T</b>&quot; or &quot;<b>F</b>&quot;. Overrides &quot;canEmail&quot; field in the database - normally the information about the item's canEmail (electronically deliverable) status is taken from a field called &quot;canEmail.&quot;</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						unitShipCost</div>
+				</td>
+				<td>(Optional) A number indicating the item's price for shipping. Overrides &quot;unitShipCost&quot; field in the database - normally the information about the item's unitShipCost status is taken from a field called &quot;unitShipCost.&quot; ShipTotal and GrandTotal use this number (multiplied by quantity) to determine the total shipping and grand total.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						<a href="PurchaseCommand.html#HeaderFields"><i>Header Field</i></a></div>
+				</td>
+				<td>You may set any shopping cart header field (such as Name, taxRate, Address1, etc.) at the same time you add a product to the cart.</td>
+			</tr>
+		</table>
+		<!--[/Raw]-->
+	</body>
+
+</html>

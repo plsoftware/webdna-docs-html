@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>UNIX: Setting up ODBC for WebDNA</title>
+		<!--[Raw]-->
+	</head>
+<H3>UNIX: Setting up WebDNA - ODBC - Database Server</H3>
+	<body bgcolor="white">
+<p> To access your SQL database using the WebDNA [SQL] context, WebDNA requires that the ODBC Driver Manager libraries be installed, and that a data source name (DSN) has been setup. For this example, we will assume the following: 
+	<ul>
+		<li> UnixODBC is installed at location /usr/local/unixODBC. You can download the sotware from the <a href=http://www.unixODBC.org> UNIX ODBC Website </a> </li>
+		<li> MyODBC is installed as a shared library at /usr/local/MyODBC/lib. MyODBC is the ODBC Driver for the MySQL database server. It can be download from the <a href=http://www.mysql.com> MySQL website </a> </li>
+		<li> MySQL database server is installed at location /usr/local/mysql. It can also be download from the <a href=http://www.mysql.com> MySQL website </a></li>
+		<li> WebDNA 4.x is installed </li>
+	</ul>
+If you have installed another database server, just use its driver in place of MyODBC, and create its own data source name format. You can find out more infomation about how to create a DSN with unixODBC <a href=http://www.unixodbc.org/odbcinst.html>here</a>
+</p>
+
+<H3>Configuring the  Data Sourse Name: </H3>
+Use a text editor to make the following changes to the 'odbc.int' and 'odbcins.ini' files
+<ul>
+	<li>Insert these lines into the file /usr/local/unixODBC/etc/odbc.ini</li>
+</ul>
+<pre>
+		[MySQL]
+		Description = test for MySQL server
+		Driver	    = /usr/local/MyODBC/lib/libmyodbc.so
+		Trace       = No
+		TraceFile   =
+		Server      = localhost
+		User        = testmysql
+		Password    = anything
+		Port        = 3306
+		Database    = test
+</pre>
+
+<ul>
+	<li>Insert these lines into the file /usr/local/unixODBC/etc/odbcins.ini</li>
+</ul>
+<pre>
+		[MyODBC]
+		Description = MyODBC driver for MySQL
+		Driver      = /usr/local/MyODBC/lib/libmyodbc.so
+		Setup       = /usr/local/unixODBC/lib/libodbcmyS.so
+</pre>
+
+<H3>Configuring WebDNA for unixODBC: </H3> Add the following line to your "WebCatalog Prefs" file.<br>
+<pre>
+	SQLLibraryPath	/usr/local/unixODBC/lib/libodbc.so
+</pre>
+After adding this line, restart WebDNA.  You are now ready to use the WebDNA [SQL] context.<br>
+
+<H3>WebDNA Example: </H3> Assuming the MySQL database server is running, and it contains a table named "userlist" within a database named "test", you can access the userlist table using the following WebDNA code.
+		<dl>
+			<dd>[SQL dsn=MySQL&amp;username=testmysql&amp;password=anything&amp;statement=SELECT * FROM userlist]<br>
+			Found [NumFound] items&lt;br&gt;<br>
+			[FoundItems]<br>
+				[name]&lt;br&gt;<br>
+			[/FoundItems]<br>
+			[/SQL]
+			</dd>
+		</dl>
+	<p>Whenever WebDNA encounters the [SQL] context, it uses ODBC to make a connection to the DSN you specify. It then executes the SQL statement and retrieves the results, if any. For SQL SELECT statements, you almost always put a <a href="FoundItemsContext.html">[FoundItems]</a>...[/FoundItems] context inside the [SQL] context so you can display the information from the matching records.</p>
+	<H3>Notice for Mac OS X users:</H3>
+	<li>After installing unixODBC, you need to do these extra steps to change the format of libodbc shared library</li>
+		<dl>
+		<dd>Login as root and go to the folder /usr/local/unixODBC/lib <br>
+		Recompile libodbc.dylib with the command:<i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cc -bundle -o libodbc.so libodbc.1.0.0.dylib </i>	
+		</dd>
+		</dl>
+	<li>You now need to compile MyODBC. Assuming you are compiling MyODBC with unixODBC for MySQL Server, after you finish the "configure" & "make" steps, you need to run the following command:(all one line)</li>
+		<dl>
+		<dd> cc -bundle -o libmyodbc.so catalog.o connect.o dll.o execute.o info.o myodbc.o options.o prefare.o results.o transact.o utility.o misc.o -L/usr/local/mysql/lib/mysql -lmysqlclient -lz -L/usr/local/unixODBC/lib -lodbc
+		</dd>
+		</dl>
+	<li>If you want to use MyODBC with libiodbc, just use it in place of unixODBC when you compile MyODBC.
+	</body>
+</html>

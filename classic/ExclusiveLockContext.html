@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>ExclusiveLock Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[ExclusiveLock <i>database list</i>]...WebDNA...[/ExclusiveLock]</font> 
+<dl> 
+  <dd><b><font color="#ff0000">New in 4.0</font></b><br>
+    Prevents other threads from simultaneously accessing a group of databases. 
+  <dd> 
+  <dd><b>SQL/ODBC Note</b>: all database, table, and record locking mechanisms 
+    are entirely controlled by the SQL server. [ExclusiveLock] is used only for 
+    WebDNA-native databases.
+</dl>
+		
+<p>To prevent a group of databases from being modified by other threads (other 
+  'hits' to the server, or other templates or triggers), wrap an [ExclusiveLock] 
+  context around the WebDNA code which will be making the important exclusive 
+  changes.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			
+  <dd>[ExclusiveLock db=orders.db&amp;db=lineitems.db&amp;db=accesslog.db]<br>
+    ...search, delete, or modify any of orders.db, lineitems.db, or accesslog.db 
+    while being assured that no other threads can modify any of these databases 
+    until the closing /ExclusiveLock tag is reached.<br>
+    [/ExclusiveLock]
+</dl>
+		
+<p>The list of database names is first alphabetized so as to maintain a consistent 
+  locking order (a technique which prevents internal deadlocks), then each database 
+  lock is acquired one at a time until all locks are acquired, then the interior 
+  WebDNA is executed. If any lock cannot be acquired, the other databases are 
+  unlocked, and the interior WebDNA is not executed.</p>
+		<p>
+		
+<table border="1" cellpadding="0">
+  <tr> 
+    <th bgcolor="#bbbbbb">&nbsp;Parameter</th>
+    <th bgcolor="#bbbbbb">&nbsp;Description</th>
+  </tr>
+  <tr> 
+    <td> 
+      <div align="right">db</div>
+    </td>
+    <td>path to first database file, relative to this template.</td>
+  </tr>
+  <tr> 
+    <td> 
+      <div align="right"> db</div>
+    </td>
+    <td>path to second database file, relative to this template.</td>
+  </tr>
+  <tr> 
+    <td> 
+      <div align="right">db</div>
+    </td>
+    <td>...path to nth database file, relative to this template. Note that all 
+      parameters are named exactly the same: &quot;db&quot;</td>
+  </tr>
+</table>
+		<!--[/Raw]-->
+	</body>
+
+</html>

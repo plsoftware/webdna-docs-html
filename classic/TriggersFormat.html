@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Triggers Format</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">File Formats - Triggers</font> 
+<p>Triggers provide a mechanism for doing something on a regular timed basis, or when a certain action occurs. Currently only time-based triggers are provided, but in the future we will add new types of triggers performing some action whenever a database is modified, or a template is displayed.<br>
+		<br>
+		Triggers do their work by simulating a browser hit to a URL. They act as if you had manually used a browser to reload a page at a particular time each day. This gives you the flexibility to create as much complex WebDNA as you like, and to test it by simply using a browser to visit that URL. Once you have finished creating and testing the template, then enter its URL into a trigger and it will be executed on schedule from then on.<br>
+		<br>
+		The URL must be of the form http://www.server.com/folder/file.ext (the same as you would see in a browser window -- in fact, it is probably easiest to simply copy the URL directly from your browser window). There is no restriction on the web site in the URL, so you can actually have triggers that hit any web server in the world.<br>
+		<br>
+		<b>New for WebDNA 5.1</b><br>The URL can now also take the form https://www.server.com/folder/file.ext.  In this case WebDNA will open a secure SSL connection (on port 443), to 'execute' the trigger.<br>
+		<br>
+		Because it is possible the URL will fail for some reason (timeout, bad connection, bad password), triggers have a timeout and retry interval. These numbers are used to tell the trigger how long it should wait before attempting the URL again. Triggers look for a string of text (which you specify) to tell them the trigger was successfully executed. Often the text &quot;&lt;html&gt;&quot; is sufficient, but you can put more sophisticated WebDNA into a page to create more detailed success information.<br>
+		<br>
+		The single Triggers.db file must be in the main program folder (where Users.db, ErrorMessages.db, etc. reside). An example of a useful time-based trigger is one that looks through the ShoppingCarts folder once per hour and deletes any that are more than 24 hours old. Another example is a trigger that looks for new order files in the Orders folder and initiates a credit card transaction using credit card software such as ICVerify, MacAuthorize, or CyberCash. Once the transaction is cleared, the trigger URL's WebDNA could continue by sending fulfillment emails and updating an inventory database.</p>
+		<dl>
+			<dd><b>Note</b>: Triggers will not execute until the first hit to the web site has been processed. This usually means that until the first web browser hit from the outside hits a URL ending in &quot;.tpl&quot; or one of the other WebDNA-controlled suffixes, no triggers will execute.
+		</dl>
+		<p><br>
+		<table border="1" cellpadding="0" width="100%">
+			<tr>
+				<th width="19%" bgcolor="#cccccc">Field</th>
+				<th width="81%" bgcolor="#cccccc">Description</th>
+			</tr>
+			<tr>
+				<td width="19%">
+					<div align="right">
+						SKU</div>
+				</td>
+				<td width="81%">A unique number making it easier to identify a particular trigger.</td>
+			</tr>
+			<tr>
+				<td width="19%">
+					<div align="right">
+						Trigger</div>
+				</td>
+				<td width="81%">Currently only TIME is allowed here, but in the future we will add values like APPEND, DELETE, REPLACE, SHOWPAGE, etc.</td>
+			</tr>
+			<tr>
+				<td width="19%">
+					<div align="right">
+						Param</div>
+				</td>
+				<td width="81%">For TIME triggers, this is a specially-formatted string of numbers and asterisks representing the time the trigger should execute. For example, to cause a trigger to execute 5 seconds after each minute, the text would be
+					<pre>Y M D H M S (Year Month Day Hour Minute Second)
+* * * * * 5</pre>
+					<p>To cause a trigger to execute at 9:15 PM every day, the text would be<br>
+					* * * 21 15 *
+					<table border="1" width="100%">
+						<tr>
+							<td width="16%">Year</td>
+							<td width="16%">Month</td>
+							<td width="16%">Day</td>
+							<td width="16%">Hour</td>
+							<td width="16%">Minute</td>
+							<td width="20%">Second</td>
+						</tr>
+						<tr>
+							<td width="16%" valign="top">* or actual year such as 1998</td>
+							<td width="16%" valign="top">* or month of year such as 6 for June</td>
+							<td width="16%" valign="top">* or day of month such as 28</td>
+							<td width="16%" valign="top">* or hour of day such as 23 (11 PM)</td>
+							<td width="16%" valign="top">* or minute of hour such as 59</td>
+							<td width="20%" valign="top">* or second of minute such as 15</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td width="19%">
+					<div align="right">
+						NextExecute</div>
+				</td>
+				<td width="81%">This value gets changed automatically each time a trigger executes. It changes to the date and time of the next scheduled execution of this trigger. If you do not want a trigger to start until a future date, you can preset this to the first date you want it to execute. After that, it is updated automatically.</td>
+			</tr>
+			<tr>
+				<td width="19%">
+					<div align="right">
+						Enable</div>
+				</td>
+				<td width="81%">T or F to enable or disable the trigger.</td>
+			</tr>
+			<tr>
+				<td width="19%">
+					<div align="right">
+						ExecuteURL</div>
+				</td>
+				<td width="81%">Full URL to the template you want executed at trigger time.</td>
+			</tr>
+			<tr>
+				<td width="19%">
+					<div align="right">
+						User</div>
+				</td>
+				<td width="81%">Optional username for this page. This is the same as an authenticated username that the [protect] tag uses. Requiring a username/password enables you to create triggers outside visitors cannot view.</td>
+			</tr>
+			<tr>
+				<td width="19%">
+					<div align="right">
+						Pass</div>
+				</td>
+				<td width="81%">Optional password for this page. This is the same as an authenticated password that the [protect] tag uses. Requiring a username/password enables you to create triggers outside visitors cannot view.</td>
+			</tr>
+			<tr>
+				<td width="19%">
+					<div align="right">
+						WasGood</div>
+				</td>
+				<td width="81%">A string of text returned from the URL indicating the trigger was successfully executed. The trigger looks for this text anywhere in the returned HTML from the URL page. Often &lt;html&gt; is sufficient to tell the trigger that it successfully received the page.</td>
+			</tr>
+			<tr>
+				<td width="19%">
+					<div align="right">
+						TimeoutSeconds</div>
+				</td>
+				<td width="81%">Number of seconds to wait for the URL to complete before giving up and trying again.</td>
+			</tr>
+			<tr>
+				<td width="19%">
+					<div align="right">
+						RetrySeconds</div>
+				</td>
+				<td width="81%">Number of seconds to wait before retrying the trigger.</td>
+			</tr>
+		</table>
+		<p></p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Loop Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[Loop <i>Parameters</i>]Any Text or HTML[/Loop]</font>
+		<dl>
+			<dd>Loops through the enclosing text the specified number of times
+		</dl>
+		<p>The Loop context requires two parameters: <b>Start</b> and <b>End</b>. Looping occurs between (and including) the <b>Start</b> and <b>End</b> value; advancing by 1 each time. You may optionally tell the loop context to advance by a specified amount (other than 1) by using the <b>Advance</b> parameter.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[loop start=1&amp;end=[numAdd]&amp;advance=1]
+			<dd>[append db=some.db]...[/append]Record [index] added.&lt;br&gt;
+			<dd>[/loop]
+		</dl>
+		<center>
+			<p>Try It!</p>
+		</center>
+		<p>Using the Loop context you can easily create a form to add an arbitrary number of records to a database. The form linking to the page (via a <b>Showpage</b> command for example) can specify the data to add for each record and how many records to add ([numAdd]). If you chose to add three records, the results would look like this:&nbsp;</p>
+		<dl>
+			<dd>Record 1 added.<br>
+			Record 2 added.
+			<dd>Record 3 added.
+		</dl>
+		<p>The following parameters can be used to modify the [Loop] context:
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">&nbsp;Parameter</th>
+				<th bgcolor="#bbbbbb">&nbsp;Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						Start</div>
+				</td>
+				<td>
+					<dl>
+						<dt>The starting index value to begin looping. This value is required and may be positive or negative.
+					</dl>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						End</div>
+				</td>
+				<td>
+					<dl>
+						<dt>The ending index value when looping. This value is required and may be positive or negative.
+					</dl>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						Advance</div>
+				</td>
+				<td>
+					<dl>
+						<dt>(Optional) The amount to advance by when looping. This parameter is optional and may be positive or negative, the default value is 1. For example, [loop start=1&amp;end=7&amp;advance=2][index][/loop] would loop 4 times using [index] values 1,3,5,7.
+					</dl>
+				</td>
+			</tr>
+		</table>
+		<p></p>
+		<p>The following tags are available inside a [Loop] context:
+		
+<table border="1" cellpadding="0">
+  <tr> 
+    <th bgcolor="#bbbbbb">Tag</th>
+    <th bgcolor="#bbbbbb">Description</th>
+  </tr>
+  <tr> 
+    <td>
+      <div align="right">[index]</div>
+    </td>
+    <td>Displays the current index number between or including <b>Start</b> and 
+      <b>End</b>.</td>
+  </tr>
+  <tr> 
+    <td> 
+      <div align="right"> [break]</div>
+    </td>
+    <td> If the [loop] context sees the [break] tag while executing a loop, it 
+      will stop looping, once it finishes the current loop. Thus the [break] tag 
+      should only appear in a [showif] statement that is evaluated at the end 
+      (bottom) of the loop.</td>
+  </tr>
+</table>
+		<p></p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

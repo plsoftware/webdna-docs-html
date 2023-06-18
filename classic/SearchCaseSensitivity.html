@@ -1,0 +1,28 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Search Case Sensitivity</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5"> Searching - Case Sensitivity</font> <font size="5"><i>FieldName</i><b>case=T</b></font> 
+<dl>
+			<dd>Conducts case sensitive searches.
+		</dl>
+		<p>Normally WebDNA finds text regardless of its case, so &quot;Joe&quot; equals &quot;JOE&quot; equals &quot;jOe&quot;. But sometimes you may find it important to search for words where case matters. To make a field case-sensitive, put &quot;<b>case=T</b>&quot; after the fieldname in the search URL (or as a hidden field in the search form).</p>
+		<p>If your database has a field called &quot;FirstName,&quot; and you want to look for records containing &quot;Grant&quot; in the FirstName field, but not &quot;GRANT,&quot; then you would enter a URL something like this:</p>
+		
+<p>http://Results.tpl?command=search&amp;<b>eq</b>FirstName<b>data</b>=Grant&amp;FirstName<b>case</b>=<b>T</b>&amp;db=SomeDatabase.db</p>
+		<p>The template &quot;Results.tpl&quot; will be displayed after the search, and any <a href="FoundItemsContext.html">[FoundItems] </a>contexts in it will be filled with found records. &quot;Grant&quot; will be considered a match, but &quot;GRANT&quot; will not.</p>
+		<dl>
+			<dd><b>Note:</b> You can make all fields case-sensitive at once by putting &quot;<b>AllCase=T</b>&quot; into your search URL or form.
+		</dl>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

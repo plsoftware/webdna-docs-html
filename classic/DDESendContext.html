@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>DDESend Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[DDESend]Text of DDE command[/DDESend]</font> 
+<dl>
+			<dd><img src="winlogo.gif" width="20" height="16" align="LEFT" border="0" naturalsizeflag="3">Sends text to a DDE server program on the local machine. 
+		</dl>
+		<p>To embed the results of a DDE command into one of your pages, put a <a href="DDEConnectContext.html">[DDEConnect]</a> context into a template, and put [DDESend] contexts inside of that. The DDESend steps contained inside the context execute, and any returned value displays in place of the context. Any [xxx] tags inside the context are first substituted for their real values before the DDE executes.<br>
+		<br>
+		DDESend must be inside a containing [DDEConnect] context, otherwise it will not know which DDE server program to send its text to.</p>
+		<p><b>Example</b> (normally you would put the following text into a .TPL file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[DDEConnect program=PCAuthorize&amp;topic=GetBatches]<br>
+			[DDESend]Tela00001031 1[/DDESend]<br>
+			[DDESend]Tela00001031 2[/DDESend]<br>
+			[/DDEConnect]
+		</dl>
+		<p>In this example, the DDE command &quot;GetBatches from PCAuthorize&quot; is executed, and the results (a listing of all the batch information for batch #1 and batch #2) is displayed. Notice that the whitespace between &quot;Tela00001031&quot; and &quot;1&quot; is actually a tab character, which is part of the PCAuthorize specification.</p>
+		<dl>
+			<dd><b>Caution!</b> DDE has complete access to all DDE-aware programs on your web server. You can write a DDE context that can do damage to the machine or retrieve secret information. However, remote visitors to your web site have no way of executing their own DDE contexts remotely. They can only execute DDE commands inside a template file <b>you</b> have saved on your web server's hard disk.
+		</dl>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

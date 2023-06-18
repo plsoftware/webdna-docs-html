@@ -1,0 +1,2 @@
+This is the first line<br>
+02/14/2000, 13:52:35, 50.2654816, , <br>

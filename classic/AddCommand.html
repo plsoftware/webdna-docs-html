@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!--last modified on Fri, Aug 21, 1998 4:55 PM-->
+<HTML>  
+<HEAD>
+  <META NAME="GENERATOR" CONTENT="Adobe PageMill 3.0 Mac">
+  <META HTTP-EQUIV="content-type" CONTENT="text/html;charset=iso-8859-1">
+  <TITLE>Add Command</TITLE>
+  <!--[Raw]-->
+  <META NAME="Author" CONTENT="Grant Hulbert">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<P><FONT SIZE="+2">Add?db=DatabaseName&amp;cart=[cart]&amp;sku=xx&amp;<I>quantity=xx</I></FONT></P>
+
+<DL>
+  <DD>Adds a product to the specified shopping cart.
+</DL>
+
+<P>To add products to a visitor's shopping cart, click a URL containing
+the Add command (alternately, you may embed an <A HREF="AddContext.html">[AddLineItem]</A>
+context into a template). Whenever WebDNA receives an Add
+command, it opens the shopping cart file (creating a new one if
+necessary) and adds the product (identified by its SKU) to the
+end of the <A HREF="LineItemsContext.html">LineItems</A> in the
+shopping cart. The item's price, taxable, canEmail, and unitShipCost
+information is found by looking for the values of those fields
+in the product database. You can use a different price by creating
+a <A HREF="FormulaFormat.html">Formulas.db</A> database. Also
+see <A HREF="RemoveCommand.html">Remove</A>, <A HREF="ClearCommand.html">Clear</A>,
+<A HREF="ShowCartCommand.html">ShowCart</A>, and <A HREF="PurchaseCommand.html">Purchase</A>.</P>
+
+<P><B>Example</B> (normally you would link to a URL or form containing
+the following information):</P>
+
+<DL>
+  <DD>http://yourserver.com/xx.tpl?command=<B>Add</B>&amp;<B>db</B>=SomeDatabase.db&amp;<B>sku</B>=1234&amp;<B>cart</B>=5678&amp;quantity=5
+</DL>
+
+<P>The database &quot;SomeDatabase.db&quot; opens, and sku 1234
+is found. Shopping Cart file &quot;5678&quot; opens, and a new
+line item is added to the bottom of the list. The item's quantity
+is 5 (as specified in the command above), and the price is taken
+from the database's price field (or, if a formula for [price]
+is available in Formulas.db, the price is calculated using that
+formula). The page sent back to the browser will be xx.tpl, which
+typically contains a <A HREF="LineItemsContext.html">[LineItems]</A>
+loop to display the current items in the cart.<BR>
+</P>
+
+<DL>
+  <DD><B>Note:</B> normally all database filepaths are relative to the local template. 
+    If they begin with &quot;/&quot; they are relative to the web server's virtual 
+    host root. As of version 3.0, you may optionally put a &quot;^&quot; in front 
+    of the filepath to indicate the file can be found in a global root folder 
+    called &quot;Globals&quot; inside the WebCatalogEngine folder. This global 
+    root folder is the same regardless of the virtual host.<BR>
+<BR>
+  <B>Note:</B> you may add a maximum of 100 lineitems to a shopping
+  cart.<BR>
+</DL>
+
+<P>Here are the parameters to the Add command: <TABLE BORDER="1"
+CELLPADDING="0" WIDTH="100%" CELLSPACING="2">
+  <TR>
+    <TH WIDTH="81" BGCOLOR="#bbbbbb">Parameter</TH> 
+    <TH BGCOLOR="#bbbbbb">Description</TH> 
+  </TR>
+  <TR>
+    <TD WIDTH="81">
+      <DL>
+        <P ALIGN=RIGHT>db
+      </DL>
+    </TD>
+    <TD>Product database that contains the SKU, price, and other
+      information</TD> 
+  </TR>
+  <TR>
+    <TD WIDTH="81">
+      <DL>
+        <P ALIGN=RIGHT>sku
+      </DL>
+    </TD>
+    <TD>Uniquely identifies which product should be added to the
+      cart.</TD> 
+  </TR>
+  <TR>
+    <TD WIDTH="81">
+      <P ALIGN=RIGHT>cart</TD> 
+    <TD>Shopping cart file that is to be affected</TD> 
+  </TR>
+  <TR>
+    <TD WIDTH="81">
+      <P ALIGN=RIGHT>password</TD> 
+    <TD>(Optional) In order to change the price (see below) you must
+      provide the lineitem change password, which can be set in the
+      preferences.</TD> 
+  </TR>
+  <TR>
+    <TH WIDTH="81" BGCOLOR="#cccccc">Optional Parameters</TH> 
+    <TH BGCOLOR="#cccccc">Description</TH> 
+  </TR>
+  <TR>
+    <TD WIDTH="81">
+      <P ALIGN=RIGHT>price</TD> 
+    <TD>(Optional) Sometimes you may need to change the price of
+      a product while adding it to the cart. Normally you use a <A
+      HREF="FormulaFormat.html">formula</A> to vary pricing, but sometimes
+      this alternate technique is preferred. Remember to put the lineitem
+      change password (see above) into the parameters. There is a security
+      risk when using this technique, because outsiders can change
+      the price to anything they like.</TD> 
+  </TR>
+  <TR>
+    <TD WIDTH="81">
+      <P ALIGN=RIGHT>textA</TD> 
+    <TD>(Optional) This is extra information of any kind associated
+      with this line item. Often used to store extra product information,
+      such as &quot;shoe size&quot; or &quot;color.&quot; Also used
+      to pass catalog database fields such as [title] through to the
+      order file so they may be viewed later without needing the original
+      database to look for the value of [title].</TD> 
+  </TR>
+  <TR>
+    <TD WIDTH="81">
+      <P ALIGN=RIGHT>textB</TD> 
+    <TD>(Optional) Same as textA above.</TD> 
+  </TR>
+  <TR>
+    <TD WIDTH="81">
+      <P ALIGN=RIGHT>textC</TD> 
+    <TD>(Optional) Same as textA above.</TD> 
+  </TR>
+  <TR>
+    <TD WIDTH="81">
+      <P ALIGN=RIGHT>textD</TD> 
+    <TD>(Optional) Same as textA above.</TD> 
+  </TR>
+  <TR>
+    <TD WIDTH="81">
+      <P ALIGN=RIGHT>textE</TD> 
+    <TD>(Optional) Same as textA above.</TD> 
+  </TR>
+  <TR>
+    <TD WIDTH="81">
+      <DL>
+        <P ALIGN=RIGHT>quantity
+      </DL>
+    </TD>
+    <TD>
+      <DL>
+        <DT>(Optional) Tells how many of this SKU should be added to
+        the cart. This quantity is used when calculating subtotals, unitShipCost,
+        etc.
+      </DL>
+    </TD>
+  </TR>
+  <TR>
+    <TD WIDTH="81">
+      <P ALIGN=RIGHT>taxable</TD> 
+    <TD>(Optional) &quot;<B>T</B>&quot; or &quot;<B>F</B>&quot;.
+      Overrides &quot;taxable&quot; field in the database - normally
+      the information about the item's taxable status is taken from
+      a field called &quot;taxable.&quot;</TD> 
+  </TR>
+  <TR>
+    <TD WIDTH="81">
+      <P ALIGN=RIGHT>canEmail</TD> 
+    <TD>(Optional) &quot;<B>T</B>&quot; or &quot;<B>F</B>&quot;.
+      Overrides &quot;canEmail&quot; field in the database - normally
+      the information about the item's canEmail (electronically deliverable)
+      status is taken from a field called &quot;canEmail.&quot;</TD> 
+  </TR>
+  <TR>
+    <TD WIDTH="81">
+      <P ALIGN=RIGHT>unitShipCost</TD> 
+    <TD>(Optional) A number indicating the item's price for shipping.
+      Overrides &quot;unitShipCost&quot; field in the database - normally
+      the information about the item's unitShipCost status is taken
+      from a field called &quot;unitShipCost&quot;. ShipTotal and GrandTotal
+      use this number (multiplied by quantity) to determine the total
+      shipping and grand total.</TD> 
+  </TR>
+  <TR>
+    <TD WIDTH="81">
+      <P ALIGN=RIGHT><I><A HREF="PurchaseCommand.html#HeaderFields">Header
+      Field</A></I></TD> 
+    <TD>You may set any shopping cart header field (such as Name,
+      taxRate, Address1, etc.) at the same time you add a product to
+      the cart.</TD> 
+  </TR>
+  <TR>
+    <TD WIDTH="81">
+      <P ALIGN=RIGHT>RequiredFields</TD> 
+    <TD>
+      <DL>
+        <DT>You may force the visitor to enter something into a field
+        by using the <B>RequiredFields</B> parameter in the URL. Setting
+        <B>RequiredFields</B>=field1+field2+field3 will display an error
+        message if the visitor forgets to enter text into any of those
+        3 fields. <B>RequiredFields</B> works for all commands, not just
+        this one.
+      </DL>
+    </TD>
+  </TR>
+</TABLE><!--[/Raw]-->
+
+</BODY>
+</HTML>

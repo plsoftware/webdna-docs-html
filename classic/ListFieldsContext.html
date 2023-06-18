@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>ListFields Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[ListFields <i>Params</i>]Database Tags[/ListFields]</font>
+		<dl>
+			<dd>Lists all the fields in the specified database,  SQLResult record set, or SQL table
+		</dl>
+		<p>To display a list of all the fields in a particular database, put a [ListFields] context into a template. You may put a [ListFields] context inside the <a href="ListDatabasesContext.html">[ListDatabases]</a> context to automatically list all the fields in all the databases.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[ListDatabases]
+			<dd>Fields in database [name]:&lt;br&gt;
+			<dd>[ListFields db=[name]]<br>
+			Fieldname: [FieldName]&lt;br&gt;<br>
+			[/ListFields]
+			<dd>&lt;hr&gt;
+			<dd>[/ListDatabases]
+		</dl>
+		<br>
+		<b>Starting in WebDNA 6.0...</b><br>
+		<p>To display a list of all fields in an SQL table (after a <a href="SQLConnectContext.html">[SQLConnect]</a> context), specify the SQL connection and database table.<p>
+		<b>Example</b>
+		<dl><dd><pre><xmp>
+The "inventory" table has the following fields:<br>
+[ListFields conn_ref=conn1&table=inventory]
+<b>[fieldname]</b><br>
+<li>ordinal: [ordinal]</li>
+<li>datatype: [datatype]</li>
+<li>allownull: [allownull]</li>
+<li>width: [width]</li>
+<br>
+[/ListFields]
+		</xmp></pre></dl>
+		<p>To display a list of all fields in a <a href="SQLResultContext.html">[SQLResult]</a> record set, just include the [ListFields] inside of a [SQLResult] context.<p>
+		<b>Example</b>
+		<dl><dd><pre><xmp>
+[SQLResult result_ref=rs1]
+The result set from query "select * from employees;" has [numFields] fields:<br>
+[ListFields]
+<b>[fieldname]</b><br>
+<li>ordinal: [ordinal]</li>
+<li>datatype: [datatype]</li>
+<li>allownull: [allownull]</li>
+<li>width: [width]</li>
+<br>
+[/ListFields]
+<br>
+[/SQLResult]
+		</xmp></pre></dl>
+		<p>The following tags are available inside a [ListFields] context:
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Tag</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[FieldName]</div>
+				</td>
+				<td>&nbsp;the name of the field.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[Index]</div>
+				</td>
+				<td>A number from 1 to the total number of fields, indicating this field's index placement in the list.</td>
+			</tr>
+			<tr><td colspan=2 align=center><b>The following tags are available when using [ListFields] to list SQL fields</b></td></tr>
+			<tr>
+				<td>
+					<div align="right">
+						[ORDINAL]</div>
+				</td>
+				<td>Will retrieve the literal position of the current iterated field.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[DATATYPE]</div>
+				</td>
+				<td>Will retrieve the named SQL datatype of the current iterated field.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[ALLOWNULL]</div>
+				</td>
+				<td>Returns whether or not (T or F) the current iterated field will accept a null value as a possible entry/value.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[WIDTH]</div>
+				</td>
+				<td>Will retrieve the maximum length of data the current iterated field will allow.</td>
+			</tr>
+		</table>
+		</p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

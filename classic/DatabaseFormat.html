@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"><!--last modified on Thu, Jun 4, 1998 7:23 PM-->
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Database Format</title>
+		<meta name="Author" content="Grant Hulbert">
+	</head>
+
+	<body bgcolor="white">
+<font size="5">File Formats - Database Format</font> 
+<p>WebDNA can open any number of databases, each of which can have its own field structure. The number of records is only limited by the amount of RAM given to WebDNA (when used as a plugin, you must give more RAM to the web server software itself). WebDNA recognizes Tab-Delimited text files, Microsoft Access and FileMaker Pro's &quot;Merge&quot; Quote-Comma-Delimited format, and any ODBC-compliant SQL database.</p>
+		
+<dl> 
+  <dd><b>Note</b>: To convert an existing Catalog.txt file from the old WebDNA 
+    1.6.1 format, you must put the 27 field names (separated by tabs) on the very 
+    first line of the file (basically the first record is the names of the fields). 
+    Alternately, you may simply export to &quot;Merge&quot; format from FileMaker 
+    Pro, but realize that Merge is less efficient -- it puts extra quotes and 
+    commas in the file.
+  <dt><br>
+  </dt>
+  <dd>As <font color=red></font> of WebCatalog 3.0 support for SQL databases is 
+    accessible through the ODBC protocol. There is no need to discuss the file 
+    format of SQL databases here, because it is irrelevant (and it is different 
+    for every SQL vendor). ODBC handles all the details for you. 
+</dl>
+		<p><b>Tab-Delimited Format</b>: the following is an example of a database with custom fields. It was created in FileMaker Pro and exported using the &quot;Tab-Delimited&quot; format. Because FileMaker does not automatically put field names across the top of tab-delimited export files, we had to manually paste the field names into the text file after FileMaker created it:</p>
+		<p>Contents of Tab-Delimited format AddressList.db file (the .db file extension is a convention only: it is not required):</p>
+		<pre>----------------------------------------------------------------
+name&nbsp;&nbsp;&nbsp;address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;city&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state&nbsp;&nbsp;zip
+Grant&nbsp;&nbsp;1180 Central Ave&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;San Marcos&nbsp;CA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;92079
+PCS&nbsp;&nbsp;&nbsp;&nbsp;11770 Bernardo Plaza Court&nbsp;&nbsp;San Diego&nbsp;&nbsp;CA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;92128
+----------------------------------------------------------------</pre>
+		<p>Notice that the fields are separate by tabs, as usual, even though it may be hard to tell by just looking at the lines above.</p>
+		<p><b>Merge Format</b>: the following is an example of a database that has been exported to Merge format from a FileMaker Pro or Access database. Notice that FileMaker automatically puts the field names across the top of the file, so you do not have to make any changes after exporting.</p>
+		<p>Contents of Merge format AddressList.db file (the .db file extension is a convention only: it is not required):</p>
+		<pre>----------------------------------------------------------------
+name,address,city,state,zip
+&quot;Grant&quot;,&quot;1180 Central Ave&quot;,&quot;San Marcos&quot;,&quot;CA&quot;,&quot;92079&quot;
+&quot;PCS&quot;,&quot;11770 Bernardo Plaza Court&quot;,&quot;San Diego&quot;,&quot;CA&quot;,&quot;92128&quot;
+----------------------------------------------------------------</pre>
+		<dl>
+			<dd><b>Note</b>: WebDNA always saves databases in tab-delimited format, regardless of what they originally were. Any Delete, Append, or Replace action causes a database to be written to disk in tab-delimited format (except when using SQL, which has its own format).<br>
+			&nbsp;<br>
+			<b>WebCatalog 1.6.x Note:</b> Because WebCatalog 2.x and above deals with more than one database, you must now tell it which database it is supposed to use when sending it commands, like so:<br>
+			&nbsp;<br>
+			xx.tpl?command=(command)&amp;<b>db</b>=DatabaseName
+		</dl>
+		<p><a name="HeaderDescription"></a><b>New &quot;.hdr&quot; file specification:</b> if the database you wish to import does not already contain a list of fieldnames in the first row, then you can create a second file called &quot;xxx.hdr&quot; that contains just the fieldnames, and WebDNA will automatically use those fieldnames. If the database is in Merge format, then the .hdr file <b>must</b> also be in Merge format.<br>
+		<br>
+		<font size="4">Example Tab-delimited database that uses a header file:</font></p>
+		<pre>----- Products.tab ---------------------------------------------
+Grant&nbsp;&nbsp;1180 Central Ave&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;San Marcos&nbsp;CA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;92079
+PCS&nbsp;&nbsp;&nbsp;&nbsp;11770 Bernardo Plaza Court&nbsp;&nbsp;San Diego&nbsp;&nbsp;CA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;92128
+----------------------------------------------------------------
+
+----- Products.hdr ---------------------------------------------
+name&nbsp;&nbsp;&nbsp;address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;city&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state&nbsp;&nbsp;zip
+----------------------------------------------------------------</pre>
+		<p><font size="4">Example Merge-format database that uses a header file:</font></p>
+		<pre>----- Products.merge -------------------------------------------
+&quot;Grant&quot;,&quot;1180 Central Ave&quot;,&quot;San Marcos&quot;,&quot;CA&quot;,&quot;92079&quot;
+&quot;PCS&quot;,&quot;11770 Bernardo Plaza Court&quot;,&quot;San Diego&quot;,&quot;CA&quot;,&quot;92128&quot;
+----------------------------------------------------------------</pre>
+		<pre>
+----- Products.hdr ---------------------------------------------
+name,address,city,state,zip
+----------------------------------------------------------------</pre>
+	</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>ListCookies Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[ListCookies <i>params</i>]Cookie Tags[/ListCookies]</font>
+		<dl>
+			<dd>Lists all the cookie names and values sent from the remote browser.
+		</dl>
+		<p>To display a list of all the cookies available, put a [ListCookies] context into a template.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>The following are all the cookies available to this page:&lt;br&gt;<br>
+			[ListCookies]<br>
+			[index],[name],[value]&lt;br&gt;<br>
+			[/ListCookies]
+		</dl>
+		<p>The [ListCookies] context has optional parameters that are placed within the beginning tag in order to modify the list of cookies produced.</p>
+		<p><b>Example</b>:</p>
+		<dl>
+			<dd>The following are the values of all the cookies whose name begins with &quot;text&quot;:&lt;br&gt;<br>
+			[ListCookies name=text&amp;exact=F]<br>
+			[index],[value]&lt;br&gt;<br>
+			[/ListCookies]
+		</dl>
+		<p>The following parameters are optional to the [ListCookies] context:
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Parameter</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						Name</div>
+				</td>
+				<td>The name of the cookie to list.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;Exact</div>
+				</td>
+				<td>T(rue) or F(alse) whether to exactly match the name of the parameter or match any name that contains the &quot;name&quot; value. (Default value is true.)</td>
+			</tr>
+		</table>
+		</p>
+		<p>The following tags are available inside a [ListCookies] context:
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Tag</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[Name]</div>
+				</td>
+				<td>The name of the cookie.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[Value]</div>
+				</td>
+				<td>The value associated with the cookie.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[Index]</div>
+				</td>
+				<td>A number from 1 to the maximum number of cookies, indicating this cookie's index placement in the list.</td>
+			</tr>
+		</table>
+		</p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

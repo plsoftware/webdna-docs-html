@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<title>SQL Native API</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+Starting with WebDNA 6.0, new language elements have been added to provide
+native support for major relational database systems, such as the MySQL RDBMS.
+Currently, the new WebDNA SQL contexts support the mySQL RDBMS with support for MS SQL 
+Server and Oracle planned for future releases.
+<p>
+Unlike the existing [SQL] context, which uses ODBC, these new contexts utilize various C++ API libraries to communicate directly to local or remote SQL database servers.
+<p>
+These contexts have been engineered for inuitive, easy use.  Below you'll find an 
+overview of new contexts and global tags.  You'll also see some existing contexts that
+have been leveraged to support this new funcionality where it makes sense, 
+in keeping with the functionality and behavior you're already 
+used to employing when dealing with WebDNA databases.<br>
+<br>
+<u>New Contexts</u>:<br>
+<A href="SQLConnectContext.html">[SQLConnect]</A><br>
+<A href="SQLExecuteContext.html">[SQLExecute]</A><br>
+<A href="SQLResultContext.html">[SQLResult]</A><br>
+<A href="SQLInfoContext.html">[SQLInfo]</A><br>
+<br>
+<u>New Global Tags</u>:<br>
+<A href="AllTags.html#SQLDisconnect">[SQLDisconnect]</A><br>
+<A href="AllTags.html#SQLRelease">[SQLRelease]</A><br>
+<br>
+<u>Re-tooled Contexts</u>:<br>
+<A href="FoundItemsContext.html">[FoundItems]</A><br>
+<A href="ListFieldsContext.html">[ListFields]</A><br>
+
+<p><!----[/Raw]>
+</body>
+
+</html>

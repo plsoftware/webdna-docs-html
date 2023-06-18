@@ -1,0 +1,731 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Macro Tags Available Everywhere</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+		<a name="Explanation"></a><font size="5">[xxx] Tags that are Available Anywhere</font>
+		<p>The following tags can be used in any template file WebDNA displays. Additionally, if you have defined a SUFFIX-MAPPING and ACTION for WebDNA to process .tpl or .HTML pages, then simply using a web browser to link to any .tpl or .HTML page on your site is equivalent to performing a ShowPage using that file as a template.</p>
+		<p>Depending on the preference settings, you may have to include &lt;!--HAS_WEBDNA_TAGS--&gt; at the top of your files to indicate that WebDNA should interpret the [xxx] tags inside the file.</p>
+		<dl>
+			<dd><b>Note</b>: These are <b>not</b> containers, so they should <b>not</b> be followed by a corresponding [/xxx] tag.
+		</dl>
+		
+<p><a name="Authenticate"></a>[AUTHENTICATE realm=<i>Some Text</i>]</p>
+		<dl>
+			<dd>Putting [AUTHENTICATE] in your template causes the remote browser to display the Username/Password dialog with whatever text you specify. When the visitor types a username and password into their browser, your templates can get that information by including the <a href="#Username">[USERNAME]</a> and <a href="#Password">[PASSWORD]</a> tags. Normally you put [AUTHENTICATE] inside [ShowIf] or [HideIf] contexts comparing the username/password, otherwise the password dialog continues popping up forever.<br>
+			<br>
+			<b>Note:</b> [AUTHENTICATE] is a low-level tool requiring some sophisticated knowledge to use, so most people use the simpler <a href="#Protect">[PROTECT]</a> tag to password-protect a page. You can see an example of how [PROTECT] makes use of [AUTHENTICATE] by reading the WebDNA in the file &quot;MultiGroupChecker&quot; on your hard disk (in the WebCatalogEngine folder).
+		</dl>
+		<p><a name="BrowserName"></a>[BROWSERNAME]</p>
+		<dl>
+			<dd>Putting [BROWSERNAME] in your template displays the name of the remote browser program running on the visitor's computer.
+		</dl>
+		
+<p><a name="CalcFile" id="CalcFile"></a>[CalcFileCRC32 file=&#8230;]</p>
+<blockquote> 
+  <p><font color="red"><b>New for 5.0</b></font><br>
+    Putting [CalcFileCRC32file=...] in your template calculates the CRC32 value 
+    of a given file.<br>
+    <br>
+    Example:</p>
+  <blockquote>
+<p>[CalcFileCRC32 file=../header.inc]</p>
+  </blockquote>
+  <p>Results: </p>
+  <blockquote>
+    <p>4016676240l</p>
+  </blockquote>
+</blockquote>
+<p><a name="cart"></a>[CART]</p>
+		<dl>
+			<dd>Putting [CART] in your template automatically creates a unique shopping cart identifier that can be used in eCommerce commands such as <a href="AddCommand.html">Add</a>, <a href="RemoveCommand.html">Remove</a>, <a href="PurchaseCommand.html">Purchase</a>, etc. If no cart value is specified when you arrive at a page, then a new unique value is created. If you pass a cart value into the URL or form (propagating the same value from page to page), then that same cart value is used throughout the page.
+			<p>[CART] is also handy for times when you just need a guaranteed-unique value somewhere, such as a record identifier or even a product SKU. For this reason, [cart] works in Typhoon as well as WebDNA.</p>
+		</dl>
+		<p><a name="ClearLineItems"></a>[CLEARLINEITEMS <b>cart</b>=cartID]</p>
+		<dl>
+			<dd>Putting [CLEARLINEITEMS] in your template will remove all line items from the specified shopping cart. Normally carts are found inside the ShoppingCarts folder, but you may specify a cart in any folder by using <b>file</b>=/folder/cartID instead of <b>cart</b>=cartID.
+		</dl>
+		
+<p><a name="CloseDatabase"></a>[CLOSEDATABASE <i>db=FileName</i>]</p>
+		<dl>
+			
+  <dd>Putting [CLOSEDATABASE db=FileName] in your template causes the specified 
+    database file (or full path) to be written and closed. This is only needed 
+    for special cases (usually before appending to a file) where you need to change 
+    a file perhaps cached in RAM. WebDNA automatically closes databases when 
+    it needs more memory, so you typically do not need to use this tag. 
+  <dd>New for version 4.5<br>  Adding 'commit=F' will cause the specified database file 
+    to be closed but not written to disk, so any unsaved changes will be lost.<br>
+    Note: Appends are always written to disk immediately, so those modifications are not 
+    affected by using 'commit=F'.
+</dl>
+		<p><a name="Command"></a>[COMMAND]</p>
+		<dl>
+			<dd>Putting [COMMAND] in your template displays the WebDNA command that was used to get to this page. Some examples are ShowPage, Search, ShowCart, etc. These commands are often used in Form Actions, but can also be specified in an HREF hyperlink.
+		</dl>
+		
+<p><a name="CommitDatabase"></a>[COMMITDATABASE <i>db=FileName</i>]</p>
+		<dl>
+			
+  <dd>Putting [COMMITDATABASE db=FileName] in your template causes the specified 
+    database file (or full path) to be written but not closed (so it will remain 
+    in RAM). This is only needed for special cases where you want to be absolutely 
+    certain that a database has been written to disk. 
+</dl>
+		<p><a name="CopyFile"></a>[COPYFILE from=FromFile&amp;to=ToFile]</p>
+		<dl>
+			<dd>Putting [COPYFILE from=fred&amp;to=wilma] in your template immediately copies the file called &quot;fred&quot; to another file called &quot;wilma.&quot;
+		</dl>
+		<p><a name="CopyFolder"></a>[COPYFOLDER from=FromFolder&amp;to=ToFolder]</p>
+		<dl>
+			
+  <dd><font color="red"><b> </b></font>Putting [COPYFOLDER from=fredFolder&amp;to=wilmaFolder] 
+    in your template immediately copies the folder called &quot;fredFolder&quot; 
+    to another folder called &quot;wilmaFolder.&quot; The original folder remains 
+    where it is currently. 
+</dl>
+		
+<p><a name="CreateFolder"></a>[CREATEFOLDER path=folder]</p>
+		<dl>
+			<dd>Putting [CREATEFOLDER StarShip/Troopers] in your template immediately creates a new folder with the name &quot;Troopers&quot; inside a folder called &quot;StarShip&quot; which is in the same folder as the template itself.
+		</dl>
+		<p><a name="Date"></a>[DATE]</p>
+		<dl>
+			
+  <dd>Putting [DATE] in your template displays the current date as defined by 
+    the clock on your web server. The format of the date is normally MM/DD/YYYY, 
+    but you can change the default format by changing the DateFormat preference. 
+    You can override the default date format preference on a case-by-case basis 
+    by specifying a format inside the tag, as in [DATE format=%m/%d/%Y]. See <a href="#Time">[Time]</a>. 
+    <dl>
+				<dd>
+				<table border="1" width="75%" bgcolor="#ffcccc" cellspacing="2" cellpadding="0">
+					<tr>
+						<td><b>Note:</b> this [date] tag is sometimes confused with the <a href="OrderFileContext.html">[OrderFile]</a>'s [date] tag, which is not the same thing. The [date] tag inside the context of an [OrderFile] represents the date the order was created, and does not have the ability to be formatted in special ways. If you want to display today's date inside of an [OrderFile], then you must first assign a text variable <b>outside</b> the OrderFile context, and use that text variable from then on:
+							<pre>[Text]todaysdate=[date][/Text]
+[OrderFile cart=[cart]]
+  Order Date: [date]
+  Today: [todaysdate]
+[/OrderFile]</pre>
+						</td>
+					</tr>
+				</table>
+			</dl>
+			<dd>&nbsp;
+			<dd>Here are the valid date formats:
+			<table border="1" cellpadding="0" cellspacing="2">
+				<tr>
+					<th bgcolor="#bbbbbb">Format</th>
+					<th bgcolor="#bbbbbb">Description</th>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							%a</div>
+					</td>
+					<td>Abbreviated weekday name &quot;Wed&quot; <a href="#Y2K">*</a></td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							%A</div>
+					</td>
+					<td>Full weekday name &quot;Wednesday&quot; <a href="#Y2K">*</a></td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							%b</div>
+					</td>
+					<td>Abbreviated month name &quot;Feb&quot; <a href="#Y2K">*</a></td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							%B</div>
+					</td>
+					<td>Full month name &quot;February&quot; <a href="#Y2K">*</a></td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							%c</div>
+					</td>
+					<td>Date and time in the form Wed Sep 19 18:24:21 1997 <a href="#Y2K">*</a></td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							%d</div>
+					</td>
+					<td>Day of month 01-31</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							%H</div>
+					</td>
+					<td>Hour 00-23</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							%I</div>
+					</td>
+					<td>Hour 01-12</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							%j</div>
+					</td>
+					<td>Day of year 001-365</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							%m</div>
+					</td>
+					<td>Month 01-12</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							%M</div>
+					</td>
+					<td>Minute 00-59</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							%p</div>
+					</td>
+					<td>AM or PM</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							%S</div>
+					</td>
+					<td>Seconds 00-59</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							%U</div>
+					</td>
+					<td>Week # of year (where Sunday is first day of week) <a href="#Y2K">*</a></td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							%w</div>
+					</td>
+					<td>Weekday 0 (Sunday) - 6 (Saturday)</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							%W</div>
+					</td>
+					<td>Week # of year (where Monday is first day of week) <a href="#Y2K">*</a></td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							%x</div>
+					</td>
+					<td>Date as Sep 11 1997 <a href="#Y2K">*</a></td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							%X</div>
+					</td>
+					<td>Time as 14:01:12</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							%y</div>
+					</td>
+					<td>Year without century 00-99</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							%Y</div>
+					</td>
+					<td>
+						<dl>
+							<dt>Year with century 1900-2199. <b>Note:</b> on Linux systems, years earlier than 999 will not display 4 digits for the year.
+						</dl>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							%Z</div>
+					</td>
+					<td>Time zone of server</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							%%</div>
+					</td>
+					<td>%</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td><a name="Y2K"></a>* These items depend on the underlying operating system's Y2K-compliance. Windows NT, for instance, will not display correct day-of-week-name results for years past 2039. The workaround is to use %w (weekday as a number) and perform your own lookup in a small database for the textual name of the weekday.</td>
+				</tr>
+			</table>
+		</dl>
+		<p><a name="Delete"></a>[DELETE db=DatabasePath&amp;eqNAMEdata=Fred]</p>
+		<dl>
+		<dd><b>New for WebDNA 5.x</b> - You can specifiy a WebDNA <a href="Table.html">table</a>, in place of a db file.<br>For example: [Delete table=<i>TableName</i>&...]. 
+		</dl>
+		<dl>
+			<dd>Putting [DELETE db=DatabasePath&amp;eqNAMEdata=Fred] in your template opens the database specified by DatabasePath, finds all the records whose NAME field contains &quot;Fred,&quot; and deletes those records. Any valid search parameters are allowed, as defined in the <a href="SearchCommand.html">Search</a> command and <a href="SearchContext.html">[Search]</a> context. <b>Note:</b> if the database has username and password fields, then the records will not be deleted unless the visitor's web browser username/password match the record's username/password.
+			<dd>
+			<dd><b>SQL/ODBC Note: </b>To delete records from an ODBC-compliant table, use the <a href="SQLContext.html">[SQL]</a> context.
+		</dl>
+		<p><a name="DeleteFile"></a>[DELETEFILE file=FilePath]</p>
+		<dl>
+			<dd>Putting [DELETEFILE file=fred] in your template immediately deletes the file called &quot;fred&quot; in the same folder as the template. Paths are relative to the template, so &quot;somefolder/fred&quot; deletes the file down a level from the template inside a folder called &quot;somefolder,&quot; while &quot;../fred&quot; deletes the file in the folder one level up from the template.
+		</dl>
+		<p><a name="DeleteFolder"></a>[DELETEFOLDER path=FolderPath]</p>
+		<dl>
+			<dd>Putting [DELETEFOLDER path=StarShip] in your template immediately deletes the folder called &quot;StarShip&quot; in the same folder as the template. Paths are relative to the template, so &quot;somefolder/StarShip&quot; deletes the folder down a level from the template inside a folder called &quot;somefolder,&quot; while &quot;../StarShip&quot; deletes the folder inside the folder one level up from the template. <b>All files inside the folder are deleted, and all subfolders are deleted, as though you had dragged the folder to the trashcan and emptied it immediately.</b> This operation is <b>not</b> un-doable!<br>
+			<br>
+			<img src="apple.gif" width="15" height="16" align="BOTTOM" border="0" naturalsizeflag="0"><b>Note</b>: if the parameter to [DeleteFolder] is an alias, then just the alias itself is deleted.
+		</dl>
+		<p><a name="ElapsedTime"></a>[ELAPSEDTIME]</p>
+		
+<dl>
+  <dd>Putting [ELAPSEDTIME] in your template displays the elapsed time (in 60ths 
+    of a second) since the beginning of processing this page. Put one at the top 
+    of a page, and another at the bottom to see how long the entire page takes 
+    to process (subtract the 2 numbers to get the answer). 
+</dl>
+<p><a name="FileCompare" id="FileCompare"></a>[filecompare params...]</p>
+<dl>
+  <dd> 
+    <p><font color="red"><b>New for 5.0</b></font><br>
+      Putting [filecompare params...] in your template compares the size, date, 
+      or CRC32 value of two given files. <br>
+      <strong><br>
+      Optional Tag Parameters:</strong><br>
+      <br>
+      <strong>&middot; method -</strong> Size | Date | CRC32<br>
+      <strong>&middot; file1 -</strong> path of first file.<br>
+      <strong>&middot; file2 -</strong> path of second file.<br>
+      <strong>&middot; file1crc -</strong> arbitrary crc32 value, in place of 
+      an actual path for file1. (useful if you want to store the CRC32 value of 
+      a file and use it at a later time to test if the file contents have been 
+      changed)</p>
+    <p><strong>results: method=Size</strong><br>
+      SMALLER - file2 is smaller than file1<br>
+      LARGER - file2 is larger than file1<br>
+      SAME - file1 and file2 are the same size <br>
+      <br>
+      <strong>results: method=Date</strong><br>
+      OLDER - file2 is older than file1<br>
+      NEWER - file2 is newer than file1<br>
+      SAME - file1 and file2 have the same create date <br>
+      <strong><br>
+      results: method=CRC32</strong><br>
+      DIFFERS - the files differ in content<br>
+      SAME - the files have the same content<br>
+      <strong><br>
+      Errors:</strong><br>
+      ERROR_FILE1 - 'file1' could not be found or opened<br>
+      ERROR_FILE2 - 'file2' could not be found or opened<br>
+      ERROR_BOTH - neither file could be found or opened <br>
+      <br>
+      Examples: </p>
+    <dl>
+      <dt>&nbsp;</dt>
+      <dd><br>
+        [filecompare method=SIZE&amp;file1=../create_tutorial.tpl&amp;file2=../header.inc] 
+        <p>[filecompare method=DATE&amp;file1=../create_tutorial.tpl&amp;file2=../header.inc]</p>
+        <p>[filecompare method=CRC32&amp;file1=../create_tutorial.tpl&amp;file2=../header.inc]</p>
+        <p>[text]crc_value=[CalcFileCRC32 file=../header.inc][/text]<br>
+          [filecompare method=CRC32&amp;file1crc=[crc_value]&amp;file2=../header.inc]</p>
+      </dd>
+    </dl>
+</dl>
+<blockquote> 
+  <p>Results: </p>
+  <blockquote> 
+    <blockquote>
+      <p><br>
+        LARGER<br>
+        OLDER<br>
+        DIFFERS<br>
+        SAME</p>
+    </blockquote>
+  </blockquote>
+</blockquote>
+<p><a name="FlushDatabases"></a>[FLUSHDATABASES]</p>
+		<dl>
+			<dd>Putting [FLUSHDATABASES] in your template causes all databases to be written and closed. This is only needed for special cases (usually before appending to a file) where you need to change a file that may be cached in RAM, and you do not know the exact name of the database. WebDNA automatically closes databases when it needs more memory, so you typically do not need to use this tag.
+		</dl>
+		<p><a name="FlushCache"></a>[FLUSHCACHE] (available from version 4.0.2rc2 and later)</p>
+		<dl>
+			<dd>Putting [FLUSHCACHE] in your template causes all 'memorized' pages in memory to be immediately removed. Newer versions of any HTML or template files that have been modified on disk will be used the next time a browser links to those pages.
+		</dl>
+		<p><a name="FreeMemory"></a>[FREEMEMORY]</p>
+		<dl>
+			<dd>Putting [FREEMEMORY] in your template displays the amount of memory available to WebDNA. This number is reduced whenever templates are cached, or databases are opened.
+			<br><BR>
+    <b>Note:</b> This tag will not work on the OS X or FreeBSD platforms.<br>
+		</dl>
+		
+<p><a name="GetCookie"></a>[GETCOOKIE name=<i>cookieName</i>]</p>
+		<dl>
+			
+  <dd>Putting [GETCOOKIE name=fred] in your template displays the value of the 
+    cookie named &quot;fred&quot; that the remote browser has remembered. If no 
+    cookie of that name exists, then nothing is returned. Use <a href="ListCookiesContext.html">[ListCookies]</a> 
+    to see all the cookies your browser is sending. 
+</dl>
+		
+<p><a name="GetMIMEHeader"></a>[GETMIMEHEADER name=<i>headerName</i>]</p>
+		<dl>
+			
+  <dd>Putting [GETMIMEHEADER name=Accept-Language] in your template displays the 
+    value of the MIME header called &quot;Accept-Language,&quot; which is a code 
+    representing the human language that the viewer is able to read. Use <a href="ListMIMEHeadersContext.html">[ListMIMEHeaders]</a> 
+    to see all the headers your browser is sending. 
+</dl>
+<p><a name="HTTPMethod"></a>[HTTPMethod] (available from version 4.0.2rc2 and later)</p>
+		<dl>
+			
+  <dd>Putting [HTTPMethod] in your template displays the method by which the client browser requested the template.  Resolves to either &quot;GET&quot; or &quot;POST&quot;.
+</dl>
+		<p><a name="Include"></a>[INCLUDE file=<i>FilePath</i>]</p>
+		<dl>
+			<dd>Putting [INCLUDE FilePath] in your template replaces the [INCLUDE] tag with the contents of the specified file. The included file can use any [xxx] tags that will be substituted as though you had typed the entire contents of the file at that place in the template.<br>
+			<br>
+    <b>Note:</b> normally all file paths are relative to the local template, or 
+    if they begin with &quot;/&quot; they are relative to the web server's virtual 
+    host root. As of version 3.0, you may optionally put &quot;^&quot; in front 
+    of the file path to indicate the file can be found in a global root folder 
+    called &quot;Globals&quot; inside the WebCatalogEngine folder. This global 
+    root folder is the same regardless of the virtual host.<br>
+			<table border="1" cellpadding="0" cellspacing="2">
+				<tr>
+					<th bgcolor="#cccccc">&nbsp;Optional Parameters</th>
+					<th bgcolor="#cccccc">Description&nbsp;</th>
+				</tr>
+				<tr>
+					<td>[INCLUDE file=FilePath&amp;raw=T]</td>
+					<td>raw=T means the file should be included unchanged, without performing any [xxx] substitutions.</td>
+				</tr>
+				<tr>
+					<td>[INCLUDE file=FilePath&amp;fromCache=F]</td>
+					<td>fromCache=F means a more-recent version of the file should be read from disk, instead of using the cached version in RAM.</td>
+				</tr>
+				<tr>
+					<td>[INCLUDE file=FilePath&amp;var1=xx&amp;var2=yy]</td>
+					<td>Passes any variable names (and their values) you choose into the included template, which can then use [var1] anywhere inside it.</td>
+				</tr>
+				<tr>
+					<td>[INCLUDE file=^test.inc]</td>
+					<td>test.inc is found inside WebCatalogEngine/Globals/ folder</td>
+				</tr>
+			</table>
+		</dl>
+		<p><a name="IPAddress"></a>[IPADDRESS]</p>
+		<dl>
+			<dd>Putting [IPADDRESS] in your template will display the ip address of the remote computer that the visitor is using to view your site. All sections of the IP address are expanded to 3 digits, so that 207.67.2.14 will display as 207.067.002.014. This helps make partial comparisons inside <a href="ShowIfContext.html">[ShowIf]</a> tags work more easily.
+		</dl>
+		
+<p><a name="IsSecureClient"></a>[ISSECURECLIENT]</p>
+		<dl>
+			
+  <dd><b>Note: This tag will be supported through version 4.0. It will be eliminated 
+    in version 5.0.</b> 
+</dl>
+		<dl>
+			<dd>Putting [ISSECURECLIENT] in your template replaces the [ISSECURECLIENT] tag with &quot;T&quot; if the remote browser is capable of SSL (Secure Socket Layer) connections, and &quot;F&quot; if not. As new browsers are released, you can control which ones are reported as secure by changing the &quot;<a href="BrowserInfoFormat.html">Browser Info.txt</a>&quot; file to indicate what level of HTML it supports, and whether or not it supports SSL.
+		</dl>
+		<p><a name="LastAutonumber"></a>[LASTAUTONUMBER]</p>
+		<dl>
+			
+  <dd>Putting [LASTAUTONUMBER] in your template displays the same value as the last 
+    auto-generated number used in the last [Append] or [Replace] context that used the 'AUTONUMBER' parameter.  Only valid for the current template instance.
+</dl>
+		<p><a name="LastRandom"></a>[LASTRANDOM]</p>
+		<dl>
+			
+  <dd>Putting [LASTRANDOM] in your template displays the same value as the last 
+    [RANDOM] number displayed. See <a href="#Random">[RANDOM]</a>. The format 
+    of the number will match whatever format was used in the previous [RANDOM] 
+    use.
+</dl>
+		<p><a name="Lookup"></a>[LOOKUP <b>db</b>=databasePath&amp;<b>value</b>=searchValue&amp;<b>lookInField</b>=searchField&amp;<b>returnField</b>=fieldName&amp;notFound=TextIfNotFound]</p>
+		<dl>
+		<dd><b>New for WebDNA 5.1</b> - You can specifiy a WebDNA <a href="Table.html">table</a>, in place of a db file.<br>For example: [Lookup table=<i>TableName</i>&...]. 
+		</dl>
+		<dl>
+			<dd>Putting [LOOKUP] in your template performs an extremely fast search through the specified database and returns either the value of the returnField in the found record, or the literal text of the notFound value. The search is an case-sensitive, exact match, so &quot;Grant&quot; does <b>not</b> equal &quot;grant.&quot; If you want more control over the search criteria, use a <a href="SearchContext.html">[SEARCH]</a> context instead.
+		</dl>
+		<p><a name="MoveFile"></a>[MOVEFILE from=FromFile&amp;to=ToFile]</p>
+		<dl>
+			<dd>Putting [MOVEFILE from=fred&amp;to=wilma] in your template immediately moves the file called &quot;fred&quot; to another file called &quot;wilma,&quot; and deletes the file &quot;fred&quot; after the move is complete. You may specify a different folder for the file to be moved to.
+		</dl>
+		<p><a name="Password"></a>[PASSWORD]</p>
+		<dl>
+			<dd>Putting [PASSWORD] in your template displays the password entered into the remote browser's last Realm password dialog. See <a href="#Username">[USERNAME]</a> and <a href="#Authenticate">[AUTHENTICATE]</a>.
+		</dl>
+		<p><a name="Platform"></a>[PLATFORM]</p>
+		<dl>
+			<dd>Putting [PLATFORM] in your template displays the computer platform (Windows or Macintosh or Unix) that WebDNA is running on.
+		</dl>
+		
+<p><a name="Product"></a>[PRODUCT]</p>
+		<dl>
+			<dd>Putting [PRODUCT] in your template will display the 'product' mode of the currently-running WebDNA program or plugin, i.e.'WebDNA' or 'Typhoon'.
+		</dl>
+
+<p><a name="Protect"></a>[PROTECT groups=<i>group1,group2</i>]</p>
+		<dl>
+			<dd>Putting [PROTECT Groups] in your template causes the remote browser to display the Username/Password dialog until the visitor enters a username/password belonging to one of the specified groups. The Users.db database provided with WebDNA (and administered <a href="../Admin/index.tpl" target="_blank">here</a>) contains all the username/password/group information.
+		</dl>
+		<p><a name="Purchase"></a>[PURCHASE <b>cart</b>=cartID]</p>
+		<dl>
+			<dd>Putting [PURCHASE cart=cartID] in your template moves the specified shopping cart file from the ShoppingCarts folder to the Orders folder, effectively the same as a <a href="PurchaseCommand.html">Purchase</a> command. If the cart file is not in a ShoppingCarts folder, you may use the alternate <b>file</b>=/folder/cartID instead of <b>cart</b>=cartID.
+		</dl>
+		
+<p><a name="Random"></a>[RANDOM]</p>
+		<dl>
+			
+  <dd>Putting [RANDOM] in your template displays a random number between 0-99. 
+    See <a href="#LastRandom">[LASTRANDOM]</a>. An optional format is a floating-point 
+    number between 0.0 and 1.0, with a granularity of 32768 intermediate values. 
+    [RANDOM format=float] will generate this alternate floating-point number.
+</dl>
+		
+<p><a name="Redirect"></a>[REDIRECT url=<i>URL</i>]</p>
+		<dl>
+			
+  <dd>Putting [REDIRECT url=http://www.webdna.us/] in your template forces 
+    the remote browser to immediately 'jump' to the new location specified, rather 
+    than displaying whatever is in the template. Any other text in the template 
+    will be ignored. 
+</dl>
+		<p><a name="Referrer"></a>[REFERRER] or [REFERER]</p>
+		<dl>
+			<dd>Putting [REFERRER] in your template displays the URL of the referring page that led to this one. This is a handy way to give visitors a &quot;back up&quot; button. Note: this will <b>not</b> work if the previous page was a FORM METHOD=&quot;POST&quot;.
+		</dl>
+		<p><a name="RemoveLineItem"></a>[REMOVELINEITEM <b>cart</b>=cartID&amp;<b>index</b>=3]</p>
+		<dl>
+			<dd>Putting [REMOVELINEITEM] in your template immediately deletes the specified line item from the specified shopping cart file. Alternately, you may use the <a href="RemoveCommand.html">Remove</a> command. See also <a href="AddContext.html">[AddLineItem]</a> and <a href="AddCommand.html">Add</a>. If the cart file is not in a ShoppingCarts folder, you may use the alternate form <b>file</b>=/folder/cartID instead of <b>cart</b>=cartID.
+		</dl>
+		<p><a name="RenameFile"></a>[RENAMEFILE <b>from</b>=oldname&amp;<b>to</b>=newname]</p>
+		<dl>
+			
+  <dd><font color="red"><b> </b></font>Putting [RENAMEFILE from=fred&amp;to=wilma] 
+    in your template immediately renames the file called &quot;fred&quot; to &quot;wilma.&quot; 
+</dl>
+		<p><a name="SetCookie"></a>[SETCOOKIE <b>name=</b>cookieName&amp;<b>value=</b>cookieValue&amp;<b>expires=</b>expireDate&amp;<b>path=</b>/&amp;<b>domain=</b>www.yourdomain.com]</p>
+		<dl>
+			<dd>Putting a [SETCOOKIE] tag into a template causes the remote browser to create or replace a cookie of that name in its local list of cookies. You can use <a href="#GetCookie">[GETCOOKIE]</a> or <a href="ListCookiesContext.html">[LISTCOOKIES]</a> later to retrieve that value from the remote browser. The expiration date of the cookie must be of the form Wednesday, 09-Nov-1999 23:12:40 GMT. The domain must be the name of your web server, otherwise the browser will not provide the cookie information.<br>
+			<br>
+			<b>Example</b>:<br>
+			<br>
+			[SETCOOKIE name=Visits&amp;value=12&amp;expires=Wednesday, 09-Nov-2010 23:12:40 GMT&amp;path=/&amp;domain=www.webdna.us]
+			<p>or one that expires 7 days from today (the +05:00:00 handles the US East Coast time difference from GMT):</p>
+			<p>[SETCOOKIE name=cookieName&amp;value=sample&amp;expires=[format days_to_date %A, %d-%b-%Y][math]{[date]}+7[/math][/format] [math time]{[time]}+{05:00:00}[/math] GMT&amp;path=/&amp;domain=www.yourserver.com]<br>
+			<br>
+			<b>Note:</b> if you do not specify an <b>expires</b> parameter, then the cookie becomes a &quot;session cookie,&quot; expiring automatically when the browser quits.</p>
+			<p><b>Controlling the scope of cookies</b>
+			<p>
+			The path and domain parameters are used to restrict the scope of a cookie.
+			<p>The default value for path, '/', will allow any template on the website to access the cookie.  You can confine a cookie to a specific directory.  For instance, if you specify a path value of '/admin/', then only templates within the '/admin' directory can access the cookie.
+			<p>Setting the domain parameter limits which domain may access the cookie.  If you specify 'www.yourdomain.com', then only templates within that domain can access the cookie.  Specifying just 'yourdomain.com' for the domain, will allow templates from 'www.yourdomain.com', 'secure.yourdomain.com', or 'whatever.yourdomain.com' to access the cookie.
+		</dl>
+		<p><a name="SetMIMEHeader"></a>[SETMIMEHEADER <b>name=</b>headerName&amp;<b>value=</b>headerValue]</p>
+		<dl>
+			<dd>Putting a [SETMIMEHEADER] tag into a template causes WebDNA to add a new MIME header to the outgoing HTML text for that page. MIME headers are normally used to create redirect requests and cookies. WebDNA already has special tags for generating redirects and <a href="#SetCookie">cookies</a>, but in the future you may need to create MIME headers for other purposes.
+		</dl>
+		<p><a name="ThisFile"></a>[THISFILE]</p>
+		<dl>
+			<dd>Putting [THISFILE] in your template displays the platform-specific filesystem full path of the current template page being displayed. The path separators are platform-specific, so the path will look different depending on what MacOS, Windows, or Unix computer system is used.
+		</dl>
+		<p><a name="ThisURL"></a>[THISURL]</p>
+		<dl>
+			<dd>Putting [THISURL] in your template displays the URL of the current page being displayed as a relative path from the root of the server hierarchy.
+		</dl>
+		
+<p><a name="Time"></a>[TIME format=FormatSpec]</p>
+		<dl>
+			
+  <dd>Putting [TIME] in your template displays the current time set on your web 
+    server's clock. The format of the time is normally HH:MM:SS (24-hour clock), 
+    but you can change the default format by changing the TimeFormat preference. 
+    You can also override the default time format by specifying a format inside 
+    the tag, such as [TIME format=%H:%M:%S]. See <a href="#Date">[DATE]</a> for 
+    details. 
+</dl>
+		<p><a name="Username"></a>[USERNAME]</p>
+		<dl>
+			<dd>Putting [USERNAME] in your template will display the username entered into the remote browser's last Realm password dialog. See <a href="#Password">[PASSWORD]</a> and <a href="#Authenticate">[AUTHENTICATE]</a>
+		</dl>
+		<p><a name="ValidCard"></a>[VALIDCARD <b>accountNum</b>=cardNumber<i>&amp;<b>card</b>=VISA+MC</i>]</p>
+		<dl>
+			<dd>Putting [VALIDCARD] into a template displays &quot;T&quot; or &quot;F&quot; (True or False), depending on the value of the number in accountNum. If the accountNum is a reasonable credit card number for the specified bank network, then &quot;T&quot; indicates it is good. Conversely, &quot;F&quot; indicates it is bad. This <b>does not</b> call the bank to verify funds on the card -- it merely does a simple numeric checksum to verify the number is consistent with a credit card number.<br>
+			<table border="1" cellpadding="0" cellspacing="2">
+				<tr>
+					<th bgcolor="#cccccc">Parameters</th>
+					<th bgcolor="#cccccc">Description&nbsp;</th>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							accountNum</div>
+					</td>
+					<td>(Required) The credit card number. Any extra spaces or non-numeric characters will be ignored.</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							card</div>
+					</td>
+					<td>(Optional) Set card to the names of the credit cards that are allowed, separated by space or <b>+</b>. Possible values are <b>ALL, IGNORE, VISA, MC, AMEX, DISC, JCB, DINER</b>. If not specified, then ALL cards are allowed. IGNORE tells it to always validate the card regardless of its checksum.</td>
+				</tr>
+			</table>
+		</dl>
+		<p><a name="Version"></a>[VERSION]</p>
+		<dl>
+			<dd>Putting [VERSION] in your template will display the version of the currently-running WebDNA program or plugin.
+		</dl>
+		<p><a name="AbsolutePath"></a>'Absolute Path'</p>
+		<dl>
+			<dd>Prefixing a file or database path with an "*" will force WebCatatog to treat 
+			the path as "absolute", and not relative to the template or virtual root.  This is 
+			useful on platforms where using an alias in not an option.  This feature is 
+			disabled by default, but can be enabled via the WebDNA administration page. 
+			This is similar to the use of '^' to specify a path relative to the WebDNA 'globals' folder.
+		</dl>
+		<p><a name="SQLDisconnect"></a>[SQLDisconnect  conn_ref=<connection reference>] <font color="red"><b>New for 6.0</b></font><p>
+		<dl>
+			<dd>[SQLDisconnect] will close the database connection, releasing any resources (including any and all SQLResult variables) associated with the connection, and the <a href="SQLConnectContext.html">[SQLConnect]</a> variable name is freed and available for use again.
+			<p>All SQL connections are terminated at the end of template execution anyway, so it is not required to use [SQLDisconnect].  However, it can come in handy if you wish to iterate several connections, re-using the same connection variable name for each connection.
+			<table border="1" cellpadding="0" cellspacing="2">
+			<tr>
+				<th bgcolor="#cccccc">Parameters</th>
+				<th bgcolor="#cccccc">Description&nbsp;</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						<nobr>conn_ref (or just 'ref')</nobr></div>
+				</td>
+				<td>(Required) - The name of the SQLConnect variable you have created via the conn_var (or var) parameter of a [SQLConnect] context you have already successfully executed.</td>
+			</tr>
+		</table>
+	</dl>
+		<p><a name="SQLRelease"></a>[SQLRelease result_ref=<result reference>] <font color="red"><b>New for 6.0</b></font><p>
+		<dl>
+			<dd>[SQLRelease] will close the result set and variable name created by a <a href="SQLExecuteContext.html">[SQLExecute]</a> context.  The name is freed and available for use again.
+			<p>All SQL result objects are released at the end of template execution anyway, so it is not required to use [SQLRelease].  However, it can come in handy if you wish to iterate several <a href="SQLExecuteContext.html">[SQLExecute]</a> contexts, re-using the same result variable name for each SQL execution.
+			<table border="1" cellpadding="0" cellspacing="2">
+			<tr>
+				<th bgcolor="#cccccc">Parameters</th>
+				<th bgcolor="#cccccc">Description&nbsp;</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						<nobr>result_ref (or just 'ref')</nobr></div>
+				</td>
+				<td>(Required) - The name of the SQLResult variable you have created via the result_var (or var) parameter of a [SQLExecute] context you have already successfully executed.</td>
+			</tr>
+		</table>
+
+		</dl>
+		<p><a name="FindString"></a>[FindString Source=...&Find=...&MatchCase=...&Reverse=...&StartAt=...] <font color="red"><b>New for 6.0</b></font><p>
+		<dl>
+			<dd> You can use the [findstring] global tag to find the location of a sub-string within
+a given source string.
+<br>
+For example:
+<pre><xmp>
+[text]mystring=WebDNA is a powerful, easy to learn, scripting language.[/text]
+
+[text]found_at=[FindString source=[mystring]&find=powerful][/text]
+
+[showif [found]>0]
+Found 'powerful' in source string at character position [found_at]
+[/showif]
+
+[hideif [found]>0]
+String 'powerful' not found.
+[/hideif]
+</xmp></pre>
+<p>
+result...<br>
+Found 'powerful' in source string at character position 13
+<p>
+
+			<table border="1" cellpadding="0" cellspacing="2">
+				<tr>
+					<th bgcolor="#cccccc">Parameters</th>
+					<th bgcolor="#cccccc">Description&nbsp;</th>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							Source</div>
+					</td>
+					<td>(Required)  The character string to search.</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							Find</div>
+					</td>
+					<td>(Required) The character string to find.</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							MatchCase</div>
+					</td>
+					<td>(Optional) T/F - Default is 'F'.  If set to 'T', the search will be case sensitive.</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							Reverse</div>
+					</td>
+					<td>(Optional) T/F - Default is 'F'.  If set to 'T', the search is performed starting
+		 from the end of the 'source' string.</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							StartAt</div>
+					</td>
+					<td>(Optional) Sets the start position, in the 'source' string, from which to start the
+		search.  If not specified, the search will start from the beginning of the 'source' string.
+		 If the 'Reverse' parameter is set to 'T', the 'StartAt' position is relative to the end
+		 of the 'source' string.</td>
+				</tr>
+			</table>
+		</dl>
+		<p><!--[/Raw]-->
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>		
+	</body>
+
+</html>

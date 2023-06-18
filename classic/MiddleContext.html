@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Middle Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[Middle StartAfter=x<i>&amp;EndBefore=y</i>]Any Text[/Middle]</font>
+		<dl>
+			<dd>Extracts middle portion of the text between any two strings.
+		</dl>
+		<p>To display a subsection of some text, put the text inside a [Middle] context.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[Middle StartAfter=&lt;body&gt;&amp;EndBefore=&lt;/body&gt;]<br>
+			&lt;html&gt;<br>
+			&lt;head&gt;<br>
+			&lt;/head&gt;<br>
+			&lt;body&gt;<br>
+			Hi There<br>
+			&lt;/body&gt;<br>
+			&lt;/html&gt;<br>
+			[/Middle]
+		</dl>
+		<p>The example above returns &quot;Hi There,&quot; which is the sequence of letters between &quot;&lt;body&gt;&quot; and &quot;&lt;/body&gt;.&quot; Extracting sub-portions of text like this is useful when you need to remove the HTML header information from a file (or web page) containing HTML that you want to include inside the body of a web page.<br>
+		<br>
+		The following parameters are required in the [Middle] context:
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Parameter</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						StartAfter</div>
+				</td>
+				<td>String of text characters to search for defining the beginning of the text to be returned. All preceding text (and the StartAfter text itself) will be ignored.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						EndBefore</div>
+				</td>
+				<td>String of text characters to search for defining the end of the text to be returned. All following text (and the EndBefore text itself) will be ignored.</td>
+			</tr>
+		</table>
+		<p></p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

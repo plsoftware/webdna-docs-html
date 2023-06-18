@@ -1,0 +1,25 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Comment Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[!]Any Text to be Hidden[/!]</font> 
+<dl>
+			<dd>Hides text, usually a comment for the WebDNA developer to read.
+		</dl>
+		<p>To hide comments in HTML pages so you can see them when you are developing a template, but web visitors cannot see them, put them inside a comment context. Anything inside the [!] context is hidden, and WebDNA will not execute.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[!]This text will be hidden from web visitors[/!]
+		</dl>
+		<p>Many times you will want to keep notes for yourself in a WebDNA template, yet you do not want outsiders to see these notes. Unlike HTML comments, which are sent to the browser even though they are hidden from view (and can be seen with a View Source command), WebDNA comments never get sent to the remote browser. This shortens download times, and provides a degree of protection against prying eyes.<br>
+		<!--[/Raw]-->
+	</body>
+
+</html>

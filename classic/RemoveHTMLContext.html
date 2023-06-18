@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"><!--last modified on Fri, Aug 14, 1998 5:44 PM-->
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>RemoveHTML Context</title>
+		<!--[Raw]-->
+		<meta name="Author" content="Grant Hulbert">
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[RemoveHTML]Any Text[/RemoveHTML]</font>
+		<dl>
+			
+  <dd><font color="red"><b>New in 4.0<br>
+    </b></font>Removes HTML or WebDNA tags from 
+    a string of text. 
+</dl>
+		<p>To automatically strip out HTML or WebDNA tags from text, put the text inside a [RemoveHTML] context. Any HTML found in the text will be removed, leaving just the plain non-HTML text behind. Alternately you can specify that WebDNA be removed instead.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[RemoveHTML]Some Text that contains &lt;br&gt; &lt;h3&gt;or&lt;/h3&gt; other HTML[/RemoveHTML]
+		</dl>
+		<p>The above line of WebDNA would produce the following:</p>
+		<pre>Some Text that contains or other HTML</pre>
+		<p>Anywhere HTML sequences appear inside the context, they will be removed. You may put any [xxx] tags inside the context--for instance, you may use fields from a database, or even [include] the entire contents of another file. HTML is recognized as any text which begins with &quot;&lt;&quot; followed by any number of non-space characters, followed by any number of characters, followed by &quot;&gt;&quot;.</p>
+		<dl>
+			<dd>
+			<table border="1" cellpadding="0" cellspacing="2">
+				<tr>
+					<th bgcolor="#bbbbbb">&nbsp;Parameter</th>
+					<th bgcolor="#bbbbbb">&nbsp;Description</th>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							RemoveWebDNA</div>
+					</td>
+					<td>
+						<dl>
+							<dt>(Optional) T or F to indicate that you <b>also</b> want to remove WebDNA from the text. HTML is <b>always</b> removed from the text. Default is to remove HTML only.
+						</dl>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							ReplaceWith</div>
+					</td>
+					<td>
+						<dl>
+							<dt>Text with which you want to replace the HTML sequences. Defaults to nothing.
+						</dl>
+					</td>
+				</tr>
+			</table>
+		</dl>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

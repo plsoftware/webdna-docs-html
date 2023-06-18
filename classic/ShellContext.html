@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Shell Context</title>
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[Shell]UNIX Shell Commands[/Shell]</font> 
+<dl> 
+  <dd><img src="UnixSmall.gif" width="16" height="12" align="absmiddle"
+  border="0" hspace="2" naturalsizeflag="3">Executes the UNIX shell commands contained 
+    in the context and displays the results.
+</dl>
+		<p>To embed the results of a shell command into one of your pages, put a Shell context into a template. The shell commands contained inside the context are executed, and any returned value is displayed in place of the context. Any [xxx] tags inside the context are first substituted for their real values before the shell command is executed.</p>
+		<p><b>Example</b> (normally you would put the following text into a .TPL file on your server and use a web browser to link to it):</p>
+		<pre>&lt;pre&gt;
+[Shell]ls -l[/Shell]
+&lt;/pre&gt;</pre>
+		<p>In this example, the shell command &quot;ls -l&quot; is executed, and the results (a listing of all the files in the current directory) is displayed. The &lt;pre&gt; tags are used to format the results in an HTML page. The user privileges are the same as the WebDNA program itself (which is typically logged on as user <b>nobody</b>).</p>
+		<dl>
+			<dd><b>Caution!</b> Shell has complete access to your hard disk and all programs on your web server. You can write a Shell context to erase the contents of your hard disk. However, remote visitors to your web site have no way of executing their own Shell contexts remotely. They can only execute shell commands inside a template file that <b>you</b> have saved on your web server's hard disk.
+		</dl>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>NewCart Command</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">NewCart </font> 
+<dl> 
+  <dd><b>Note: This command is no longer supported as of Version 4.0.</b><br>
+    Creates a new, unique shopping cart token and displays an HTML text file after 
+    substituting [cart] tags. Deprecated is no longer necessary because [cart] 
+    automatically generates a new cart number when no cart is specified. 
+</dl>
+		<p>To create a new shopping cart token, send WebDNA a NewCart command with the name of the template file you want to display. Whenever WebDNA receives a NewCart command, it immediately creates a unique cart number, opens the specified file, looks for and interprets any [xxx] tags, and displays the results to the visiting web browser.</p>
+		<dl>
+			<dd><b>Tip:</b> This command is obsolete and is provided for backward-compatibility only. WebDNA's &quot;SmartCart&quot; feature automatically creates a shopping cart token if it detects a [cart] tag in any page you display without explicitly sending the NewCart command. Consequently, simply linking to a page with [cart] tags will work correctly.
+		</dl>
+		<p><b>Example</b> (normally you would link to a URL or form containing the following information):</p>
+		<dl>
+			<dd>http://yourserver.com/xx.tpl?command=<b>NewCart</b>
+		</dl>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

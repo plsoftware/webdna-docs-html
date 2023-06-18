@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Encrypted Templates</title>
+		<!-- [raw] -->
+	</head>
+
+	<body bgcolor="white">
+<p><font size="5"><b>Appendix D: How to create encrypted templates</b></font></p>
+<p>In addition to encrypting text using WebDNAÕs [encrypt] context, you can 
+  encrypt entire WebDNA templates so they can be distributed and used without 
+  having the raw WebDNA in the templates visible. This is very useful for developers 
+  wishing to sell WebDNA-based solutions.</p>
+<p>Sometimes you will want to give someone else a WebDNA template without letting 
+  them see your "source code" in the file. For example, if you create a WebDNA 
+  solution that is for sale, you may not want others to be able to read the templates 
+  and make modifications or see your proprietary algorithms.</p>
+<hr>
+<h2>Encrypting Templates</h2>
+<p> To create an encrypted template, you must first design and debug the template 
+  as you normally would. Then use the [Encrypt] context with a seed of your choosing 
+  to create the encrypted version of the original template. Note that you shouldnÕt 
+  make your seed value public in any way. After the templates have been encrypted, 
+  a special tag must be added to the top of the file so it can be recognized as 
+  an encrypted file and then your seed value must be encrypted using WebDNAÕs 
+  default encryption.</p>
+<p>Use the following WebDNA to encrypt your file and add the special tag to the 
+  beginning of the file. Note that you may put any text, copyright information 
+  for example, before the header tag. The encrypted WebDNA must start on the line 
+  after the header tag. For example, in order to use WebDNA to automatically convert 
+  your template (file.tpl) to an encrypted template (newfile.tpl) you would execute 
+  the following: </p>
+<pre>[writefile file=newfile.tpl&secure=F]Copyright © 2009 WebDNA Software Corporation
+http://www.webdna.us/</pre>
+<pre>&lt;!--HAS_WEBDNA_TAGS[!][/!]_ENCRYPTED_2--&gt;
+[encrypt]seed=XXXXXXX&amp;product=WCAT[/encrypt]
+[encrypt seed=XXXXXXX][include file=file.tpl&amp;raw=T][/encrypt][/writefile]</pre>
+<p>After using the above template, your hard disk will contain a file called &quot;newfile.tpl&quot; 
+  which you can give to other users, confident that they cannot read or modify 
+  it. Using the template is easy -- it works just like any other template.<br>
+</p>
+<blockquote>
+  <p><b>Note:</b> [!][/!] is a special trick to fool WebDNA into thinking 
+    this page is not an encrypted page, and should be treated like a normal template. 
+    The [!][/!] is essentially removed during processing, which causes the resulting 
+    template to contain the now-correct tag that indicates it is encrypted. </p>
+</blockquote>
+<p>The following header tag is valid for recognizing encrypted files:</p>
+<p>HAS_WEBDNA_TAGS_ENCRYPTED_2<br>
+</p>
+<p>In addition to encrypting your seed value, you can specify which product this 
+  template works with. Use &#147;WCAT&#148; for WebDNA, &#147;TYPH&#148; for 
+  Typhoon, or &#147;WDNA&#148; for any WebDNA product.</p>
+<p> Link to an encrypted page and WebDNA automatically decrypts and processes 
+  the page. In order to prevent someone from displaying or accessing the decrypted 
+  templates, the following precautions have been made:<br>
+</p>
+<ul>
+  <li>command=raw does not work with encrypted templates; nothing is returned</li>
+  <li>[include raw=T] cannot be done on encrypted templates; nothing is returned</li>
+</ul>
+<p><!-- [/raw] --> </p>
+</body>
+
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"><!--last modified on Fri, Aug 14, 1998 3:59 PM-->
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>ListFiles Context</title>
+		<!--[Raw]-->
+		<meta name="Author" content="Grant Hulbert">
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[ListFiles <i>path=FolderPath</i>]File Tags[/ListFiles]</font> 
+<dl>
+			<dd>Lists all the files in the specified folder.
+		</dl>
+		<p>To display a list of all the files in a particular folder, put a [ListFiles] context into a WebDNA template. You may specify an absolute or relative path to the folder just as you would specify an absolute or relative URL, and the folder name itself may be a WebDNA [xxx] tag.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			
+  <dd>[ListFiles path=../WebCatalog/] 
+  <dd>File Name: [FileName]&lt;br&gt;
+			<dd>Modified: [ModDate]&lt;br&gt;
+			<dd>Size: [Size]&lt;br&gt;
+			<dd>[/ListFiles]
+		</dl>
+		
+<p>Parameters for [ListFiles]: </p>
+<table border="1" cellpadding="0">
+  <tr> 
+    <th bgcolor="#bbbbbb">Parameter</th>
+    <th bgcolor="#bbbbbb">Description</th>
+  </tr>
+  <tr> 
+    <td> <div align="right"> path</div></td>
+    <td>(Required) The path to the folder which is to be listed. This path is 
+      relative to the template</td>
+  </tr>
+  <tr> 
+    <td> <div align="right"> ShowInvisibles</div></td>
+    <td>(Optional) Macintosh only: if set to <b>T</b>, then display invisible 
+      filenames, if set to <b>F</b>, do not display invisible filenames</td>
+  </tr>
+  <tr> 
+    <td> <div align="right"> <font color="#FF0000"><b>New for5.0</b></font><br>
+        Name</div></td>
+    <td>(Optional) filters files by name</td>
+  </tr>
+  <tr> 
+    <td> <div align="right"> <font color="#FF0000"><b>New for 5.0</b></font><br>
+        Exact</div></td>
+    <td>(Optional) if set to T, then display filenames that match &#8216;Name&#8217; 
+      criteria, if set to F, exact match of filenames that match &#8216;Name&#8217; 
+      criteria not required</td>
+  </tr>
+</table>
+<p>The following tags are available inside a [ListFiles] context: 
+<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Tag</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[IsFolder]</div>
+				</td>
+				<td>&quot;T&quot; if this item is actually a folder. &quot;F&quot; otherwise.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[IsFile]</div>
+				</td>
+				<td>&quot;T&quot; if this item is actually a file. &quot;F&quot; otherwise.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[FileName]</div>
+				</td>
+				<td>Name of the file.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[FullPath]</div>
+				</td>
+				<td>Full path to the file, starting from its containing <i>FolderPath.</i></td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[ModDate]</div>
+				</td>
+				<td>Last date the file was modified.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[ModTime]</div>
+				</td>
+				<td>Last time the file was modified.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[CreateDate]</div>
+				</td>
+				
+    <td> Date the file was created.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[CreateTime]</div>
+				</td>
+				
+    <td> Time the file was created.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[Size]</div>
+				</td>
+				<td>The file's size, in bytes.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[Index]</div>
+				</td>
+				<td>A number from 1 to the total number of files indicating this file's index position in the list</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[StartPath]</div>
+				</td>
+				<td>The folder path leading to the file.</td>
+			</tr>
+		</table>
+		
+<p></p>
+<p>You can use the 'Name' and 'Exact' parameters with the [listfiles] context 
+  to 'filter' the results. <br>
+  <br>
+  For example: </p>
+<blockquote>
+  <p><br>
+    If the current folder contains the files:
+    <pre>
+    file1.txt
+    file2.txt
+    file2.txt
+    </pre>
+    [listfiles path=../&amp;name=file1&amp;exact=f]<br>
+    [filename]</p>
+  <p>[/listfiles]</p>
+</blockquote>
+<p><br>
+  Results will be: </p>
+<blockquote>
+  <p><br>
+    file1.txt<br>
+  </p>
+</blockquote>
+<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

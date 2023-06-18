@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>AppleScript Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[AppleScript]AppleScript Program[/AppleScript]</font> 
+<dl>
+			
+  <dd><img src="MacOS.gif" width="18" height="18" border="0" align="absmiddle">Executes 
+    the AppleScript contained in the context and displays the results. 
+</dl>
+		<p>To embed the results of an AppleScript into one of your pages, put an AppleScript context into a template. The AppleScript program contained inside the context is executed, and any returned value is displayed in place of the context. Any [xxx] tags inside the context are first substituted for their real values before the AppleScript is executed.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[AppleScript]if [random]&gt;50 then return &quot;it's more than 50!&quot;
+			<dd>else return &quot;it's less that 50!&quot;[/AppleScript]
+		</dl>
+		<p>In this example, the tag [random] is first substituted with a random number, then the resulting AppleScript is executed. Any WebDNA [xxx] tags are allowed inside the AppleScript program, even if they represent complex lookups or searches. The WebDNA tags are always evaluated first, and the resulting text is then executed as an AppleScript program.</p>
+		
+<dl> 
+  <dd><b>Caution!</b> AppleScripts have complete access to your hard disk and 
+    all programs on your web server. You can write an AppleScript that erases 
+    the contents of your hard disk. Do not worry: remote visitors to your web 
+    site have no way of executing their own AppleScripts remotely. They can only 
+    execute an AppleScript inside a template file that <b>you</b> have saved on 
+    your web server's hard disk.
+  <dt><!--[/Raw]--> </dt>
+</dl>
+	</body>
+
+</html>

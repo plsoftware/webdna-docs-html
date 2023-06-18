@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>  
+<HEAD>
+  <META NAME="GENERATOR" CONTENT="Adobe PageMill 3.0 Mac">
+  <META HTTP-EQUIV="content-type" CONTENT="text/html;charset=iso-8859-1">
+  <TITLE>Contexts</TITLE>
+  <!--[Raw]-->
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<P><FONT SIZE="+2">Form Variables</FONT></P>
+
+<DL>
+  <DD>[VariableName] can be any named form variable
+</DL>
+
+<P>You may display the values of any variables that were part
+of a form used to reach a URL. Insert the value by enclosing the
+name of the variable in square brackets. The name is then given
+to it in the input field of the form. Form methods POST and GET
+are both supported. If you create a URL that mimics a form method
+GET (an HREF-style hyperlink), then you must put a question mark
+after the template name followed by the variables and their values.</P>
+
+<P><B>Example</B> (normally you would put the following text into
+a .tpl file on your server and use a web browser to link to it):</P>
+
+<DL>
+  <DD>&lt;a href=&quot;test.tpl?var1=Hello&amp;var2=World&quot;&gt;Hello&lt;/a&gt;
+  <DD>&nbsp;
+  <DD>---test.tpl---
+  <DD>The value of var1 is [var1]&lt;br&gt;
+  <DD>The value of var2 is [var2]&lt;br&gt;
+  <DD><B>Note</B>: You may force the visitor to enter something
+  into a form field by using the <B>RequiredFields</B> parameter
+  in the URL or hidden form value. Setting <B>RequiredFields</B>=field1+field2+field3
+  displays an error message if the visitor forgets to enter text
+  into any of those 3 fields.
+</DL>
+
+<P>There are several ways you can set the value of variables while
+displaying a WebDNA template. When you configure WebStar's
+suffix-mapping to automatically send all URLs to WebDNA, it
+assumes a showpage command is being used, and the template is
+the URL you are visiting:</P>
+
+<UL>
+  <LI>Hyperlink to a URL (assumes suffix-mapping for .tpl)
+  <UL>
+    <LI>&lt;a href=&quot;xxx.tpl?var1=xx&amp;var2=xx&quot;&gt; (no
+    command assumes showpage)
+    <LI>&lt;a href=&quot;xxx.tpl?command=search&amp;var1=xx&amp;var2=xx&quot;&gt;
+  </UL>
+  <LI>Form method=&quot;GET&quot; (assumes suffix-mapping for .tpl)
+  <UL>
+    <LI>&lt;form method=&quot;GET&quot; action=&quot;xxx.tpl&quot;&gt;
+    <LI>&lt;input type=&quot;hidden&quot; name=&quot;var1&quot; value=&quot;value1&quot;&gt;
+    <LI>&lt;input name=&quot;var2&quot;&gt;
+    <LI>&lt;input type=&quot;submit&quot; value=&quot;OK&quot;&gt;
+    <LI>&lt;/form&gt;
+  </UL>
+  <LI>Form method=&quot;POST&quot; (assumes suffix-mapping for
+  .tpl)
+  <UL>
+    <LI>&lt;form method=&quot;GET&quot; action=&quot;xxx.tpl&quot;&gt;
+    <LI>&lt;input type=&quot;hidden&quot; name=&quot;var1&quot; value=&quot;value1&quot;&gt;
+    <LI>&lt;input name=&quot;var2&quot;&gt;
+    <LI>&lt;input type=&quot;submit&quot; value=&quot;OK&quot;&gt;
+    <LI>&lt;/form&gt;
+  </UL>
+</UL>
+
+<P><!--[/Raw]-->
+
+</BODY>
+</HTML>

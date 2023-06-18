@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<!--[Raw]-->
+<head>
+<title>AddFields Context</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+
+<table width="770" border="0" cellpadding="0" cellspacing="0">
+  <!--DWLayoutTable-->
+  <tr> 
+    <td width="1" height="27">&nbsp;</td>
+    <td width="735">&nbsp;</td>
+    <td width="34"></td>
+  </tr>
+  <tr> 
+    <td height="1245">&nbsp;</td>
+    <td valign="top"><p><font size="5">[AddFields db=&#8230;]...WebDNA...[/AddFields] 
+        </font></p>
+      <blockquote> 
+        <p><br>
+          The [AddFields] context adds new fields to an existing WebDNA database.</p>
+      </blockquote>
+      <p><br>
+        First, lets use the following code to create a new test database and run 
+        a simple search on the new database.</p>
+      <blockquote> 
+        <p> <br>
+          [closedatabase db=addfields_test.db]</p>
+        <p>[writefile file=addfields_test.db]ID,NAME<br>
+          &quot;1&quot;,&quot;Scott&quot;<br>
+          &quot;2&quot;,&quot;Rusty&quot;<br>
+          &quot;3&quot;,&quot;David&quot;<br>
+          &quot;4&quot;,&quot;Daniel&quot;<br>
+          &quot;5&quot;,&quot;Dustin&quot;<br>
+          [/writefile]</p>
+        <p>[search db=addfields_test.db&amp;neIDdata=[blank]&amp;rank=off]<br>
+          [founditems]<br>
+          [ID] - [NAME]</p>
+        <p>[/founditems]<br>
+          [/search]</p>
+      </blockquote>
+      <p>&nbsp;</p>
+      <p>Results: </p>
+      <blockquote> 
+        <p><br>
+          1 - Scott<br>
+          2 - Rusty<br>
+          3 - David<br>
+          4 - Daniel<br>
+          5 - Dustin</p>
+      </blockquote>
+      <p>Now, lets use the [AddFields] context to add EMAIL and PHONE fields to 
+        the 'addfields_test.db' database, initializing the new field value with 
+        some arbitrary data. We will again perform a simple search on the same 
+        database to confirm that the new fields, and field data, have been added. 
+        <br>
+        <br>
+        We use the following WebDNA code: </p>
+      <blockquote> 
+        <p><br>
+          [AddFields db=addfields_test.db]EMAIL=us.here.com&amp;PHONE=123-1235[/AddFields]</p>
+        <p>[search db=addfields_test.db&amp;neIDdata=[blank]&amp;rank=off]<br>
+          [founditems]<br>
+          [ID] - [NAME] - [EMAIL] - [PHONE]</p>
+        <p>[/founditems]<br>
+          [/search]</p>
+      </blockquote>
+      <p>Results: </p>
+      <blockquote> 
+        <p><br>
+          1 - Scott - us.here.com - 123-1235<br>
+          2 - Rusty - us.here.com - 123-1235<br>
+          3 - David - us.here.com - 123-1235<br>
+          4 - Daniel - us.here.com - 123-1235<br>
+          5 - Dustin - us.here.com - 123-1235</p>
+      </blockquote>
+      <p><em>Note that the [AddFields] context will not add fieldnames that already 
+        exist in the target database. </em></p></td>
+    <td></td>
+  </tr>
+  <tr> 
+    <td height="42">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td></td>
+  </tr>
+</table>
+</body>
+<!--[/Raw]-->
+</html>

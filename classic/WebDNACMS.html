@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>WebDNA CMS</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+
+<table width="735" border="0" cellpadding="0" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr> 
+    <td width="735" height="27">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="364" valign="top"><h1>WebDNA Content Management System</h1>
+      <h2> <br>
+        WHAT IS WEBDNA CMS?</h2>
+      <p> WebDNA Enterprise CMS is a client-server solution that will aggregate 
+        three well-known patterns: CMS (Content Management System), RCS (Revision 
+        Control System), and CVS (Concurrent Versions System). For the WebDNA 
+        Enterprise CMS system, the functionality involved with these three different 
+        aspects will be inseparable. <br>
+        <br>
+        Development teams (&#8220;workgroups&#8221;) are created and individual 
+        users gain membership to one or more of these teams. The concept of privilege-based 
+        roles applies to team membership, meaning that given a context workgroup, 
+        an individual user is assigned one or more roles. Privileges are assigned 
+        statically to an individual role.<br>
+      </p>
+      <p align="center"><img src="imageCMS.jpg" width="396" height="287"> </p>
+      <p> <br>
+        First, the authentication/privileges mechanism is the functions as the 
+        entry point to consuming system functionality. A given user must first 
+        authenticate prior to using the system. All content-manipulation/functionality 
+        will be initiated and invoked via an intuitive GUI-based client, based 
+        on the familiar file-browser &#8220;explorer&#8221; pattern. </p>
+      <p><strong>Content Management System Component</strong><br>
+        The CMS aspect will allow users within a given development workgroup to 
+        manage and organize their individual document/project development efforts 
+        based on the familiar file/directory-structure paradigm. Depending on 
+        the privileges assigned to the user, the user may, for example, create 
+        new, move, and delete files and directories (content).</p>
+      <p><strong>Revision Control System Component</strong><br>
+        The RCS aspect will track modifications made to content based on the familiar 
+        check-out/modify/check-in paradigm. Given that modification history will 
+        be persisted, the system will also allow rolling back to previous versions 
+        should the need arise.</p>
+      <p><strong>Concurrent Versions System Component</strong><br>
+        The CVS aspect is based on exclusive-locks. As such, it will track file-locks 
+        and modifications in other workgroup&#8217;s work areas so that two users 
+        will not be allowed to have the same content (but in a different work 
+        area) locked concurrently. All modifications are submitted from a given 
+        workgroup&#8217;s work area to a staging area, simply referred to as &#8220;Staging&#8221;. 
+        The revision/version in Staging then becomes the master against which 
+        potentially disparate versions in other workgroup&#8217;s work areas are 
+        compared. </p>
+      <p>Optionally, an admin (workgroup or sysadmin) can specify a structured 
+        approval workflow/chain, indicating that various users must flag the request 
+        as either approved or denied. In general, a workflow is a map of a set 
+        of approval checkpoints. An approval &#8220;checkpoint&#8221; is simply 
+        a combination of a workgroup user and his approval/denial. The actual 
+        approval checkpoint map can vary but overall it is a collective indication 
+        of whether or not a given submission request gets processed. </p>
+      <h2>USING WEBDNA CMS</h2>
+      <p> <em>Note: There is a right-button context menu that works in both the 
+        tree view and list view. For MAC users with only one button, there is 
+        a 'menu' icon in the list view that pops up the same thing.</em></p>
+      <p><strong>User Types</strong><br>
+        There are five 'roles' users can assume:</p>
+      <p><strong>&middot; WGadmin</strong> &#8211; This privilege provides administrative 
+        privileges for a given workgroup.</p>
+      <p><strong>&middot; Editor</strong> &#8211; This privilege can edit content 
+        of a given workgroup, but you cannot create new content or delete content.</p>
+      <p><strong>&middot; Author</strong> &#8211; This privilege can edit, create, 
+        or delete content in a given workgroup.</p>
+      <p><strong>&middot; Viewer </strong>&#8211; This privilege has read only 
+        access.</p>
+      <p><strong>&middot; Unauthorized</strong> &#8211; This privilege provides 
+        no access. It is useful for disabling access for a user who should not 
+        be fully deleted from the system. </p>
+      <p>Every user can see the WorkGroup Admin tab. This is done to allow users 
+        to see who belongs to a given workgroup. However, only a WGAdmin for that 
+        particular workgroup can change the settings for users.</p>
+      <p><strong>Approval Groups</strong><br>
+        The WGAdmin for a particular workgroup can establish the approval groups. 
+        Once a approval group is created, the staging admin can then 'attach' 
+        an approval group to any particular asset within staging&#8217;s files 
+        or folders. Any time an asset is checked in, the check in process searches 
+        recursively from that 'leaf' asset up the hierarchy until it finds an 
+        approval group. </p>
+      <p>For example: If you want one approval group for all of staging, you attach 
+        it to the root staging folder. If you want a particular subfolder to have 
+        a different approval group, you attach it to that subfolder. Setting a 
+        different approval group for a subfolder will allow the recursive search 
+        to be encountered first before any approval group 'above' it. </p>
+      <p>If you have an approval group assigned to a folder, and you have one 
+        file that you DO NOT want any approval required ... create an 'empty' 
+        approval group and attach it to that one file. It will be encountered 
+        first before the approval group attached to the folder containing the 
+        file. </p>
+      <p><strong>Staging Content</strong><br>
+        The 'staging' workgroup is the repository for all file change history. 
+        If you add new files or folders in your respective workgroups, they have 
+        to be 'checked-in' to become part of the staging repository. Likewise, 
+        if you delete a file or folder, it needs to be checked-in for that change 
+        to affect staging. If there is an approval workflow defined, the deletion 
+        has to be approved before it is applied.</p>
+      <p><strong>Deploying Content</strong><br>
+        There is a 'deploy' action under the Workgroup Admin tab, which launches 
+        a separate (empty) template in its own window. This template does not 
+        perform any operations. </p>
+      <p>Since deploying folder and files to production could be local or remote 
+        operations, or involve any number of 'custom' issues for a given customer, 
+        this one template will be unencrypted so you can create your own custom 
+        WebDNA to automate the deployment from the staging area into production.</p>
+      <p><strong>Uploading Multiple Files</strong><br>
+        There is a mechanism to &quot;add a file&quot; and to &quot;upload&quot; 
+        a file over an existing file (if it is already checked out). For 'bulk' 
+        uploads of numerous files, there is an 'upload' folder under the CMS instance 
+        directory where a user can perform bulk FTPs of files. After the bulk 
+        upload, the user can use the &quot;upload files&quot; action, which will 
+        then import all of the files from that folder into the CMS system.<br>
+      </p></td>
+  </tr>
+</table>
+</body>
+</html>

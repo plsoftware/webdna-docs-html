@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!--last modified on Mon, Jan 5, 1998 6:02 PM-->
+<HTML>  
+<HEAD>
+  <META NAME="GENERATOR" CONTENT="Adobe PageMill 3.0 Mac">
+  <META HTTP-EQUIV="content-type" CONTENT="text/html;charset=iso-8859-1">
+  <TITLE>Then Context</TITLE>
+  <!--[Raw]-->
+  <META NAME="Author" CONTENT="Grant Hulbert">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<P><FONT SIZE="+2">[If <I>Expressions</I>][Then]do this[/Then][Else]otherwise
+this[/Else][/If]</FONT></P>
+
+<DL> 
+  <DD><b><font color="#FF0000">New in 4.0</font></b><br>
+    Displays HTML conditionally only if the expression is true.
+</DL>
+<P>To display some HTML (or execute WebDNA [xxx] tags) only if certain conditions 
+  are met, place the text inside an <a href="IfContext.html">[If]</a> context. 
+  The comparison, which may contain any [xxx] tags, is first evaluated to see 
+  if it is true, and if true then the contained [Then] context is executed (or 
+  simply displayed, if it's just HTML). If not true, then the contained <A HREF="ElseContext.html">[Else]</A> 
+  context is executed (or simply displayed, if it's just HTML). See [Then] and 
+  [Else].</P>
+
+<P><B>Example</B> (normally you would put the following text into
+a .tpl file on your server and use a web browser to link to it):</P>
+
+<BLOCKQUOTE>
+  <P>[If ((&quot;[username]&quot;=&quot;Grant&quot;) | ([grandTotal]&lt;100))
+  &amp; ({[date]}&lt;{2/15/2000})]<BR>
+  <B>&nbsp;&nbsp;&nbsp;&nbsp;[Then]either username was Grant or
+  grandTotal was &lt; $100 and it's not Feb 15, 2000 yet[/Then]<BR>
+  </B>&nbsp;&nbsp;&nbsp;&nbsp;[Else]The complex expression wasn't
+  true[/Else]<BR>
+  [/If]</P></BLOCKQUOTE>
+
+<P>See <a href="IfContext.html">[If]</a> for full explanation of syntax.</P>
+
+<P><!--[/Raw]-->
+
+</BODY>
+</HTML>

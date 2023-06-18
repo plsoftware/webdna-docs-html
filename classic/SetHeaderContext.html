@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>SetLineItemContext.html</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[SetHeader <i>Parameters</i>]values[/SetHeader]</font> 
+<dl>
+			<dd>Changes header values in a shopping cart.
+		</dl>
+		<p>To change header values in a visitor's shopping cart, place a SetHeader context into a template (alternately, you may use the <a href="ShowCartCommand.html">ShowCart</a> command from a URL or a FORM). Whenever WebDNA encounters a SetHeader context, it opens the shopping cart file and changes values in the headers you specify. The item's quantity, textA-E, and cart header fields are all changeable. Also see <a href="RemoveCommand.html">Remove</a>, <a href="ClearCommand.html">Clear</a>, <a href="ShowCartCommand.html">ShowCart</a>, <a href="AddContext.html">[AddLineItem]</a>, <a href="SetLineItemContext.html">[SetLineItem]</a>, and <a href="PurchaseCommand.html">Purchase</a>.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[SetHeader cart=5678&amp;db=catalog.txt]<b>ShipToZip</b>=92128&amp;<b>Header9</b>=Blue[/SetHeader]
+		</dl>
+		<p>Shopping cart file &quot;5678&quot; opens, and <b>ShipToZip</b> changes to 92128 and <b>Header9</b> changed to &quot;Blue&quot; (as specified in the context above).</p>
+		<p>Here are the parameters to the SetLineItem context:
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#cccccc">
+					<dl>
+						Parameter
+					</dl>
+				</th>
+				<th bgcolor="#cccccc">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						<dl>
+							db
+						</dl>
+					</div>
+				</td>
+				<td>Product database containing the SKU, price, and other information.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						cart</div>
+				</td>
+				<td>Affected shopping cart file (from ShoppingCarts folder).</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						file</div>
+				</td>
+				<td>(alternative to <b>cart</b>) Affected shopping cart file (from any folder). Unlike <b>cart</b>, this file can be in any folder. Specify the file URL-relative to the template.</td>
+			</tr>
+			<tr>
+				<th bgcolor="#cccccc">Context value</th>
+				<th bgcolor="#cccccc">Description (these values go inside the context)</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						<i>Header Field</i></div>
+				</td>
+				<td>You may set any shopping cart header field (such as Name, taxRate, Address1, etc.) at the same time you add a product to the cart. See complete list of <a href="PurchaseCommand.html#HeaderFields">Header Fields</a></td>
+			</tr>
+		</table>
+		<!--[/Raw]-->
+	</body>
+
+</html>

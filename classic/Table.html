@@ -1,0 +1,315 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<!--[Raw]-->
+<head>
+<title>Table Context</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+
+<table width="736" border="0" cellpadding="0" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr> 
+    <td width="1" height="27">&nbsp;</td>
+    <td width="735">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="4728">&nbsp;</td>
+    <td valign="top"><p><font size="5">[table name=...&amp;fields=,,...,]&lt;fieldname 
+        1&gt;,&lt;fieldname 2&gt;,&#8230;,&lt;fieldname n&gt;[/table]</font></p>
+      <blockquote> 
+        <p><br>
+          Enables the WebDNA programmer to quickly create a temporary 'in line' 
+          database table that is local to the template and not part of the global 
+          database cache. A table can be used in any context that accepts a database 
+          'db' as a parameter. </p>
+      </blockquote>
+      <p><br>
+        <strong>Optional Tag Parameters:</strong><br>
+        <strong><br>
+        &middot; name </strong>- A user assigned name used to reference the table 
+        during the duration of the template.<br>
+        <strong>&middot; fields </strong>- A comma delimited, ordered, list of 
+        fieldnames to be used for the table. <br>
+        <br>
+        <strong>Search a Table</strong> <br>
+        <br>
+        Lets create a table and perform a basic search on it. <br>
+        <br>
+        We use the following code... </p>
+      <blockquote>
+        <p>[table name=products&amp;fields=SKU,NAME,DESC]<br>
+          1001 Red Widget A small red widget<br>
+          1002 Blue Widget A small blue widget<br>
+          1003 Green Widget A small green widget<br>
+          [/table]</p>
+        <p>[search table=products&amp;neSKUdata=[blank]]<br>
+          Found [numfound] items in the products table.</p>
+        <p>[founditems]<br>
+          [SKU] - [DESC]</p>
+        <p>[/founditems]<br>
+          [/search]<br>
+        </p>
+      </blockquote>
+      <p>Results.... </p>
+      <blockquote> 
+        <p> <br>
+          Found 3 items in the products table.<br>
+          1001 - A small red widget<br>
+          1002 - A small blue widget<br>
+          1003 - A small green widget<br>
+        </p>
+      </blockquote>
+      <p>A table can be very useful if you want to perform a secondary search 
+        on the results of a previous search. </p>
+      <p><strong>Examples with ConvertChars/Words </strong><br>
+        <br>
+        You can use a table to quick create a table to be use with the ConvertChars, 
+        and ConvertWords contexts </p>
+      <blockquote> 
+        <p><br>
+          [table name=t1&amp;fields=from,to]<br>
+          a A<br>
+          b B<br>
+          c C<br>
+          [/table]</p>
+        <p>[table name=t2&amp;fields=from,to]<br>
+          webdna WebDNA<br>
+          tables Tables<br>
+          smsi SMSI<br>
+          [/table]</p>
+        <p>[convertchars table=t1]abc[/convertchars]</p>
+        <p><br>
+          [convertwords table=t2]webdna tables, brought to you by smsi![/convertwords]<br>
+        </p>
+      </blockquote>
+      <p>Results...</p>
+      <blockquote> 
+        <p> <br>
+          ABC <br>
+          WebDNA Tables, brought to you by SMSI! <br>
+        </p>
+      </blockquote>
+      <p><strong>Example with ListFiles </strong><br>
+        <br>
+        Tables are also very useful for sorting/searching the results of other 
+        'iterative' WebDNA contexts. For example, lets sort the results of a [listfiles] 
+        context... </p>
+      <blockquote> 
+        <p> <br>
+          [table name=filesort&amp;fields=filename,size,date][!]<br>
+          [/!][listfiles path=.]<br>
+          [filename] [size] [createdate]<br>
+          [/listfiles][/table]</p>
+        <p>Directory listing - sorted by filename</p>
+        <p>[search table=filesort&amp;neFILENAMEdata=[blank]&amp;asFILENAMEsort=1]<br>
+          [founditems]<br>
+          [filename] - [size] - [date]</p>
+        <p>[/founditems]<br>
+          [/search]</p>
+        <p>Directory listing - sorted by file size</p>
+        <p>[search table=filesort&amp;neFILENAMEdata=[blank]&amp;asSIZEsort=1&amp;SIZEtype=num]<br>
+          [founditems]<br>
+          [filename] - [size] - [date]</p>
+        <p>[/founditems]<br>
+          [/search]</p>
+      </blockquote>
+      <p>&nbsp;</p>
+      <p> Results... </p>
+      <blockquote> 
+        <p>&nbsp;</p>
+        <p>Directory listing - sorted by filename<br>
+          Table_Context_-_---1---.tpl - 1093 - 01/02/2003<br>
+          Table_Context_-_---2---.tpl - 1066 - 01/02/2003<br>
+          Table_Context_-_---3---.tpl - 940 - 01/02/2003<br>
+          Table_Context_-_---4---.tpl - 3445 - 01/02/2003<br>
+          Table_Context_-_---5---.tpl - 529 - 01/02/2003<br>
+          Table_Context_-_---6---.tpl - 166 - 01/02/2003<br>
+          table_tutorial5a.inc - 2255 - 01/02/2003<br>
+          Directory listing - sorted by file size<br>
+          Table_Context_-_---6---.tpl - 166 - 01/02/2003<br>
+          Table_Context_-_---5---.tpl - 529 - 01/02/2003<br>
+          Table_Context_-_---3---.tpl - 940 - 01/02/2003<br>
+          Table_Context_-_---2---.tpl - 1066 - 01/02/2003<br>
+          Table_Context_-_---1---.tpl - 1093 - 01/02/2003<br>
+          table_tutorial5a.inc - 2255 - 01/02/2003<br>
+          Table_Context_-_---4---.tpl - 3445 - 01/02/2003<br>
+        </p>
+      </blockquote>
+      <p>Note that we had to comment out some line endings. This is because the 
+        WebDNA that is parsed between the [table] tags must evaluate to a list 
+        of 'records', with the 'fields' delimited by tabs and each 'record' ending 
+        with a line ending (&lt;cr&gt;&lt;lf&gt; or &lt;lf&gt; or &lt;cr&gt;). 
+        In other words, exactly the same format as a WebDNA database. <br>
+        <br>
+          Lets combine this with a webdna [function] context to list all files in 
+          a folder, and its sub-folders. <br>
+          <br>
+          The new WebDNA [function] context is described in the 'Function Context' 
+          tutorial. <br>
+          <br>
+Here is the code... 
+
+        <blockquote><pre><xmp>
+[function name=get_files]
+[listfiles path=[in_path]]
+   [!]IF this is a folder, recurse into the folder[/!]
+[showif [IsFolder]=T]
+[return][depth]	<b>[filename]</b>	T
+[get_files root=F&in_path=[hideif [root]=TT][in_path]/[/hideif][filename]&depth=[math][depth]+1[/math]][/return]
+[/showif]
+
+[hideif [IsFolder]=T]
+[return][depth]	[filename]	F
+[/return][/hideif]
+[/listfiles][/function]
+
+[table name=file_tree_table&fields=depth,name,isfolder]
+[get_files root=T&in_path=../../../user_files&depth=0]
+[/table]
+
+Display the folder tree of the 'user_files' folder.<br>
+[search table=file_tree_table&eqISFOLDERdata=T&rank=off]
+[founditems]
+[loop start=0&end=[depth]]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[/loop][name]<br>
+[/founditems]
+[/search]
+<p>
+Display the complete file tree of the 'user_files' folder<br>
+[search table=file_tree_table&neNAMEdata=B&rank=off]
+[founditems]
+[loop start=0&end=[depth]]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[/loop][name]<br>
+[/founditems]
+[/search]
+        </xmp></pre></blockquote> <p>
+
+          Results... </p>
+        <blockquote> 
+          <p> <br>
+            Display the folder tree of the 'user_files' folder.<br>
+            tutorials<br>
+            Array_Context<br>
+            Function_Context<br>
+            ISP_Sandbox<br>
+            Scope<br>
+            Special_Scripts<br>
+            Table_Context<br>
+            XML_Contexts<br>
+            XSL-XSLT_Contexts<br>
+            <br>
+            Display the complete file tree of the 'user_files' folder<br>
+            <br>
+            database1.db<br>
+            example1.tpl<br>
+            sandbox_admin_redirect.tpl<br>
+            tutorials<br>
+            Array_Context<br>
+            Array_Context_-_---1---.tpl<br>
+            Array_Context_-_---2---.tpl<br>
+            Array_Context_-_---3---.tpl<br>
+            Array_Context_-_---4---.tpl<br>
+            Array_Context_-_---5---.tpl<br>
+            Array_Context_-_---6---.tpl<br>
+            Array_Context_-_---7---.tpl<br>
+            array_tutorial6a.inc<br>
+            create_tutorial.tpl<br>
+            Function_Context<br>
+            functions.db<br>
+            functions_test.db<br>
+            Function_Context_-_---1---.tpl<br>
+            Function_Context_-_---2---.tpl<br>
+            Function_Context_-_---3---.tpl<br>
+            Function_Context_-_---4---.tpl<br>
+            Function_Context_-_---5---.tpl<br>
+            Function_Context_-_---6---.tpl<br>
+            Function_Context_-_---7---.tpl<br>
+            Function_Context_-_---8---.tpl<br>
+            Function_Context_-_---9---.tpl<br>
+            function_tutorial8a.inc<br>
+            header.inc<br>
+            ISP_Sandbox<br>
+            ISP_Sandbox_-_---1---.tpl<br>
+            ISP_Sandbox_-_---2---.tpl<br>
+            ISP_Sandbox_-_---3---.tpl<br>
+            ISP_Sandbox_-_---4---.tpl<br>
+            ISP_Sandbox_-_---5---.tpl<br>
+            ISP_Sandbox_-_---6---.tpl<br>
+            Scope<br>
+            products.db<br>
+            Scope_-_---1---.tpl<br>
+            Scope_-_---2---.tpl<br>
+            Scope_-_---3---.tpl<br>
+            Scope_-_---4---.tpl<br>
+            Scope_-_---5---.tpl<br>
+            Scope_-_---6---.tpl<br>
+            Scope_-_---7---.tpl<br>
+            Scope_-_---8---.tpl<br>
+            Scope_-_---9---.tpl<br>
+            Scope_tutorial7a.inc<br>
+            testcart<br>
+            Special_Scripts<br>
+            Special_Scripts_-_---1---.tpl<br>
+            Special_Scripts_-_---2---.tpl<br>
+            Special_Scripts_-_---3---.tpl<br>
+            Special_Scripts_-_---4---.tpl<br>
+            Table_Context<br>
+            Table_Context_-_---1---.tpl<br>
+            Table_Context_-_---2---.tpl<br>
+            Table_Context_-_---3---.tpl<br>
+            Table_Context_-_---4---.tpl<br>
+            Table_Context_-_---5---.tpl<br>
+            Table_Context_-_---6---.tpl<br>
+            table_tutorial5a.inc<br>
+            XML_Contexts<br>
+            example1.xml<br>
+            XML_Contexts_-_---1---.tpl<br>
+            XML_Contexts_-_---10---.tpl<br>
+            XML_Contexts_-_---11---.tpl<br>
+            XML_Contexts_-_---12---.tpl<br>
+            XML_Contexts_-_---13---.tpl<br>
+            XML_Contexts_-_---14---.tpl<br>
+            XML_Contexts_-_---15---.tpl<br>
+            XML_Contexts_-_---2---.tpl<br>
+            XML_Contexts_-_---3---.tpl<br>
+            XML_Contexts_-_---4---.tpl<br>
+            XML_Contexts_-_---5---.tpl<br>
+            XML_Contexts_-_---6---.tpl<br>
+            XML_Contexts_-_---7---.tpl<br>
+            XML_Contexts_-_---8---.tpl<br>
+            XML_Contexts_-_---9---.tpl<br>
+            xml_tutorial12a.inc<br>
+            xml_tutorial8a.inc<br>
+            XSL-XSLT_Contexts<br>
+            example1.xml<br>
+            example1.xsl<br>
+            example2.xsl<br>
+            music.db<br>
+            XSL-XSLTtutorial1.inc<br>
+            XSL-XSLT_Contexts_-_---1---.tpl<br>
+            XSL-XSLT_Contexts_-_---2---.tpl<br>
+            XSL-XSLT_Contexts_-_---3---.tpl<br>
+            XSL-XSLT_Contexts_-_---4---.tpl<br>
+            XSL-XSLT_Contexts_-_---5---.tpl<br>
+            XSL-XSLT_Contexts_-_---6---.tpl<br>
+            XSL-XSLT_Contexts_-_---7---.tpl<br>
+            XSL-XSLT_Contexts_-_---8---.tpl<br>
+            XSL-XSLT_Contexts_-_---9---.tpl<br>
+            welcome.tpl</p>
+        </blockquote>
+        <p> <br>
+          <br>
+          In the example above, we used a single table to store all the folder and 
+          file info. We could have created a separate table for each folder, which 
+          would provide more flexibility for sorting the folders and files (which 
+          is what we did to create the 'file tree' popup window used in the WebDNA Lab 
+          application.).<br>
+        </p>
+      <p>&nbsp; </p>
+      
+      </td>
+  </tr>
+</table>
+</body>
+<!--[/Raw]-->
+</html>

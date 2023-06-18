@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>SQLConnect Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[SQLConnect <i>Params</i>]...[/SQLConnect]</font> 
+		<dl>
+			<dd>Opens and persists a 'named' connection to a SQL server, for the durration of the template.
+		</dl>
+		<p>
+		Generally speaking, the first step when using the SQL contexts is to make a
+		connection to your database server.  This is done with the <b>[SQLConnect]</b>
+		context.
+		</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd><pre><xmp>
+[SQLConnect dbType=MySQL&host=192.168.1.1&database=SMSITest&uid=sa&pwd=pass&conn_var=conn1]
+<table>
+	<tr><td>Host:</td><td>[SQL_HOST]</td></tr>
+	<tr><td>Server Version:</td><td>[SQL_SERVERVER]</td></tr>
+	<tr><td>Client Version:</td><td>[SQL_CLIENTVER]</td></tr>
+</table>
+[/SQLConnect]
+</xmp></pre>
+		</dl>
+		<p><table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Parameter</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						dbtype</div>
+				</td>
+				<td>(Optional) - Can be one of three reserved values - MYSQL, MSSQL, or ORACLE - depending on the type of RDBMS you wish to connect to.
+If 'dbType' is not given, WebDNA defaults to MYSQL. For WebDNA 6.0, MYSQL is the only type supported. </td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						host</div>
+				</td>
+				<td>(Required) - Either the IP Address or the host name of the database server you wish to connect to. </td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						port</div>
+				</td>
+				<td>(Optional) - The non-standard/non-default port of the database host you wish to connect to; do not provide a value unless your database administrator has informed you that the you must use a specific port in order to connect to the server. </td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						database</div>
+				</td>
+				<td>(Optional) - The name of the database to which you wish to connect; almost all the time you will want to provide a database name to connect to; if you do not supply the "database" parameter, the engine assumes you wish to connect to the RDBMS as admin in order to execute admin-type tasks, such as creating tables, etc.; please note that in this case you will more than likely only be required to provide admin credentials in order to connect successfully. </td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						uid</div>
+				</td>
+				<td>(Optional) - The username credential you want to use to connect to the SQL server.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						pwd</div>
+				</td>
+				<td>(Optional <i>unless uid is used</i>) - The password credential you want to use to connect to the SQL server.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						<nobr>conn_var ( or just 'var')</nobr></div>
+				</td>
+				<td>(Required) - the name of the connection variable that will be created on successful connection.</td>
+			</tr>
+		</table>
+		<p></p>
+		<p>The following tags are available inside a [SQL] context:
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Tag</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[SQL_HOST]</div>
+				</td>
+				
+    <td>The IP Address/host name of the database server. </td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[SQL_SERVERTYPE]</div>
+				</td>
+				
+    <td>The type of the database server; types returned: MYSQL, MSSQL, or ORACLE.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[SQL_SERVERVER]</div>
+				</td>
+				
+    <td>The SQL database server version number. </td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[SQL_CLIENTVER]</div>
+				</td>
+				
+    <td>The version number of the client being used to connect to the database server. </td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[SQL_DBNAME]</div>
+				</td>
+				
+    <td>The name of the database you have connected to, if any</td>
+			</tr>
+		</table>
+		<p></p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

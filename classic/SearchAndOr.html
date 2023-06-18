@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>And vs Or Searching</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5"> Searching - &quot;And&quot; vs. &quot;Or&quot;</font> <font size="5"><i>FieldName</i>data<b>rq=value</b></font> 
+<dl>
+			<dd>Matches multiple search criteria.
+		</dl>
+		<p>Sometimes you want to match one field <b>and</b> another field at the same time -- this if often called &quot;anding fields together&quot;. Examples are &quot;Find all people whose first name is Grant <b>and</b> last name is Hulbert&quot; or perhaps &quot;Find all houses that have more than 5 bedrooms <b>and</b> a fireplace <b>and</b> 2 bathrooms&quot;.</p>
+		<p>By default, if you do not specify certain fields are required to match, they are &quot;or-ed&quot; together, which in the above examples would read like &quot;Find all people whose first name is Grant <b>or</b> last name is Hulbert&quot; or perhaps &quot;Find all houses that have more than 5 bedrooms <b>or</b> a fireplace <b>or</b> 2 bathrooms&quot;.</p>
+		<dl>
+			<dd><b>Important</b>: WebDNA automatically 'ranks' the best-match results to the top of the list of found items. In the &quot;or-ed&quot; example above, all the houses that have more than 5 bedrooms and a fireplace and 2 bathrooms are shown at the top of the list. Houses that match 2 out of the 3 criteria are listed just below those, and finally houses that only match one of the criteria are listed last. You can override this standard ranking by forcing a different <a href="SearchSorting.html">sort</a> order.
+			<dd>&nbsp;
+			<dd><b>Note:</b> typically &quot;and&quot; will find fewer matches in a database, because it is more restrictive -- the chances of finding a house that matches all 3 criteria simultaneously is far lower than finding a house that matches any one of the criterion individually.
+		</dl>
+		<p>To require particular fields to match during a search, put the letters &quot;<b>rq</b>&quot; after the <b>data</b> specifier, as in the following examples:
+		<table border="1" cellpadding="0">
+			<tr>
+				<td>FirstName is Grant <b>and</b> LastName is Hulbert</td>
+				<td width="50%">eqFirstNamedata<b>rq</b>=Grant&amp;eqLastNamedata<b>rq</b>=Hulbert</td>
+			</tr>
+			<tr>
+				<td>Bedrooms &gt; 5 <b>and</b> fireplace is True and Bathrooms is 2</td>
+				<td width="50%">gtBedsdata<b>rq</b>=5&amp;eqFireplacedata<b>rq</b>=T&amp;eqBathsdata<b>rq</b>=2</td>
+			</tr>
+		</table>
+		<p></p>
+		<p>A complete URL for one of these searches might look like this:</p>
+		<p>http://Results.tpl?command=search&amp;eqFirstNamedata<b>rq</b>=Grant&amp;eqLastNamedata<b>rq</b>=Hulbert&amp;db=People.db</p>
+		<dl>
+			<dd><b>Note:</b> You can make all fields required in one simple step by putting &quot;<b>AllReqd=T</b>&quot; into the search URL or form.
+		</dl>
+		<p>The Results.tpl file would contain a <a href="FoundItemsContext.html">[FoundItems]</a> loop that fills with all the matching records, and the resulting HTML would be sent back to the browser.</p>
+		<dl>
+			<dd><b>Note:</b> you can also embed a <a href="SearchContext.html">[Search]</a> context in a template. Any browser accessing that HTML page (no special commands required - just link to the page) will see the 'live' search results. It might look like this:
+			<dd>&nbsp;
+			<dd>&lt;BODY&gt;
+			<dd>Here's an embedded search:&lt;br&gt;
+			<dd>[Search db=People.db&amp;eqFirstNameDatarq=Grant&amp;eqLastNamedatarq=Hulbert]
+			<dd>[FoundItems]
+			<dd>[FirstName], [Address], [City], [State], [Zip]&lt;br&gt;
+			<dd>[/FoundItems]
+			<dd>[/Search]
+			<dd>&lt;/BODY&gt;
+		</dl>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

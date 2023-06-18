@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"><!--last modified on Wed, Jul 8, 1998 6:11 PM-->
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>ListVariables Context</title>
+		<!--[Raw]-->
+		<meta name="Author" content="Grant Hulbert">
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[ListVariables <i>options</i>]Variable Tags[/ListVariables]</font>
+		<dl>
+			
+  <dd><font color="red"><b>New in 4.0<br>
+    </b></font>Lists all the text and/or math 
+    variables which have been set earlier on a page. 
+</dl>
+		<p>To display a list of all the text or math variables available, put a [ListVariables] context into a template.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>The following are all the text and math variables available to this page:&lt;br&gt;
+			<dd>[ListVariables]
+			<dd>[index],[name],[value]&lt;br&gt;
+			<dd>[/ListVariables]
+		</dl>
+		<p>The [ListVariables] context has optional parameters that are placed within the beginning tag in order to modify the list of variables produced.</p>
+		<p><b>Example</b>:</p>
+		<dl>
+			<dd>The following are the values of all the text variables created on this template so far:&lt;br&gt;<br>
+			[ListVariables type=text]<br>
+			[index],[name],[value]&lt;br&gt;<br>
+			[/ListVariables]
+			<dd><br>
+			The following are the values of all the math variables created on this template whose variable name begins with &quot;fred&quot;:&lt;br&gt;<br>
+			[ListVariables type=math&amp;name=fred]<br>
+			[index],[name],[value]&lt;br&gt;<br>
+			[/ListVariables]
+		</dl>
+		<p>Listing the variables with a given name is useful for displaying arrays of variables.</p>
+		<p>The following parameters are optional to the [ListVariables] context:
+		<table border="1" cellpadding="0" cellspacing="2">
+			<tr>
+				<th bgcolor="#bbbbbb">Parameter</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						Name</div>
+				</td>
+				<td>(Optional) The name of the variable to list.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;Exact</div>
+				</td>
+				<td>(Optional) T(rue) or F(alse) whether to exactly match the name of the variable or match any name containing the &quot;name&quot; value. (Default value is true.)</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						Type</div>
+				</td>
+				<td>(Optional) Text or Math. Default is to list variables of both types, but if you specify Text then only Text variables will be listed, and if you specify Math then only Math variables will be listed.</td>
+			</tr>
+		</table>
+		<p><a name="TAGS"></a></p>
+		<p>The following tags are available inside a [ListVariables] context:
+		<table border="1" cellpadding="0" cellspacing="2">
+			<tr>
+				<th bgcolor="#bbbbbb">Tag</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[Name]</div>
+				</td>
+				<td>The name of the variable.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[Value]</div>
+				</td>
+				<td>The value associated with the variable.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[Index]</div>
+				</td>
+				<td>A number from 1 to the total number of variables, indicating this field's index position in the list</td>
+			</tr>
+			<tr>
+				<td name=Secure>
+					<div align="right">
+						[Secure]</div>
+				</td>
+				<td>(available from version 4.0.2rc2 and later)<BR>Displays &quot;T&quot; if the variable is secure, &quot;F&quot; otherwise.</td>
+			</tr>
+		</table>
+		<p></p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

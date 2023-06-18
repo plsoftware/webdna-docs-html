@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"><!--last modified on Mon, Jan 5, 1998 1:43 PM-->
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Email Context</title>
+		<!--[Raw]-->
+		<meta name="Author" content="Grant Hulbert">
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[SendMail <i>Parameters</i>]Body[/SendMail]</font>
+		<dl>
+			<dd>Sends an email to the specified address.
+		</dl>
+		<p>To send an email, put a SendMail context into a template with the body of the email message inside the context. Specify &quot;to,&quot; &quot;subject,&quot; and &quot;from&quot; information in parameters of the SendMail context. WebDNA does not actually send the email; it writes a special file into an EmailFolder which the separate Emailer program uses to send the email. If the Emailer program is not running, no emails will be sent. The Emailer program does not erase old outgoing email files until it has successfully completed sending the email.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[SendMail <b>to</b>=you@xxx.com&amp;<b>from</b>=me@xxx.com&amp;<b>subject</b>=Hello]This is the body of the email.
+			<dd>The date is [date][/SendMail]
+		</dl>
+		<p>Any [xxx] values are first substituted for their real values (both in the parameters as well as the body of the message), then the email file is written into the EmailFolder, where the Emailer program checks for new files every few seconds and sends them out.</p>
+		<p>Parameters for the SendMail context:
+		
+<table border="1" cellpadding="0">
+  <tr> 
+    <th bgcolor="#bbbbbb">&nbsp;Parameter</th>
+    <th bgcolor="#bbbbbb">&nbsp;Description</th>
+  </tr>
+  <tr> 
+    <td> <div align="right"> &nbsp;to</div></td>
+    <td>recipient(s) of this email, as in &quot;address@domain.com,address2@domain2.com&quot;</td>
+  </tr>
+  <tr> 
+    <td> <div align="right"> &nbsp;from</div></td>
+    <td>return address, as in &quot;youraddress@yourdomain.com&quot;</td>
+  </tr>
+  <tr> 
+    <td> <div align="right"> &nbsp;subject</div></td>
+    <td>subject line for email</td>
+  </tr>
+  <tr> 
+    <td> <div align="right"> <i>anything</i></div></td>
+    <td>You may specify any extra MIME header information by simply naming it 
+      and providing a value in the list of SendMail parameters. For example, if 
+      you want to force the date of the email to something other than the default, 
+      add &quot;Date=Mon, 05 Jan 1998 15:59:33 -0500&quot; to the list of parameters.</td>
+  </tr>
+  <tr> 
+    <td><div align="right">saveonsuccess</div></td>
+    <td>(Optional) instructs WebDNA to save or not save the email files after 
+      successful transmission.</td>
+  </tr>
+  <tr> 
+    <td><div align="right">saveonfail </div></td>
+    <td>(Optional) instructs WebDNA to save or not save the email files after 
+      failed transmission.</td>
+  </tr>
+</table>
+		
+<p>&nbsp;</p>
+<p>By default, after WebDNA has transmitted an email, the email file is moved 
+  from the EMAILFolder to either the EMAILCompleted or EMAILProblems folder, depending 
+  on the success or failure of the email transmission. You can use the 'SaveOnSuccess' 
+  and 'SaveOnFail' [SendMail] parameters to instruct WebDNA NOT to 'save' the 
+  email files. Here is an example: </p>
+<blockquote>
+  <p><br>
+    [sendmail to=steve@here.com&amp;from=rad@there.com&amp;subject=WebDNA&amp;SaveOnSuccess=F&amp;SaveOnFail=T]<br>
+    WebDNA leads the way to productivity.<br>
+    [/sendmail]</p>
+</blockquote>
+<p><br>
+  In the example above, the email file would not be 'saved' to the EmailCompleted 
+  folder after a successful transmission, but it would be saved to the EmailProblems 
+  folder it there was an error in transmission. </p>
+<p><br>
+  <!--[/Raw]-->
+</p>
+<p>&nbsp;</p></body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>ListDatabases Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[ListDatabases]Database Tags[/ListDatabases]</font>
+		<dl>
+			<dd>Lists all the currently-open databases.
+		</dl>
+		<p>To display a list of all the databases that WebDNA currently has open, put a [ListDatabases] context into a template. You may put a <a href="ListFieldsContext.html">[ListFields]</a> context inside the [ListDatabases] context to display the names of all the fields in the database.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[ListDatabases]
+			<dd>Name: [name]&lt;br&gt;
+			<dd># Records: [numRecords]&lt;br&gt;&lt;hr&gt;
+			<dd>[/ListDatabases]
+		</dl>
+		<p>The following tags are available inside a [ListDatabases] context:
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Tag</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;&nbsp;[Name]</div>
+				</td>
+				<td>&nbsp;the name of the database (can be a partial or full path).</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[Index]</div>
+				</td>
+				<td>A number from 1 to the total number of databases, indicating this database's index placement in the list.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[NumRecords]</div>
+				</td>
+				<td>The number of records (rows) in this database.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[NumFields]</div>
+				</td>
+				<td>The number of fields (columns) in this database.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[xxx]</div>
+				</td>
+				<td>Any other WebDNA tag or context, including <a href="ListFieldsContext.html">[ListFields]</a></td>
+				.</tr>
+		</table>
+		</p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

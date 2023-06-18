@@ -1,0 +1,337 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<!--[Raw]-->
+<head>
+<title>Scope Context</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+<blockquote> 
+  <p>[scope name=...]&lt;WebDNA&gt;[/scope]</p>
+  <p><br>
+    Enables a WebDNA programmer to explicitly define a block of WebDNA code that 
+    has a separate variable space. Meaning that variables defined within the 'scope', 
+    only exist for the duration of WebDNA between the 'scope' tags.</p>
+</blockquote>
+<p><br>
+  <strong>Optional Tag Parameters:</strong><br>
+  <br>
+  <strong>&middot; name - </strong>User defined name for the local variable space. 
+  This name can be used with the scope resolution operator to 'access' variables 
+  stored in the 'named' variables space (but only for the duration of the scope 
+  context).</p>
+<p><br>
+  <strong>Named Scope </strong><br>
+  <br>
+  Lets create a named variable space called 'mytempvars', and create a few text 
+  variables in the new scope. </p>
+<p>We use the following code... </p>
+<blockquote>
+  <p><br>
+    -Scope begin...</p>
+  <p>[scope name=mytempvars]<br>
+    [text]a=11[/text]<br>
+    [text]b=22[/text]<br>
+    [text]c=33[/text]<br>
+    List of local scope variables...</p>
+  <p>[listvariables scope=mytempvars][name]=[value]<br>
+    [/listvariables]<br>
+    -Scope end...</p>
+  <p>[/scope]</p>
+  <p>List of global variables...</p>
+  <p>[listvariables][name]=[value]<br>
+    [/listvariables]</p>
+</blockquote>
+<p><br>
+  Result... </p>
+<blockquote>
+  <p><br>
+    -Scope begin...<br>
+    List of local scope variables...<br>
+    a=11<br>
+    b=22<br>
+    c=33<br>
+    -Scope end...<br>
+    List of global variables...<br>
+    page_number=2<br>
+    page_name=Scope<br>
+    edit_link=Scope/Scope_-_---2---.tpl<br>
+    back_link=Scope_-_---1---.tpl<br>
+    next_link=Scope_-_---3---.tpl<br>
+    new_file=Scope/Scope_-_---3---.tpl<br>
+    main_title=Scope</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>So you can see that the 'local' scope variables; 'a','b', &amp; 'c', only exist 
+  between the [scope] tags. <br>
+  <br>
+  This is useful when you need to create several temporary variables for a specific 
+  block of WebDNA code, but do not want the variables 'cluttering' the global 
+  template variable space.<br>
+  <br>
+  <strong>Scope and Functions </strong><br>
+  <br>
+  WebDNA functions have their own implied scope. Meaning that when you create 
+  variables inside of a function definition, the variables are local to that function. 
+  The 'name' of the variable space in the function, is the function name itself. 
+  <br>
+  <br>
+  For example... </p>
+<blockquote>
+  <p><br>
+    [function name=test_function]<br>
+    [loop start=1&amp;end=10]<br>
+    [text]local_[index]=[index][/text]<br>
+    [/loop]<br>
+    [listvariables scope=test_function][name]=[value]<br>
+    [/listvariables]<br>
+    [/function]</p>
+  <p>[test_function]</p>
+</blockquote>
+<p><br>
+  <br>
+  Results... </p>
+<blockquote>
+  <p><br>
+    local_1=1<br>
+    local_2=2<br>
+    local_3=3<br>
+    local_4=4<br>
+    local_5=5<br>
+    local_6=6<br>
+    local_7=7<br>
+    local_8=8<br>
+    local_9=9<br>
+    local_10=10</p>
+</blockquote>
+<p>&nbsp;</p>
+<p><strong>Scope Resolution - Step-Wise Method </strong><br>
+  <br>
+  Because of the addition of 'local' variable name spaces to WebDNA, there will 
+  often be occasions when you need to explicitly access variables in a given scope. 
+  You can do this using the new 'Scope Resolution' operator: '::'. There are two 
+  modes of Scope resolution; 'step-wise' and 'named'. <br>
+  <br>
+  When parsing WebDNA code, the WebDNA engine will search 'inside-out' for variable 
+  matches on a given token, and return the first 'match'. The step-wise scope 
+  resolution method can force the engine to 'step over' matching variable names 
+  and continue searching for 'outer' variables that match the given token. <br>
+  <br>
+  This 'step-wise' scope resolution is used as follows...<br>
+  Any number of 'colon' pairs preceding a variable name.<br>
+  <br>
+  [::]<br>
+  <br>
+  A usage case...<br>
+  Often from within an [orderfile] context, you may want to access the global 
+  [date] tag. Until now, if you used [date] from within an orderfile context (or 
+  on a page called with the 'showcart' command), you would get the orderfile's 
+  date, and not the 'global' date value. Now, you can retrieve the 'global' date 
+  value using, [::date] from within the orderfile context. Basically the '::' 
+  reads as, 'skip the first occurrence of a 'date' value, and retrieve the next 
+  (if it exists).' </p>
+<blockquote>
+  <p><br>
+    [orderfile file=testcart]<br>
+    [date]</p>
+  <p>[::date]</p>
+  <p>[/orderfile]</p>
+</blockquote>
+<p><br>
+  <br>
+  Results... </p>
+<blockquote>
+  <p><br>
+    1/01/2001<br>
+    03/04/2003</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>You can 'stack' any number of resolution operator '::' pairs to 'skip' to a 
+  particular 'outer' instance of a variable... </p>
+<blockquote>
+  <p><br>
+    [scope name=scope1]<br>
+    [text]a=1[text]<br>
+    [scope name=scope2]<br>
+    [text]a=11[text]<br>
+    [scope name=scope3]<br>
+    [text]a=111[text]<br>
+    value of 'a' in [scope3] = [a]</p>
+  <p> value of 'a' in [scope2] = [::a]</p>
+  <p> value of 'a' in [scope1] = [::::a]</p>
+  <p> [/scope]<br>
+    [/scope]<br>
+    [/scope]</p>
+</blockquote>
+<p><br>
+  <br>
+  Results... </p>
+<blockquote>
+  <p><br>
+    value of 'a' in [scope3] = 111<br>
+    value of 'a' in [scope2] = 11<br>
+    value of 'a' in [scope1] = 1</p>
+</blockquote>
+<p>&nbsp;</p>
+<p> <strong>Scope Resolution - Named Method </strong><br>
+  <br>
+  You can directly refer to a particular scope using the scope name between the 
+  ':' colons. The 'name' must be qualified by 'named-', i.e.<br>
+  <br>
+  [:named-:]<br>
+  <br>
+  'Reserved' scope names can also be used. In this case you do not need to include 
+  the 'named-' prefix, i.e. <br>
+  <br>
+  [:global:]<br>
+  <br>
+  Reserved scope names are discussed on the following page. <br>
+  <br>
+  Using the orderfile example from the previous page... </p>
+<blockquote>
+  <p><br>
+    [orderfile file=testcart]<br>
+    [date]</p>
+  <p>[:global:date]</p>
+  <p>[/orderfile]</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>Results... </p>
+<blockquote>
+  <p><br>
+    1/01/2001<br>
+    03/04/2003</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>The 'global' name is the reserved scope name for secure template variables. 
+  <br>
+  <br>
+  Using the nested scopes example from the previous page... </p>
+<blockquote>
+  <p><br>
+    [scope name=scope1]<br>
+    [text]a=1[text]<br>
+    [scope name=scope2]<br>
+    [text]a=11[text]<br>
+    [scope name=scope3]<br>
+    [text]a=111[text]<br>
+    value of 'a' in [scope3] = [:named-scope3:a]</p>
+  <p> value of 'a' in [scope2] = [:named-scope2:a]</p>
+  <p> value of 'a' in [scope1] = [:named-scope1:a]</p>
+  <p> [/scope]<br>
+    [/scope]<br>
+    [/scope]</p>
+</blockquote>
+<p><br>
+  <br>
+  Results... </p>
+<blockquote>
+  <p>value of 'a' in [scope3] = 111<br>
+    value of 'a' in [scope2] = 11<br>
+    value of 'a' in [scope1] = 1</p>
+</blockquote>
+<p>&nbsp;</p>
+<p><strong>Reserved Scope Names </strong><br>
+  <br>
+  There are a few 'reserved' scope names: <br>
+  <br>
+  'global' - refers to the 'normal/secure' template variable space. <br>
+  <br>
+  'local' - When used inside of a function or scope context, refers to the variable 
+  space associated with the current function or scope. <br>
+  <br>
+  'insecure' - Refers to the 'insecure' template variable space (this space also 
+  includes HTML form variables). <br>
+  <br>
+  A demonstration of named and step-wise scope resolution... </p>
+<blockquote>
+  <p><br>
+    [text]abc=123_global[/text]<br>
+    [text insecure=F]abc=123_insecure[/text]</p>
+  <p>[scope name=scope1]<br>
+    [text]abc=123_local[/text]</p>
+  <p>global 'abc' = [:global:abc] - using reserved 'global' name</p>
+  <p>global 'abc' = [::abc] - using 'step-wise' scope</p>
+  <p>&nbsp;</p>
+  <p>insecure 'abc' = [:insecure:abc] - using reserved 'insecure' name</p>
+  <p>insecure 'abc'= [::::abc] - using 'step-wise' scope</p>
+  <p>&nbsp;</p>
+  <p>local 'abc' = [:local:abc] - using reserved 'local' name</p>
+  <p>local 'abc' = [abc] - using implied scope</p>
+  <p>local 'abc' = [:named-scope1:abc] - using 'named' scope</p>
+  <p><br>
+    [/scope]</p>
+</blockquote>
+<p><br>
+  Results... </p>
+<blockquote>
+  <p><br>
+    global 'abc' = 123_global - using reserved 'global' name<br>
+    global 'abc' = 123_global - using 'step-wise' scope</p>
+  <p>insecure 'abc' = 123_insecure - using reserved 'insecure' name<br>
+    insecure 'abc'= 123_insecure - using 'step-wise' scope</p>
+  <p>local 'abc' = 123_local - using reserved 'local' name<br>
+    local 'abc' = 123_local - using implied scope<br>
+    local 'abc' = 123_local - using 'named' scope</p>
+</blockquote>
+<p>&nbsp;</p>
+<p><strong>New 'scope=' parameter </strong><br>
+  <br>
+  Besides being able to 'resolve' variables in different scopes, you can create 
+  variables for a specified scope using the 'scope=' parameter in [text] and [math] 
+  assignments. This option will soon be available for other persisted WebDNA object, 
+  i.e. Arrays, Tables, XML/XSL objects, etc.<br>
+  <br>
+  This is useful when you have a block of WebDNA code within a function, or named 
+  scope, and need to create/modify a variable in an outer scope. <br>
+  <br>
+  For example... <br>
+  <br>
+  Here we simulate a 'pass by reference' by passing the variable name, to receive 
+  the results, into a function call. </p>
+<blockquote>
+  <p><br>
+    [function name=Backwards]<br>
+    [text]length=[countchars][in_string][/countchars][/text]<br>
+    [text scope=global][output_to]=[loop start=[length]&amp;end=1&amp;advance=-1][getchars 
+    start=[index]&amp;end=[index]][in_string][/getchars][/loop][/text]<br>
+    [/function]</p>
+  <p>[Backwards in_string=abcdef_12345&amp;output_to=result]</p>
+  <p>result = [result]</p>
+</blockquote>
+<p>Results... </p>
+<blockquote>
+  <p><br>
+    result = 54321_fedcba </p>
+</blockquote>
+<p>&nbsp;</p>
+<p>In the example above, the function definition assumes that the destination 
+  variable existed in the 'global' scope. Lets do the same thing as before, but 
+  pass in the scope name as well...</p>
+<blockquote>
+  <p> <br>
+    [function name=Backwards]<br>
+    [text]length=[countchars][in_string][/countchars][/text]<br>
+    [text scope=[output_scope]][output_to]=[loop start=[length]&amp;end=1&amp;advance=-1][getchars 
+    start=[index]&amp;end=[index]][in_string][/getchars][/loop][/text]<br>
+    [/function]</p>
+  <p>[!] clear out global 'result' from previous example [/!]<br>
+    [text]result=[/text]<br>
+    [scope name=scope1]<br>
+    [Backwards in_string=abcdef_12345&amp;output_to=result&amp;output_scope=scope1]<br>
+    value of 'result' inside of 'scope1' = '[result]'<br>
+    [/scope]</p>
+</blockquote>
+<p>value of 'result' outside 'scope1' = '[result]' (should be empty).<br>
+  <br>
+  Results... </p>
+<blockquote>
+  <p><br>
+    value of 'result' inside of 'scope1' = '54321_fedcba' <br>
+    value of 'result' outside 'scope1' = '' (should be empty). <br>
+  </p>
+</blockquote>
+</body>
+<!--[/Raw]-->
+</html>

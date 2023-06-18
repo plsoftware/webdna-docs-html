@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<!--[Raw]-->
+<head>
+<title>XMLNodeAttributes Context</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+<p><font size="5">[XMLNodeAttributes ref=...&amp;path=...]&lt;WebDNA&gt; [/XMLNodeAttributes]</font></p>
+<blockquote>
+  <p><br>
+    This context is used to iterate the attributes of a specific XML node. The 
+    'path' parameter is used to locate the node. As with the [XMLNodes] context, 
+    the 'path' parameter has three modes; <strong>'named:'</strong>, <strong>'indexed:'</strong>, 
+    and <strong>'xpath:'</strong>.</p>
+</blockquote>
+<p><br>
+  <strong>Optional Tag Parameters:</strong><br>
+  <br>
+  <strong>&middot; ref</strong> - Reference to an xml object variable. If this 
+  parameter is not provided, then it is assumed that there is an 'outer' [xmlnode/s] 
+  context from which to reference a particular XML node.<br>
+  <br>
+  <strong>&middot; path</strong> - Path to the desired XML node. If an XPath expression 
+  is used, it should evaluate to a single node.</p>
+<p><br>
+  <strong>Optional Context Tags:</strong><br>
+  <br>
+  <strong>&middot; [name]</strong> - The name of the current iterated XML node 
+  attribute.<br>
+  <br>
+  <strong>&middot; [value]</strong> - The value of the current iterated XML node 
+  attribute.<br>
+  <br>
+  <strong>&middot; [index] </strong>- The 'count' of the current iterated attribute.<br>
+  <br>
+  <strong>&middot; [numfound]</strong> - The total 'count' of iterated attributes. 
+</p>
+<p>&nbsp; </p>
+<p>Lets use the <strong>[XMLNodeAttributes]</strong> context to retrieve the attributes 
+  of the first CD node of the <a href="example1.xml">example1.xml</a> file...</p>
+<p>&nbsp;</p>
+<blockquote>
+  <p>[xmlparse var=xml_var1][include file=example1.xml][/xmlparse]</p>
+  <p>Attributes for the 'CD' node:</p>
+  <p>[xmlnode ref=xml_var1&amp;path=indexed:1/1]<br>
+    [content]<br>
+    [/xmlnode]<br>
+    Are...</p>
+  <p>[xmlnodeattributes ref=xml_var1&amp;path=indexed:1/1]<br>
+    [name]=[value]</p>
+  <p>[/xmlnodeattributes]</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>Results... </p>
+<p>&nbsp;</p>
+<blockquote>
+  <p>Attributes for the 'CD' node: </p>
+<xmp>
+<CD status="instock" id="123">
+<TITLE>Empire Burlesque</TITLE>
+<ARTIST>Bob Dylan</ARTIST>
+<COUNTRY>USA</COUNTRY>
+<COMPANY>Columbia</COMPANY>
+<PRICE>10.90</PRICE>
+<YEAR>1985</YEAR>
+</CD>
+</xmp>
+    Are... <br>
+    id=123<br>
+    status=instock</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>To simplify the code, we could place the <strong>[XmlNodeAttributes]</strong> 
+  context 'inside' of the <strong>[XMLNode]</strong> context. In this case, we 
+  will not need to supply the 'path' or 'ref' parameters to <strong>[XmlNodeAttributes]</strong>, 
+  since it will use the 'implied' XML node in the outer <strong>[XMLNode] </strong>context. 
+  <br>
+  <br>
+  We use... </p>
+<blockquote>
+  <p><br>
+    [xmlparse var=xml_var1][include file=example1.xml][/xmlparse]</p>
+  <p>Attributes for the 'CD' node:<br>
+    [xmlnode ref=xml_var1&amp;path=indexed:1/1]<br>
+    [content]<br>
+    Are...</p>
+  <p>[xmlnodeattributes]<br>
+    [name]=[value]</p>
+  <p>[/xmlnodeattributes]<br>
+    [/xmlnode]</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>Results... </p>
+<blockquote>
+  <p>&nbsp;</p>
+  <p>Attributes for the 'CD' node: </p>
+<xmp>
+<CD status="instock" id="123">
+<TITLE>Empire Burlesque</TITLE>
+<ARTIST>Bob Dylan</ARTIST>
+<COUNTRY>USA</COUNTRY>
+<COMPANY>Columbia</COMPANY>
+<PRICE>10.90</PRICE>
+<YEAR>1985</YEAR>
+</CD>
+</xmp>
+  Are... <br>
+    id=123<br>
+    status=instock<br>
+  </p>
+</blockquote>
+</body>
+<!--[/Raw]-->
+</html>

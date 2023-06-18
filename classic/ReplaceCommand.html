@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!--last modified on Fri, Aug 14, 1998 3:48 PM-->
+<HTML>  
+<HEAD>
+  <META NAME="GENERATOR" CONTENT="Adobe PageMill 3.0 Mac">
+  <META HTTP-EQUIV="content-type" CONTENT="text/html;charset=iso-8859-1">
+  <TITLE>Replace Command</TITLE>
+  <!--[Raw]-->
+  <META NAME="Author" CONTENT="Grant Hulbert">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<P><FONT SIZE="+2">Replace?db=DatabaseName&amp;searchdata=xx&amp;field1=xx&amp;field2=xx</FONT></P>
+
+<DL>
+  <DD>Replaces each found record in a database with the new field
+  values.
+</DL>
+
+<P>To replace records in a database, use a web browser to link
+to a URL containing the Replace command (alternately, you may
+embed a <A HREF="ReplaceContext.html">[Replace]</A> context into
+a template). Whenever WebDNA receives a Replace command, it
+immediately searches for the specified records in the database,
+and replaces those records' fields with the named field values.</P>
+
+<DL>
+  <DD><B>SQL/ODBC Note</B>: To replace records in an ODBC-compliant
+  table, use the <A HREF="SQLContext.html">[SQL]</A> context.
+</DL>
+
+<P><B>Example</B> (normally you would link to a URL or form containing
+the following information):</P>
+
+<DL>
+  <DD><IMG SRC="winlogo.gif" WIDTH="20" HEIGHT="16" ALIGN="LEFT"
+  BORDER="0" NATURALSIZEFLAG="3">http://yourserver.com/xx.tpl?<B>command</B>=Replace&amp;<B>db</B>=SomeDatabase.db&amp;<B>eqNAMEdata</B>=Grant&amp;<B>name</B>=John&amp;<B>address</B>=1492%20Somewhere%20Lane&amp;<B>zip</B>=90000
+</DL>
+
+<P>The database &quot;SomeDatabase.db&quot; opens and all records
+whose <B>name</B> field is &quot;Grant&quot; are found. The field
+names &quot;<B>name</B>&quot; is set to &quot;John,&quot; &quot;<B>address</B>&quot;
+is set to &quot;1492 Somewhere Lane,&quot; and &quot;<B>zip</B>&quot;
+is set to &quot;90000.&quot;</P>
+
+<P>Any fieldnames not existing in the database are ignored, and
+any fields you do not specify are left blank in the new record.
+Certain letters are illegal, such as &lt;tab&gt; or &lt;carriage
+return&gt;, so they are converted to &lt;space&gt; and &lt;soft
+return&gt; before being added to the database. Some computers
+use the two-character sequence &lt;carriage return&gt;&lt;line
+feed&gt; to indicate a single end of line, which is converted
+automatically to a single &lt;soft return&gt; character before
+being added to the database.<BR>
+<BR>
+You may specify a relative or full URL to the database file, as
+in &quot;/WebCatalog/Folder/SomeDatabase.db&quot; or &quot;../SomeDatabase.db&quot;.
+The path to the database is always relative to the template URL,
+so if the database is in the same folder as the template the path
+would be &quot;SomeDatabase.db&quot;, and if the database were
+one folder up then the path would be &quot;../SomeDatabase.db&quot;.</P>
+
+<DL>
+  <DD><B>Note</B>: You may force the visitor to enter something
+  into a field by using the <B>RequiredFields</B> parameter in
+  the URL. Setting <B>RequiredFields</B>=name+address+city displays
+  an error message if the visitor forgets to enter text into any
+  of those 3 fields. <B>RequiredFields</B> works for all commands,
+  not just this one.
+</DL>
+
+<P>Here are some equivalent ways to send the same command: <TABLE
+BORDER="1" CELLPADDING="0" CELLSPACING="2">
+  <TR>
+    <TH BGCOLOR="#bbbbbb">HTML Source</TH> 
+    <TH BGCOLOR="#bbbbbb">Description</TH> 
+  </TR>
+  <TR>
+    <TD>
+      <DL>
+        <DT>&lt;a href=&quot;xx.tpl?<B>command</B>=Replace&amp;<B>db</B>=SomeDatabase.db&amp;<B>name</B>=John&amp;address=1234%20Somewhere&amp;<B>eqNAMEdata</B>=Grant&quot;&gt;
+      </DL>
+    </TD>
+    <TD>Hyperlink command</TD> 
+  </TR>
+  <TR>
+    <TD>
+      <DL>
+        <DT>&lt;form method=&quot;POST&quot; action=&quot;xx.tpl&quot;&gt;<BR>
+        &lt;input type=&quot;hidden&quot; name=&quot;<B>command</B>&quot;
+        value=&quot;Replace&quot;&gt;<BR>
+        &lt;input type=&quot;hidden&quot; name=&quot;<B>template</B>&quot;
+        value=&quot;xx.tpl&quot;&gt;<BR>
+        &lt;input type=&quot;hidden&quot; name=&quot;<B>db</B>&quot;
+        value=&quot;SomeDatabase.db&quot;&gt;<BR>
+        &lt;input name=&quot;<B>eqNAMEdata</B>&quot; value=&quot;John&quot;&gt;<BR>
+        &lt;input name=&quot;<B>name</B>&quot;&gt;<BR>
+        &lt;input name=&quot;<B>address</B>&quot;&gt;<BR>
+        &lt;input type=&quot;submit&quot;&gt;<BR>
+        &lt;/form&gt;
+      </DL>
+    </TD>
+    <TD>
+      <DL>
+        <DT>Form-based command
+      </DL>
+    </TD>
+  </TR>
+</TABLE></P>
+
+<P>Parameters for Replace: <TABLE BORDER="1" CELLPADDING="0" 
+CELLSPACING="2">
+  <TR>
+    <TH BGCOLOR="#cccccc">Parameter</TH> 
+    <TH BGCOLOR="#cccccc">Description</TH> 
+  </TR>
+  <TR>
+    <TD>
+      <P ALIGN=RIGHT>Append</TD>
+    <TD>(Optional) &quot;T&quot; if you want a new record to be added
+      to the end of the database in the case where no records were
+      found to be replaced.</TD> 
+  </TR>
+</TABLE><!--[/Raw]-->
+
+</BODY>
+</HTML>

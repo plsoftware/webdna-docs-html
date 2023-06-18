@@ -1,0 +1,220 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Math Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[Math <i>ResultType</i>]Equation[/Math]</font>
+		<dl>
+			<dd>Calculates the enclosed numerical, date, or time equation and displays the results.
+		</dl>
+		
+<p><b>Note: </b>You do not have to use the [Math] context to display a math variable 
+  later in the page. Just put the variable name inside brackets: [varname]. <br>
+  Both [Math]varname[/Math] and [varname] display the same thing.</p>
+		<p>To calculate a mathematical equation, put it inside a Math context. You may put any [xxx] variables inside the context. Dates and times can also be calculated. To distinguish dates and times from plain numbers, put them inside curly-braces: {12/01/1997}. You cannot mix both dates and times in one equation.</p>
+		<p>You may also create up to 150 math variables by name. These named variables can be used in any other [Math] context in the template: [Math]fred=12/7.5[/Math] ...other text here...[Math]fred/15.2[/Math]. Note that the name of a math variable is limited to 15 characters in length and must begin with a letter followed by up to 14 letters or numbers. Only the letters a-z and A-Z are allowed.</p>
+		<p>You can assign multiple math variables at the same time using a semicolon to seperate the assignments.<br>For example, the code: [math show=f]var1=1;var2=2[/math], will create two math variables; var1 and var2.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[Math](4.5+6.2)/17*95-12[/Math]
+			<dd>[Math]{4/7/1997}+10[/Math]
+			<dd>[Math]{4/7/1997}+{02/00/0000}[/Math]
+			<dd>[Math date]{4/7/1997}+10[/Math]
+			<dd>[Math date]{4/7/1997}+{02/00/0000}[/Math]
+			<dd>[Math date]{[date]}-{00/07/0000}[/Math]
+			<dd>[Math]{12:51:02}[/Math]
+			<dd>[Math time]{12:51:02}+{01:00:05}[/Math]
+			<dd>[Math]x=5/3[/Math]
+			<dd>[Math]x=5%3[/Math]	(% = Modulo Operator)
+			<dd>[Math show=F]xyz=5/3[/Math]
+			<dd>[Math]xyz[/Math]<br>
+			[xyz] (3.0)
+		</dl>
+		<p>In the example above, the displayed text will be</p>
+		<pre>47.7941176470588
+729496 (4/7/1997 + 10 days expressed as number of days since 00/00/0000 (AD))
+729547 (4/7/1997 + 2 months expressed as days since 00/00/0000)
+04/17/1997 (4/07/1997 + 10 days expressed as date)
+06/07/1997 (4/17/1997 + 2 months expressed as date)
+03/30/1997 (One week ago today)
+46262 (number of seconds between midnight and 12:51:02 expressed as seconds)
+13:51:07 (12:51:02 pm plus 1 hour and 5 seconds expressed as time)
+1.66666666666667
+2
+(no output) show=F means not to display the results of the equation
+1.66666666666667 (simply naming a math variable inside a math context displays its value)
+1.66666666666667 (simply naming a math variable like [x] displays its value)</pre>
+		<p>Any [xxx] variables are first evaluated and replaced with their real values, and then the resulting equation is calculated. The final numerical result is displayed. Standard algebraic order of operations are followed when evaluating expressions. Use parentheses to clarify or force a specific order of operations.</p>
+		<dl>
+			<dd><b>Example:</b> An invoice template might show the line-item cost of each item like so:
+			<dd>&nbsp;
+			<dd>[LineItems]
+			<dd>[sku], [title], [description], [price], [math]([price]+[unitShipCost])*[quantity][/math]
+			<dd>[/LineItems]
+		</dl>
+		<p><b>Date Math:</b></p>
+		<p>Dates may be included in mathematical expressions by enclosing the date in braces ( '{' and '}' ). You may easily add or subtract days, months, or years from dates by expressing them as a complete date. Use 0 for values you want ignored. That is, in order to add 2 months to today's date you would write an expression like the following [math date]{[date]}+{2/0/0000}[/math]. It is a good idea to group math expressions involving dates together by using parentheses.</p>
+		<p>Note that the year must be expressed as 4 digits so 2-digit years can be converted to their proper value (i.e. 96 is really 1996, and 00 is 2000).</p>
+		<p>When using dates mixed with integers, the final result is a value respresenting a number of days (e.g. {12/8/97}+10 adds 10 days to the date). In fact, the result of a math expression with dates is always the number of days. To display the output of the math expression as a date, add the <b>Date</b> modifier to the [math] context: [math date]...[/math].</p>
+		<dl>
+			<dd><font color="red"><b>Non-American Dates (as of 3.0.3)</b></font><b>:</b> Some countries specify dates with decimal points, as in {10.1.1998}, but WebDNA will interpret this as a time instead. You can force it to interpret text as a Date by inserting a &quot;D&quot; in front of the text, as in [math]{D10.01.1998}[/math], so 10.01.1998 is interpreted as a date instead of a time.
+		</dl>
+		<p><b>Time Math:</b></p>
+		<p>Time may be included in mathematical expressions by enclosing the time in braces ( '{' and '}' ). You may easily add or subtract hours, minutes, or seconds from times by expressing them as a complete time. Use 0 for values that you want ignored. That is, in order to add 2 minutes to the current time you would write an expression like the following [math time]{[time]}+{00:02:00}[/math]. It is a good idea to group math expressions involving time together by using parentheses.</p>
+		<p>When using time mixed with integers, the final result is a value respresenting a number of seconds (e.g. {10:15:31}+10 adds 10 seconds to the time). In fact, the result of a math expression with time is always the number of seconds. To display the output of the math expression as a time, add the <b>Time</b> modifier to the [math] context: [math time]...[/math].</p>
+		<dl>
+			<dd><b>Note</b>: you may want to convert an integer number to a date or time. Use [<a href="FormatContext.html">Format</a> Days_To_Date] and [Format Seconds_To_Time] to convert integer numbers to their equivalent dates/times. The integer number represents the number of days since mindight, January 1, 0000 and for time it represents the number of seconds since midnight.
+		</dl>
+		<pre>[Format Days_To_Date]729496[/Format] yields 4/17/1997
+[Format Seconds_To_Time]46262[/Format] yields 12:51:02</pre>
+		<dl>
+			<dd><b>Tip</b>: sometimes you want to calculate something without displaying the results, perhaps while calculating a running total. To do this, put &quot;show=F&quot; into the math parameters, as in [Math show=F]total=total+[subTotal][/Math]. This allows you to perform calculations in the middle of a web page without the intermediate numbers appearing to the visitor. Later, you can show the value of the math variable with [Math]total[/Math].
+		</dl>
+		<p><b>Scientific Functions:</b><br>
+		<br>
+		You may include scientific functions inside a Math context: [math]ceil(1.5)[/math], or [math]sin([formvalue])*cos(3.1415)[/math]</p>
+		<blockquote>
+			<p>
+			<table border="1">
+				<tr>
+					<th bgcolor="#dddddd">
+						<div align="left">
+							Function</div>
+					</th>
+					<th bgcolor="#dddddd">Description</th>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							sin(x)</div>
+					</td>
+					<td>returns sine of x.</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							cos(x)</div>
+					</td>
+					<td>returns cosine of x.</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							tan(x)</div>
+					</td>
+					<td>returns tangent of x.</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							asin(x)</div>
+					</td>
+					<td>returns arcsine of x.</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							acos(x)</div>
+					</td>
+					<td>returns arccosine of x.</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							atan(x)</div>
+					</td>
+					<td>returns arctangent of x.</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							sinh(x)</div>
+					</td>
+					<td>returns hyperbolic sine of x.</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							cosh(x)</div>
+					</td>
+					<td>returns hyperbolic cosine of x.</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							tanh(x)</div>
+					</td>
+					<td>returns hyperbolic tangent of x.</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							log(x)</div>
+					</td>
+					<td>return natural log of x.</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							log10(x)</div>
+					</td>
+					<td>returns log base 10 of x.</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							sqrt(x)</div>
+					</td>
+					<td>returns square root of x <b>sqrt(16) = 4</b>.</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							floor(x)</div>
+					</td>
+					<td>rounds down to next-lower integer. <b>floor(2.9) = 2</b>.</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							ceil(x)</div>
+					</td>
+					<td>rounds up to next-higher integer. <b>ceil(3.1) = 4</b>.</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							abs(x)</div>
+					</td>
+					<td>returns absolute value of x. <b>abs(-3.4) = 3.4</b>.</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							deg(x)</div>
+					</td>
+					<td>converts radians to degrees.</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="right">
+							rad(x)</div>
+					</td>
+					<td>converts degrees to radians.</td>
+				</tr>
+			</table>
+			<p></p>
+		</blockquote>
+		<dl>
+			<dt><!--[/Raw]-->
+			
+		</dl>
+	</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>  
+<HEAD>
+  <META NAME="GENERATOR" CONTENT="Adobe PageMill 3.0 Mac">
+  <META HTTP-EQUIV="content-type" CONTENT="text/html;charset=iso-8859-1">
+  <TITLE>Clear Command</TITLE>
+  <!--[Raw]-->
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<P><FONT SIZE="+2">Clear?cart=[cart]</FONT></P>
+
+<DL>
+  <DD>Removes all products from the specified shopping cart.
+</DL>
+
+<P>To remove all products from a visitor's shopping cart, click
+a URL containing the Clear command. Whenever WebDNA receives
+a Clear command, it opens the shopping cart file and removes all
+<A HREF="LineItemsContext.html">LineItems</A> from the shopping
+cart. The template displayed after the Clear command can contain
+any header fields from the order file (cart), and can contain
+a [LineItems] loop (but of course no line items ever appear because
+they are all gone).</P>
+
+<P><B>Example</B> (normally you would link to a URL or form containing
+the following information):</P>
+
+<DL>
+  <DD>http://yourserver.com/xx.tpl?<B>command</B>=Clear&amp;<B>cart</B>=5678
+</DL>
+
+<P>Shopping Cart file &quot;5678&quot; opens, and all line items
+are removed from the list. The page sent back to the browser is
+xx.tpl, which typically contains a message confirming the shopping
+cart is empty.</P>
+
+<P>Here are the parameters to the Clear command: <TABLE BORDER="1"
+CELLPADDING="0" WIDTH="100%" CELLSPACING="2">
+  <TR>
+    <TH WIDTH="21%" BGCOLOR="#bbbbbb">Parameter</TH> 
+    <TH WIDTH="79%" BGCOLOR="#bbbbbb">Description</TH> 
+  </TR>
+  <TR>
+    <TD WIDTH="21%">
+      <P ALIGN=RIGHT>cart</TD>
+    <TD WIDTH="79%">Shopping cart file to be cleared</TD> 
+  </TR>
+  <TR>
+    <TD WIDTH="21%">
+      <P ALIGN=RIGHT>template</TD>
+    <TD WIDTH="79%">Template of HTML to be displayed after clearing</TD> 
+  </TR>
+</TABLE><!--[/Raw]-->
+
+</BODY>
+</HTML>

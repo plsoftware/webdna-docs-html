@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>OrderFile Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[OrderFile <i>FilePath</i>]OrderFile Tags[/OrderFile]</font>
+		<dl>
+			<dd>Displays the contents of a shopping cart or order file.
+		</dl>
+		<p>To display the contents of an order file (either a shopping cart or a completed order), place an [OrderFile] context into a template. You may put a <a href="LineItemsContext.html">[LineItems]</a> context inside the [OrderFile] context to display each of the line items (products) in the order file.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[OrderFile Orders/13490876]<br>
+			Name: [name]&lt;br&gt;<br>
+			Address: [address1]&lt;br&gt;<br>
+			[address2]&lt;br&gt;<br>
+			Grand Total: [grandTotal]<br>
+			[/OrderFile]
+		</dl>
+		<p>
+		<table border="1">
+			<tr>
+				<th bgcolor="#dddddd">Parameter</th>
+				<th bgcolor="#dddddd">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						cart</div>
+				</td>
+				<td>Name of the shopping cart file to use. cart=[cart] will look inside the ShoppingCarts folder (a preference value lets you set the path to the shopping carts folder) for the order file named [cart].<br>
+					<br>
+					Example: [OrderFile <b>cart=</b>[cart]] or [OrderFile <b>cart=</b>1234]</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						file</div>
+				</td>
+				<td>(Optional) Path to the shopping cart file. This is used instead of <b>cart</b> when the file is in a different folder (such as the Orders folder or the Problems folder).<br>
+					<br>
+					Example: [OrderFile <b>file=</b>Orders/13490876] or simply [OrderFile Orders/13490876]</td>
+			</tr>
+		</table>
+		The following variables are available inside an [OrderFile] context: See <a href="PurchaseCommand.html#HeaderVars">Purchase</a> and <a href="ShowCartCommand.html">ShowCart</a><p></p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

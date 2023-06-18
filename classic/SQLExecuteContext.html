@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<title>SQLExecute Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[SQLExecute <i>Params</i>]</font><i>WebDNA to evaluate to a single SQL statement</i><font size="5">[/SQLExecute]</font> 
+<dl>
+			<dd>Executes and persits the results of an SQL statement.
+		</dl>
+		<p>Once you have made a successfull connection to a SQL server, using the <A href="SQLConnectContext.html">[SQLConnect]</A> context, you can use the 
+		[SQLExecute] context to execute all manner of native SQL commands and to create result sets from SQL queries ("select" statements).
+<br>
+		<br>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd><pre><xmp>
+[SQLConnect dbType=MySQL&host=192.168.1.1&database=SMSITest&uid=sa&pwd=pass&conn_var=conn1]
+Connected successfully<br>
+[/SQLConnect]
+
+[SQLExecute conn_ref=conn1&result_var=rs1]
+select firstName,lastName from employees;
+[/SQLExecute]</xmp></pre>
+		</dl>
+		<p>
+[SQLExecute] expects its content to resolve or evaluate to a single SQL command of some sort. You can place WebDNA here if you wish but [SQLExecute] will fail if its contents are not limited to a valid SQL statement after the inner parse is complete. Refer to the documentation of your particular SQL server software to determine what a "valid" SQL statement is.
+<p>
+After a successfull execution, you would then normally use the <A href="SQLResultContext.html">[SQLResult]</A> and <A href="FoundItemsContext.html">[Founditems]</A> contexts to retrieve the results of the SQL statement.
+		<p><table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Parameter</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						<nobr>conn_ref (or just 'ref')</nobr></div>
+				</td>
+				<td>(Required) - The name of the connection variable you created with a prior execution of [SQLConnect] (the value you set for the "conn_var" or "var" parameter)
+</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						<nobr>result_var (or just 'var')</div>
+				</td>
+				<td>(Optional) -  The name of the SQLResult variable you wish to create on successful execution. This 'result' variable can be used later by setting the "result_ref" (or "ref") parameter of [SQLResult] to this value. If you do not specify a variable name, none will be created and it is assumed you wish to execute non-Select SQL commands. Even if you do execute a non-Select command, you may still want to 'save' the result. For example, if you execute a delete command, you can still specify a result variable, so that you can access other information, such as the number of rows affected. 
+</td>
+			</tr>
+		</table>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

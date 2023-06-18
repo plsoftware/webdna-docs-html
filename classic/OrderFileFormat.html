@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>OrderFile Format</title>
+	</head>
+
+	<body bgcolor="white">
+<font size="5">File Formats - Order File</font>/<font size="5">Shopping Cart</font><br>
+		<hr>
+		WebDNA automatically creates and maintains order files, so the following information is necessary only when you need third-party software to interpret order files. Normally you use <a href="AddCommand.html">Add</a>, <a href="RemoveCommand.html">Remove</a>, <a href="ClearCommand.html">Clear</a>, <a href="ShowCartCommand.html">ShowCart</a>, <a href="PurchaseCommand.html">Purchase</a>, <a href="AddContext.html">[AddLineItem]</a>, <a href="SetLineItemContext.html">[SetLineItem]</a>, <a href="AllTags.html#RemoveLineItem">[RemoveLineItem]</a>, <a href="AllTags.html#Purchase">[Purchase]</a> commands or contexts to manipulate the contents of an order file.<br>
+		<br>
+		The shopping cart (and order file) format is a tab-delimited text file of the following format:
+		<pre>H &lt;tab&gt; <b>Version</b> &lt;tab&gt; <b>Date</b> &lt;tab&gt; <b>Time</b> &lt;tab&gt; <b>Email</b>
+&lt;tab&gt; <b>PayMethod</b> &lt;tab&gt; <b>AccountNum</b> &lt;tab&gt; <b>ExpMonth</b>
+&lt;tab&gt; <b>ExpYear</b> &lt;tab&gt; <b>Name</b> &lt;tab&gt; <b>Company</b> &lt;tab&gt; <b>Address1</b>
+&lt;tab&gt; <b>Address2</b> &lt;tab&gt; <b>City</b> &lt;tab&gt; <b>State</b> &lt;tab&gt; <b>Zip</b> &lt;tab&gt; <b>Phone</b>
+&lt;tab&gt; <b>TaxRate</b> &lt;tab&gt; <b>ShipVia</b> &lt;tab&gt; <b>ShipCost</b> &lt;tab&gt; <b>Header1</b>
+&lt;tab&gt; <b>Header2</b> &lt;tab&gt; <b>Header3</b> &lt;tab&gt; <b>Header4</b> &lt;tab&gt; <b>Header5</b>
+&lt;tab&gt; <b>country</b> &lt;tab&gt; <b>ShipToEmail</b> &lt;tab&gt; <b>ShipToName</b> &lt;tab&gt;
+&lt;tab&gt; <b>ShipToCompany</b> &lt;tab&gt; <b>ShipToAddress1</b> &lt;tab&gt; <b>ShipToAddress2</b>
+&lt;tab&gt; <b>ShipToCity</b> &lt;tab&gt; <b>ShipToState</b> &lt;tab&gt; <b>ShipToZip</b>
+&lt;tab&gt; <b>ShipToCountry</b> &lt;tab&gt; <b>ShipToPhone</b> &lt;tab&gt; <b>Header6</b>
+&lt;tab&gt; <b>Header7</b> &lt;tab&gt; <b>Header8</b> &lt;tab&gt; <b>Header9</b> &lt;tab&gt; <b>Header10</b>
+&lt;tab&gt; <b>Header11</b> &lt;tab&gt; <b>Header12</b> &lt;tab&gt; <b>Header13</b> &lt;tab&gt; <b>Header14</b>
+&lt;tab&gt; <b>Header15</b> &lt;tab&gt; <b>Header16</b> &lt;tab&gt; <b>Header17</b> &lt;tab&gt; <b>Header18</b>
+&lt;tab&gt; <b>Header19</b> &lt;tab&gt; <b>Header20</b> &lt;tab&gt; <b>Header21</b> &lt;tab&gt; <b>Header22</b>
+&lt;tab&gt; <b>Header23</b> &lt;tab&gt; <b>Header24</b> &lt;tab&gt; <b>Header25</b> &lt;tab&gt; <b>Header26</b>
+&lt;tab&gt; <b>Header27</b> &lt;tab&gt; <b>Header28</b> &lt;tab&gt; <b>Header29</b> &lt;tab&gt; <b>Header30</b> 
+&lt;tab&gt; <b>Header31</b> &lt;tab&gt; <b>Header32</b> &lt;tab&gt; <b>Header33</b> &lt;tab&gt; <b>Header34</b>
+&lt;tab&gt; <b>Header35</b> &lt;tab&gt; <b>Header36</b> &lt;tab&gt; <b>Header37</b> &lt;tab&gt; <b>Header38</b>
+&lt;tab&gt; <b>Header39</b> &lt;tab&gt; <b>Header40</b> &lt;return&gt;</pre>
+		<dl>
+			<dd>WebCatalog 2.1 added the following extra fields to the header of the order file (after Header40):
+		</dl>
+		<pre>&lt;tab&gt; <b>NonTaxableTotal</b> &lt;tab&gt; <b>TaxableTotal</b> &lt;tab&gt; <b>TaxTotal</b>
+&lt;tab&gt; <b>ShippingTotal</b> &lt;tab&gt; <b>CartIPAddress</b> &lt;tab&gt; <b>CartUsername</b> &lt;tab&gt; <b>CartPassword</b>
+&lt;tab&gt; <b>Precision</b> &lt;tab&gt; <b>TaxableShipping</b> &lt;tab&gt; <b>AuthNumber</b> &lt;tab&gt; <b>ResponseText</b>
+&lt;tab&gt; <b>Status</b> &lt;tab&gt; <b>BatchNumber</b> &lt;tab&gt; <b>ReferenceNumber</b> &lt;tab&gt; <b>SequenceNumber</b>
+&lt;tab&gt; <b>ItemNumber</b></pre>
+		<p>Followed by multiple line items (one per sku, tab-delimited, return at end):</p>
+		<pre>L &lt;tab&gt; <b>sku</b> &lt;tab&gt; <b>quantity</b> &lt;tab&gt; <b>price</b> &lt;tab&gt; <b>taxable</b>
+&lt;tab&gt; <b>canEmail</b> &lt;tab&gt; <b>unitshipCost</b> &lt;tab&gt; <b>textA</b>
+&lt;tab&gt; <b>textB</b> &lt;tab&gt; <b>textC</b> &lt;tab&gt; <b>textD</b> &lt;tab&gt; <b>textE</b> &lt;return&gt;</pre>
+		<p>WebDNA saves Shopping Cart files in a folder you specify via preferences. If the ShoppingCartFolder preference is &quot;ShoppingCarts/&quot; then WebDNA looks for a folder called &quot;ShoppingCarts&quot; <i>in the same folder</i> as the displayed template. If the preference is &quot;<b>..</b>/ShoppingCarts/&quot; then WebDNA looks for the folder one level up from the template.</p>
+		
+<p>Shopping Cart files stay in the ShoppingCarts folder until they expire (24 
+  hours of inactivity), or until the visitor selects the <a href="PurchaseCommand.html">Purchase</a> 
+  button on an invoice form. Then the file is moved to the Orders folder defined 
+  in preferences. In a typical setting, the WebMerchant templates will pick up 
+  the orders appearing in that folder and process them accordingly.</p>
+		<dl>
+			<dd><b>Note</b>: WebDNA never clears out the files saved in the Orders folder. If you have a huge volume of orders, you will occasionally need to erase (or archive) older files so you do not fill up your hard disk. We purposely never touch these files because they can provide a valuable &quot;electronic paper trail&quot; for you. The files are named the same as the cart at the time of purchase.
+		</dl>
+	</body>
+
+</html>

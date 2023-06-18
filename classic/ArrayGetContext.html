@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"><!--last modified on Mon, Jan 5, 1998 1:43 PM-->
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>ArrayGet Context</title>
+		<!--[Raw]-->
+		<meta name="Author" content="Grant Hulbert">
+	</head>
+
+	<body bgcolor="white">
+Once <a href=ArraySetContext.html>[ArraySet]</a> has been used to create an array, and index assignments have been made, the array 
+index values can be retrieved in the following ways: <p>
+Using a <a href=ArraySetContext.html#ARRAY_TAG>'Global Tag'</a>, or... <p>
+Using the [ArrayGet] context to retrieve several index values.
+<p>Here we will discuss using the [ArrayGet] context.
+<p>[arrayget name=myarray]<br>
+  [loop start=1&amp;end=2]<br>
+  [loop start=1&amp;end=2]<br>
+  [loop start=1&amp;end=2]<br>
+  Index [::::index],[::index],[index] = ([::::index],[::index],[index])</p>
+<p> [/loop]<br>
+  [/loop]<br>
+  [/loop]<br>
+  [/arrayget]</p>
+<p> [ArrayGet] takes just one parameter; 'name', in which you place an existing 
+  array variable name. The (a,b,c,d,e) patterns evaluate to the corresponding 
+  index values. These patterns can be intermingled with other text, as shown. 
+</p>
+<p>Index 1,1,1 = 1-1-1<br>
+  Index 1,1,2 = 1-1-2<br>
+  Index 1,2,1 = 1-2-1<br>
+  Index 1,2,2 = 1-2-2<br>
+  Index 2,1,1 = 2-1-1<br>
+  Index 2,1,2 = 2-1-2<br>
+  Index 2,2,1 = 2-2-1<br>
+  Index 2,2,2 = 2-2-2</p>
+<p>[NumDims] Tag <br>
+  You can use the [NumDims] tag to retrieve the number of dimensions for an array. 
+  For example: </p>
+<p>[ArraySet name=array_1&amp;dim=3,3,10][/ArraySet]</p>
+<p>array_1 contains [ArrayGet name=array_1][numdims][/ArrayGet] dimensions.&lt;br&gt;</p>
+<p>Results: <br>
+  array_1 contains 3 dimensions.<br>
+  You can also use the 'array name' global tag to retrieve the number of dimension 
+  in a named array object. Here is the code: <br>
+  [ArraySet name=array_1&amp;dim=3,3,10][/ArraySet]</p>
+<p>array_1 contains [array_1(numdims)] dimensions.</p>
+<p>Results: <br>
+  array_1 contains 3 dimensions.<br>
+  <br>
+  [DimSize_] Tag <br>
+  The [DimSize_] tag is used to retrive the size of a given array dimension. <br>
+  Example: <br>
+  [ArraySet name=array_1&amp;dim=3,4,5][/ArraySet]</p>
+<p>[ArrayGet name=array_1]<br>
+  array_1 has [NumDims] dimensions:</p>
+<p>[loop start=1&amp;end=[NumDims]]<br>
+  Dimension [index] has [interpret][DimSize_[index]][/interpret] indexes.</p>
+<p>[/loop]<br>
+  [/ArrayGet]</p>
+<p>Results: <br>
+  array_1 has 3 dimensions:<br>
+  Dimension 1 has 3 indexes.<br>
+  Dimension 2 has 4 indexes.<br>
+  Dimension 3 has 5 indexes.<br>
+  And, again, you can access the dimension sizes using the global 'array name' 
+  tag, as follows: <br>
+  [ArraySet name=array_1&amp;dim=3,4,5][/ArraySet]</p>
+<p>array_1 has [array_1(NumDims)] dimensions:</p>
+<p>[loop start=1&amp;end=[array_1(NumDims)]]<br>
+  Dimension [index] has [interpret][array_1(DimSize_[index]])][/interpret] indexes.</p>
+<p>[/loop]</p>
+<p>Results: <br>
+  array_1 has 3 dimensions:<br>
+  Dimension 1 has 3 indexes.<br>
+  Dimension 2 has 4 indexes.<br>
+  Dimension 3 has 5 indexes.</p>
+<p></p>
+</body>
+<!--[/Raw]-->
+
+</html>

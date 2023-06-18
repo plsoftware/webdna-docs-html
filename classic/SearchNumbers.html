@@ -1,0 +1,26 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Searching as Numbers</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5"> Searching - Numbers</font> <font size="5"><i>FieldName</i><b>type=num</b></font> 
+<dl>
+			<dd>Searches by treating numeric fields as numbers rather than alphabetically.
+		</dl>
+		<p>WebDNA normally compares all fields in a database as though they were text, even if they look like numbers to you. Unless you tell it to compare a field numerically (or as a <a href="SearchDates.html">date</a>), all comparisons are alphabetical.</p>
+		<p>If your database has a numeric field (Price, for instance) that you wish to compare numerically, you would put something like the following in the search criteria:</p>
+		<p>http://Results.tpl?command=search&amp;<b>ge</b>Price<b>data</b>=99.95&amp;Price<b>type=num</b></p>
+		<p>Why is this important? Imagine that WebDNA is comparing two text fields that happen to contain numbers in them:</p>
+		<p>Compare &quot;10.95&quot; to &quot;9.95&quot; -- when compared alphabetically, WebDNA looks at the first letter in both fields and sees &quot;1&quot; and &quot;9&quot;, respectively. In this case, it would (wrongly) assume that &quot;9&quot; is greater than &quot;1&quot; (which in an alphabetical sense is true), and would sort &quot;9.95&quot; <b>after</b> &quot;10.95&quot;. This is probably not what you meant.</p>
+		<p>When compared numerically, the two numbers would sort correctly.</p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

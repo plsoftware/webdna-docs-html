@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"><!--last modified on Fri, May 22, 1998 6:07 PM-->
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Encrypt Context</title>
+		<!--[Raw]-->
+		<meta name="Author" content="Grant Hulbert">
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[Encrypt <i>seed=abcd</i>]Any Text[/Encrypt]</font> 
+<dl>
+			<dd>Encrypts text using a variety of standard methods.
+		</dl>
+		<p>To convert text from plain to encrypted, put it inside an [Encrypt] context.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[Encrypt seed=abcdefg]Some Text that is private[/Encrypt]&lt;br&gt;<br>
+			[Decrypt seed=abcdefg][Encrypt seed=abcdefg]Some Text that is private[/Encrypt][/Decrypt]
+		</dl>
+		<p>In the example above, the first line of displayed text will be unintelligible, as seen below. The second line decrypts the text and displays it as it was before:</p>
+		<pre>;)(*&amp;#$KLJFLKjkhegdlksdfg09814
+Some Text that is private</pre>
+		<p>Use <a href="DecryptContext.html">[Decrypt]</a> to decode the text. To decrypt a sequence of text, you must set the seed value to exactly the same as when you encrypted it. The seed may be a sequence of up to 8 characters (anything you can type on the keyboard, except '&amp;' or '=' or '[' or ']'). Do not ever let anyone know what the seed value is, because that would allow them to decrypt the text.<br>
+		<br>
+		This context is most often used to store passwords in a database (such as WebDNA's own Users.db), so that in the unlikely event that someone is able to download the file, the passwords will be unreadable.</p>
+		<dl>
+			<dd><b>Note:</b> Do not ever forget your passwords or seed values! Even WebDNA Software Corporation cannot decrypt something once it has been encrypted!
+		</dl>
+		<p>You may optionally choose different special-purpose encryption methods as described in the following table:
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">&nbsp;Parameter</th>
+				<th bgcolor="#bbbbbb">&nbsp;Description</th>
+			</tr>
+			<tr>
+				<td>
+					
+      <div align="right"> method </div>
+				</td>
+				
+    <td>(Optional) &quot;CyberCash&quot;, &quot;APOP&quot;, or &quot;Base64&quot;. 
+      If not specified, then standard WebDNA encryption is assumed. CyberCash 
+      is the triple-DES encryption used to communicate with the CyberCash CashRegister 
+      servers. Base64 is the encoding (not safe for encryption) standard HTML 
+      browsers use for Basic Authentication. APOP is the MD5 encryption used by email servers 
+      that support APOP authentication.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						seed</div>
+				</td>
+				<td>(Required, except for Base64) Key used to encrypt the text. For CyberCash, this should be the MerchantKey you were assigned when you created a CyberCash merchant account. For standard WebDNA encryption, this is your secret key for decryption later. CyberCash encryption is one-way; it cannot be decrypted by your server.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						file</div>
+				</td>
+				<td>(Optional) Specifies a file that is to be encoded using Base64. This is useful for sending e-mail attachments using the WebDNA sendmail context. Note that anything between the opening and closing encrypt tag will be ignored if this parameter is present.<br><b><center>Note:</b> This only applies to WebDNA version 4.0.2rc1 and above.</center></td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						emailformat</div>
+				</td>
+				<td>(Optional) For Base64 only, this specifies if the resulting encoded string should contain line breaks suitable for e-mail applications. Valid values are either 'T' or 'F' the later being the default. This should be used in conjunction with the file parameter when sending e-mail attachments from a WebDNA template.<br><b><center>Note:</b> This only applies to WebDNA version 4.0.2rc1 and above.</center></td>
+			</tr>
+		</table>
+		<br>
+		<!--[/Raw]-->
+	</body>
+
+</html>

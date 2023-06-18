@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"><!--last modified on Tue, Aug 11, 1998 6:07 PM-->
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Input Context</title>
+		<!--[Raw]-->
+		<meta name="Author" content="Grant Hulbert">
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[Input]Any Text[/Input]</font>
+		<dl>
+			<dd>Prepares text for use in input forms such as &lt;textarea&gt; tags.
+		</dl>
+		<p>To prepare text fields that may contain carriage returns for use in &lt;textarea&gt; portions of a form, place them inside an [Input] context. Certain characters, such as carriage returns, are converted to &quot;soft-returns&quot; when they are saved in a database file. The [Input] context converts them back to &quot;hard-returns&quot; so they look right when displayed inside &lt;textarea&gt; tags. Other characters, such as &quot;&lt;&quot; and &quot;&gt;&quot; cause the &lt;textarea&gt; tag to get confused, so they are converted to &quot;&amp;lt;&quot; and &quot;&amp;gt&quot; in order to display properly.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>&lt;textarea&gt;[Input][fieldName][/Input]&lt;/textarea&gt;
+		</dl>
+		<p>This context is most often used when you create a form allowing visitors to edit (replace a record) with large portions of text in a database field that has carriage returns in it. If you do not use this context, then the lines of text inside the &lt;textarea&gt; multiline input field will appear to have &quot;lost&quot; all the carriage returns that were originally there. This is because web browsers do not understand how to display a &quot;soft-return&quot; character, so it appears as a simple space instead.</p>
+		<dl>
+			<dd><b>Note</b>: there is probably no reason to ever use this context unless it is inside &lt;textarea&gt;, because no other input field allows carriage returns to be typed into it.
+		</dl>
+		<p>Here is a list of exactly what happens to text when it is put inside an [Input] context:<br>
+		<table border="1">
+			<tr>
+				<th bgcolor="#dddddd">
+					<div align="left">
+						If the character is...</div>
+				</th>
+				<th bgcolor="#dddddd">
+					<div align="left">
+						then it is translated to...</div>
+				</th>
+			</tr>
+			<tr>
+				<td>Soft-return (%0B)</td>
+				<td>Hard-return (%0D)</td>
+			</tr>
+			<tr>
+				<td>&lt;</td>
+				<td>&amp;lt;</td>
+			</tr>
+			<tr>
+				<td>&gt;</td>
+				<td>&amp;gt;</td>
+			</tr>
+			<tr>
+				<td>&amp;</td>
+				<td>&amp;amp;</td>
+			</tr>
+			<tr>
+				<td>&quot;</td>
+				<td>&amp;quot;</td>
+			</tr>
+			<tr>
+				<td>Any other character</td>
+				<td>no change</td>
+			</tr>
+		</table>
+		<br>
+		<!--[/Raw]-->
+	</body>
+
+</html>

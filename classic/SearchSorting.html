@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Search Sorting</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5"> Searching - Sorting the Results</font> <font size="5"><i>FieldName</i><b>sort=N</b></font> 
+<dl>
+			<dd>Searches and sorts the results.
+		</dl>
+		<p>You may sort the results of any search so <a href="FoundItemsContext.html">[FoundItems]</a> appear in a particular order. Ranking by &quot;best match,&quot; ascending or descending alphabetically or numerically, random, &quot;none,&quot; and multiple fields are all possible.</p>
+		<dl>
+			<dd><b>Note:</b> if you do not specify a sort order explicitly, then WebDNA assumes you want the results sorted by &quot;best match,&quot; meaning the records which match the most search terms will be shown at the top of the list. This is very powerful, because even if thousands of records are found (by a careless choice of too-common search words such as &quot;a&quot; &quot;and&quot; &quot;the&quot;), usually the &quot;best&quot; records are at the top of the list.
+		</dl>
+		<p>For example, if you want to sort alphabetically by First Name amongst all the records whose First Name is after &quot;H,&quot; you would enter something like this:</p>
+		<dl>
+			<dd>grFirstNamedata=H&amp;FirstNamesort=1
+		</dl>
+		<p>&quot;gr&quot; stands for &quot;greater than&quot;, and &quot;sort=1&quot; means the primary sort order is based on FirstName field. You can have a secondary sort order based on other fields (meaning that when several FirstName fields are identical, those records are sub-sorted by another field). For example, to sort by FirstName and then LastName you would enter something like:</p>
+		<dl>
+			<dd>grFirstNamedata=H&amp;FirstNamesort=1&amp;LastNamesort=2
+		</dl>
+		<p>&quot;sort=2&quot; tells WebDNA to alphabetize the LastName records within portions of the results that have identical FirstName fields.</p>
+		<dl>
+			<dd><b>Note:</b> fields are sorted within equally-ranked groups of found items, which means that all the &quot;best match&quot; records at the top of the list get sorted alphabetically, then the &quot;next-best&quot; records are sorted after that, and so on. Often, if it is important that records be sorted purely alphabetically (ignoring their 'rank'), you will need to put &quot;<b>AllHit=1</b>&quot; into your search criteria.
+		</dl>
+		<p>
+		<table border="1" cellpadding="0">
+			<tr>
+				<th colspan="2" bgcolor="#cccccc">Which Fields to Sort (<i>FieldName</i>sort=N)</th>
+			</tr>
+			<tr>
+				<td width="50%">Sort by FirstName</td>
+				<td width="50%">FirstName<b>sort</b>=1</td>
+			</tr>
+			<tr>
+				<td width="50%">Sort by LastName first, then FirstName</td>
+				<td width="50%">FirstName<b>sort</b>=2&amp;LastName<b>sort</b>=1</td>
+			</tr>
+			<tr>
+				<th colspan="2" bgcolor="#cccccc">Sort Order (<i>FieldName</i>sdir=XX)</th>
+			</tr>
+			<tr>
+				<td width="50%">Sort FirstName Ascending (A-Z or 0-9 if numeric)</td>
+				<td width="50%">FirstName<b>sdir</b>=as</td>
+			</tr>
+			<tr>
+				<td width="50%">Sort FirstName Descending (Z-A or 9-0 if numeric)</td>
+				<td width="50%">FirstName<b>sdir</b>=de</td>
+			</tr>
+			<tr>
+				<td width="50%">Sort FirstName Randomly (useful for random banner ads)</td>
+				<td width="50%">FirstName<b>sdir</b>=ra<br>
+					<br>
+					<b>Note:</b> sometimes you need a series of random sorts to always present the exact same 'random' order. You can force the randomizer to return items in the same order if you add another parameter &quot;RandSeed=879&quot; (or any other integer number). This is most helpful when you use <a href="ShowNextContext.html">[ShowNext]</a> and you need each successive set of links to predictably return the results in the same order.</td>
+			</tr>
+			<tr>
+				<td width="50%">No sorting of any kind -- records are displayed in exactly the same order they appear in the database file.</td>
+				<td width="50%">rank=off</td>
+			</tr>
+		</table>
+		<p></p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

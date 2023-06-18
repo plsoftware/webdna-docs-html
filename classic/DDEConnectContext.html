@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>DDE Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[DDEConnect <i>Parameters</i>]DDESend Contexts[/DDEConnect]</font> 
+<dl>
+			<dd><img src="winlogo.gif" width="20" height="16" align="LEFT" border="0" naturalsizeflag="3">Connects to a DDE server program on the local machine. 
+		</dl>
+		<p>To embed the results of a DDE command into one of your pages, put a DDEConnect context into a template, and put <a href="DDESendContext.html">[DDESend]</a> contexts inside of that. The DDESend steps contained inside the context are executed, and any returned value is displayed in place of the context. Any [xxx] tags inside the context are first substituted for their real values before the DDE is executed.<br>
+		<br>
+		DDEConnect does nothing by itself. You must insert one or more [DDESend] contexts inside it for it to work. DDEConnect establishes a connection to the DDE server program, and provides an environment for the DDESend contexts to do their work and return text results.</p>
+		<p><b>Example</b> (normally you would put the following text into a .TPL file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[DDEConnect program=PCAuthorize&amp;topic=GetBatches]<br>
+			[DDESend]Tela00001031 1[/DDESend]<br>
+			[/DDEConnect]
+		</dl>
+		<p>In this example, the DDE command &quot;GetBatches from PCAuthorize&quot; is executed, and the results (a listing of all the batch information for batch #1) is displayed. Notice that the whitespace between &quot;Tela00001031&quot; and &quot;1&quot; is actually a tab character, which is part of the PCAuthorize specification.</p>
+		<dl>
+			<dd><b>Caution!</b> DDE has complete access to all DDE-aware programs on your web server. You can write a DDE context that can do damage to the machine or retrieve secret information. However, remote visitors to your web site have no way of executing their own DDE contexts remotely. They can only execute DDE commands inside a template file  <b>you</b> have saved on your web server's hard disk.
+		</dl>
+		<p>
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">&nbsp;Parameter</th>
+				<th bgcolor="#bbbbbb">&nbsp;Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						program</div>
+				</td>
+				<td>(Required) Name of the DDE server program to connect to, such as PCAuthorize</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						topic</div>
+				</td>
+				<td>(Required) Name of the DDE topic on which to send messages, such as GetBatches. Defined by the DDE server program; refer to that program's documentation for more information.</td>
+			</tr>
+		</table>
+		<!--[/Raw]-->
+	</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>  
+<HEAD>
+  <META NAME="GENERATOR" CONTENT="Adobe PageMill 3.0 Mac">
+  <BASE TARGET="_self">
+  <META HTTP-EQUIV="content-type" CONTENT="text/html;charset=iso-8859-1">
+  <TITLE>AppendFile Context</TITLE>
+  <!--[Raw]-->
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<P><FONT SIZE="+2">[AppendFile <I>FileName</I>]Text[/AppendFile]</FONT></P>
+
+<DL>
+  <DD>Writes text to the end of an existing file.
+</DL>
+
+<P>To add text to the end of an arbitrary text file, put an [AppendFile]
+context into a template. AppendFile creates a new file if one
+does not exist already. All text is put at the end of the file,
+after any text that may already be there. The file must <B>not</B>
+be a database file that WebDNA currently has open. See <A
+HREF="WriteFileContext.html">[WriteFile]</A>.</P>
+
+<DL>
+  <DD><B>Note</B>: AppendFile does not 'understand' databases.
+  If you want to append a new record to the end of a database,
+  use <A HREF="AppendContext.html">Append</A> instead.
+</DL>
+
+<P><B>Example</B> (normally you would put the following text into
+a .tpl file on your server and use a web browser to link to it):</P>
+
+<DL>
+  <DD>[AppendFile SomeTextFile]Hello, my name is Grant. The time
+  is [time]
+  <DD>This is a second line[/AppendFile]
+</DL>
+
+<P>The text file &quot;SomeTextFile&quot; opens, and the text</P>
+
+<PRE>Hello, my name is Grant. The time is 13:43:01
+This is a second line</PRE>
+
+<P>is written at the end of the file. Notice that carriage returns
+inside the context are written to the file exactly as they appear.
+Also notice that any WebDNA [xxx] tags inside the context
+are substituted for their real values before being written to
+the file. You may specify a full or partial path to the file,
+as in &quot;/Some Folder/file.txt&quot; (starting from the web
+server's root) or &quot;LocalFolder/file.txt&quot; (starting in
+the same folder as the template file, looking down into a folder
+called &quot;LocalFolder&quot;).</P>
+
+<DL>
+  <DD><B>Security Note</B>: By default, all files created by WebDNA
+  are tagged with a special code telling WebSTAR not to display
+  them via URL. If you want files to be visible to outside browsers,
+  use the optional settings below.
+</DL>
+
+<P><TABLE BORDER="1" CELLPADDING="0" CELLSPACING="2">
+  <TR>
+    <TH BGCOLOR="#cccccc">Parameter</TH> 
+    <TH BGCOLOR="#cccccc">Description</TH> 
+  </TR>
+  <TR>
+    <TD>
+      <P ALIGN=RIGHT>secure</TD>
+    <TD>
+      <DL>
+        <DT>&quot;T&quot; for files that should be secure -- WebSTAR
+        will not display them<BR>
+        &quot;F&quot; for files that should be visible via URL -- WebSTAR
+        will display them<BR>
+        Example: [WriteFile secure=F&amp;file=SomeFile]...[/WriteFile]
+      </DL>
+    </TD>
+  </TR>
+  <TR>
+    <TD>
+      <P ALIGN=RIGHT>file</TD>
+    <TD>When you use the secure option above, you must also provide
+      the name (or URL path) of the file to create.</TD> 
+  </TR>
+</TABLE><!--[/Raw]-->
+
+</BODY>
+</HTML>

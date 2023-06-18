@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<!--[Raw]-->
+<head>
+<title>XSL Context</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+<p><font size="5">[xsl var=...&amp;source=...][/xmlparse]</font></p>
+<blockquote>
+  <p><br>
+    Enables the WebDNA programmer to compile and apply XSL style sheets to XML 
+    data, allowing the programmer to query and render XML data as they see fit. 
+  </p>
+</blockquote>
+<p><br>
+  <strong>Optional Tag Parameters:</strong><br>
+  <br>
+  <strong>var - </strong>The variable name you specify to represent the XSL parsed 
+  object. <br>
+  <strong>source -</strong> A URL reference to an external XSL file. If 'source' 
+  is provided, the content between the [xsl...] and [/xsl] tags is ignored.</p>
+<p>
+  If you plan on using the [XSL] or [XSLT] WebDNA contexts, you will need to become 
+  familiar with the <strong>XPath</strong> and <strong>XSLT</strong> languages: 
+  <br>
+  <br>
+  <strong>XSLT is a language for transforming XML documents into other XML documents.<br>
+  <br>
+  XPath is a language for defining parts of an XML document.</strong><br>
+  <br>
+  There are several online tutorials that will help. Just use your favorite search 
+  engine and search for 'XSL XSLT XPATH Tutorials'. <br>
+  <br>
+  These new contexts enable the WebDNA programmer to compile and apply XSL style 
+  sheets to XML data, allowing the programmer to query and render XML data as 
+  they see fit. </p>
+<p><br>
+  <strong>[XSL]</strong><br>
+  <br>
+  You can pre-compile XML style sheet code into a WebDNA variable, and then apply 
+  the XSL object to XML data via the XSLT context. </p>
+<p><strong>Compile XSL </strong><br>
+  <br>
+  Lets compile some XSL source into a WebDNA variable called 'xsl_var1'... <br>
+  <br>
+  We use the following code...</p>
+<blockquote> 
+  <p>[xsl var=xsl_var1]<br>
+    &lt;xsl:stylesheet version=&quot;1.0&quot;<br>
+    xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;<br>
+    &lt;xsl:template match=&quot;/&quot;&gt;<br>
+    &lt;html&gt;<br>
+    &lt;body&gt;<br>
+    &lt;h2&gt;My CD Collection&lt;/h2&gt;<br>
+    &lt;table border=&quot;1&quot;&gt;<br>
+    &lt;tr bgcolor=&quot;#9acd32&quot;&gt;<br>
+    &lt;th&gt;Title&lt;/th&gt;<br>
+    &lt;th&gt;Artist&lt;/th&gt;<br>
+    &lt;/tr&gt;<br>
+    &lt;xsl:for-each select=&quot;CATALOG/CD&quot;&gt;<br>
+    &lt;tr&gt;<br>
+    &lt;td&gt;&lt;xsl:value-of select=&quot;TITLE&quot;/&gt;&lt;/td&gt;<br>
+    &lt;td&gt;&lt;xsl:value-of select=&quot;ARTIST&quot;/&gt;&lt;/td&gt;<br>
+    &lt;/tr&gt;<br>
+    &lt;/xsl:for-each&gt;<br>
+    &lt;/table&gt;<br>
+    &lt;/body&gt;<br>
+    &lt;/html&gt;<br>
+    &lt;/xsl:template&gt;<br>
+    &lt;/xsl:stylesheet&gt;<br>
+    [/xsl]<br>
+  </p>
+  </blockquote>
+<p>&nbsp;</p>
+<p>Internally, the WebDNA engine 'saves' this compiled instance as an internal 
+  variable named 'xsl_var1'. This saved instance can then be referenced when using 
+  the XSLT context. <br>
+  <br>
+</body>
+<!--[/Raw]-->
+</html>

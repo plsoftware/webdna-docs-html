@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Raw Context</title>
+	</head>
+
+	<body bgcolor="white">
+		<font size="5"><!--[Raw]-->
+		[Raw]<!--[/Raw]-->
+		 Any Text, including [xxx][<!--[/Raw]-->
+		 /Raw]</font>
+		<dl>
+			<dd>Displays enclosed text without interpreting the [xxx] tags in any way.
+		</dl>
+		<p>To prevent WebDNA from interpreting [xxx] tags, enclose the text inside a <!--[Raw]-->
+		[Raw]<!--[/Raw]-->
+		 context. The text inside the container is displayed unchanged until the <!--[Raw]-->
+		[<!--[/Raw]-->
+		 /Raw] tag is found. Unlike most other WebDNA contexts, you cannot nest [Raw] contexts inside of each other.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd><!--[Raw]-->
+			[Raw]<!--[/Raw]-->
+			 Any text, including any [xxx] tags such as <!--[Raw]-->
+			[date]<!--[/Raw]-->
+			 or <!--[Raw]-->
+			[delete]<!--[/Raw]-->
+			 <!--[Raw]-->
+			[<!--[/Raw]-->
+			 /Raw]
+		</dl>
+		<p>In the example above, the displayed text will be</p>
+		<pre>Any text, including any [xxx] tags such as <!--[Raw]-->[date] or [delete]<!--[/Raw]--></pre>
+		<p>This context is most often used within WebDNA's documentation to make it possible to display the unmodified tags without first interpreting them. Also, any HTML pages on your site that have many [] characters may be misinterpreted by WebDNA, so surround those pages with &lt;!--<!--[Raw]-->
+		 [<!--[/Raw]-->
+		 Raw]--&gt;...entire text of page...&lt;!--<!--[Raw]-->
+		 [<!--[/Raw]-->
+		 /Raw]--&gt;. Notice the &lt;!-- --&gt; HTML comments in this example: they are used so that if this page is ever displayed without being processed by WebDNA, the <!--[Raw]-->
+		[<!--[/Raw]-->
+		 Raw] tags will be invisible.
+	</body>
+
+</html>

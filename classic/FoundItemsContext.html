@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"><!--last modified on Tue, Jan 20, 1998 10:44 PM-->
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>FoundItems Context</title>
+		<!--[Raw]-->
+		<meta name="Author" content="Grant Hulbert">
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[FoundItems <i>Params</i>]Database Fields[/FoundItems]</font>
+		<dl>
+			<dd>Lists all the matching records resulting from a search.
+		</dl>
+		<p>To display a list of all the matching records from a <a href="SearchCommand.html">Search</a> command or a <a href="SearchContext.html">[Search]</a> context, put a [FoundItems] context into a WebDNA template. If the search specified a maximum number of matches, then only that many will be displayed in the [FoundItems] loop. To display the result of many searches on a single page, you may put the [FoundItems] context inside an embedded <a href="SearchContext.html">[Search]</a> context. Also see <a href="ShowNextContext.html">[ShowNext]</a>.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[FoundItems]
+			<dd>Name: [name]&lt;br&gt;
+			<dd>Address: [address]&lt;br&gt;
+			<dd>Phone: [phone]&lt;br&gt;
+			<dd>&lt;hr&gt;
+			<dd>[/FoundItems]
+		</dl>
+		<p>You also use the [FoundItems] within a <a href="SQLContext.html">[SQL]</a> context, to list the records resulting from a successfull ODBC/SQL query.
+		<p>The [FoundItems] context is also used within a <a href="SQLResultContext.html">[SQLResult]</a> context, to list the records resulting from a successfull Native SQL query.<br>
+		When used within [SQLResult], the new 'Iterate' parameter can be specified to control the behavior of the [FoundItems] context.
+		<p>In setting the 'iterate' parameter to 'manual', the [FoundItems] context behaves more like a collection. The WebDNA programmer can retrieve the found records in any manner they wish.
+		<p><table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Parameter</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						<b><nobr>Iterate</nobr></b><p><small>Only available within [SQLResult]</small></div>
+				</td>
+				<td>(Optional) - Manual/Auto - When set to MANUAL, the [FoundItems] context switches to 'manual' mode. The new [Seek] tag must then be used to 'move' the record set cursor. The cursor is always initialized to the first record position. 
+When set to Auto - [FoundItems] reverts to default behavior, iterating the record set one record at a time, starting from the first item, and ending with the last item. 
+</td>
+			</tr>
+		</table>
+		
+		
+		<p>The following tags are available inside a [FoundItems] context:
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Tag</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[<i>FieldName</i>]</div>
+				</td>
+				<td>Name of any field in the database being searched.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[Index]</div>
+				</td>
+				<td>A number from 1 to the maximum number of matching records indicating this record's index placement in the list.</td>
+			</tr>
+			<tr><td align=center Colspan=2><b>The following tags are only valid when [FoundItems] is used with a [SQLResult] context.</b></td></tr>
+			<tr>
+				<td>
+					<div align="right">
+						<nobr>&nbsp;[Field <i>Params</i>]&nbsp;</nobr></div>
+				</td>
+				<td>The [field] tag is used within [FoundItems] to return information about a particular field of the current record. 
+				<p>
+				Parameters:<br>
+				<i><b>seek</b></i> (required) - The seek parameter uses a 
+				prefix-qualified naming semantic to select a specific field of the current record. You can use one of 
+				two possible prefixes for the value of the seek parameter... either named or ordinal; follow this 
+				with a ":" and the actual value which identifies the field (according to the prefix-qualifier). <br>
+				For example: <br>
+				<b>seek=ordinal:1</b> - would select the first field <br>
+				<b>seek=named:employeeID</b> - would select the field named "employeeID" 
+				<p>
+				<i><b>get</b></i> (optional) - The get parameter accepts one of seven possible enumerated values: <br>
+				NAME - Retrieves the field name.<br>
+				ORDINAL - Retrives the field position.<br>
+				DATATYPE - Retrievs the field data type.<br>
+				WIDTH - Retrieves the max data length.<br>
+				ALLOWNULL - T/F Resolves to 'T' if the field will accept a NULL value.<br>
+				ISNULL - T/F Resolves to 'T' if the field value is NULL.<br>
+				VALUE  - Retrieves the field value.
+				<p>
+				<i><b>raw</b></i> (optional) - When retrieving field data where the field data type is: DATE, TIME, or DATETIME , WebDNA will 'interpret' the data based on the user defined WebDNA preferences for displaying Dates and Times. 
+<p>
+However, if you wish to display the data in its 'raw' format, you can set the 'raw' parameter to 'T'.
+<p>
+For example:<br>
+<dl><dd><pre><xmp>
+[FoundItems]
+[dateAcquired]<br>
+[field seek=named:dateAcquired&get=value&raw=T]<br>
+[/FoundItems]
+</xmp></pre></dl> 
+This would result in something like...<br>
+<dl><dd>04/23/2000<br>
+2000-04-23<br>
+</dl>
+You can see that the second line displays the data value in its 'native' format (MySQL stores dates in YYYYY-MM-DD).
+
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						<nobr>&nbsp;[Seek <i>Params</i>]&nbsp;</nobr></div>
+				</td>
+				<td>When the 'iterate' parameter for [FoundItems] is set to 'manual'.  The [Seek] tag is used to position the result set 'cursor' to a particular record.<p>
+				Parameters:<br>
+				<i><b>To</b></i> (required) - Can be one of four values:<br>
+				First - set the cursor to the first record.<br>
+				Last - set the cursor to the last record.<br>
+				Prev - set the cursor back one record.<br>
+				Next - set the cursor ahead one record.<p>
+				Example:<dl><dd><pre><xmp>
+[SQLResult result_ref=rs1]
+List records in reverse order:<br>
+<table>
+<tr><th>ID</th><th>Date Acquired</th><th>Comments</th></tr>
+[FoundItems iterate=manual]
+[seek to=last]
+[loop start=1&end=[numfound]]
+<tr><td>[inventoryID]</td><td>[dateAcquired]</td><td>[comments]</td></tr>
+[hideif [index]=[numfound]][seek to=prev][/hideif]
+[/loop]
+[/FoundItems]
+</table>
+[/SQLResult]
+				</xmp></pre></dl>
+				</td>
+			</tr>
+		</table>
+		<p></p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

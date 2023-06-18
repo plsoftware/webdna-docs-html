@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>ConvertChars Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[ConvertWords db=xx.db]Any Text[/ConvertWords]</font> 
+<dl>
+			
+  <dd> <b><font color="#FF0000">New in 4.0</font></b><br>
+    Changes specified words in a string of text to different words, based on a 
+    database of conversions. 
+</dl>
+		<p>To automatically convert certain words into other words, create a database of words to be changed, and put the text to be converted inside a [ConvertWords] context. Any matching words will be changed to corresponding words in the database lookup table.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[ConvertWords db=glossary.db]A HTTP request first uses DNS to look up the ip address[/ConvertWords]
+		</dl>
+		<p>The above line of WebDNA would produce the following (given the proper glossary.db):</p>
+		<pre>A Hypertext Transport Protocol request first uses Domain Name System to look up the Internet Protocol address</pre>
+		<p>Here's what the glossary.db file would look like for the example above:</p>
+		<p>-- glossary.db --<br>
+		<b>from</b>&lt;tab&gt;<b>to</b><br>
+		<b>HTTP</b>&lt;tab&gt;<b>Hypertext Transport Protocol</b><br>
+		<b>DNS</b>&lt;tab&gt;<b>Dynamic Naming System</b><br>
+		<b>ip</b>&lt;tab&gt;<b>Internet Protocol</b></p>
+		
+<p>Anywhere the words in the <b>from</b> column appear in the text, they are replaced 
+  with whatever is in the <b>to</b> column. There is no limit to the length text 
+  in either the <b>from</b> or <b>to</b> columns. You may put any kind of text 
+  into either column; for example, HTML is legal in either column.</p>
+<table border="1" cellpadding="0">
+  <tr> 
+    <th bgcolor="#bbbbbb">&nbsp;Parameter</th>
+    <th bgcolor="#bbbbbb">&nbsp;Description</th>
+  </tr>
+  <tr>
+    <td>
+      <div align="right">db</div>
+    </td>
+    <td>(Required) path to conversion database which contains list of &quot;from&quot; 
+      and &quot;to&quot; conversions of words to other words</td>
+  </tr>
+  <tr> 
+    <td> <div align="right"> &nbsp;table</div></td>
+    <td><b>New for WebDNA 5.x</b><br>In place of a db file, you can specify a named reference to a WebDNA <a href="Table.html">table</a> object.</td>
+  </tr>
+  <tr> 
+    <td> 
+      <div align="right"> case</div>
+    </td>
+    <td>(Optional) <b>T</b> or <b>F</b> to indicate that word comparisons should 
+      be case-sensitive or not. Default is F, case-insensitive</td>
+  </tr>
+  <tr> 
+    <td> 
+      <div align="right"> word</div>
+    </td>
+    <td>(Optional) <b>SS</b>, <b>WW</b>, <b>SW</b> to indicate that words should 
+      be matched as <b>S</b>ub<b>S</b>tring, <b>W</b>hole <b>W</b>ord, or <b>S</b>tart 
+      of <b>W</b>ord, same as <a href="SearchWordBreaks.html">search parameters</a> 
+      when matching text in a database</td>
+  </tr>
+  <tr>
+    <td> 
+      <div align="right"> delimiters</div>
+    </td>
+    <td><b> New for WebDNA 5.1</b><br>(Optional) List of single characters which define word boundaries.</td>
+  </tr>
+</table>
+<p>Some handy uses for [ConvertWords] include removing foul language from online message boards, spelling out acronyms, changing nicknames to full names, inserting hyperlinks, and expanding glossary terms. The following conversion database may give you some ideas:</p>
+		
+<p>-- conversion.db --<br>
+  from&lt;tab&gt;to <br>
+		WebDNA&lt;tab&gt;&lt;a href=&quot;www.webdna.us&quot;&gt;WebDNA Software Corporation&lt;/a&gt;<br>
+		Mike&lt;tab&gt;Michael<br>
+		foulword&lt;tab&gt;f******d<br>
+		support&lt;tab&gt;&lt;a href=&quot;mailto:support@smithmicro.com&quot;&gt;support&lt;/a&gt;<br>
+		logo&lt;tab&gt;&lt;img src=&quot;companylogo.gif&quot;&gt;<br>
+		<!--[/Raw]-->
+	</body>
+
+</html>

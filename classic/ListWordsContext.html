@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>ListWords Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[ListWords <i>Words</i>]Some Text[/ListWords]</font>
+		<dl>
+			<dd>Breaks a string of text into separate words.
+		</dl>
+		<p>To display a list of all the separate words in a string, use a [ListWords] context. You may optionally specify the delimiters defining the boundaries of words (usually spaces, commas, and periods).</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[ListWords Words=This is a big long sentence]<br>
+			[index]: [word]&lt;br&gt;<br>
+			[/ListWords]
+		</dl>
+		<p>The example above yields:</p>
+		<pre>1: This
+2: is
+3: a
+4: big
+5: long
+6: sentence</pre>
+		<dl>
+			<dd>[ListWords Words=Hello. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My name is Carl!&amp;Delimiters= ,!]<br>
+			[index]: [word]&lt;br&gt;<br>
+			[/ListWords]
+		</dl>
+		<p>The example above yields the following. Notice the &quot;.&quot; at the end of &quot;Hello.&quot; is shown as part of the word, because &quot;.&quot; was not specified in the list of delimiters. Also notice the long run of spaces in a row is collapsed and does not appear in the word list.</p>
+		<pre>1: Hello.
+2: My
+3: name
+4: is
+5: Carl</pre>
+		<p>The following parameters are used in the [ListWords] context:
+		<table border="1" cellpadding="0" cellspacing="2">
+			<tr>
+				
+    <th bgcolor="#bbbbbb" width="92">Parameter</th>
+				
+    <th bgcolor="#bbbbbb" width="621">Description</th>
+			</tr>
+			<tr>
+				
+    <td width="92" height="17"> 
+      <div align="right">
+						words</div>
+				</td>
+				
+    <td>(Required) string of text to break up.</td>
+			</tr>
+			<tr>
+				
+    <td> 
+      <div align="right"> delimiters</div>
+				</td>
+				
+    <td>(Optional) List of single characters which define word boundaries. Defaults 
+      to space, comma, and dot.</td>
+			</tr>
+			<tr>
+				
+    <td valign="top"> 
+      <div align="right"> 
+        <p><font color="#FF0000"><b> </b></font>tabs</p>
+        </div>
+				</td>
+				
+    <td valign="top">(Optional, Rare) Setting Tabs=T causes the list of words 
+      to break at tab boundaries only, and <i>runs of tabs</i> are not collapsed. 
+      This assists in parsing special formats where two tabs in a row are important 
+      and should not be skipped.</td>
+			</tr>
+		</table>
+		<br>
+		<br>
+		The following tags are available inside a [ListWords] context:
+		
+<table border="1" cellpadding="0" height="81" cellspacing="2">
+  <tr height="17">
+				<th bgcolor="#bbbbbb" height="17">Tag</th>
+				<th bgcolor="#bbbbbb" height="17">Description</th>
+			</tr>
+			<tr height="17">
+				<td height="17">
+					<div align="right">
+						[index]</div>
+				</td>
+				
+    <td height="17">A number from 1 to the total number of words in the text indicating 
+      the word's index position in the text.</td>
+			</tr>
+			<tr height="17">
+				<td height="17">
+					<div align="right">
+						[word]</div>
+				</td>
+				
+    <td height="17">Text of the word currently being displayed.</td>
+			</tr>
+			<tr height="17">
+				
+    <td valign="top" height="17"> 
+      <div align="right"> <font color="#FF0000"><b><a name="Delimiters"></a>New 
+        in 4.0</b></font><br>
+        [delimiter]</div>
+				</td>
+				
+    <td valign="top">Text of the delimiter(s) which caused this word to break.</td>
+			</tr>
+		</table>
+		<p></p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

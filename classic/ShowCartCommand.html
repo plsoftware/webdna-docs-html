@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>ShowCart Command</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">ShowCart?db=xx.db&amp;template=xx.tpl&amp;cart=[cart]&amp;<i>options=xx</i></font>
+		<dl>
+			<dd>Displays/Modifies the contents of a shopping cart order file.
+		</dl>
+		<p>To display a shopping cart full of items (or update some header or line item information in the cart), send WebDNA a ShowCart command. WebDNA looks for any new values of header fields in the form and sets the corresponding fields in the cart. It also looks for any numbered line item information, such as &quot;quantity3=39&quot; and modifies the corresponding line item values in the cart. See <a href="PurchaseCommand.html">Purchase</a> and <a href="AddCommand.html">Add</a></p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>http://www.yourserver.com/WebCatalog/ShoppingCart.tpl?command=<b>ShowCart</b>&amp;cart=123&amp;db=catalog.txt
+		</dl>
+		<p>You may set any of the same variables as with a <a href="PurchaseCommand.html">Purchase</a> command by putting named form variables into the form. Some are optional, and any you do not explicitly set remain unchanged from their previous values obtained from <a href="AddCommand.html">Add</a> or <a href="ShowCartCommand.html">ShowCart</a> commands. Any <a href="FormulaFormat.html">formulas</a> you defined will be applied and calculated before showing the contents of the cart.</p>
+		<dl>
+			<dd><b>Note</b>: You may force the visitor to enter something into a field by using the <b>RequiredFields</b> parameter in the URL. Setting <b>RequiredFields</b>=field1+field2+field3 displays an error message if the visitor forgets to enter text into any of those 3 fields. <b>RequiredFields</b> works for all commands, not just ShowCart.
+		</dl>
+		<p>In addition to the <a href="PurchaseCommand.html#HeaderVars">values</a> you may set when displaying the cart, you may also display the following pre-calculated values:<br>
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Value</th>
+				<th bgcolor="#bbbbbb">&nbsp;Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						GrandTotal</div>
+				</td>
+				<td>Calculated final purchase cost, based on price of all lineitems, quantites, base shipping cost, unit shipping cost, and taxRate.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						SubTotal</div>
+				</td>
+				<td>Total cost of all items, before shipping and tax.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						TaxableTotal</div>
+				</td>
+				<td>Total cost of all items that are marked as taxable.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						TaxTotal</div>
+				</td>
+				<td>Tax on taxable items.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						ShippingTotal</div>
+				</td>
+				<td>Total cost of shipping based on unitShipCost of all items and base shipping charge.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						NumLineItems</div>
+				</td>
+				<td>Number of line items in the order.</td>
+			</tr>
+		</table>
+		<br>
+		<!--[/Raw]-->
+	</body>
+
+</html>

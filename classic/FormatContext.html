@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Format Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[Format <i>FormatSpec</i>]Text or Number[/Format]</font> 
+<dl>
+			<dd>Formats text or numbers in various widths or currency formats.
+		</dl>
+		<p>To display numbers with various decimal points or currency formats, surround the number or text with a [Format] context.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		
+<dl> 
+  <dd>[Format 10.2f]99.5[/Format] (<b>f</b> stands for <b>f</b>loating-point number)<br>
+    [Format 10s]Hello[/Format] (<b>s</b> stands for <b>s</b>tring of text)<br>
+    [Format Days_To_Date %m/%d/%y]195462[/Format] <font color="#ff0000">(3.0)</font><br>
+    [Format Seconds_To_Time]49768[/Format]<br>
+    [Format Seconds_To_Time %I:%M:%S %p]49768[/Format]<br>
+    [Format thousands 14.2f]394363210[/Format]<br>
+    [Format thousands 14,2f]394363210[/Format]<br>
+    [Format thousands .3d]7[/Format] (<b>d</b> stands for <b>d</b>ecimal number) 
+</dl>
+		<p>The number displays right-justified with enough preceding spaces and digits after the decimal point to fill the exact width of the format specifier. Text is left-justified, with enough spaces after it to exactly fill the width specifier.</p>
+		<pre>|  &nbsp;&nbsp;&nbsp;99.50| (10 wide, 2 after the decimal)
+|Hello&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| (10 wide, text)
+|13:49:28|
+|01:49:28 PM| 
+|04/07/1997| (#days as a date)
+|394,363,201.00| (14 wide, number with thousands separator)
+|394.363.201,00| (14 wide, number with European thousands separator)
+|007| (3 wide, integer part of number only, zeroes preceding)</pre>
+		<p>Given a number 345.67, the following format specifiers will display as shown:</p>
+		
+<pre>8.3f = |&nbsp;345.670| (f stands for floating point)
+8.2f = |&nbsp;&nbsp;345.67|
+8.1f = |&nbsp;&nbsp;&nbsp;345.7| (notice rounding from .67 to .7)
+8.0f = |&nbsp;&nbsp;&nbsp; &nbsp;346| (notice rounding from .67 to next higher integer)
+ .5d = |00345| (notice <b>no</b> rounding, and preceding 0s to fill 5 digits)
+</pre>
+		<p>Optional date format -- to format a number as a date (the number must represent the number of days since Midnight, January 1st, 0000), use the optional date specifier and a date format, the same as from the <a href="AllTags.html#Date">[date]</a> tag. Also see date and time <a href="MathContext.html">[Math]</a>.</p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

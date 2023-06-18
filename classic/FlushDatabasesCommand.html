@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>  
+<HEAD>
+  <META NAME="GENERATOR" CONTENT="Adobe PageMill 3.0 Mac">
+  <META HTTP-EQUIV="content-type" CONTENT="text/html;charset=iso-8859-1">
+  <TITLE>FlushDatabases Command</TITLE>
+  <!--[Raw]-->
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<P><FONT SIZE="+2">FlushDatabases</FONT></P>
+
+<DL>
+  <DD>Writes all databases to disk and closes them all.
+</DL>
+
+<P>To flush WebDNA's databases, use a web browser to link
+to a URL containing the FlushDatabases command. Whenever WebDNA
+receives a FlushDatabases command, it immediately saves any modified
+databases to disk. Newer versions of any database files that have
+been modified on disk will be used the next time a database is
+referenced.</P>
+
+<P><B>Example</B> (normally you would link to a URL or form containing
+the following information):</P>
+
+<DL>
+  <DD>http://yourserver.com/xx.tpl?command=<B>FlushDatabases</B>
+</DL>
+
+<P>A confirmation message appears after flushing all the databases.</P>
+
+<P>Here are some other ways to send the same command: <TABLE 
+BORDER="1" CELLPADDING="0" WIDTH="100%" CELLSPACING="2">
+  <TR>
+    <TH WIDTH="63%" BGCOLOR="#bbbbbb">HTML Source</TH> 
+    <TH WIDTH="37%" BGCOLOR="#bbbbbb">Description</TH> 
+  </TR>
+  <TR>
+    <TD WIDTH="63%">
+      <DL>
+        <DT>&lt;a href=&quot;xx.tpl?command=<B>FlushDatabases</B>&quot;&gt;
+      </DL>
+    </TD> 
+    <TD WIDTH="37%">Hyperlink to WebDNA plugin Action.</TD> 
+  </TR>
+  <TR>
+    <TD WIDTH="63%">
+      <DL>
+        <DT>&lt;form method=&quot;POST&quot; action=&quot;xx.tpl&quot;&gt;<BR>
+        &lt;input type=&quot;hidden&quot; name=&quot;command&quot; value=&quot;<B>FlushDatabases</B>&quot;&gt;<BR>
+        &lt;input type=&quot;submit&quot;&gt;<BR>
+        &lt;/form&gt;
+      </DL>
+    </TD>
+    <TD WIDTH="37%">
+      <DL>
+        <DT>Form-based command to plugin Action<BR>
+        (notice the template is part of the action).
+      </DL>
+    </TD> 
+  </TR>
+</TABLE><!--[/Raw]-->
+
+</BODY>
+</HTML>

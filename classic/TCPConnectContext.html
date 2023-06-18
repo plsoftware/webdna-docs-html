@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>TCPConnect Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[TCPConnect <i>Parameters</i>]TCPSend Contexts[/TCPConnect]</font>
+		<dl>
+			
+  <dd>Connects to a TCP port of another computer on the Internet.<font color=red> 
+    </font> 
+</dl>
+		<p>To embed the results of a TCP session into one of your pages, place a [TCPConnect] context into a template, and put <a href="TCPSendContext.html">[TCPSend]</a> contexts inside of that. The TCPSend steps contained inside the context execute, and any returned value displays in place of the context. Any [xxx] tags inside the context are first substituted for their real values before the TCPSend executes.<br>
+		<br>
+		TCPConnect does nothing by itself; you must insert one or more [TCPSend] contexts inside it to perform any real work. TCPConnect establishes a connection to the TCP server program and provides an environment for the TCPSend contexts to do their work and return text results.</p>
+		<p><b>Example</b> (normally you would put the following text into a .TPL file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[TCPConnect host=www.webdna.us&amp;port=80]<br>
+			[TCPSend]GET / HTTP/1.0[UnURL]%0D%0A%0D%0A[/UnURL][/TCPSend]<br>
+			[/TCPConnect]
+		</dl>
+		
+<p>In this example, the http command equivalent to the URL &quot;http://www.webdna.us&quot; 
+  executes, and the results (the home page for that site) display. Notice the 
+  use of <a href="UnURLContext.html">[UnURL]</a> to send &lt;Carriage Return&gt;&lt;LineFeed&gt;&lt;Carriage 
+  Return&gt;&lt;LineFeed&gt; as part of the TCPSend text. If you do not send the 
+  correct sequence of 2 CR/LF characters, the remote web server never returns 
+  any text, and the TCPSend times out while waiting for a response.</p>
+		<dl>
+			<dd>[TCPConnect host=internic.net&amp;port=43]<br>
+			&lt;pre&gt;[TCPSend]webdna.us[UnURL]%0D%0A[/UnURL][/TCPSend]&lt;/pre&gt;<br>
+			[/TCPConnect]
+		</dl>
+<a name="Parameters">
+		<p>This example performs the equivalent of a WHOIS command which queries the Internet for information about a particular domain name. Substitute your own domain name and see what you get!<br>
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">&nbsp;Parameter</th>
+				<th bgcolor="#bbbbbb">&nbsp;Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						host</div>
+				</td>
+				<td>(Required) Name or ip address of the machine to connect to. Do <b>not</b> insert http or ftp into the host text! TCPConnect is a very low-level connection, and it knows nothing about these protocols.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						port</div>
+				</td>
+				<td>(Optional) TCP port number to connect to. If not specified, then 80 is assumed.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						ssl</div>
+				</td>
+				<td>New for version 4.5<br>(Optional) Set this parameter to 'T' to create a secure socket.  The port parameter should normally be set to 443 in this case.</td>
+			</tr>
+		</table>
+		<!--[/Raw]-->
+	</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"><!--last modified on Tue, Jan 20, 1998 10:50 PM-->
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>URL Context</title>
+		<!--[Raw]-->
+		<meta name="Author" content="Grant Hulbert">
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[URL]Any Text[/URL]</font>
+		<dl>
+			<dd>Changes text to URL-compatible characters.
+		</dl>
+		<p>To automatically convert text containing spaces or other &quot;illegal&quot; URL characters, place it inside a [URL] context. Certain letters, such as spaces, colons, and the equals sign (=) are not allowed inside URLs unless they are first converted to hexadecimal form.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>&lt;img src=&quot;[URL]Filename with spaces.gif[/URL]&quot;&gt;
+		</dl>
+		<p>In the example above, the displayed text will be</p>
+		<pre>&lt;img src=&quot;Filename%20with%20spaces.gif&quot;&gt;</pre>
+		<p>This context is most often used with [sku] fields representing the name of a picture of a product, as in &lt;img src=&quot;[sku].gif&quot;&gt;, because many times a product sku will have &quot;illegal&quot; characters in it.</p>
+		<p>[URL] is also often used to create predefined hyperlink-style searches, as in &lt;a href=&quot;xx.tpl?command=search&amp;db=xxx.db&amp;eqNAMEdata=Grant%20Hulbert&quot;&gt;. Sometimes you will want to create this kind of HTML dynamically using text from a field in a database:</p>
+		<dl>
+			<dd>[foundItems]<br>
+			&lt;a href=&quot;xxx.tpl?command=search&amp;db=xx.db&amp;eqNAMEdata=[URL][Name][/URL]&quot;&gt;<br>
+			[/foundItems]
+		</dl>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

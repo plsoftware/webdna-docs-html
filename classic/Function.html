@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<!--[Raw]-->
+<head>
+<title>Function Context</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+<p><font size="5">[function name=...&amp;preparse=T/F][/function]</font></p>
+<blockquote>
+  <p><br>
+    This new context enables the WebDNA programmer to call a previously defined 
+    block of WebDNA code.</p>
+</blockquote>
+<p><br>
+  <strong>Optional Tag Parameters:</strong><br>
+  <br>
+  <strong>&middot; name=variablename - </strong>User defined name for the function. 
+  The name if then used like a normal WebDNA tag.<br>
+  <br>
+  <strong>&middot; preparse=T/F -</strong> By default, the WebDNA code that defines 
+  the function is stored 'raw' and executed later when the function is called. 
+  But if you need to programmatically create the function definition using WebDNA, 
+  then you can set 'preparse' to 'T'. This will force the WebDNA engine to first 
+  parse the WebDNA in the function definition before storing it for later use. 
+</p>
+<p>Our first example creates a function named 'backwards' that will take a variable 
+  named 'instring' and display the characters of the string in reverse order. 
+  We use the following code... </p>
+<blockquote>
+  <p>[function name=Backwards]<br>
+    [text]length=[countchars][instring][/countchars][/text]<br>
+    [loop start=[length]&amp;end=1&amp;advance=-1][getchars start=[index]&amp;end=[index]][instring][/getchars][/loop]<br>
+    [/function]</p>
+</blockquote>
+<p>Now the function is defined and stored for later use in the template. <br>
+  To execute the new function, we use... </p>
+<blockquote>
+  <p><br>
+    [Backwards instring=abcdef_12345]</p>
+</blockquote>
+<p>Function names take precedence over WebDNA global tags. So it is possible to 
+  'override' a WebDNA tag. For example, lets define a function named 'date' that 
+  displays the date in bold text. <br>
+  <br>
+  We use the following code... </p>
+<blockquote>
+  <p><br>
+    [function name=Date]<br>
+    [:global:Date]<br>
+    [/function]</p>
+</blockquote>
+<p><br>
+  Note that in our function definition, we had to use explicit 'scoping' to access 
+  the true WebDNA [date] tag. This is to prevent an infinite recursion when the 
+  function code executes, i.e. keeps calling itself. You can learn more about 
+  Scope and Scope Resolution in the 'Scope' tutorial. <br>
+  <br>
+  Now when we use [date], our date function is called, instead of the global [date]. 
+</p>
+<p></p>
+</body>
+<!--[/Raw]-->
+</html>

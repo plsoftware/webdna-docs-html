@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Capitalize Context</title>
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[Capitalize]Any Text[/Capitalize]</font> 
+<dl>
+			<dd>Capitalizes the first letter of all words in a sentence.
+		</dl>
+		<p>To convert the words of a sentence to capitalized form, put them inside a [Capitalize] context. Only the first letter of each word (any letter following a space) is capitalized. If the remaining letters in the word are uppercase, they will be changed to lowercase. If the word begins with a numeral, the numeral is left unchanged, and the rest of the letters will become lowercase. No attempt is made to be grammatically correct -- articles such as &quot;a, an, of&quot; are capitalized just like any other word.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[Capitalize]Some Text that contains upper- and lower case letters[/Capitalize]<br>
+			[Capitalize]HI THERE[/Capitalize]<a href="UpperCaseSample.tpl"><br>
+			</a>[Capitalize]this is my 1st time at bat[/Capitalize]<br>
+			[Capitalize]a of on at the in or[/Capitalize]
+		</dl>
+		<p>In the examples above, the displayed text will be</p>
+		<pre>Some Text That Contains Upper- And Lower Case Letters
+Hi There
+This Is My 1st Time At Bat
+A Of On At The In Or</pre>
+		<p>You can use this context to display user-entered text (such as first and last names) so they look more consistent, regardless of how the user typed them.<br>
+		<!--[/Raw]-->
+	</body>
+
+</html>

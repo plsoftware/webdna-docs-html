@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!--last modified on Mon, Jan 5, 1998 6:02 PM-->
+<HTML>  
+<HEAD>
+  <META NAME="GENERATOR" CONTENT="Adobe PageMill 3.0 Mac">
+  <META HTTP-EQUIV="content-type" CONTENT="text/html;charset=iso-8859-1">
+  <TITLE>If Context</TITLE>
+  <!--[Raw]-->
+  <META NAME="Author" CONTENT="Grant Hulbert">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<P><FONT SIZE="+2">[If <I>Expressions</I>][Then]do this[/Then][Else]otherwise
+this[/Else][/If]</FONT></P>
+
+<DL>
+  <DD> <font color="#FF0000"><b>New in 4.0</b></font><br>
+    Displays HTML or executes WebDNA conditionally only if the expression is true. 
+</DL>
+
+<P>To display some HTML (or execute WebDNA [xxx] tags) only if
+certain conditions are met, place the text inside an [If] context.
+The comparison, which may contain any [xxx] tags, is first evaluated
+to see if it is true, and if true then the contained <A HREF="ThenContext.html">[Then]</A>
+context is executed (or simply displayed, if it's just HTML).
+If not true, then the contained <A HREF="ElseContext.html">[Else]</A>
+context is executed (or simply displayed, if it's just HTML).
+See [Then] and [Else].</P>
+
+<P><B>Example</B> (normally you would put the following text into
+a .tpl file on your server and use a web browser to link to it):</P>
+
+<BLOCKQUOTE>
+  <P><B>[If ((&quot;[username]&quot;=&quot;Grant&quot;) | ([grandTotal]&lt;100))
+  &amp; ({[date]}&lt;{2/15/2000})]<BR>
+  </B>&nbsp;&nbsp;&nbsp;&nbsp;[Then]either username was Grant or
+  grandTotal was &lt; $100 and it's not Feb 15, 2000 yet[/Then]<BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;[Else]The complex expression wasn't true[/Else]<BR>
+  <B>[/If]</B></P></BLOCKQUOTE>
+
+<P>Comparisons are always case-insensitive so &quot;grant&quot; equals &quot;GRANT&quot;. 
+  The expression is evaluated as a mathematical boolean equation, where each sub-expression 
+  evaluates to either 0 or 1 (meaning true or false). If the entire evaluated 
+  expression is true, then the WebDNA inside the [Then] contexxt is executed, 
+  otherwise the [Else] context is executed. The [Math] context has been extended 
+  to allow for quoted text and boolean operators, and is actually what is used 
+  by [If] to perform the work of evaluating the expression. A side-effect of this 
+  allows you to use these operators inside a [math] equation: [math]1&lt;3[/math] 
+  evaluates to &quot;1&quot;, because the equation is true. Conversely, [math]3&lt;1[/math] 
+  evaluates to &quot;0&quot; because the equation is false. Similarly, [math]1&amp;1[/math] 
+  evaluates to &quot;1&quot;, and [math]1&amp;0[/math] evaluates to &quot;0&quot;.</P>
+
+<P>
+<TABLE BORDER="1" CELLPADDING="0"CELLSPACING="2">
+  <TR> 
+    <TH BGCOLOR="#bbbbbb">Comparison</TH>
+    <TH BGCOLOR="#bbbbbb" align="center"></TH>
+    <TH BGCOLOR="#bbbbbb">Example</TH>
+  </tr>
+  <TR> 
+    <TD> 
+      <P ALIGN=RIGHT>equal 
+    </td>
+    <TD align="center">=</TD>
+    <TD>[If &quot;[username]&quot; = &quot;SAGEHEN&quot;] variable [username] 
+      is equal to SAGEHEN</td>
+  </tr>
+  <TR> 
+    <TD> 
+      <P ALIGN=RIGHT>not equal 
+    </TD>
+    <TD align="center">!</TD>
+    <TD>[If [random] ! 45] random number is not 45</TD>
+  </tr>
+  <TR> 
+    <TD> 
+      <P ALIGN=RIGHT>contains 
+    </TD>
+    <TD align="center">^</TD>
+    <TD>[If &quot;[browsername]&quot; ^ &quot;Mozilla&quot;] variable [browsername] 
+      contains the text Mozilla</TD>
+  </TR>
+  <TR> 
+    <TD> 
+      <P ALIGN=RIGHT>begins with 
+    </TD>
+    <TD align="center">~</TD>
+    <TD>[If &quot;[ipaddress]&quot; ~ &quot;245.078.013&quot;] variable [ipaddress] 
+      begins with 245.078.013<BR>
+      <BR>
+      <B>Notice the IP address has been typed with 3 digits in each portion of 
+      the address</B>. This is very important for making these comparison work 
+      as expected.</TD>
+  </TR>
+  <TR> 
+    <TD> 
+      <P ALIGN=RIGHT>less than 
+    </TD>
+    <TD align="center">&lt;</TD>
+    <TD>[If [random] &lt; 50] random number is less than 50</TD>
+  </TR>
+  <TR> 
+    <TD> 
+      <P ALIGN=RIGHT>greater than 
+    </TD>
+    <TD align="center">&gt;</TD>
+    <TD>[If [lastrandom] &gt; 25] last random number is greater than 25</TD>
+  </TR>
+  <TR> 
+    <TD align="right">divisible by </TD>
+    <TD align="center">\</TD>
+    <TD>[If [index] \ 3] variable [index] is divisble by 3</TD>
+  </TR>
+  <TR>
+    <td align="right">or</td>
+    <td align="center">|</td>
+    <td>[If (5&gt;4) | (1&lt;3)] Boolean comparison: if either side of the operator 
+      is true, then the comparison is true</td>
+  </TR>
+  <TR> 
+    <td align="right">and</td>
+    <td align="center">&amp;</td>
+    <td>[If (5&gt;4) &amp; (1&lt;3)] Boolean comparison: if both sides of the 
+      operator are true, then the comparison is true</td>
+  </TR>
+  <TR> 
+    <th bgcolor="#bbbbbb">Delimiter</th>
+    <TD align="center" bgcolor="#bbbbbb">&nbsp;</TD>
+    <th bgcolor="#bbbbbb">Example</th>
+  </TR>
+  <TR> 
+    <TD> 
+      <div align="right">Quoted Text</div>
+    </TD>
+    <TD align="center">&quot;...&quot;</TD>
+    <TD>[If &quot;Hello&quot; ^ &quot;hell&quot;] All text must be surrounded 
+      by quotes</TD>
+  </TR>
+  <TR> 
+    <TD align="right">Numbers</TD>
+    <TD align="center">&nbsp;</TD>
+    <TD>[If 12.5 &lt; 13.2] Numbers do not need to be delimited; they function 
+      the same as in a <a href="MathContext.html">[Math]</a> context</TD>
+  </TR>
+  <TR> 
+    <TD align="right">Dates</TD>
+    <TD align="center">{}</TD>
+    <TD>[If {[date]} &gt; {9/7/1963}] Dates must be enclosed in curly braces to 
+      distinguish them from regular numbers</TD>
+  </TR>
+  <TR> 
+    <TD align="right">Times</TD>
+    <TD align="center">{}</TD>
+    <TD>[If {[time]} &gt; {12:31:00PM} Times must be enclosed in curly braces 
+      to distinguish them from regular numbers</TD>
+  </TR>
+  <TR> 
+    <TD align="right"> 
+      <P ALIGN=RIGHT>Parentheses
+    </TD>
+    <TD align="center">(...)</TD>
+    <TD>[If (3&gt;1) &amp; (&quot;a&quot;&lt;&quot;b&quot;)] You may collect groups 
+      of items in parentheses in order to force the order of evaluation</TD>
+  </TR>
+</table>
+<p></P>
+
+<P><!--[/Raw]-->
+
+</BODY>
+</HTML>

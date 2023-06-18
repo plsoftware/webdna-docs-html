@@ -1,0 +1,25 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Searching - Blanks</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5"> Searching - Finding Blank Fields</font> <font size="5"><i>FieldName</i><b>blnk=T</b></font> 
+<dl>
+			<dd>Searches for blank fields.
+		</dl>
+		<p>If visitors leave a field blank in a search form, WebDNA normally assumes they do not &quot;care&quot; to search that field -- it acts as though the field was not specified in the search criteria at all. If you want to search for blanks (no text in the field whatsoever, not even a space), you can override this behavior.</p>
+		<p>If your database has a field called &quot;Title&quot;, and you want to look for records that have nothing in the Title field, then you would enter a URL something like this:</p>
+		<p>http://Results.tpl?command=search&amp;<b>eq</b>Title<b>data</b>=[blank]&amp;db=SomeDatabase.db<br>
+		<br>
+		Alternately, you can use the form FieldName<b>BLNK</b>=T, which makes it possible to use radio buttons or checkboxes to let the visitor decide how they want to search for blank fields. If you want to apply this to all the fields in your search at once, then set <b>allBLNK</b>=T.</p>
+		<p>The template &quot;Results.tpl&quot; display after the search, and any <a href="FoundItemsContext.html">[FoundItems] </a>contexts in it filled with found records. &quot;<b>eq</b>&quot; stands for &quot;equals,&quot; meaning that the Title field must <b>eq</b>ual <i>blank</i> exactly, otherwise it will not be considered a match. &quot;eq&quot; is one of many different ways to compare data in your database -- see <a href="SearchComparisons.html">Comparisons</a> for a complete list of all the different ways to compare fields.<br>
+		<!--[/Raw]-->
+	</body>
+
+</html>

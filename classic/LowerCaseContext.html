@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!--last modified on Thu, Feb 5, 1998 12:21 PM-->
+<HTML>  
+<HEAD>
+  <META NAME="GENERATOR" CONTENT="Adobe PageMill 3.0 Mac">
+  <META HTTP-EQUIV="content-type" CONTENT="text/html;charset=iso-8859-1">
+  <TITLE>LowerCase Context</TITLE>
+  <!--[Raw]-->
+  <META NAME="Author" CONTENT="Grant Hulbert">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<P><FONT SIZE="+2">[Lowercase <I>charset</I>]Any Text[/Lowercase]</FONT></P>
+
+<DL> 
+  <DD>
+    <div align="left"><font color="#FF0000"><b>New in 4.0</b></font><br>
+      Changes all upper case letters to lower case.</div>
+  
+</DL>
+
+<P>To convert certain characters to lower case, put them inside
+a [Lowercase] context.</P>
+
+<P><B>Example</B> (normally you would put the following text into
+a .tpl file on your server and use a web browser to link to it):</P>
+
+<DL>
+  <DD>[Lowercase]Some Text that contains upper- and lower case
+  letters[/Lowercase]
+</DL>
+
+<P>In the example above, the displayed text will be</P>
+
+<PRE>some text that contains upper- and lower case letters</PRE>
+
+<P>This context is included for completeness as a complement to
+<A HREF="UppercaseContext.html">[Uppercase]</A>.</P>
+
+<DL>
+  <DD><B>Note</B>: you can optionally change the behavior of lowercase
+  with charset=mac (common on Macintosh) or charset=iso (common
+  on PCs), which causes high-ASCII characters to change case differently
+  depending on which character set your data is.<BR>
+<BR>
+  [Lowercase charset=iso]...some text...[/Lowercase]
+</DL>
+
+<P><!--[/Raw]-->
+
+</BODY>
+</HTML>

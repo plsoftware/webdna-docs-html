@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<!--[Raw]-->
+<head>
+<title>Pre and Post Parse Scripts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+<h1>Pre and Post Parse Scripts</h1>
+<p><br>
+  The pre-parse and post-parse scripts exist as two 'special' WebDNA files in 
+  the WebCatalog engine folder, or WebDNA Sandbox system folder. These are named, 
+  as you might guess, 'PreParseScript' and 'PostParseScript'. When enabled, any 
+  WebDNA that is contained in those scripts is process before, or after, every 
+  WebDNA page request.</p>
+<p> <strong><br>
+  The Pre-Parse Script</strong><br>
+  <br>
+  The pre-parse script is an ideal place to put 'global' function or variable 
+  definitions. It is also a great place to put HTML comment blocks that should 
+  appear at the top of WebDNA page results. When combined with a WebDNA Sandbox, 
+  this level of functionality can be considered as 'application' level functionality, 
+  as each WebDNA Sandbox will use a separate set of pre-parse and post-parse scripts. 
+  <br>
+  <br>
+  Here is an example of a pre-parse script you could use to initialize a series 
+  of function definitions. In this example the function definitions exist as separate 
+  include files in a sub-folder called, 'FunctionDefs'. <br>
+  <br>
+  Contents of the 'PreParseScript' file... </p>
+<blockquote>
+  <p> [!] An example Pre-Parse Script that loads function definitions [/!]<br>
+    [!] <br>
+    Include My Function Definitions.<br>
+    [/!] </p>
+  <p>[text]results=<br>
+    [listfiles path=^FunctionDefs]<br>
+    [showif [isfile]=T]<br>
+    [include ^FunctionDefs/[filename]]<br>
+    [/showif]<br>
+    [/listfiles]<br>
+    [/text]</p>
+</blockquote>
+<p>If this example pre-parse script was 'live', then every WebDNA page request 
+  would have access to any function definitions that were processed as a result 
+  of the script execution.</p>
+<p><strong><br>
+  The Post-Parse Script</strong><br>
+  <br>
+  The post-parse script is executed at the end of every WebDNA page request. This 
+  enables the WebDNA programmer to 'wrap' WebDNA code around the results of every 
+  WebDNA template that is processed. So this is an ideal place to insert code 
+  that generates 'global' (or 'application' when inside WebDNA Sandbox) header 
+  or footer messages. Or as a place to put server, or Sandbox, 'logging' code. 
+  It can even be used to insert WebDNA code that will 'strip' or modify the page 
+  results, perhaps to remove unwanted white-space from the HTML before it is return 
+  to the client. <br>
+  <br>
+  There is a new, very important, WebDNA tag that you will almost always use inside 
+  the post-parse script. This tag is: <strong>[WEBDNA_TEMPLATE_RESULTS]</strong>. 
+  This tag represents the results of the requested WebDNA template. This tag allows 
+  you to 'wrap' you own WebDNA code around the page results. So, if you enable 
+  the post-parse script feature, you will need to include the [WEBDNA_TEMPLATE_RESULTS] 
+  tag, somewhere in the WebDNA code. <br>
+  <br>
+  Here is an example of a post-parse script you could use to insert an HTML footer 
+  message at the bottom of every WebDNA page request. <br>
+  <br>
+  Contents of the 'PostParseScript' file... </p>
+<blockquote>
+  <p><br>
+    [!] Example code to place a 'footer' message at the bottom of every page request 
+    [/!]</p>
+  <p> [showif [WEBDNA_TEMPLATE_RESULTS]^</p>
+</blockquote>
+<p>&nbsp;</p>
+<p><strong>How to use the scripts</strong><br>
+  <br>
+  Both the Pre-Parse and Post-Parse scripts are disabled by default. Even if the 
+  scripts are 'enabled', the stock scripts contain little to no 'active' WebDNA 
+  code. The shipping version of WebDNA 5.0 may include pre-defined functions that 
+  will be loaded by the pre-parse script. <br>
+  <br>
+  You enable the scripts via the WebDNA admin, preferences page. The scripts can 
+  be independently enabled or disabled from that page. There is also a 'link', 
+  for each script, that will lead to a page where the script can be edited and 
+  saved. <br>
+  <br>
+  IMPORTANT:<br>
+  <br>
+  You should have ftp access to the folder containing the scripts, before trying 
+  to enable and edit them. This is in case you insert bad HTML or WebDNA code 
+  that renders all pages unreadable (which would render the admin pages unreadable 
+  as well). Ftp access to the script files will ensure that you have a way to 
+  'correct' fatal errors in the script files. For WebDNA Sandbox sites, malformed 
+  scripts would only effect pages served from that Sandbox. <br>
+  <br>
+  To enable, disable, view, or edit the pre_parse or post-parse scripts, select 
+  the 'Prefs/...Admin...' menu item (in the lab 'source' view). When the admin 
+  page is displayed, clink on the 'Preferences' link in the left pane. You will 
+  see the pre-parse and post-parse script options at the bottom of the 'General' 
+  section. <br>
+</p>
+</body>
+<!--[/Raw]-->
+</html>

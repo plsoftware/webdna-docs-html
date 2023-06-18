@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Search Multiple Databases</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5"> Searching - Multiple Databases (Relational)</font> 
+<p>WebDNA can search multiple databases as easily as it searches a single database. Often you will want to look up information in a second database while displaying the results of a search. If the relationship is very simple (an exact match of text in one database field to the text of another database field) then you may use the faster <a href="AllTags.html#Lookup">[Lookup]</a> tag. If the relationship is more complex, then you may need the more sophisticated <a href="SearchContext.html">[Search]</a> context.</p>
+		<p><b>[Lookup] Example:</b> Let's say you maintain a list of names and addresses, and you want to display the fully-spelled-out name of the state a person lives in. However, you only store the 2-letter code in the address database. Create a database that lists all 50 states by their 2-letter code, and put the fully-spelled state name into another field in that database:</p>
+		<pre><font size="2">-------States.db-------</font>
+<font size="2">Abbrev	FullName</font>
+<font size="2">CA	California</font>
+<font size="2">AZ	Arizona</font>
+<font size="2">FL	Florida</font>
+<font size="2">------------------------</font>
+
+<font size="2">-------Results.tpl-----</font>
+<font size="2">[FoundItems]</font>
+<font size="2">[Name], [Address], [City]</font>
+<font size="2">[Lookup db=States.db&amp;lookInField=Abbrev&amp;value=[State]&amp;returnField=FullName]</font>
+<font size="2">[/FoundItems]</font>
+<font size="2">------------------------</font></pre>
+		<p>Notice that the lookup looks through the States.db database for an exact match of the [State] field information coming from the first database. It then returns the text from the [FullName] field of the corresponding state name stored in States.db.</p>
+		<p><b>[Search] Example:</b> Let's say you store all the orders created by your store in two databases. One of the databases stores the order# and Name/Address/Account information, while another database stores each individual SKU of the line items purchased during an order:</p>
+		<pre><font size="2">-------Orders.db-------</font>
+<font size="2">OrderNumber	Name	Address	City	State	Zip</font>
+<font size="2">1234	Grant	667 Corte	San Marcos	CA	90031</font>
+<font size="2">1395	John	12 Elias	San Diego	CA	90004</font>
+<font size="2">------------------------</font>
+
+<font size="2">------LineItems.db------</font>
+<font size="2">OrderNumber	SKU	Qty	Price</font>
+<font size="2">1234	Shoe1	1	12.95</font>
+<font size="2">1234	Shirt1	2	15.95</font>
+<font size="2">1234	Service	1	99.95</font>
+<font size="2">1395	Gift1	1	9.95</font>
+<font size="2">1395	Box12	3	74.95</font>
+<font size="2">------------------------</font></pre>
+		<p>To display a list of all the orders with associated line items, your search results template might look like the following:</p>
+		<pre><font size="2">-------Results.tpl-----</font>
+<font size="2">[FoundItems]</font>
+<font size="2">&nbsp;&nbsp;[OrderNumber], [Name], [Address], [City]</font>
+<font size="2">&nbsp;&nbsp;[Search db=LineItems.db&amp;eqOrderNumberdata=[OrderNumber]]</font>
+<font size="2">&nbsp;&nbsp;&nbsp;&nbsp;[FoundItems]</font>
+<font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[SKU], [Qty], [Price]</font>
+<font size="2">&nbsp;&nbsp;&nbsp;&nbsp;[/FoundItems]</font>
+<font size="2">&nbsp;&nbsp;[/Search]</font>
+<font size="2">[/FoundItems]</font>
+<font size="2">------------------------</font>
+
+<font size="2">----Output from above----</font>
+<font size="2">1234, Grant, 667 Corte, San Marcos</font>
+<font size="2">	Shoe1	1	12.95</font>
+<font size="2">	Shirt1	2	15.95</font>
+<font size="2">	Service	1	99.95</font>
+<font size="2">1395, John, 12 Elias, San Diego</font>
+<font size="2">	Gift1	1	9.95</font>
+<font size="2">	Box12	3	74.95</font>
+<font size="2">-------------------------</font></pre>
+		<p>Notice that the interior [Search] looks for all matching line items with the same order number as the exterior Orders.db database. This collects and displays all line items for that order underneath the proper header information.</p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

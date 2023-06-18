@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<title>SQLInfo Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[SQLInfo <i>Params</i>]...[/SQLInfo]</font> 
+<dl>
+			<dd>Reports back information about a SQL connection that has already been established via <a href="SQLConnectContext.html">[SQLConnect]</a>.
+		</dl>
+		<p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd><pre><xmp>
+[SQLConnect dbType=MySQL&host=192.168.1.1&database=SMSITest&uid=sa&pwd=pass&conn_var=conn1]
+Connected successfully<br>
+[/SQLConnect]
+
+SQLInfo reports:<br>
+[SQLInfo conn_ref=conn1]
+Host: [SQL_HOST]<br> 
+Server Version: [SQL_SERVERVER]<br>
+Client Version: [SQL_CLIENTVER]<br> 
+[/SQLInfo]<br>
+</xmp></pre>
+		</dl>
+		<p><table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Parameter</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						<nobr>conn_ref (or just 'ref')</nobr></div>
+				</td>
+				<td>The name of a SQLConnect variable created (via the conn_var or var variable) by the successful execution of [SQLConnect].</td>
+			</tr>
+		</table>
+		<p></p>
+		<p>The following tags are available inside a [SQLInfo] context:
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Tag</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[SQL_HOST]</div>
+				</td>
+				
+    <td>The IP Address/host name of the database server.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[SQL_SERVERTYPE]</div>
+				</td>
+				<td>The RDBMS type of the database server; type returned: MYSQL, MSSQL, or ORACLE.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[SQL_SERVERVER]</div>
+				</td>
+				<td>The version number of the SQL server; e.g. 7.0.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[SQL_CLIENTVER]</div>
+				</td>
+				<td>The version number of the client being used to connect to the database server.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[SQL_DBNAME]</div>
+				</td>
+				<td>The name of the database you have connected to, if any.</td>
+			</tr>
+		</table>
+		<p></p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

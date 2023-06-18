@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>ReplaceFoundItems Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[ReplaceFoundItems]field1=value1&amp;field2=value2[/ReplaceFoundItems]</font>
+		
+<dl> 
+  <dd> 
+  <dd><font color="red"><b>New in 4.0<br>
+    </b></font>Replaces each found record in a database with the new field values.
+  <dt>&nbsp; </dt>
+  <dd> 
+  <dd><b>SQL/ODBC Note</b>: To replace records in an ODBC-compliant table controlled 
+    by a SQL server, use the <a href="SQLContext.html">[SQL]</a> context. 
+</dl>
+		<p>To replace field values of records in a database, put a [ReplaceFoundItems] context into a template inside a <a href="SearchContext.html">[Search]</a> context. As each matching record is found, that record's fields inside the [ReplaceFoundItems] context are replaced with new values.</p>
+		<dl>
+			<dd><b>Note:</b> this new context is much faster than the old technique of nesting a <a href="ReplaceContext.html">[Replace]</a> context inside a <a href="FoundItemsContext.html">[FoundItems]</a> context. For example: if you currently use something like this to modify many records in a database...<br>
+			<br>
+			[Search db=xx.db&amp;neSKUdata=0]
+			<dl>
+				<dd>[FoundItems]
+				<dl>
+					<dd>[Replace db=xx.db&amp;eqSKUdata=[sku]]value=[math][value]+1[/math][/Replace]
+				</dl>
+				<dd>[/FoundItems]
+			</dl>
+			<dd>[/Search]<br>
+			<br>
+			...then you can change it to the following in order to speed it up considerably:<br>
+			<br>
+			[Search db=xx.db&amp;neSKUdata=0]
+			<dl>
+				
+      <dd>[ReplaceFoundItems]value=[math][value]+1[/math][/ReplaceFoundItems] 
+    </dl>
+			<dd>[/Search]<br>
+		</dl>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[Search db=products.db&amp;neSKUdata=0]
+			<dl>
+				<dd>[ReplaceFoundItems]price=[math][price]*1.1[/math][/ReplaceFoundItems]
+			</dl>
+			<dd>[/Search]
+		</dl>
+		<p>In the example above, the database &quot;products.db&quot; opens, all records whose <b>sku</b> field is not &quot;0&quot; found, and each of those found record's <b>price</b> fields incremented by 10%. As each found record is visited, that record's field values are available inside the context so you can use them to compute new values. This behavior is very different from the simpler <a href="ReplaceContext.html">[Replace]</a> context, which replaces all found items with the <b>same</b> value.</p>
+		<p>Any fieldnames that do not exist in the database are ignored, and if you leave some existing fieldnames out of the replace context, they will remain unchanged in the database. Certain letters are illegal, such as &lt;tab&gt; or &lt;carriage return&gt;, so they are converted to &lt;soft tab&gt; and &lt;soft return&gt; before being added to the database. Some computers use the two-character sequence &lt;carriage return&gt;&lt;line feed&gt; to indicate a single end of line, which is automatically converted to a single &lt;soft return&gt; character before being added to the database. These 'soft' characters are automatically converted back to 'hard' versions (the originals) whenever you retrieve fields from a search of the database.<br>
+		<br>
+  <b>Note:</b> You may specify an absolute or relative path to the database file, 
+  as in &quot;/WebCatalog/GeneralStore/SomeDatabase.db&quot; or &quot;../SomeDatabase.db&quot;. 
+  You may also place &quot;^&quot; in front of the database path to indicate that 
+  the file can be found in a global root folder called &quot;Globals&quot; inside 
+  the WebCatalogEngine folder.<br>
+		<table border="1">
+			<tr>
+				<th colspan="6">Contrast between [ReplaceFoundItems] and [Replace]</th>
+			</tr>
+			<tr>
+				<td valign="top" colspan="3">[Search db=products.db&amp;neSKUdata=0]<br>
+					[ReplaceFoundItems]price=[math][price]*1.1[/math][/ReplaceFoundItems]<br>
+					[/Search]</td>
+				<td valign="top" colspan="3">[Replace db=products.db&amp;neSKUdata=0]price=10[/Replace]</td>
+			</tr>
+			<tr>
+				<td>SKU</td>
+				<td>price before</td>
+				<td>price after</td>
+				<td>SKU</td>
+				<td>price before</td>
+				<td>price after</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>5</td>
+				<td>5.5</td>
+				<td>1</td>
+				<td>5</td>
+				<td>10</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>10</td>
+				<td>11</td>
+				<td>2</td>
+				<td>10</td>
+				<td>10</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>15</td>
+				<td>16.5</td>
+				<td>3</td>
+				<td>15</td>
+				<td>10</td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>20</td>
+				<td>22</td>
+				<td>4</td>
+				<td>20</td>
+				<td>10</td>
+			</tr>
+			<tr>
+				<td>5</td>
+				<td>35</td>
+				<td>38.5</td>
+				<td>5</td>
+				<td>35</td>
+				<td>10</td>
+			</tr>
+		</table>
+		<font color="aqua"><!--[/Raw]-->
+		</font>
+	</body>
+
+</html>

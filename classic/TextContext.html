@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Text Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[Text]Text Variable Assignment[/Text]</font>
+		<dl>
+			<dd>Stores a text variable that can be used later in the template.
+		</dl>
+		<p>To remember some text for use later in a page, assign a text variable using the [Text] context. You may assign as many named text variables (similar to <a href="MathContext.html">[math]</a> variables, except they store textual information instead of numbers) as you want per page (RAM limited). The length of the text is also only limited to RAM.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[Text Show=F]sentence1=This is a big long sentence, don't you think?[/Text]<br>
+			[Text]name=John[/Text]<br>
+			[Text]sentence1[/Text]<br>
+			[Text]name[/Text]<br>
+			[name]
+		</dl>
+		<p>In the example above, the displayed text will be</p>
+		<pre>This is a big long sentence, don't you think?
+John
+John</pre>
+		<p>The Text context looks for an equal sign &quot;=&quot; in the body of the text, and if it finds one, assumes you are assigning a new value to a new text variable. If no equal sign is present in the body of the text, it assumes you want to retrieve the value of a previously-stored variable. Reassigning a text variable to a new value replaces the previous value.<br>
+		<br>
+		Note that you do not have to use the [Text] context to display a text variable; you may simply place the variable name inside brackets like so: [varname]. Both [Text]varname[/Text] and [varname] display the same thing.<br>
+		<br>
+		
+<table border="1" cellpadding="0">
+  <tr> 
+    <th bgcolor="#cccccc">Parameters</th>
+    <th bgcolor="#cccccc">Description&nbsp;</th>
+  </tr>
+  <tr> 
+    <td> 
+      <div align="right"> multi</div>
+    </td>
+    <td>(optional) &quot;T&quot; or &quot;F&quot;. Allows you to assign more than 
+      one text variable in a single context. [Text multi=T]var1=Joe&amp;var2=Fred[/Text] 
+      simultaneously assigns two variables, named &quot;var1&quot; and &quot;var2&quot; 
+      to the values &quot;Joe&quot; and &quot;Fred.&quot;</td>
+  </tr>
+  <tr>
+    <td>
+      <div align="right"><b><font color="#FF0000">New&nbsp;for&nbsp;4.0</font></b><br>
+        secure</div>
+    </td>
+    <td valign="top">(optional) &quot;T&quot; or &quot;F&quot;. Defaults to &quot;T&quot;. 
+      Setting secure=F makes this text variable overrideable by incoming form 
+      variables. <b>This is not recommended, and the default behavior is secure.</b> 
+      If you really want outside visitors to your web site to be able to change 
+      the values of your internal text variables (usually with a &lt;form&gt;), 
+      then you may use the non-secure version of this parameter.</td>
+  </tr>
+  <tr> 
+    <td> 
+      <div align="right"> show</div>
+    </td>
+    <td>(optional) &quot;T&quot; or &quot;F&quot;. Default behavior is to hide 
+      text when assigning to a text variable. If you want the text to be shown 
+      at the same time it is assigned to a variable, you may set Show=T. If you 
+      set multi=T at the same time, then no text will be displayed.</td>
+  </tr>
+</table>
+		<br>
+		<!--[/Raw]-->
+	</body>
+
+</html>

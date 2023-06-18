@@ -1,0 +1,2393 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>WebDNA Change History</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<h2>Appendix C: Technical Change History</h2>
+<p>Subscribe to WebDNA-Talk at <a href="http://dev.webdna.us/?swb=talk">http://www.webdna.us</a></p>
+<dl> 
+  <dt><b>Current WebDNA Version: 6.2</b></dt>
+</dl>
+<p>This Technical Change History provides a reverse chronological list of WebDNA 
+  changes. Scroll through the list as needed to view all changes beginning with 
+  the current version. </p>
+<h3>4/6/2004 6.0a patch</h3>
+<ul>
+  <h3>Bug Fixes</h3>
+  <li>OSX: 
+    <ul>
+       <li>Fixed:  'RandSeed' search parameter not working.</li>
+    </ul>
+  </li>
+  <li>All Platforms: 
+    <ul>
+       <li>Fixed:  [founditems] context used without a wrapping [search], [sql], or [sqlresults] context crashes the WebDNA engine.</li>
+       <li>Fixed:  [SQLExecute]  - 'selecting' the same field more than once, in an SQL 'select' statement crashes the WebDNA engine.</li>
+    </ul>
+  </li>
+</ul>
+<h3>4/6/2004 5.1g patch</h3>
+<ul>
+  <h3>Bug Fixes</h3>
+  <li>UNIX: 
+    <ul>
+       <li>Fixed: Cart sweeper removing cart file to soon. Could result in 'blank' purchases.</li>
+       <li>Fixed: [IPAddress] tag sometimes returning the server IP.</li>
+    </ul>
+  </li>
+  <li>Windows: 
+    <ul>
+       <li>Fixed: DOS context failing if template path contained one or more spaces.</li>
+       <li>Improved ISAPI extension: WebDNA can now handle large upload posts, without blocking other WebDNA page requests.</li>
+    </ul>
+  </li>
+  <li>All Platforms: 
+    <ul>
+       <li>Fixed: When performing a WebDNA summary search using summ=T, the engine will throw an exception (or may quit) if the resulting 'summarized' records number more than 32768.</li>
+       <li>Fixed: Creating a WebDNA sandbox with 'triggers' disabled, causes the WebDNA engine to start using a large amount of CPU bandwidth.</li>
+       <li>Fixed: Using the [Delimiter] tag in [ListWords] causes WebDNA engine to quit.</li>
+       <li>Added MIME response headers to help prevent Safari browser from caching WebDNA page requests.</li>
+       <li>It is now possible to fetch a binary file, via [writefile] wrapped around [TCPSend], and using the 'skipheader' option.
+<pre>For Example: 
+[tcpconnect host=[host]]
+[writefile file=test.jpg][tcpsend skipheader=T]GET /[path_to_jpg] HTTP/1.0[unurl]%0D%0A[/unurl][!]
+[/!]Host: [host][unurl]%0D%0A%0D%0A[/unurl][!]
+[/!][/tcpsend][/writefile]
+[/tcpconnect]</pre></li>
+    </ul>
+  </li>
+</ul>
+<h3>2/15/2004 6.0</h3>
+<ul>
+  <li>General release of WebDNA 6.0 for all supported platforms</li>
+  <h3>Changes / Additions</h3>
+  <li>All Platforms</li>
+  <ul>
+    <li>Native SQL Support - Currently supports MySQL database servers.<br>
+<u>New Contexts</u>:<br>
+<A href="SQLConnectContext.html">[SQLConnect]</A><br>
+<A href="SQLExecuteContext.html">[SQLExecute]</A><br>
+<A href="SQLResultContext.html">[SQLResult]</A><br>
+<A href="SQLInfoContext.html">[SQLInfo]</A><br>
+<br>
+<u>New Global Tags</u>:<br>
+<A href="AllTags.html#SQLDisconnect">[SQLDisconnect]</A><br>
+<A href="AllTags.html#SQLRelease">[SQLRelease]</A><br>
+<br>
+<u>Re-tooled Contexts</u>:<br>
+<A href="FoundItemsContext.html">[FoundItems]</A><br>
+<A href="ListFieldsContext.html">[ListFields]</A><p>
+    </li>
+    <li>
+    New <a href="ListCharsContext.html">[ListChars]</a> context
+    </li>
+    <li>
+    New <a href="AllTags.html#FindString">[FindString]</a> global tag
+    </li>
+    <li>
+    Improved [Capitalize] code.  Now handles words that contain extended ASCII characters.
+    </li>
+    <li>
+    CMS Enhancements:<br>
+     - Added checkboxes to the asset lists so that one operation could be performed on multiple files at the same time.<br>
+     - New 'Activity' view that displays all files that are checked out or pending approval.<br>
+     - New option in 'Migration' form to filter out 'db' files when migrating from staging to production.<br>
+    </li>
+    <li>
+    New 'SiteBuilder' templates (formery 'StoreBuilder') :<br>
+    - Greatly improved Website Administration portal that provides:<br>
+<ul>
+<li>Simple page navigation customization</li>
+<li>Simply color scheme and graphics layout</li>
+<li>Save and restore layout/color 'themes'</li>
+<li>Selectable navigation models, i.e., horizontal main navigation bar versus left hand navigation pane</li>
+<li>Built in Intranet templates</li>
+<li>Improved group security model for limiting access to content categories and navigation links</li>
+<li>Easily add your own custom templates and HTML pages</li>
+<li>Generate websites from pre-configured WebDNA ISP Host 'packages'</li>
+</ul>
+    </li>
+    <li>
+    New WebDNA 'ISP Hosts' :<br>
+    - When building a SiteBuilder folder as a WebDNA Sandbox, there is an option to set the new website up
+    as a WebDNA 'ISP Host'.  There are four configurable 'ISP Plan' options.  The ISP Hosts and ISP Plans
+    are configurable via new WebDNA admin templates.
+    </li>
+    <li>
+    Added SSL connection option to SharedPOP demo application.
+    </li>
+....<li>
+It is now possible to fetch a binary file, via [writefile] wrapped around [TCPSend], and using the 'skipheader' option.<br>
+For Example:
+<pre>
+[tcpconnect host=[host]]
+[writefile file=test.jpg][tcpsend skipheader=T]GET /[path_to_jpg] HTTP/1.0[unurl]%0D%0A[/unurl][!]
+[/!]Host: [host][unurl]%0D%0A%0D%0A[/unurl][!]
+[/!][/tcpsend][/writefile]
+[/tcpconnect]
+</pre>
+</li>
+
+
+  </ul>
+  <li>Windows Platform</li>
+  <ul>
+    <li>Improved ISAPI extension: WebDNA can now handle large upload posts, without blocking other WebDNA page requests.</li>
+  </ul>
+  <li>Mac OSX Platform</li>
+  <ul>
+    <li>Added support for 'panther' OSX 10.3.</li>
+  </ul>
+  <h3>Bug Fixes</h3>
+  <li>All Platforms: 
+    <ul>
+       <li>Fixed: When performing a WebDNA summary search using <fieldname>summ=T, the
+engine will throw an exception (or may quit) if the resulting 'summarized' records
+number more than 32768.</li>
+       <li>Fixed: Creating a WebDNA sandbox with 'triggers' disabled, causes the WebDNA
+engine to start using a large amount of CPU bandwidth. 
+       </li>
+       <li>
+       Fixed: Using the [Delimiter] tag in [ListWords] causes WebDNA engine to quit.
+       </li>
+       <li>
+       Added MIME response headers to help prevent Safari browser from caching WebDNA page requests.
+       </li>
+    </ul>
+  </li>
+  <li>UNIX:
+    <ul>
+      <li>Fixed: Cart sweeper removing cart file to soon.  Could result in 'blank' purchases.
+      </li>
+      <li>Fixed: [IPAddress] tag sometimes returning the server IP.
+      </li>
+    </ul>
+  </li>
+  <li>Windows:
+    <ul>
+      <li>Fixed: DOS context failing if template path contained one or more spaces.
+      </li>
+    </ul>
+  </li>
+</ul>
+<h3>10/14/2003 5.1e patch</h3>
+<ul>
+  <h3>Bug Fixes</h3>
+  <li>UNIX: 
+    <ul>
+       <li>Fixed:  Unable to access sandbox admin if physical path to WebCatalogEngine folder contains symbolic links.</li>
+    </ul>
+  </li>
+  <li>OSX/WebStar: 
+    <ul>
+       <li>Fixed:  Possible crash if setting cookie data greater than 255 characters.</li>
+    </ul>
+  </li>
+  <li>Windows: 
+    <ul>
+       <li>Fixed:  Incorrect 'Content-Length' HTML Response header value when using [ReturnRaw] with 'binarybody' option.</li>
+    </ul>
+  </li>
+  <li>All Platforms: 
+    <ul>
+       <li>Fixed:  Domain license code not recognizing host names longer than 31 characters.</li>
+       <li>Fixed:  Crash when setting array index to empty value.</li>
+       <li>Fixed:  'fbrk' search option only working on the last column of a database.</li>
+    </ul>
+  </li>
+</ul>
+<h3>6/15/2003 5.1</h3>
+<ul>
+  <li>General release of WebDNA 5.1 for all supported platforms</li>
+  <h3>Changes / Additions</h3>
+  <li>All Platforms</li>
+  <ul>
+    <li> New Java applet editor for WebDNAlab and CMS</li>
+    <li> New 'BinaryBody' option for ReturnRaw context.</b>
+		<p>
+		<dl>
+		<dd>[ReturnRaw <b>binarybody=...</b>]
+		</dl>
+		<p>
+		Allows the WebDNA programmer to designate a file (binary or text) to be
+attached as the 'body' of an HTTP response.  This makes it possible to send a binary file (image, executable, etc...) back to the client. 
+For example, you can create download links for any type of file, and that would force the 'save as'
+dialog to open on the client machine.
+<p><dl><dd><xmp>
+Example code: Creates a download link for every file in the current folder, binary or text.
+
+<!--HAS_WEBDNA_TAGS-->
+<HTML>
+<HEAD></HEAD>
+<BODY>
+[!]Initailize the getfile variable[/!]
+[text secure=f]getfile=[/text]
+
+[!]Check if filename was passed in[/!]
+[showif [getfile]!]
+[text]line_ending=%0D%0A[/text]
+
+[!]Generate the response[/!]
+[ReturnRaw binarybody=[getfile]]HTTP/1.0 200 OK[unurl][line_ending][/unurl][!]
+[/!]Status: 200[unurl][line_ending][/unurl][!]
+[/!]Content-Type: application/octet-stream[unurl][line_ending][/unurl][!]
+[/!]Content-Disposition: attachment; filename="[getfile]"[unurl][line_ending][line_ending][/unurl][!]
+[/!][/ReturnRaw]
+
+[/showif]
+
+[!] Generate a list of download links for all files in local directory [/!]
+Click on a filename to download.<p>
+[listfiles path=.]
+[showif [isfile]=T]
+<a href=[thisurl]?getfile=[url][filename][/url]>[filename]</a><br>
+[/showif]
+[/listfiles]
+</BODY>
+</HTML>
+</xmp></dl>
+</li>
+    <li>New global <b>[LastAutonumber]</b> tag.  Will return the last 'auto-generated' number the engine
+used when [Append]
+or [Replace] was used with the AUTONUMBER=<fieldID> option (per thread).
+</li>
+    <li>New <b>[ThisAutonumber]</b> tag for Append and Replace contexts.  Will return the current auto-generated number for the
+current [Append]
+or [Replace] context that has the AUTONUMBER=<fieldID> option specified.
+Only valid inside a
+[Append] or [Replace] context.
+</li>
+    <li>New Orderfile <b>header fields</b> for cart files:<pre>
+bankRoutingNumber
+bankAccountNumber
+bankAccountType
+bankName
+bankAccountName
+CCID
+currencyCode
+recurringBillingCode
+fax
+ShipTofax
+customerID
+invouceNumber
+poNumber
+description
+customerType
+customerTaxID
+driversLicenseNumber
+driversLicenseState
+driversLicenseDOB
+lastName
+ShipTolastname
+Comment
+SameAsShipping
+AVS
+MD5Hash
+taxExempt
+resellerNumber
+transactionIndex
+relatedTransaction
+</pre></li>
+    <li>New 'delimiters' option for ConvertWords context</li>
+    <li>Added WebDNA Table support to 'Lookup' tag</li>
+    <li>WebDNA triggers can now hit secure URL, i.e. 'https://...'</li>
+    <li>Faster [copyfile] and [movefile] code on Windows platform.</li>
+    <li>Improved performance of TCPConnect/TCPSend context.</li>
+    <li>Content Management System Enhancements:<p>
+- New access control mechanism for CMS workgroups.  This implements a
+way to restrict the privileges implied by the roles assigned to a
+workgroup member to particular assets, or collections of assets, within
+the staging repository.  The default behavior if no Workgroup Access
+lists are defined is that a Workgroup role applies to all assets in the
+staging repository.  In order to impose restricted access by workgroup,
+the Staging Administrator can configure access lists that allow/deny
+access for one or more workgroups, where the access list is attached to
+a folder/file asset much like approval groups.  This admin function has
+been added to the Approval Admin tab.  This defines whether a member of
+a workgroup can exercise the privileges allowed by their 'role' to a
+subset of folder/file assets in the staging repository, e.g., if you
+want to limit the graphics department to only be able to modify content
+in the 'graphics' folder of the staging repository, or limit a
+development team to working on a sub-project of a larger effort.  Note:
+if an access list denies access to a workgroup member to a particular
+asset, a "get latest" operation is still permitted.  This is to allow
+situations where global website files need to be mirrored into a
+workgroup's work area via a "get latest", even if they cannot be
+modified or viewed by members of that workgroup, so that asset folders
+where modifications are allowed can be tested within the context of the
+current state of the global site.
+<p> 
+- List pane columns can now be sorted by clicking on the column header.
+Repeated clicks invert the sort order.
+<p> 
+- The username of the owner of a lock on a checked-out asset has been
+modified to act as a hyperlink to an email dialog.  This allows someone
+else who needs access to a locked asset to click on the owner's
+username, and send them an e-mail, e.g., requesting that they drink more
+coffee and hurry up with their changes and check-in the file, etc.
+Also, in the Workgroup Admin tab, and email icon has been added at the
+end of each username listed to allow sending CMS members an email.  When
+creating new users, the email address field is now a required field.
+<p> 
+- Right-click context menus can now be accessed when the cursor is
+anywhere on a row of the list pane (previously, you had to mouse over
+the folder/file name)
+</li>
+  </ul>
+  <h3>Bug Fixes</h3>
+  <li>All Platforms: 
+    <ul>
+       <li>Fixed: Several browser relates bugs with the Web Services Wizard application</li>
+       <li>Fixed: Missing protect tags in StoreBuilder admin templates</li>
+       <li>Fixed: Visnetic WebSite install issues</li>
+       <li>Fixed: DOS, Shell and Applescripts not parsed when executed via sandbox 'ScriptID'</li>
+       <li>Fixed: Crash with Addfields context</li>
+       <li>Fixed: Crash with [listwords...Tabs=T]</li>
+       <li>Fixed: Crash when enabling or disabling emailer or trigger features in a Sandbox.</li>
+    </ul>
+  </li>
+</ul>
+<h3>3/14/2003 5.0</h3>
+<ul>
+  <li>General release of WebDNA 5.0 for all supported platforms</li>
+  <h3>Changes / Additions</h3>
+  <li>All Platforms</li>
+  <ul>
+    <li>New contexts and tags: [ArraySet], [ArrayGet], [Function], [Scope], [Return], 
+      [Table], [AddFields], [XMLParse], [XMLNodes], [XMLNodesAttributes], [XSL], 
+      [XSLT], [CalcFileCRC32], [FileCompare].</li>
+    <li>The [GetChars] context now has an optional 'trim' parameter.</li>
+    <li>The [TCPSend] context now has an optional 'skipheader' parameter.</li>
+    <li>The [Append] and [Replace] contexts now have an optional 'autonumber' 
+      parameter.</li>
+    <li>The [SendMail] context now has optional 'saveonsuccess' and 'saveonfail' 
+      parameters.</li>
+    <li>The [ListFiles] context now has optional 'name' and 'exact' parameters.</li>
+    <li>The [Grep] context now has an optional 'ignorecase' parameter.</li>
+    <li>New WebDNA Lab for development, chat and tutorials.</li>
+    <li>New WebDNA Content Management System for development and file sharing.</li>
+    <li>New ISP Sandbox security for local website security in an ISP environment.</li>
+    <li>Pre and Post Parse Scripts for processing WebDNA before or after WebDNA 
+      page requests.</li>
+  </ul>
+</ul>
+<h3>1/13/2003 4.5.1</h3>
+<ul>
+  <li>General release of WebDNA 4.5.1 for all supported platforms</li>
+  <h3>Changes / Additions</h3>
+  <li>All Platforms</li>
+  <ul>
+  <li>Intranet Edition Templates - New Calendar Application</li>
+  <li>The database and template cache sizes can now be configured via the new 'CacheSizePrefs' file.  The default value is 100 for both the database and template cache.  The engine must be restarted after making any changes.</li>
+  <li>The maximum number of cart 'line items' has been increased from 100 to 500</li>
+  <li>The [Convertwords] context is now much faster.</li>
+  <li>Database error messages have been improved to report more detail on why a database failed to load (or be accessed).  These include:
+<pre>
+Not Enough memory to load database.
+Failed to acquire lock on database
+Database file not found or opened
+Bad database format (with 'Merge' style databases)
+</pre>
+</li>
+  <li>[Search] context - New FBRK (field break) option for WW, and SW field comparisons. Specifies the delimiters used when doing a word compare in the field data itself. Thus: woDESCRIPTIONdatarq=2&DESCRIPTIONword=WW&DESCRIPTIONfbrk=[url],[/url] in the search string would not find a result if the field data is "400.2", whereas it would if the FBRK option was not specified.</li>
+  <li>New 'Safe-Write' preference - Enabled by default. When enabled, the WebDNA engine creates a temporary file when writing the contents of a database to disk. The temporary file contents are then moved to the original database file after the entire database is completely flushed to disk. This helps to eliminate corruption of the original database file if there is an interruption during the database write process. </li>
+  <li>Improved email logging</li>
+  </ul>
+  <li>UNIX</li>
+  <ul>
+  <li>New 'File mode' preferences for secure and insecure file output - Overrides the file permissions that the WebDNA engine will use when creating new  files, i,e, [CreateFile secure=F/T]</li>
+  </ul>
+  <h3>Bug Fixes</h3>
+  <li>All Platforms: 
+    <ul>
+       <li>The [Convertwords] context now works with the 'word=WW' and 'word=SW' options.</li>
+       <li>[search] context - Fix for the 'ra' random sort option sometimes repeating the same sequence.</li>
+       <li>StoreBuilder - UPS Online tool registration templates have been updated to fix a recent compatability issue with the UPS server.<br>
+       The updated files are:<br>
+       StoreBuilder/MASTER_STORE/admin/ups_reg.tpl<br>
+       StoreBuilder/MASTER_STORE/admin/ups_lic_aggree_req.tpl</li>
+    </ul>
+  </li>
+  <li>Windows
+    <ul>
+       <li>Fix for email date/time header 'off by one hour' bug.</li>
+       <li>Fix for extra linefeeds in the email body when using [sendmail].</li>
+    </ul>
+  </li>
+</ul>
+<h3>6/15/2002 4.5.0</h3>
+<ul>
+  <li>General release of WebDNA 4.5.0 for all supported platforms</li>
+  <h3>Changes / Additions</h3>
+  <li>All Platforms</li>
+  <ul>
+  <li>Product name changed from WebCatalog to WebDNA.  All documentation has been updated to reflect this change, except when referencing installation path names, urls, and system files that still contain 'WebCatalog'.  The 'WebCatalog' binary, 'WebCatalogCtl' script, and 'WebCatalog Prefs' filenames will remain unchanged.</li>
+  <li>New 'Developer' mode - Fully functioning engine but with a limit of three concurrent connections.  This limit does not include trigger requests or spawned threads.  At any given instance, if the connection limit is reached, additional requests will receive a status 503 (Service Unavailable) response, and a "WebDNA Busy" message. The "WebDNA Busy" message can be replaced by a user defined message, simply by creating a new file in the WebCatalogEngine folder called 'busy_message.txt', which should contain the desired HTML (WebDNA tags will not be processed).</li>
+  <li>Removed 'Standard' multi-thread mode (really not multi-threaded at all).  The engine will now always run multi-threaded.</li>
+  <li>New admin setting to set the maximum number of concurrent connections that the WebDNA engine will handle at any given instance. If the limit is reached, additional connections will be queued. Setting the limit to zero will turn the limit code off. A large value does not necessarily mean better performance. Setting the thread limit to high may result in poor performance, as it increases the frequency of 'thread switches'. Mac OS 9 users are encouraged to set this to a value no higher than 10. Faster CPUs will handle a larger value. </li>
+  <li>Removed 64 character limit for [decrypt method=BASE64].</li>
+  <li>New admin preference to direct the output from [math date] code to use the 'Date Display Format' preference.</li>
+  <li>'EmailSeconds' preference can now be changed on the fly.</li>
+  <li>WebDNA HTML error responses, i.e.'WebDNA not running', now return status code 503</li>
+       <li>WebDNA will now process query string data with POST data.<br>For example:
+<pre>&lt;form method=post action="sample.tpl?a=1"&gt;
+&lt;input type=hidden name=b value=2&gt;
+&lt;/form&gt;</pre>WebDNA will now accept the query string portion 'a=1' with the POSTED data 'b=2'.  The Mac OS9 and OSX/WebSTAR versions of WebDNA have always behaved this way.  This has now been carried over to the Windows and UNIX builds.
+  </li>
+  </ul>
+  <li>UNIX</li>
+  <ul>
+  <li>New WebDNA monitor application - The WebCatalogCtl script will now launch a new binary file called 'WebDNAMonitor'.  This small process will launch the main WebDNA engine.  If the main engine process quits unexpectedly, the monitor application will re-launch the WebDNA engine automatically.  This is a fast and convenient alternative to home-grown scripts that many WebDNA administrators have developed to restart the WebDNA engine.  The 'WebCatalog' binary file can still be launched directly as usual.</li>
+  </ul>
+  <h3>Bug Fixes</h3>
+  <li>All Platforms: 
+    <ul>
+       <li>Fixed a memory leak with the database cache code.  High volume site would be most affected by the memory leak, as it only occured when more than one thread required access to the same database at the same time.</li>
+       <li>Fixed crash/exception when performing a search with certain types of numerical comparisions against numerical strings containing invalid characters, i.e. '1.2.2' (contains a second decimal).</li>
+       <li>[Delete] tag much faster. Deleting a large number of records from a large database will now take only a few seconds, where it used to take several minutes or even hours to complete.</li>
+       <li>[encrypt method=BASE64&EMAILFORMAT=T] now compatible with more email clients.</li>
+       <li>Fixed a bug where search parameters may be ignored or mismatched if the database contained field names where a 'tailing' sub string of one field name matched the complete name of another field, i.e. 'ID' and 'CATEGORY_ID'.  For example:<br>
+       <pre>
+For this database (test.db)...
+
+ ID	NAME	CATEGORY_ID
+ 1	FRED	1
+ 2	MILLIE	1
+
+ This search would produce incorrect results...
+
+ [search db=test.db&eqCATEGORY_IDdatarq=1&eqIDdatarq=1]
+ [founditems][name][/founditems]
+ [/search]
+
+ Returns both 'FRED' and 'MILLIE'.  Only one record (FRED) should have been returned.</pre></li>
+    </ul>
+  </li>
+  <li>OSX 10.x
+    <ul>
+       <li>Fixed a bug in [SendMail] where the date header was being miscalculated.</li>
+       <li>Fixed a bug with the installer overwriting user settings (users.db, WebCatalog Prefs, etc...)</li>
+       <li>AppleScript context will now work when WebDNA is launched as a startup item.</li>
+    </ul>
+  </li>
+</ul>
+<h3>3/21/2002 4.5.0b1</h3>
+<ul>
+  <h3>Changes / Additions</h3>
+  <li>Mac OSX: New WebDNA build available for WebStar V.</li>
+  <li>New SSL option for the [TCPConnect] context.</li>
+  <li>New 'commit' option for the [CloseDatabase] tag.  Setting commit=F will cause the named database to be flushed from memory, but not written to disk.</li>
+  <li>New 'Absolute Path' Prefix '*'.  Prefixing a database, file, or folder path with an '*' will result in the path being treated as absolute and not relative to the template.  This can be useful on platforms where using an alias is not an option.  This feature is disabled by default, and can be enabled via the WebDNA administration page.</li>
+  <li>New preference to filter NULL characters while processing WebDNA (a.k.a Zap Gremlins).  Enabling this preference will result in NULL characters being filtered from templates during processing.  Some HTML/Text editors inserted NULL characters into the document being edited.  This feature was built into older versions of WebDNA, but was disabled for WebCatalog 4.0.  Now this capability is back and can be enabled or disabled via the WebDNA administration page.</li>
+  <li>New 'Authorize Net - Direct Connect Method' payment processor option for WebMerchant (all platforms).  Unlike the existing AuthorizeNet option, this method does not rely on the client browser to 'post' the transaction data to AuthorizeNet.  All communication is between the server and the AuthorizeNet gateway. Uses the new SSL capable TCPConnect context.</li>
+  <li>New 'PayFlowPro - verisign' payment processor option for WebMerchant.  This is compatible with the latest PayFlowPro Java API from verisign (using the verisign.jar file).</li>
+  <li>[AppleScript] context now available on the OSX build.  Although the [AppleScript] context has been ported to the OSX platform, the behavior of scripts may be different given that they are now running from a background UNIX process.  The [AppleScript] context may not work if WebDNA is launched as a service (startup item).</li>
+  <li>StoreBuilder: Payment authorization method (i.e. CC, BK, AC) can now be changed via the Merchant prefs template.
+  <li>UPS OnLine® Tools are now integrated into the WebDNA StoreBuilder application.  These include:<br>
+<br>
+	UPS OnLine® Tracking Tool<br>
+	UPS OnLine® Rates & Services Selection Tool<br>
+<br>
+StoreBuilder administrators can utilize the UPS OnLine® Tools by registering with UPS at any time.<br>
+<br>
+StoreBuilder customers will then benefit from a choice of UPS rates and services selections for their orders, as well as being able to track the progress of their shipment using the UPS OnLine® Tracking Tool, without ever having to leave the store!</li>
+  <h3>Bug Fixes</h3>
+  <li>All Platforms: 
+    <ul>
+       <li>Admin security template 'ShowNext' links now working.</li>
+       <li>WebMerchant AdminOrders template 'Delete' function now working.</li>
+       <li>[Format thousands] now works for negative numbers.</li>
+       <li>StoreBuilder Admin 'Account Info' page now using the secure URL preference.</li>
+       <li>Fixed potential buffer overrun with FORMAT context</li>
+    </ul>
+  </li>
+  <li>OSX 10.x
+    <ul>
+       <li>Increased performance and stability for OSX 10.x platform</li>
+    </ul>
+  </li>
+  <li>All UNIX builds
+    <ul>
+       <li>Fixed a bug with the shopping cart sweeper code that would cause the engine to quit if a shopping cart folder contained a subfolder</li>
+    </ul>
+  </li>
+</ul>
+<h3>10/1/2001</h3>
+<ul>
+  <li>Release 4.0.2 for all platforms</li>
+</ul>
+<h3>7/12/2001 4.0.2rc2</h3>
+<ul>
+  <h3>Changes / Additions</h3>
+  <li>UNIX: New WebCatalog build available for FreeBSD</li>
+  <li>New [secure] tag available for the [listvariables] context.  Resolves to 'T' if the text variable is secure, 'F' otherwise.</li>
+  <li>New global [HTTPMethod] tag.  Resolves to either 'GET' or 'POST', based on how the template was requested.</li>
+  <li>New [SourceFile] tag available for the 'error template' file.  To assist debugging efforts, the [SourceFile] tag will display the template or include file that contained the code that generated the error.</li>
+  <li>New global [FlushCache] tag for flushing the template cache.  This is the 'tag' equivalent of the FlushCache command.  Typhoon Pro users can use this tag to flush the template cache.
+  <li>New preferences to enable or disable error logging for both the errorlog.txt file and the browser display.</li>
+  <li>New 'AuthorizeNet' payment processor option for WebMerchant (all platforms)<BR>The StoreBuilder templates have also been updated to include this new payment processor option.<BR></li>
+  <li>UNIX: New 'Catch Signal' preference.  When enabled, WebCatalog will 'catch' error signals and report debug information to the signalcatcher.debug file before exiting.</li>
+  <li>UNIX: Mac OS X Server 1.x - Thread pool size can now be changed by modifying the "NumberThreads" setting in the 'WebCatalog Prefs' file</li>
+  <h3>Bug Fixes</h3>
+  <li>All Platforms: 
+    <ul>
+       <li>Admin templates are now 'Typhoon' friendly.</li>
+       <li>Insecure text variables can now be displayed inside of [spawn]ed code.</li>
+       <li>[listvariables] context will now display insecure text variables.</li>
+       <li>The [SQL] context can now be nested inside of a [search] context.</li>
+       <li>WebCatalog more stable when parsing incomplete or invalid WebDNA, i.e, when certain tags are used without required parameters.</li>
+       <li>[loop] context: the [index] tag will no longer get set to an incorrect value after the [break] tag is used.</li>
+       <li>Trigger admin no longer generating new trigger IDs that contain 'exponent' notation.</li>
+       <li>[sendmail] : Fixed problems with BCC.</li>
+       <li>Fixed:  [cart].tpl files showing up in root of TeaRoomXML example.</li>
+       <li>Fixed memory leak in [Spawn] context.</li>
+       <li>StoreBuilder: Changes to selected shipping types not reflected in shopping cart page.</li>
+       <li>Shared POP Mailbox: Not able to view email message if subject is blank.
+    </ul>
+  </li>
+  <li>Windows: 
+    <ul>
+       <li>Fixed: ISAPI dll crashing IIS when NT authentication is used.</li>
+       <li>Fixed: ISAPI dll crashing IIS when FrontPage extensions are used.</li>
+       <li>Fixed: MIME header linefeed bug.</li>
+       <li>Fixed: 'empty' post generating 'Error. Program DBServer.exe is not running, or WebCat2 Service is not installed.' message.</li>
+    </ul>
+  </li>
+  <li>Mac: 
+    <ul>
+       <li>Plugin: Long URL (+60 chars) to an non-existent file generating 'security' error.</li>
+       <li>Multiple [TCPSend] within one [TCPConnect] sometimes returning bad data.  This was often evident when retrieving several email messages using the SharedPOP demo templates.</li>
+       <li>Second instance of [TCPSend] crashing if TCP connection was closed after first [TCPSend].</li>
+       <li>Fixed: CopyFolder creating 'locked' files</li>
+    </ul>
+  </li>
+  <li>UNIX: 
+    <ul>
+       <li>Mac OS X - Very large [loop]s, containing [math] operations, crashing.</li>
+       <li>WebCatalog caching two versions of the same database if referenced using 'alias' and 'actual' paths.</li>
+    </ul>
+  </li>
+</ul>
+<h3>1/24/2001 4.0.2rc1</h3>
+<ul>
+  <h3>Changes / Additions</h3>
+  <li>New 'File=' and 'EMAILFORMAT' parameters for the [ENCRYPT] context.  These are only used for the BASE64 method.
+  The 'File=' parameter specifies a file that is to be encoded using Base64. 
+  The 'EMAILFORMAT' parameter forces the resulting encrypted data to be 'broken' into lines that are 76 characters in length.  This is the maximum line length allowed for BASE64 Content-Transfer-Encoding. 
+  When the 'File=' parameter is used, text between the [ENCRYPT] tags is ignored.<BR><BR>
+  These new parameters make it easy to send binary file e-mail attachments when using the [sendmail] context.  Here is an example:<BR><BR>
+  <pre>[sendmail to=whoever@whereever.com&from=whoever@whereever.com&subject=testing zip attachment&Content-Type=multipart/mixed; boundary="1234abcd"&MIME-version=1.0][!]
+[/!]--1234abcd
+Content-Type: text/plain
+
+This is the first part : just plain text.
+
+The next part contains a zip file.
+
+--1234abcd
+Content-Type: application/x-zip-compressed; name="test.zip"
+Content-Transfer-Encoding: base64
+Content-Disposition: inline; filename="test.zip"
+
+[encrypt method=base64&file=test.zip&EMAILFORMAT=T][/encrypt]
+
+--1234abcd--
+[/sendmail]</pre>
+
+</li>
+  <li>New payment processor option for WebMerchant (all platforms): <B>Verisign - Payflow Pro.</B><BR>The StoreBuilder templates have also been updated to include this new payment processor option<BR><BR></li>
+  <li>New 'Century Break' preference.  This setting will override how WebCatalog determines the century, when given a two digit year, during 'date' math calculations. 
+  All previous versions of WebCatalog will interpret '00' as '2000' and '01'-'99' as '1901'-'1999'. 
+  This new preference will allow you to override that behavior. For example, if the preference is set to '30', then '00'-'30' will be interpreted as '2000'-'2030' and '31'-'99' as '1931'-'1999'. 
+  By default, this preference is set to '00' so that the behavior of existing templates will not change. 
+  Note: It is suggested to always use a four digit year for date calculations. This new preference is only provided as an aid when date calculations with two digit years is unavoidable.<BR><BR></li>
+  <li>New 'IGNORECASE' parameter for [UNURL] context.  In previous versions of WebCatalog, the [UNURL] context will not convert hex codes that contain lowercase letters.  So %3A will be converted to a colon, but %3a will not. 
+  Setting 'IGNORECASE' to 'T' will force [UNURL] to also convert hex codes that contain lowercase letters.  So, [UnUrl IGNORECASE=T]%3a[/UnUrl] will convert %3a to a colon.
+  If the 'IGNORECASE' parameter is not used, [UnUrl] will behave as it always has.<BR><BR></li>
+  <li>WebCatalog will now check for 'write' permission when opening a database.  If the database is 'read only', then WebCatalog will generate an error message if an 'Append', 'Delete' or 'Replace' is attempted on that database. 
+  This error message will appear in the return text as well as in the ErrorLog.txt file.<BR><BR></li>
+  <li>Windows:  $Webcat ISAPI dll now compatible with O'Reilly WebSite Server.  Note: The installer will still setup the CGI component only,.this will be changed by the final 402 release.</li>
+  <h3>Bug Fixes</h3>
+  <li>All Platforms: 
+    <ul>
+       <li>[Listfiles] context will now work with urlized parameters.</li>
+       <li>Fixed memory leak in [SQL] context.</li>
+       <li>[imagewidth] and [imageheight] will now work on 'progressive' jpeg images.</li>
+       <li>WebCatalog less susceptible to crashing when ending context tags are missing, i.e. [ /RAW ] not found.</li>
+       <li>StoreBuilder: Fixed 'Secure' and 'Public' URL preferences not being used.</li>
+       <li>StoreBuilder: Fixed item quantity not being carried over from a 'Buy Now' action.</li>
+       <li>StoreBuilder: Fixed customer login account - CC number not persistent.</li>
+       <li>StoreBuilder: Fixed lineitem style in email templates.</li>
+       <li>WebMerchant: Fixed 'Address Verification' preference not being used for CyberSource.</li>
+    </ul>
+  </li>
+  <li>Windows: 
+    <ul>
+       <li>Fixed: Exception thrown when performing a 'FlushDatabases' action.</li>
+       <li>Fixed: Exception thrown when an SQL server returns an error.
+    </ul>
+  </li>
+</ul>
+<h3>11/15/2000 4.0.2b7</h3>
+<ul>
+  <h3>Changes</h3>
+  <li>New build for MAC OS X Client</li>
+  <li>New build for Redhat Linux 7.0</li>
+  <li>Unix: [sendmail] context now has the ability to use a remote SMTP server for mail delivery.</li>
+  <h3>Bug Fixes</h3>
+  <li>All Platforms: 
+    <ul>
+      <li>Fixed: Possible crash when an 'append', 'replace', or 'if' context is encountered with missing required parameters.</li>
+      <li>Fixed: Possible crash if a directory is specified as a db in any of the context that try to open a db.</li>
+      <li>Fixed: Possible crash when an extra long filename is specified in the deletefile context.</li>
+      <li>Fixed: BCC is being set as the CC if it comes first in the sendmail context.</li>
+      <li>Fixed: Possible crash when a template tries to get the height or width of an invalid jpeg image.</li>
+      <li>Fixed: WebCatalog will sometimes 'drop' every 100th append.</li>
+      <li>Fixed: WebCatalog failing to access field data if the fieldname contained a space (this is fixed for classic syntax only).</li>
+      <li>Fixed: Webcatalog will sometimes cache two or more instances of the same database in memory.  This could happen when one databases is referenced in two separate ways, i.e. when using a 'global' and 'relative' path.</li>
+      <li>Fixed: XML syntax - [closedatabase] fails</li>
+      <li>Fixed: [listwords tabs=T]  - [Index ] will return blank when 'words' string contains a run of tabs.  Also, listwords fails completely if 'words' string starts with a tab.</li>
+      <li>Fixed: Math variables starting with '_' do not work.</li>
+      <li>Fixed: [IF] or [math], string comparisons fail if the first character is a '+' or '-'.</li>
+      <li>Fixed: Capitalize context would incorrectly capitalize contractions, ie.  can't --> Can'T</li>
+      <li>Fixed: StoreBuilder - Store admin users belonging to any security group other than 'admin' are unable to edit products</li>
+    </ul>
+  </li>
+  <li>MacOS: 
+    <ul>
+      <li>Fixed: TCPSend context sometimes returns garbage (CGI only) if used within another context.</li>
+      <li>Fixed: CGI module crashing if a trigger is setup with a bad URL.</li>
+    </ul>
+  </li>
+  <li>Windows: 
+    <ul>
+      <li>Fixed: First [random] tag in a template not very random.</li>
+      <li>Fixed: $Webcat.exe returning extra &LT;cr&GT; characters.</li>
+    </ul>
+  </li>
+  <li>All Unix: 
+    <ul>
+      <li>Fixed: Instability when WebCatalog running in 'Intertwined' mode</li>
+      <li>Fixed: WebCatalog does not change the supplemental groups and keeps root's supplemental groups.</li>
+      <li>Fixed: After changing a template the change does not show up in the browser even after several page reloads.</li>
+      <li>Fixed: WebCatalog takes to long to return a template with a sendmail context and depends on sendmail being run on the same machine that runs WebCatalog.</li>
+    </ul>
+  </li>
+  <li>OSX Server: 
+    <ul>
+      <li>Fixed: MIME header bug when using iTools/SSL.</li>
+    </ul>
+  </li>
+</ul>
+<h3>8/4/2000 4.0.2b5</h3>
+<ul>
+  <li>All Platforms:</li>
+    <ul>
+      <li>Fixed slow leak in [math] that causes system resources to gradually be used up.</li>
+      <li>Fixed slow leak when db or template not found</li>
+      <li>Caching fixes that prevent templates or dbs from being flushed</li>
+    </ul>
+  </li>
+  <li>MacOS:</li>
+    <ul>
+      <li>Plugin now has better expiration MIME headers.</li>
+      <li>MacAuthorize scripts gremlins removed.</li>
+      <li>Plugin now uses correct single path to databases when alternate paths coded</li>
+      <li>Alias resolution now correct for multiple aliases to same db</li>
+    </ul>
+  </li>
+  <li>Windows:</li>
+    <ul>
+      <li>NT now sleeps during [WaitForFile] without using 100% CPU</li>
+    </ul>
+  </li>
+  <li>All Unix:</li>
+    <ul>
+      <li>Unix versions can now exceed old 1M limit of returned HTML</li>
+      <li>Unix [shell] command uses local template dir as starting point</li>
+    </ul>
+  </li>
+  
+</ul>
+<h3>6/27/2000</h3>
+<ul>
+  <li>Release 4.0.1 for all platforms</li>
+</ul>
+<h3>6/21/2000 4.0.1b2</h3>
+<ul>
+  <li>All Platforms: 
+    <ul>
+      <li>Fixed <dna_numfound> undefined &lt;DNA_NumFound&gt; tag in XML syntax</li>
+      <li>Added more XML-syntax documents to Simple WebDNA Examples</li>
+      <li>Fix another SQL cursor type problem with stored procedures</li>
+      <li>SQL fix for NULL column values</li>
+      <li>Fixed indexes on user and programmer guide</li>
+      <li>Miscellaneous StoreBuilder fixes</li>
+      <li>Added additional information to email templates</li>
+      <li>Fixed blank entries in CC type menu on invoice page</li>
+      <li>No longer displaying the shipping option for carts containing only nonphysical 
+        items</li>
+      <li>Fixed 'lost cart' problem when following a 'related' item link from 
+        a product page</li>
+      <li>SQL: Fixed stored procedures bug</li>
+    </ul>
+  </li>
+  <li>MacOS: 
+    <ul>
+      <li>Fixed bomb when Java not installed on MacOS</li>
+      <li>MacOS Restart/Quit/Start emailer link works now under plugin code</li>
+    </ul>
+  </li>
+  <li>Windows: 
+    <ul>
+      <li>SQL fix for bomb when no username/password sent\</li>
+      <li>User can now select which file extensions to map to WebCatalog directly 
+        from installer</li>
+    </ul>
+  </li>
+  <li>Solaris SPARC: 
+    <ul>
+      <li>[freememory] tag added for Solaris</li>
+    </ul>
+  </li>
+  <li>All Unix: 
+    <ul>
+      <li>Fix for randomness in multithreaded UNIX environments</li>
+      <li>Enhanced pid-file for better UNIX startup/shutdown in WebCatalogCtl</li>
+    </ul>
+  </li>
+  <li>OSX Server: 
+    <ul>
+      <li>Should be ready for ODBC (as soon as someone else provides drivers)</li>
+    </ul>
+  </li>
+  <li>Cobalt 
+    <ul>
+      <li>Fixed problems with upgrading from older versions of WebCatalog on Cobalt</li>
+    </ul>
+  </li>
+</ul>
+<h3>6/14/00 4.0.1b1</h3>
+<ul>
+  <li>All Platforms: 
+    <ul>
+      <li>Fixed [Decrypt] bug that appended null characters to output</li>
+      <li>Fixed SQL bug for Oracle and SQL 7</li>
+      <li>Changed &quot;Powered By" text and link</li>
+      <li>Fixed string comparison bug in [math] and [if] when first string is 
+        ""</li>
+      <li>Fixed [search] random sorting to be more random and thread-safe</li>
+      <li>Miscellaneous StoreBuilder fixes</li>
+      <li>Related/Accessory Items not displayed properly</li>
+      <li>Increased validation when creating new StoreBuilder product options</li>
+      <li>Fixed SQL Context Failing</li>
+      <li>Fixed StoreBuilder option price overrides not working</li>
+      <li>Fixed Unable to delete unnamed DayPlanner items</li>
+    </ul>
+  </li>
+  <li>MacOS: 
+    <ul>
+      <li>Added optional parameters "type=" and "creator=" to MacOS [WriteFile] 
+      </li>
+      <li>Fixed [sum field=xxx] bomb on MacOS</li>
+    </ul>
+  </li>
+  <li>All Unix: 
+    <ul>
+      <li>Fixed bug in UNIX WebCatalogCtl that caused intermittent startup</li>
+      <li>Fixed UNIX bug that caused shopping carts to not be deleted</li>
+    </ul>
+  </li>
+  <li>Cobalt: 
+    <ul>
+      <li>Enhanced Cobalt installer to be able to upgrade from 3.0.8 -> 4.0 cleanly</li>
+    </ul>
+  </li>
+</ul>
+<h3>6/9/2000</h3>
+<ul>
+  <li> Fixed WebDNA parser bug that caused OrderFile header vars to disappear</li>
+  <li>Fixed memory overwrite when [Format] contains non-numeric data </li>
+  <li>Fixed un-initialized numThreadsWaiting variable in cache</li>
+  <li>Added better parser error checking to [Case] and [Switch]</li>
+  <li>Changed grep code to use standard memory allocator</li>
+  <li>Fixed parser bug that caused command=ShowCart to not parse XML vars</li>
+  <li>Fixed [Spawn] so that it matches new secure variable hierarchy</li>
+  <li>Enhanced MacOS multithreading semaphore code to prevent wrong concurrency</li>
+  <li>Installer fix for IIS 3.0</li>
+</ul>
+<h3>6/2/2000</h3>
+<ul>
+  <li>Added [CopyFolder] and [RenameFile] to MacOS</li>
+  <li>Fixed 31-day month date bug in triggers</li>
+  <li>Fixed null [text] string assignment that caused seg fault on UNIX</li>
+  <li>Fixed Solaris [TCPConnect] by ip address instead of name</li>
+  <li>Added named "words" parameter to [BoldWords] for consistency</li>
+  <li>Added proper cr/lf cr/lf sequence to NT MIME headers (was lf lf)</li>
+  <li>ListFiles now working for Win98/NT/2000 </li>
+  <li>Added StoreBuilder email template style extensibility</li>
+  <li>Fixed DOS context not executing from the calling template's path </li>
+  <li>WebCatalog 4.0 now working with O'Reilly WebSite Server</li>
+  <li>Shared POP: email link now working</li>
+  <li>Fixed a few StoreBuilder template bugs</li>
+  <li>New multithreading code rolled into OSX</li>
+  <li>Java interpreter hard-linked into OSX </li>
+  <li>ODBC support for [SQL] rolled into OSX</li>
+</ul>
+<h3>5/26/2000</h3>
+<ul>
+  <li>Added named "words=" parameter to BoldWords to help with XML syntax</li>
+  <li>Fixed command=remove with index, was affecting TeaRoomXML shopping cart 
+  </li>
+  <li>Added Java feature to [Object] context for Linux, Solaris, Cobalt</li>
+  <li>Global preference for insecure text variables * Fixed bug with [max] inside 
+    search context</li>
+  <li>UNIX: Fixed [TCPSend] for long byte streams > 255 chars</li>
+  <li>UNIX: Fixed [TCPConnect] for numeric up address for host field</li>
+  <li>Fixed possible memory bounds bug doing string comparisons</li>
+  <li>Fixed self-deadlock problem when auto-commit turned on</li>
+  <li>Fixed stack overrun when [loop] inside hidden context</li>
+  <li>Fixed possible crash when displaying [ListDatabases]</li>
+  <li>Fixed WebTen plugin unable to find cgi-bin URL path for admin</li>
+  <li>Fixed DOS context for Windows platforms</li>
+  <li>TCPSend fix for UNIX platforms</li>
+  <li>Improved installation under Win98/PWS</li>
+  <li>Fixed various TeaRoomXML issues</li>
+  <li>Miscellaneous fixes to StoreBuilder</li>
+  <li>Refinements to user guide</li>
+  <li>Refinements to programmer guide</li>
+</ul>
+<h3>5/19/2000</h3>
+<ul>
+  <li>Fixed some data bounds overruns on string comparisons</li>
+  <li>Fixed self-deadlock during auto-commit</li>
+  <li>Added new global preference to provide default un-secure text variables</li>
+  <li>Fixed stack overrun when displaying loop context index</li>
+  <li>Some multithreading fixes to ListDatabases context</li>
+  <li>Fixed deadlock condition inside trigger; reduced range of lock </li>
+  <li>Added ODBC support to Solaris, Linux</li>
+  <li>Experimental [summcount] for summary search totals</li>
+  <li>Sped up token parser for known context tags</li>
+  <li>Removed explicit yield calls on preemptive OSs </li>
+  <li>Removed incorrect assertion when flushing databases</li>
+  <li>Fixed crash when prefs are flushed and still need some of its values</li>
+  <li>Fixed leak in database lock closing routine</li>
+  <li>Added auto-refresh after math question so pages reloads itself</li>
+  <li>Added Linux script installer for people who don't want RPMs</li>
+  <li>Automatic stopping And starting of W3SVC service for IIS4/5</li>
+  <li>Added WebCatalog Index link to program group</li>
+  <li>Improved WebCatalog Installation when using O'Reilly Website Server</li>
+  <li>No longer need to reboot for IIS4/5 installs</li>
+  <li>Automatic Launching of DBServer on windows startup (Win98)</li>
+  <li>Miscellaneous fixes to StoreBuilder</li>
+  <li>Revisions to Chapter 2 in programmer guide -WebCatalog Tutorial</li>
+  <li>Revisions to Chapter 1 in programmer guide - Shopping Cart Transaction Processing</li>
+  <li>Added Chapter 4 in programmer guide - Advanced Uses of WebCatalog</li>
+  <li>Miscellaneous revisions to user guide </li>
+</ul>
+<h3>5/12/2000</h3>
+<ul>
+  <li>Added xmlSyntax=T option to [interpret]</li>
+  <li>Added secure=F option to [text]</li>
+  <li>Added critical section code to MacOS</li>
+  <li>Fixed plugin startup problems under WebSTAR</li>
+  <li>Tenon has update to WebTen to fix startup problems with plugin, if ours 
+    doesn't work </li>
+  <li>Folded new multithreading code into Solaris, Linux and Cobalt versions</li>
+  <li>Parser fix for embedded escaped quotes in complex XML syntax</li>
+  <li>Many fixes to Windows installer: IIS3, IIS4, IIS5, Windows98, Windows2000</li>
+  <li>Added ODBC support to Linux, Solaris, Cobalt</li>
+  <li>Added experimental [recordrank] to [FoundItems]</li>
+  <li>Added ability to override content-type with [SetMIMEHeader]</li>
+  <li>Fixed [imagewidth] and [imageheight] for JPEG files on intel platforms </li>
+  <li>Changed [regexp] to [grep] </li>
+  <li>Modifications to various tags, commands and contexts in the online documentation 
+  </li>
+  <li>Modified SearchContext.html </li>
+  <li>Miscellaneous StoreBuilder revisions</li>
+  <li>StoreBuilder now supports InternetCash</li>
+  <li>Continued revisions to the user guide</li>
+  <li>Added WebCatalog tutorial to programmer guide</li>
+  <li>Added shopping cart transaction processing to programmer guide</li>
+  <li>Continued revisions to the programmer guide</li>
+</ul>
+<h3>5/5/2000</h3>
+<ul>
+  <li>Added Solaris, Cobalt, OSX installers</li>
+  <li>Added MacOS WebSTAR plugin</li>
+  <li>Renamed [regexp] to [grep] to match docs</li>
+  <li>Fixed side-effect that caused parameters of a context to be executed even 
+    inside hidden contexts</li>
+  <li> Fixed bug that caused templates to be loaded from cache (instead of disk) 
+    even when optional fromCache=T was turned on</li>
+  <li>Fixed miscalculation in aggregate functions</li>
+  <li>Fixed bug that did not commit database to disk when closed</li>
+  <li> Added UNIX ODBC support to Linux version</li>
+  <li>Windows installer now uses MetaBase instead of Registry for IIS4 and IIS5</li>
+  <li>Added index.html to Mac and UNIX installers Removed CyberSource context 
+    from Windows version; use Java instead now</li>
+  <li>Fixed [isfile], [isfolder] for Windows </li>
+  <li>Added file upload to UNIX versions</li>
+  <li>Cosmetic and functional changes to StoreBuilder</li>
+  <li>WebMerchant now included as open source</li>
+  <li>Refinements to documentation</li>
+</ul>
+<h3>5/1/2000</h3>
+<h3>Version 4.0 Changes</h3>
+<ul>
+  <li><b>New Tags and Contexts</b> 
+    <ul>
+      <li>Tag: <a href="../WebCatReference/AllTags.html#RenameFile">RenameFile</a> 
+      <li>Tag: <a href="../WebCatReference/AllTags.html#CopyFolder">CopyFolder</a> 
+      <li>Context: <a href="../WebCatReference/ObjectContext.html">Object</a> 
+      <li>Context: <a href="../WebCatReference/GrepContext.html">Grep</a> 
+      <li>Context: <a href="../WebCatReference/ConvertWordsContext.html">ConvertWords</a> 
+      <li>Context: <a href="../WebCatReference/SwitchContext.html">Switch</a> 
+      <li>Context: <a href="../WebCatReference/CaseContext.html">Case</a> 
+      <li>Context: <a href="../WebCatReference/ReplaceFoundItemsContext.html">ReplaceFoundItems</a> 
+      <li>Context: <a href="../WebCatReference/IfContext.html">If</a> 
+      <li>Context: <a href="../WebCatReference/ThenContext.html">Then</a> 
+      <li>Context: <a href="../WebCatReference/ElseContext.html">Else</a> 
+      <li>Context: <a href="../WebCatReference/LowerCaseContext.html">LowerCase</a> 
+      <li>Context: <a href="../WebCatReference/ListVariablesContext.html">ListVariables</a> 
+      <li>Context: <a href="../WebCatReference/RemoveHTMLContext.html">RemoveHTML</a> 
+    </ul>
+    <p> 
+  <li><b>New Values Inside Contexts</b> 
+    <ul>
+      <li>Search: <a href="../WebCatReference/SearchContext.html#SearchSum">Sum, Min, Max, Avg</a> 
+      <li>FileInfo: <a href="../WebCatReference/FileInfoContext.html#FileInfoImageWidth">ImageWidth, 
+        ImageHeight</a> 
+      <li>ListWords: <a href="../WebCatReference/ListWordsContext.html#Delimiters">Delimiter</a> 
+      <li>FoundItems: NumFound 
+    </ul>
+    <p> 
+  <li><b>Deprecated Items</b> 
+    <ul>
+      <li>Tag: IsSecureClient 
+      <li>Context: HTML1 
+      <li>Context: HTML2 
+      <li>Context: HTML3 
+      <li>Commands: ShowPage 
+    </ul>
+    <p> 
+  <li><b>Deleted Items</b> 
+    <ul>
+      <li>Command: NewCart 
+      <li>Command: Quit <br>
+    </ul>
+</ul>
+<h3>Changes from Earlier Versions</h3>
+<ul>
+  <h3><a href="#Converting">Converting Sites from WebCatalog 1.6.1 to WebCatalog 
+    2.0/3.0</a><br>
+    <br>
+    11/10/1999</h3>
+  <ul>
+    <li>Final 3.0.6 unix releases, MacOSX, Linux Intel, Solaris SPARC 
+  </ul>
+  <h3>11/1/1999</h3>
+  <ul>
+    <li>All Platforms: 
+      <ul>
+        <li>Fixed WebMerchant template bug that prevented triggers from processing 
+          orders (StoreID was left out of trigger URL) 
+      </ul>
+    <li>Unix: 
+      <ul>
+        <li>Changed behavior of database file writing routines so permissions 
+          umask does not get modified after append/replace/delete operations. 
+        <li>Users can use either use Installer.app or remote login to install 
+          and uninstall WebCatalog package 
+        <li>When upgrading WebCatalog, &quot;Users.db&quot;, &quot;Triggers.db&quot;, 
+          &quot;WebCatalog Prefs&quot;, and &quot;Globals/WebMerchant/Store.db&quot; 
+          will not be overwritten 
+        <li>When uninstalling WebCatalog, all the files that were created after 
+          install-time will not be deleted by installer. To remove the entire 
+          /Local/Library/WebServer/WebCatalog folder, users must delete it manually 
+        <li>When upgrading WebCatalog, all configuration files for sendmail, apache, 
+          iTools ... will not be changed from the previous install 
+        <li>When uninstalling WebCatalog, all WebCatalog directives in configuration 
+          files will be deleted 
+        <li>Everywhere under Apache ServerDocumentRoot, the following databases 
+          will be protected: 
+          <ul>
+            <li>All .db files 
+            <li>All folders named &quot;Orders&quot;, &quot;ShoppingCarts&quot;, 
+              &quot;WebMerchant/CompletedOrders &quot;, &quot;WebMerchant/Problems&quot;, 
+              &quot;WebMerchant/Pending&quot;, &quot;WebMerchant/StockRoom&quot; 
+            <li>WebCatalog Prefs 
+            <li>WebCatalog/ErrorLog.txt 
+          </ul>
+      </ul>
+  </ul>
+  <h3>10/24/1999</h3>
+  <ul>
+    <li>All Platforms: 
+      <ul>
+        <li>Fixed the problem where triggers containing invalid urls were not 
+          editable. (reported by customer; did not intentionally fix) 
+        <li>Fixed 11th hour triggers bug 
+        <li>Fixed newly-introduced quote-comma database false error message 
+      </ul>
+  </ul>
+  <h3>9/23/1999</h3>
+  <ul>
+    <li>MacOS: 
+      <ul>
+        <li>Modified MIME headers that come back from plugin to include Date, 
+          Last-Modified, Expires, HTTP 1.1, and proper Server: fields. 
+      </ul>
+  </ul>
+  <h3>8/8/1999</h3>
+  <ul>
+    <li>All Platforms: 
+      <ul>
+        <li>Modified [FoundItems] so it does not return an error message if your 
+          start at parameter is higher than the number of found items. 
+      </ul>
+  </ul>
+  <h3>6/25/1999</h3>
+  <ul>
+    <li>Both Win + Mac: 
+      <ul>
+        <li>Added new parameter to [include] forcing it to read a file from disk 
+          instead of using the cached version of the file in RAM. This allows 
+          you to write a file to disk and then immediately read the most current 
+          version back without having to wait for the template cache timeout. 
+      </ul>
+  </ul>
+  <h3>6/8/1999</h3>
+  <ul>
+    <li>Both Win + Mac: 
+      <ul>
+        <li>Added new error message to distinguish out-of-memory from exceeding 
+          1M HTML output limit 
+        <li>SQL columns returning (NULL) data now output nothing in WebDNA instead 
+          of occasional garbage 
+      </ul>
+    <li>Mac: 
+      <ul>
+        <li>Fixed bug during CyberCash decryption that caused WebSTAR or WebTen 
+          to stop execution 
+      </ul>
+  </ul>
+  <h3>4/14/1999</h3>
+  <ul>
+    <li>Both Win + Mac: 
+      <ul>
+        <li>Fixed bug that did not allow [WaitForFile] to see timeout parameter 
+          when specifying a fullPath 
+      </ul>
+    <li>Mac: 
+      <ul>
+        <li>Fixed bug that caused occasional memory corruption when accessing 
+          secure files (db files, and [WriteFile secure=T]) via an alias path 
+          that is much shorter than the fully-resolved path 
+      </ul>
+  </ul>
+  <h3>4/7/1999</h3>
+  <ul>
+    <ul>
+      <li>Final 3.0.4 release, both Windows and MacOS 
+    </ul>
+  </ul>
+  <h3>4/5/1999</h3>
+  <ul>
+    <li>$WebCat.dll bug fixes, Windows 
+    <li>Win: 
+      <ul>
+        <li>Fixed bug in $WebCat.dll that caused it to intermittently fail under 
+          Windows98 with the message &quot;DBServer.exe is not running&quot; 
+      </ul>
+  </ul>
+  <h3>3/29/1999</h3>
+  <ul>
+    <li>3.0.4b7 bug fixes, Windows and Macintosh 
+    <li>Both Win + Mac: 
+      <ul>
+        <li>Added thread synchronization preference which helps prevent certain 
+          types of true WebDNA deadlock 
+        <li>Sped up summary search where lots of unique items were found 
+        <li>Fixed bug in [Middle] that caused bombs or bad data if the END string 
+          was not found 
+        <li>More fixes to date routines 
+        <li>fixed [ConvertChars] so that if database is not found, it does no 
+          conversions at all and outputs text unchanged 
+        <li>Fixed bug in summary search where date fields were used, and the number 
+          of unique records exceeded the number of fields 
+        <li>Fixed AdminPrefs.tpl typo for ValidDatabaseExtensions 
+        <li>Plugged a leak when using [AddLineItem] with textA-E fields 
+        <li>Fixed admin template bug that would not allow second-to-last admin 
+          user to be deleted 
+        <li>Fixed date math bug in Triggers' nextExecute field 
+      </ul>
+    <li>Win: 
+      <ul>
+        <li>Modified $WebCat.dll to enable &quot;High&quot; priority in IIS4 MMC 
+          settings 
+        <li>Enhanced stability of $WebCat.dll filter during large POST operations 
+      </ul>
+    <li>Mac: 
+      <ul>
+        <li>Fixed 68K bug that did not allow standard serial numbers to work 
+        <li>Fixed alias bug that did not set secure file type if the path to the 
+          file included an alias in it 
+      </ul>
+  </ul>
+  <h3>2/5/1999</h3>
+  <ul>
+    <li>3.0.4b6 bug fixes, Windows and Macintosh 
+    <li>Both Win + Mac: 
+      <ul>
+        <li>Modified [Spawn] so that spawned contexts get a copy of all math and 
+          text variables, as well as the normal mime headers, cookies, and URL 
+          parameters 
+        <li>Plugged a leak when deleting records from a database 
+        <li>Fixed credit card validation for IGNORECARD case 
+        <li>Changed online docs so they don't get executed with WebDNA if .html 
+          suffix mappings are set to WebCatalog 
+        <li>Fixed bug that caused cookies to be ignored under Internet Explorer 
+      </ul>
+  </ul>
+  <h3>1/20/1999</h3>
+  <ul>
+    <li>3.0.4b5 minor release, Windows and Macintosh 
+    <li>Both Win + Mac: 
+      <ul>
+        <li>Fixed error when using [ListFields] inside a hidden context 
+        <li>More bug fixes to hidden interior [/XXX] contexts 
+        <li>Changed template decryption key to URL-ized string so it pastes into 
+          resource editors more easily 
+        <li>Fixed date math bug that would cause lockup when interpreting certain 
+          dates 
+      </ul>
+    <li>Win: 
+      <ul>
+        <li>Fixed template decryption bug 
+        <li>Fixed long-standing bug that required DBServer.exe to always remain 
+          named exactly DBServer.exe, otherwise template decryption would not 
+          work. 
+      </ul>
+    <li>Mac: 
+      <ul>
+        <li>Fixed bug that wrote outgoing email files with un-secure filetype 
+      </ul>
+  </ul>
+  <h3>1/18/1999</h3>
+  <ul>
+    <li>3.0.4b4 minor release, Windows and Macintosh 
+    <li>Both Win + Mac: 
+      <ul>
+        <li>Fixed database flush bomb, also related to a bomb that occurs when 
+          more than 100 databases are accessed in a single template 
+        <li>Fixed bug that caused hidden interior [/XXX] contexts to act as though 
+          they were the matching closure for outer visible ones 
+      </ul>
+    <li>Win: 
+      <ul>
+        <li>Added EMailEnabled preference which, if set to &quot;F&quot;, will 
+          cause Windows version to never send email. If you change this value 
+          in the WebCatalog Prefs file, you need to shut down and restart WebDNA. 
+      </ul>
+    <li>Mac: 
+      <ul>
+        <li>Fixed bug that trashed a database if a remote file-sharing program 
+          currently had the file open and write-locked 
+      </ul>
+  </ul>
+  <h3>1/14/1999</h3>
+  <ul>
+    <li>3.0.4b3 minor release, Windows and Macintosh 
+    <li>Both Win + Mac: 
+      <ul>
+        <li>Fixed read deadlock that was holding databases past the actual hit, 
+          causing application quit to deadlock 
+        <li>Fixed auto-commit bug that 'forgot' to commit databases on each hit 
+        <li>Modified [FoundItems] loop to prevent error messages from non-existent 
+          interior [OrderFile] contexts 
+        <li>Fixed [WaitForFile] bug that allowed interior of context to execute 
+          even if file never appears 
+        <li>Changed WaitForFile docs to reflect 30-second default timeout 
+        <li>Fixed memory leak when [Redirect] is used from inside a [search]. 
+          This also fixes numerous other possible leaks. 
+        <li>Changed [redirect] to send back &quot;302 Moved Temporarily&quot; 
+          instead of &quot;302 Found&quot; 
+        <li>Fixed bug that did not pre-set textA-E lineitem variables so that 
+          a formula could not use them to help calculate values 
+      </ul>
+    <li>Win: 
+      <ul>
+        <li>Modified [DOS] context slightly, in hopes that flushing buffers will 
+          clean up second execution if previous execution failed 
+      </ul>
+  </ul>
+  <h3>1/6/1999</h3>
+  <ul>
+    <li>3.0.4b2 minor release, Windows and Macintosh 
+    <li>Both Win + Mac: 
+      <ul>
+        <li>Added HTML documentation for [format .3d] decimal formatting 
+        <li>Triggers: fixed a bug that caused triggers to retry even when the 
+          validation text was correct. 
+        <li>Triggers: fixed a bug that caused the &quot;next execute&quot; date 
+          to alternate between 12 and 13 months if the trigger happened in January 
+        <li>Triggers: added a feature to allow for 'one-shot' triggers that only 
+          execute once. If &quot;*&quot; does not appear in any of the Execute 
+          Params, then the trigger will be disabled after its first successful 
+          execution 
+      </ul>
+    <li>Win: 
+      <ul>
+        <li>Fixed a bombing bug that caused certain unknown exceptions (and any 
+          hit that exceeded 1M returned text) to crash and show a Dr. Watson error. 
+      </ul>
+  </ul>
+  <h3>12/21/98</h3>
+  <ul>
+    <li>3.0.3 minor release, Windows and Macintosh 
+    <li>Both Win + Mac: 
+      <ul>
+        <li>Fixed some multithreading bugs that caused thread deadlocks when auto-commit 
+          databases preference is turned on. Not all deadlock issues have been 
+          fixed, but this solves many of them 
+        <li>Pre-installed WebMerchant 3.0 templates into WebCatalog installer, 
+          so WebMerchant is available automatically to any WebCatalog installation 
+        <li>Enhanced [math] context to handle ambiguous dates/times. If your dates 
+          contain a decimal point &quot;.&quot; in them, then the [math] context 
+          will interpret them as Times instead of Dates. You can force it to interpret 
+          some text as a Date by inserting a &quot;D&quot; in front of the text, 
+          as in [math]{D10.01.1998}[/math], so that 10.01.1998 is interpreted 
+          as a date instead of a time. You can force Time interpretation by using 
+          &quot;T&quot; in place of the &quot;D&quot;. 
+      </ul>
+    <li>Mac: 
+      <ul>
+        <li>Changed serial# self-policing scheme so that it is not so sensitive 
+          to crashes. Should fix &quot;Math question comes up, serial# in use 
+          already&quot; bug 
+      </ul>
+  </ul>
+  <h3>10/2/98</h3>
+  <ul>
+    <li>3.0.1 minor release, Windows and Macintosh 
+    <li>Both Win + Mac: 
+      <ul>
+        <li>Fixed erratic loss of [cart] number when using [include] files that 
+          need cart 
+        <li>Fixed template bug in Admin Preferences that caused ReadDateFormet 
+          to interpret sorted dates incorrectly 
+      </ul>
+    <li>Mac: 
+      <ul>
+        <li>Fixed bug that caused default index template to be displayed once 
+          but never again (ACGI only). 
+      </ul>
+  </ul>
+  <h3>9/30/98</h3>
+  <ul>
+    <li>3.0 GM release, Windows and Macintosh 
+    <li>Both Win + Mac: 
+      <ul>
+        <li>Cleaned up preferences admin pages, added some prefs that were missing 
+        <li>Added IIS4 config instructions and screen shots 
+        <li>Enhanced PDF manual includes new table of contents, index, NT installation 
+          technotes 
+      </ul>
+  </ul>
+  <h3>9/22/98</h3>
+  <ul>
+    <li>3.0b9 Mac Release 
+    <li>Both Win + Mac: 
+      <ul>
+        <li>Fixed FlushDatabases bug that bombed occasionally when database was 
+          busy 
+        <li>Fixed Triggers bug that caused Triggers.db to be exclusive-locked 
+          at all times; even when trying to administer it thru web interface 
+        <li>Fixed <a href="../WebCatReference/AllTags.html#SetMIMEHeader">[SetMIMEHeader]</a> and 
+          <a href="../WebCatReference/AllTags.html#SetCookie">[SetCookie]</a> so they replace rather 
+          than append new values to list of headers 
+      </ul>
+    <li>Mac: 
+      <ul>
+        <li>Changed PIXO handler to look for beginning of MIME headers 
+      </ul>
+  </ul>
+  <h3>9/14/98</h3>
+  <ul>
+    <li>3.0b8 Windows Release 
+    <li>Both Win + Mac: 
+      <ul>
+        <li>Append/Replace records in database converts CR/LF combination to single 
+          soft-return 
+        <li>New StoreBuilder templates 
+        <li>New WebMerchant serial# administration templates 
+        <li>New look for overall admin templates 
+        <li>Content-length added to MIME headers 
+        <li>Radically changed parser so that WebDNA executes in very low ThreadMem 
+          stack space (most important on Macintosh) 
+        <li>Radically changed parser so that hidden contexts are skipped very 
+          quickly 
+      </ul>
+    <li>Win: 
+      <ul>
+        <li>Fixed bomb when page returned &gt; 1Meg text. Displays error message 
+          now 
+      </ul>
+  </ul>
+  <h3>8/18/98</h3>
+  <ul>
+    <li>3.0b7 Windows Release 
+    <li>Win: 
+      <ul>
+        <li>Added new password feature that overcomes old limitations on IIS servers 
+          which forced you to put username/password into forms. Now the normal 
+          browser dialog appears asking for username/password, and the information 
+          passes automatically through MIME headers (the same way MacOS or PC 
+          WebSite works). You must add $WebCat.dll to your list of Filter DLLs 
+          for IIS and delete the file &quot;AuthenticateChecker&quot; to get this 
+          feature. 
+        <li>Fixed bug that caused bomb when &quot;to:&quot; email address was 
+          longer than 255 characters 
+        <li>Added [CreateTime] and [CreateDate] tags to <a href="../WebCatReference/ListFilesContext.html">[ListFiles]</a> 
+          tags 
+      </ul>
+  </ul>
+  <h3>8/14/98</h3>
+  <ul>
+    <li>3.0b6 Mac Release 
+    <li>Both Win + Mac: 
+      <ul>
+        <li>Changed meaning of caret &quot;^&quot; home directory to look inside 
+          a folder called &quot;Globals&quot; in the root WebCatalog folder, rather 
+          than the root of WebCatalog itself 
+        <li>Fixed ODBC bug that caused long fields such as 'TEXT' type to not 
+          return any data 
+        <li>Added &quot;End=anytext&quot; parameter to <a href="../WebCatReference/TCPSendContext.html">[TCPSend]</a> 
+          context so it knows when to stop looking for data from remote server 
+        <li>Fixed <a href="../WebCatReference/ListWordsContext.html">[ListWords]</a> bug that sometimes 
+          caused it to return garbage words 
+        <li>Fixed <a href="../WebCatReference/AllTags.html#MoveFile">[MoveFile]</a> bug that caused 
+          original file to be deleted if the destination folder was not found 
+        <li>Fixed <a href="../WebCatReference/LoopContext.html">[Loop]</a> bug that caused loop to 
+          repeat unknown number of times if the start or end parameters are non-numeric 
+        <li>Fixed <a href="../WebCatReference/ListFilesContext.html">[ListFiles]</a> so that it accepts 
+          &quot;file=&quot;, &quot;path=&quot;, and &quot;folder=&quot; parameters 
+          as well as the usual unnamed folder parameter 
+        <li>Fixed bugs in <a href="../WebCatReference/TextContext.html">[Text]</a> and <a href="../WebCatReference/MathContext.html">[Math]</a> 
+          contexts that caused simple display of those variables (using [xxx] 
+          instead of [math]xxx[/math] or [text]xxx[/text]) to be case-sensitive 
+          or not to show at all 
+        <li>Changed &quot;Startafter&quot; and &quot;endbefore&quot; parameters 
+          in <a href="../WebCatReference/MiddleContext.html">[Middle]</a> context to &quot;start&quot; 
+          and &quot;end&quot; to match other contexts syntax better. Also changed 
+          the way the &quot;end&quot; parameter looks for text: it looks from 
+          the right-hand side of the text inwards, so that successive calls to 
+          [Middle] will work from the &quot;outside in&quot; 
+        <li>Added &quot;method=APOP&quot; encryption method to <a href="../WebCatReference/EncryptContext.html">[Encrypt]</a> 
+          to assist with email retrieval 
+        <li>Fixed search summary bug that caused summaries to not work at all 
+        <li>Fixed <a href="../WebCatReference/TextContext.html">[text multi=T]</a> multiple assignment 
+          to text variables 
+        <li>Changed <a href="../WebCatReference/AppendContext.html">[Append]</a> and <a href="../WebCatReference/ReplaceContext.html">[Replace]</a> 
+          so that a sequence of CR/LF is replaced with a single &lt;soft return&gt; 
+          character in the database 
+        <li>Modified/Fixed TeaRoom example 
+        <li>Enhanced DatabaseHelper templates 
+      </ul>
+    <li>Mac: 
+      <ul>
+        <li>Fixed bug that caused serial# to be reported as &quot;in use&quot; 
+          when it wasn't 
+        <li>Fixed <a href="../WebCatReference/FileInfoContext.html">[FileInfo]</a> bug that did not 
+          follow aliases correctly 
+        <li>Fixed <a href="../WebCatReference/ListFilesContext.html">[ListFiles]</a> bug that did 
+          not follow aliases correctly 
+        <li>Added [CreateDate] and [CreateTime] tags to <a href="../WebCatReference/ListFilesContext.html">[ListFiles]</a> 
+          context 
+        <li>Fixed <a href="../WebCatReference/AllTags.html#MoveFile">[MoveFile]</a> bug that did 
+          not copy filetype/creator info correctly when copying to an aliased 
+          folder 
+        <li>Fixed bug that caused searches with &quot;startAt&quot; parameter 
+          to bomb on machines without ODBC installed 
+        <li>Fixed bug that prevented text after &quot;&amp;&quot; in [referrer] 
+          from appearing 
+      </ul>
+  </ul>
+  <h3>7/28/98</h3>
+  <ul>
+    <li>3.0b4 Mac Release 
+    <li>Added Show=T and Show=F behavior to <a href="../WebCatReference/TextContext.html">[Text]</a> 
+      context 
+    <li>Fixed security bug that caused [Protect] to allow any password thru 
+    <li>Modified <a href="../WebCatReference/MathContext.html">[Math]</a> and <a href="../WebCatReference/TextContext.html">[Text]</a> 
+      contexts so that you can display variables more easily: simply put the variable 
+      name inside brackets like [varname] to display its value. 
+    <li>Mac: Better turnaround time on heavily-threaded ACGI 
+    <li>Mac: 68K ODBC support 
+    <li>Mac: PPC (PPC only, 68K never) CyberCash support 
+    <li>Mac: fixed memory leak in <a href="../WebCatReference/TCPConnectContext.html">[TCPConnect]</a> 
+  </ul>
+  <h3>7/10/98</h3>
+  <ul>
+    <li>3.0b3 Mac Release 
+    <li>Mac: Better turnaround time on heavily-loaded plugin 
+    <li>Mac: Fixed PIXO for FireSite bug that caused auto-proxy when not needed 
+    <li>Mac: Added Trigger feature (it was left out of initial Mac release) 
+  </ul>
+  <h3>7/8/98</h3>
+  <ul>
+    <li>3.0b3 Windows Release 
+    <li>Fixed bug that allowed hidden [FoundItems], [URL] and [UnURL] contexts 
+      to execute interior WebDNA when it should be hidden instead 
+    <li>Win: Better turnaround time on heavily-loaded NT servers 
+    <li>Win: Better use of multiprocessor NT machines 
+    <li>Enhanced <a href="../WebCatReference/FormVariablesContext.html">[FormVariables]</a> tag so 
+      you can get variables from the list of values in an [include] tag 
+    <li>Win: Plugged a memory leak of 16K per hit 
+  </ul>
+  <h3>6/22/98</h3>
+  <ul>
+    <li>3.0b1 Release 
+    <li>Added new contexts: 
+      <ul>
+        <li><a href="../WebCatReference/WaitForFileContext.html">WaitForFile</a> 
+        <li><a href="../WebCatReference/CountWordsContext.html">CountWords</a> 
+        <li><a href="../WebCatReference/ListWordsContext.html">ListWords</a> 
+        <li><a href="../WebCatReference/TextContext.html">Text</a> 
+        <li><a href="../WebCatReference/UnURLContext.html">UnURL</a> 
+        <li><a href="../WebCatReference/SQLContext.html">SQL</a> 
+        <li>Win: <a href="../WebCatReference/DDEConnectContext.html">DDEConnect</a> 
+        <li>Win: <a href="../WebCatReference/DDESendContext.html">DDESend</a> 
+        <li><a href="../WebCatReference/TCPConnectContext.html">TCPConnect</a> 
+        <li><a href="../WebCatReference/TCPSendContext.html">TCPSend</a> 
+        <li><a href="../WebCatReference/SpawnContext.html">Spawn</a> 
+        <li><a href="../WebCatReference/CommentContext.html">[!]</a> comment 
+        <li><a href="../WebCatReference/MiddleContext.html">Middle</a> 
+      </ul>
+    <li>Added <a href="../WebCatReference/TriggersFormat.html">Trigger</a> feature 
+    <li>Added ODBC client-side support 
+    <li>Fixed bug when no MIME headers are present 
+    <li>Mac: added ThreadMEM prefs for PIXO backending 
+    <li>Win: Added new encryption methods for CyberCash and Base64 
+    <li>Win: Added ISAPI Filter to enable Base64 authenticate similar to WebSite 
+      or Mac 
+    <li>Changed Capitalize context to be smarter about punctuation 
+    <li>Added ability to execute encrypted templates 
+    <li>Added Seconds_To_Time <a href="../WebCatReference/FormatContext.html">format</a> modifier 
+    <li>Changed [Decrypt] so that it cannot decrypt the seed &quot;TEMPLATE&quot;, 
+      for use with encrypted templates 
+  </ul>
+  <h3>4/17/98</h3>
+  <ul>
+    <li>2.1.3 Release 
+  </ul>
+  <h3>3/17/98</h3>
+  <ul>
+    <li>2.1.1 Release 
+    <li>Increased number of math variables from 50 to 150 
+    <li>Fixed $NewCart lockup 
+    <li>Added Pragma no-cache to Serial# page 
+    <li>Fixed bug that caused [index] inside [lineitems] to get chewed up 
+    <li>Write CartIPAddress to order file automatically upon Purchase 
+    <li>Win: fixed bomb when no referrer 
+    <li>Win: [Referrer] tag fixed, no longer chewed up when no referrer 
+    <li>Mac: Allow plugin to load without AppleScript 
+    <li>Mac: Fixed emailer bug that caused certain messages to drop 
+    <li>Mac: Fixed WebTen bug that caused &quot;/&quot; to refer to global root 
+      instead of local vhost root 
+    <li>Win: WebMerchant bug that deletes order files every 24 hours instead of 
+      preferred 
+    <li>WebMerchant sets zip to 00000 if not 5, 6, or 9 digits (to help clear 
+      international orders) 
+    <li>Mac: Fixed auto-settle bug that settled even when preference was blank 
+  </ul>
+  <h3>2/24/98</h3>
+  <ul>
+    <li>Final 2.1 GM release for Mac 
+    <li>Mac: Added plugin PathCleanup preference for Quid Pro Quo and WebTen (non-myopic) 
+      compatibility 
+    <li>Mac: fixed PIXO problem finding template path when backended via NetCloak 
+    <li>Mac: fixed bug that truncated template names in plugin 
+    <li>Fixed single-field database bug that caused one-field databases to not 
+      be written correctly 
+    <li>Fixed shipCost formula so it can get current value of [subTotal] during 
+      $Add 
+  </ul>
+  <h3>2/15/98</h3>
+  <ul>
+    <li>Added AutoCommit preference to write all changed databases to disk after 
+      every page hit 
+    <li>Added [CommitDatabase <i>dbpath</i>] to write databases without closing 
+      them 
+  </ul>
+  <h3>2/5/98</h3>
+  <ul>
+    <li>Modified behavior of cart file overrides: nonTaxableTotal, taxableTotal, 
+      taxTotal, and shippingTotal are the only overrideable values now. [GrandTotal] 
+      and [SubTotal] are correctly computed based on overrides now. 
+    <li>Modified encryption spec 
+    <li>Added elapsedtime and memoryAvailable to debug log 
+    <li>Added CheckTemplateInterval and DebugLevel to preferences template 
+  </ul>
+  <h3>1/29/98</h3>
+  <ul>
+    <li>Added custom <a href="../WebCatReference/SearchWordBreaks.html">word break</a> character 
+      feature so you can define what text is considered to be a word when searching. 
+    <li>Smart template caching uses a new CheckTemplateInterval preference to 
+      determine the number of seconds it should wait before checking the disk 
+      for modified files. 
+    <li>Mac: Fixed multihoming bugs under WebSTAR 3.0 
+    <li>Generalized sample templates so they are identical on both Mac and PC 
+  </ul>
+  <h3>1/19/98</h3>
+  <ul>
+    <li>Added optional custom conversion table to <a href="../WebCatReference/ConvertCharsContext.html">[ConvertChars]</a> 
+    <li>Mac: Changed template extension to .tpl in order to simplify cross-platform 
+      development 
+  </ul>
+  <h3>1/16/98</h3>
+  <ul>
+    <li>Enchanced security of encyption algorithm. <b>Previously-encrypted passwords 
+      are no longer valid!</b> 
+    <li>Modified encryption seed so that it takes an 8-character text value instead 
+      of a numeric value 
+    <li>Win: updated Admin templates to use new security encryption, also updated 
+      GeneralStore templates so that order file contains [IPAddress] of purchaser, 
+      and made it easier to rename the product database 
+  </ul>
+  <h3>1/12/98</h3>
+  <ul>
+    <li>Win: Enhanced <a href="../WebCatReference/EMailFormat.html">emailer file format</a> to handle 
+      arbitrary user-defined MIME headers, including standard ones like Bcc: and 
+      Cc: 
+    <li>Win: Fixed [DeleteFolder] and FileInfo's [exists] tags 
+    <li>Win: Added [Version] tag to report WebCatalog version# 
+    <li>Win: Added exception-handling to detect and cleanly ignore Dr. Watson 
+      bombs 
+  </ul>
+  <h3>1/5/98</h3>
+  <ul>
+    <li>[ValidCard] now accepts case-insensitive parameters 
+    <li>New emailer file format allows for any MIME headers, and works with SIMS 
+      and EIMS (Mac) direct file format. Requires new emailer application. 
+    <li>Added preference for FirstMIMEHeader and ThreadMem 
+    <li>Mac: smart caching follows aliases correctly, re-reads from disk if original 
+      is modified 
+    <li>Modified order file format to include extra headers and 'override' values 
+      for calculated totals. <a href="../WebCatReference/PurchaseCommand.html#grandTotal">These</a> 
+      values can be overridden. 
+    <li>Added <a href="../WebCatReference/EncryptContext.html">[Encrypt]</a> and <a href="../WebCatReference/DecryptContext.html">[Decrypt]</a> 
+      contexts so we can get rid of clear-text passwords. 
+  </ul>
+  <h3>12/27/97</h3>
+  <ul>
+    <li>Mac: If the parameter to [DeleteFolder] tag is an alias, then just the 
+      alias itself is deleted, and not the entire folder which the alias refers 
+      to 
+  </ul>
+  <h3>12/27/97</h3>
+  <ul>
+    <li>Fixed bug that didn't show new quantities inside [OrderFile] embedded 
+      in $ShowCart page 
+    <li>Added [SetCookie] tag 
+    <li>Added [SetMIMEHeader] tag 
+    <li>Added [MaxCopies] tag that shows how many licensed copies of this serial 
+      number are allowed to run at once 
+    <li>Added [Redirect] tag 
+    <li>Added [ExpireDate] tag that shows when this WebCatalog's serial number 
+      will expire 
+    <li>Mac: Fixed various Signal Raised errors so that CGI quits when memory 
+      is too fragmented 
+    <li>Fixed HideIf/ShowIf bug that got confused when !=~^&gt;&lt; comparison 
+      operators were embedded in either side of the equation 
+  </ul>
+  <h3>12/10/97</h3>
+  <ul>
+    <li>Added new Serial # scheme that allows for developers to run time-limited 
+    <li>Sped up cart display routines and automatic lookups 
+    <li>Mac: Sped up alias resolution of cached databases 
+  </ul>
+  <h3>11/24/97</h3>
+  <ul>
+    <li>Added <a href="../WebCatReference/CapitalizeContext.html">[Capitalize]</a> Context 
+    <li>Added error message to [Purchase] that displays credit card check digit 
+      error 
+    <li>Added <a href="../WebCatReference/AllTags.html#ValidCard">[ValidCard]</a> tag to pre-verify 
+      credit card numbers 
+  </ul>
+  <h3>11/11/97</h3>
+  <ul>
+    <li>Added <a href="../WebCatReference/ListPathContext.html">[ListPath]</a> Context 
+    <li>Added <a href="../WebCatReference/AllTags.html#GetMIMEHeader">[GetMIMEHeader]</a> tag 
+    <li>Win: First build of 2.1b2 
+    <li>Added <a href="../WebCatReference/AllTags.html#CreateFolder">[CreateFolder]</a> tag 
+  </ul>
+  <h3>11/3/97</h3>
+  <ul>
+    <li>Mac: Fixed low-level memory allocation bug that caused LModelDirector 
+      dialog to appear 
+    <li>Mac: added ?command=showpage style commands to ease cross-platform porting 
+    <li>Added &quot;taxable&quot; to list of allowed formulas 
+    <li>Added &quot;from=end&quot; parameter to GetChars context 
+    <li>Mac: fixed bug that caused AppleScript to execute inside [HideIf] 
+    <li>Win: Added <a href="../WebCatReference/DOSContext.html">[DOS]</a> context 
+    <li>Added <a href="../WebCatReference/FileInfoContext.html">[FileInfo]</a> context 
+    <li>Added ability for formulas to access LineItem variables of the current 
+      lineitem being added 
+  </ul>
+  <h3>11/2/97</h3>
+  <ul>
+    <li>Added [break] statement to <a href="../WebCatReference/LoopContext.html">[Loop]</a> context, 
+      which causes it to stop looping <b>after</b> the current iteration is complete. 
+    <li>Expermiental: added [WaitForFile <i>filename</i>] context, which waits 
+      for a file to appear before executing its interior WebDNA code. 
+  </ul>
+  <h3>10/30/97</h3>
+  <ul>
+    <li>Win: Added <a href="../WebCatReference/ListMIMEHeadersContext.html">[ListMIMEHeaders]</a> 
+      context 
+    <li>Win: Added Cookie support for retrieving cookie values set with [ReturnRaw] 
+  </ul>
+  <h3>10/28/97</h3>
+  <ul>
+    <li>Mac: Added [ListMIMEHeaders] support 
+    <li>Mac: Added Cookie support for retrieving cookie values set with [ReturnRaw] 
+    <li>Mac: Began adding PIXO support to plugin 
+  </ul>
+  <h3>10/23/97</h3>
+  <ul>
+    <li>Win: Added sin() cos() tan() ceil() floor(), etc. functions to [Math] 
+      context that already were available in Mac version (undocumented) 
+    <li>Win: Fixed path collapsing bug that caused a single database to be considered 
+      as two separate databases because the relative paths were different 
+  </ul>
+  <h3>10/7/97</h3>
+  <ul>
+    <li>Win: Added [CountChars] and [GetChars] contexts 
+    <li>Win: changed [ListFiles] context so it doesn't show &quot;..&quot; foldernames 
+    <li>Win: Added Windows 95 support 
+  </ul>
+  <h3>10/2/97</h3>
+  <ul>
+    <li>Win: changed meaning of &quot;/&quot; so that file paths beginning with 
+      &quot;/&quot; are stored relative to DBServer.exe rather than C:. This is 
+      because NT servers do not provide enough information to let us know the 
+      true virtual root. 
+    <li>Win: Fixed email sweeper bug that allowed sweeping after main thread was 
+      killed 
+  </ul>
+  <h3>10/1/97</h3>
+  <ul>
+    <li>Mac: Fixed bug that caused the &quot;shopping cart already submitted&quot; 
+      error message to be ignored 
+    <li>NT: Added [DeleteFile], [MoveFile], [CopyFile] tags. 
+    <li>Added xxx.hdr support so that databases without fieldnames can be support 
+      by creating a file with extension &quot;.hdr&quot; which does contain the 
+      fieldnames 
+    <li>Mac: Fixed .2d formatting bug that showed up under OS8 
+    <li>NT: Fixed thread concurrency bug that appears on multi-processor systems 
+      under heavy load 
+  </ul>
+  <h3>9/14/97</h3>
+  <ul>
+    <li>Mac: Final release of 2.0.1 
+    <li>Fixed multithreaded [math] context bomb 
+    <li>Fixed [include] bug that did not automatically propagate cart numbers 
+      into the included file 
+    <li>Fixed sorting bug that caused multi-field sorts to arrange incorrectly 
+    <li>Mac: Fixed bug that caused templates with spaces in their filenames to 
+      be impossible to open with the plugin 
+  </ul>
+  <h3><br>
+    9/10/97</h3>
+  <ul>
+    <li>Mac: Fixed bug that caused [ListFiles] of an empty folder to incorrectly 
+      display a &quot;Path not found&quot; error message, and later cause searches 
+      to lock up the machine 
+    <li>Fixed online docs for [date %x] and [date %X] 
+    <li>Fixed some TeaRoom HTML inconsistencies 
+  </ul>
+  <h3><br>
+    9/3/97</h3>
+  <ul>
+    <li>Fixed bug that made non-caching browsers incapable of displaying a shopping 
+      cart with an incorrect credit card number 
+    <li>$Purchase does not allow negative quantities now 
+  </ul>
+  <h3><br>
+    9/2/97</h3>
+  <ul>
+    <li>Mac: Added support for WebTen and virtual hosts (so now URLs leading to 
+      templates inside of different virtual root directories will now display 
+      correctly) 
+    <li>Mac: Added support for Microsoft Personal Web Server 
+    <li>Added more default character translations for &copy;, &reg;, <font size="1"><sup>TM</sup></font> 
+    <li>Mac: Added default ThreadMem preference to give plugins 48K of stack space 
+    <li>Fixed a long-standing bug that caused intermittent bombs if a database 
+      was [Append]-ed more that 100 times in a row without being closed or flushed. 
+  </ul>
+  <h3><br>
+    8/28/97</h3>
+  <ul>
+    <li>Mac: Increased security of emailer application by setting all filetypes 
+      to WWWOmega 
+    <li>NT: Added [AddLineItem] [SetLineItem] [SetHeader] contexts that were left 
+      out in last build 
+  </ul>
+  <h3><br>
+    8/27/97</h3>
+  <ul>
+    <li>Mac: Fixed Emailer bug that never got past empty or bad email files 
+    <li>Added more preferences to AdminPut and AdminGet commands 
+  </ul>
+  <h3><br>
+    8/26/97</h3>
+  <ul>
+    <li>Added security preferences to check/disallow displaying template filename 
+      extensions and database filename extensions 
+    <li>Added new method for specifying search group fields (so that periods and 
+      other non-alpha characters are allowed in fieldnames) 
+    <li>Fixed [WriteFile] context that did not output text 
+    <li>Fixed [SendMail] that created incorrect email file format 
+  </ul>
+  <h3><br>
+    8/21/97</h3>
+  <ul>
+    <li>Fixed MIME header problem with Mac that caused Status:200 to appear in 
+      some browsers 
+  </ul>
+  <h3><br>
+    8/1/97-8/13/97</h3>
+  <ul>
+    <li>POST forms can now accept more than 24K (Mac plugin only) 
+    <li>Added [ReturnRaw] context for custom MIME headers 
+    <li>Fixed [ListDatabases] bug that displayed &quot;Can't find database&quot; 
+      in admin pages 
+    <li>Mac: Added stack space increaser for plugin: put ThreadMem 50 into prefs 
+      to give threads 50K stack space (defaults to 32K) 
+    <li>Added ability to search for an empty field 
+    <li>Mac: Fixed LModelDirector out of memory bug 
+    <li>Fixed 255-char limit for embedded search strings 
+    <li>Forms were limited to 100 fields; increased to unlimited 
+    <li>Changed &quot;yourdomain.com&quot; to &quot;your domain.com&quot; because 
+      owners of yourdomain.com complained 
+    <li>Fixed lots of date calculation problems, mostly in delta calcs 
+    <li>NT: Added MIME header preference to deal with differences between NT servers 
+    <li>[ShowNext] max parameter works correctly now (and is documented) 
+  </ul>
+  <h3>7/31/97</h3>
+  <ul>
+    <li>Fixed some HTML linkage problems in GeneralStore and Admin 
+    <li>Increased length of [ConvertChars] text conversions from 15 to 63 characters 
+    <li>Fixed bombing bug when you display [textA] in [lineitems] on cart with 
+      0 items 
+    <li>Added [FlushDatabases] tag 
+    <li>Added Show=F parameter to [math] context to prevent equation results from 
+      being displayed 
+  </ul>
+  <h3>7/16/97</h3>
+  <ul>
+    <li>Added Problems and CompletedOrders folder to GeneralStore to help with 
+      WebMerchant prefs for standard place to store those files 
+  </ul>
+  <h3>5/13/97-6/30/97 (Windows NT phase)</h3>
+  <ul>
+    <li>BIG CHANGE! Moved templates and shopping carts into cgi directory for 
+      security. In order to prevent outsiders from downloading your shopping cart 
+      files, we moved just about everything down into the CGI folder. Web servers 
+      won't serve those files unless there's a suffix mapping (which there isn't). 
+      Only WebCatalog can serve those files now, so they can be password protected 
+    <li>Changed file extension from .tpl to .tpl for better DOS support 
+    <li>Added Netscape FastTrack support 
+    <li>Added true suffix mapping (extension mapping) support so you can put WebDNA 
+      in .htm 
+    <li>&quot;xx.tpl$search?&quot; now must be &quot;xx.tpl?command=search&amp;&quot; 
+    <li>Added printed manual and QuickStart 
+    <li>Modified [Authenticate] to not interfere with native NT password style 
+    <li>Added virtual host support with [ThisFile] and [ThisURL] 
+    <li>Installer does all Registry changes automatically 
+    <li>Added StarNine serial number checking 
+    <li>Added [referrer] and [ipaddress] support for NT 
+    <li>Added [returnraw] context that lets you create your own MIME headers (helps 
+      with true URL-redirects) 
+  </ul>
+  <h3>5/22/97</h3>
+  <ul>
+    <li>fixed bug that caused Merge-format databases to get mixed with tab-delim 
+    <li>added &quot;Starting Up&quot; message to debug level so you can tell when 
+      restarts happen 
+  </ul>
+  <h3>5/19/97</h3>
+  <ul>
+    <li>fixed bug that caused relative path to same database to seem like it was 
+      a second database 
+    <li>added DebugLevel preference to assist in off-site debugging 
+    <li>fixed NT [URL], [ConvertChars] bugs that generated incorrect text 
+  </ul>
+  <h3>5/13/97</h3>
+  <ul>
+    <li>fixed thousands separator bug in [Format] that incorrectly appended comma 
+      to end of number 
+    <li>changed default prefs for WebServerFolder from : to ../ 
+    <li>fixed crash on [Format DaysToDate] (notice missing underscores_) 
+    <li>[Include] now decodes %20 and + URL encoded parameters 
+    <li>Configure WebSTAR AppleScript now looks for generic WebSTAR instead of 
+      v1.3.1 
+  </ul>
+  <h3>5/12/97</h3>
+  <ul>
+    <li>fixed bug that caused HTML1, HTML2, HTML3 contexts to not work for plugins 
+      (CGI was OK) 
+    <li>fixed [SendMail] bug that wrote incorrect file format for Emailer 
+    <li>updated Browser Info.txt file with newer browsers 
+  </ul>
+  <h3>5/8/97</h3>
+  <ul>
+    <li>Increased stack space for plug-ins 
+    <li>Get WebSTAR's default page rather than hard code to &quot;index.html&quot; 
+  </ul>
+  <h3>5/5/97</h3>
+  <ul>
+    <li>Fixed a bug in setting the path to the preferences for the plug-in (first 
+      time) 
+    <li>Quit command now quits the CGI (flushes databases in plug-in) 
+    <li>Added a flushdatabases command 
+    <li>RemoveLineItem context is specified by index in addition to sku (remove 
+      command as well) 
+    <li>Eliminated hard-coded .tpl for SetSerialNumber and SetPreferencePath forms 
+    <li>Context/Tag name matching more exact (not just match beginning of string) 
+    <li>&lt;!HAS_WEBDNA_TAGS&gt; works as well as &lt;!HAS_PCS_TAGS&gt; for comment 
+      required 
+  </ul>
+  <h3>5/2/97</h3>
+  <ul>
+    <li>New contexts/tags for commerce functions: SetHeader, SetLineItem, AddLineItem, 
+      RemoveLineItem, ClearLineItems, Purchase. All commerce functions can accept 
+      a &quot;cart=&quot; parameter OR a &quot;file=&quot; parameter (including 
+      the OrderFile context) in addition to other required parameters. 
+    <li>Preference for the sweep frequency of the shopping cart folder sweeper. 
+    <li>Preference for the maximum number of templates cached at one time. 
+    <li>Template cache will automatically reload outdated files. 
+    <li>WriteFile and AppendFile have an optional &quot;secure&quot; parameter 
+      (T or F) that sets the creator type to 'WWWO' or 'ttxt' respectively. By 
+      default (i.e. &quot;secure&quot; parameter not specified), WriteFile sets 
+      the file to 'WWWO' and AppendFile keeps the existing creator. 
+    <li>ShowCart command and SetLineItem context check the account number if &quot;CC&quot; 
+      is specified as payMethod and the accountNum is not empty. 
+    <li>Fixed a bug in the Clear command and ClearLineItems context that caused 
+      the total to not get updated properly. 
+    <li>Fixed &quot;raw&quot; parameter in the Include tag so that it works properly. 
+    <li>Include tag can include 'WWWO' protected files. 
+    <li>&quot;sku&quot; is the only field required to use commerce functions. 
+    <li>Fixed memory leak when removing items from cart. 
+    <li>All paths can reference aliased folders or drives. 
+  </ul>
+  <h3>4/16/97</h3>
+  <ul>
+    <li>Sped up search efficiency inside hidden contexts 
+  </ul>
+  <h3>4/9/97</h3>
+  <ul>
+    <li>Added date math documentation ([ConvertDate] is no longer needed now that 
+      math performs date calculations using human-readable date formats) 
+    <li>Added [Loop] context documentation 
+    <li>Fixed case-sensitive bug in replace context 
+    <li>Fixed some date math dealing with addition of months and days 
+  </ul>
+  <h3>4/7/97</h3>
+  <ul>
+    <li>New emailer reduces slowdowns on server when bad connection to POP server 
+    <li>Fixed [AppendFile] bug that caused garbage filenames to be created 
+    <li>Increased template parsing speed by 50%-150% 
+    <li>Fixed [ListFiles] bug that used Mac-style paths instead of URL-relative 
+    <li>Improved GeneralStore sample templates to handle BillTo/ShipTo, country, 
+      email notification and secure remote order viewing 
+    <li>Improved GeneralStore Administration templates for editing outgoing emails 
+  </ul>
+  <h3>4/4/97</h3>
+  <ul>
+    <li>Fixed memory leak in PPC CGI 
+  </ul>
+  <h3>4/2/97</h3>
+  <ul>
+    <li>Fixed 'creeping template' bug in [ShowNext] contexts 
+    <li>Fixed URL-encoding of [ShowNext] contexts 
+  </ul>
+  <h3>4/1/97</h3>
+  <ul>
+    <li>Added native date type to [math] context. 
+    <li>Improved speed of date sorting 
+    <li>Fixed bug that caused crash when viewing templates with [lineItems] but 
+      no [cart] 
+    <li>Both plugin and CGI can stop/start EMailer through remote admin now 
+  </ul>
+  <h3>3/26/97</h3>
+  <ul>
+    <li>Fixed bug in new 40-header shopping cart format bug that caused it to 
+      read carts improperly 
+    <li>Format context now truncates strings that are longer than the width specifier. 
+      [format 5s]some text[/format] will yield &quot;some &quot;. No longer bombs 
+      if string is longer than 255. 
+  </ul>
+  <h3>3/24/97</h3>
+  <ul>
+    <li>Added Banner Ads to GeneralStore 
+    <li>Added Banner Ad Editor to GeneralStore Admin 
+    <li>Added extra header fields to shopping cart file format (now v1.4). A complete 
+      set of ship-to fields, plus a total of 40 header fields 
+    <li>Improved speed of date sorting routines 
+  </ul>
+  <h3>3/21/97</h3>
+  <ul>
+    <li>Fixed bug in [SendMail] context for plugins 
+    <li>Fixed bug in exception handling for PPC plugin 
+    <li>Added Security option to preferences that prevents anonymous remote users 
+      from $Append-ing to databases (all $commands can be blocked from anonymous 
+      access now). 
+  </ul>
+  <h3>3/19/97</h3>
+  <ul>
+    <li>Added &quot;Append=T&quot; optional parameter to $Replace and [Replace] 
+      so that if no matching records are found (for replacement) then a new record 
+      will be added with the specified values. 
+    <li>Added robust low RAM checking for out of memory during database opens 
+  </ul>
+  <h3>3/16/97</h3>
+  <ul>
+    <li>EmailFolder preference is now relative to WebSTAR folder, so &quot;WebCatalog/EmailFolder/&quot; 
+      is the correct preference for both the plugin and the CGI 
+    <li>Changed [EMail] to [SendMail] in sample Classifieds site 
+  </ul>
+  <h3>3/10/97</h3>
+  <ul>
+    <li>[ConvertDate] and [Format date] tested up to year 2039 
+    <li>[Format thousands] added for putting commas or periods into numbers 
+    <li>Formulas.db feature added for unhackable price, taxrates, shipcost, unitshipcost 
+    <li>VISA/AMEX/MC check so you can deny certain cards 
+    <li>MaxFound preference now works 
+    <li>RequiredFields optional parameter to all commands 
+    <li>[CloseDatabase] path bug fixed 
+    <li>Multiple paths to same database bug fixed 
+  </ul>
+  <h3>3/5/97</h3>
+  <ul>
+    <li>Fixed bug that couldn't find root-level templates, such as /xx.tpl 
+    <li>Local shopping cart folders (local to template that displays results of 
+      $Add, $Clear, $Remove $ShowCart, or $Purchase) 
+    <li>Local shopping cart sweeper clears out old carts every hour (whenever 
+      $Add command is issued) 
+    <li>Quote-comma delimited database file parser interprets &quot;&quot; correctly 
+      now 
+    <li>Numeric formatting works with comma separators for decimal point (non-US 
+      style, such as [format 6,2f][math]39/7[/math][/format] yields 7,46 instead 
+      of 7.46) 
+  </ul>
+  <h3>3/3/97</h3>
+  <ul>
+    <li>fixed plugin bug that couldn't find shopping carts folder 
+    <li>Added Serial Number check and form-based method of entering it when the 
+      time limit runs out 
+    <li>fixed form method=POST bug in plugin 
+  </ul>
+  <h3>2/28/97</h3>
+  <ul>
+    <li>Plugins should now work with same URL-style paths as CGI 
+    <li>Plugin now asks for WebCatalog folder if it can't find it 
+    <li>Serial# is important now -- if incorrect then WebCatalog reverts to expired 
+      demo 
+  </ul>
+  <h3>2/26/97</h3>
+  <ul>
+    <li>IMPORTANT! Changed all paths to URL-style, so template= db= and [include] 
+      all work as relative paths from the template being displayed. For example, 
+      &quot;[include ../xx.tpl]&quot; looks up one folder (from the template being 
+      displayed) for the file. 
+    <li>Modified GeneralStore and Classifieds samples to use new URL-style paths 
+  </ul>
+  <h3>2/23/97</h3>
+  <ul>
+    <li>Added max=N parameter to ShowNext context. When set to 1, only one ShowNext 
+      hyperlink will be displayed at a time, rather than all links up to last 
+      found item. 
+    <li>[CloseDatabase db=xx.db] is now equivalent to [CloseDatabase xx.db] because 
+      it's too easy to forget the correct syntax 
+    <li>[Append db=xx.db] is now equivalent to [Append xx.db] because it's too 
+      easy to forget the correct syntax 
+  </ul>
+  <h3>2/17/97</h3>
+  <ul>
+    <li>Added [ConvertDate] context for performing complex date calculations 
+    <li>Added [Format date %m/%d/%y] date formatting ability. The number inside 
+      the context must be the number of seconds since midnight, Jan 1, 1900 
+  </ul>
+  <h3>2/14/97</h3>
+  <ul>
+    <li>Added [SecureClient]...[/SecureClient] context for backward-compatibility 
+      with WebCatalog 1.6.2 
+    <li>Added [IsSecureClient] tag to indicate &quot;T&quot; if the remote browser 
+      supports SSL, and &quot;F&quot; if not. 
+    <li>Added runtime [date] and [time] formats, following extensive ANSI formatting 
+      standards, such as [DATE %m/%d/%y] = 02/19/97 and [DATE %m/%d/%Y] = 02/19/1997 
+    <li>Added global preference for default date and time formats 
+    <li>Changed default date format to include century for year (helps prevent 
+      millenium problems) 
+  </ul>
+  <h3>2/11/97</h3>
+  <ul>
+    <li>Fixed shopping cart date bug. 
+    <li>Added numeric, date, and time comparisons to search command: if you want 
+      a database field to be treated as a number, then add &quot;FIELDNAMEtype=num&quot; 
+      to the search criteria, as in 
+  </ul>
+  <pre>$search?template=xx.tpl&amp;PRICEtype=num&amp;gtPRICEdata=52.95</pre>
+  <p>Similarly, date comparisons look like so:</p>
+  <pre>$search?template=xx.tpl&amp;EXPIREStype=date&amp;gtEXPIRESdata=6/19/1997</pre>
+  <h3>2/8/97</h3>
+  <ul>
+    <li>Fixed several calculation bugs in shopping cart: taxable, shipTotal, etc. 
+  </ul>
+  <h3><br>
+    2/4/97</h3>
+  <ul>
+    <li>Added Classified Advertisement sample site 
+    <li>Fixed parameterized [include] bug 
+  </ul>
+  <h3>1/31/97</h3>
+  <ul>
+    <li>Added [interpret] context that causes the contained text to be interpreted 
+      as WebCatalog [xxx] tags. 
+  </ul>
+  <h3>1/29/97</h3>
+  <ul>
+    <li>Quit command actually quits CGI, after writing databases. 
+    <li>Added more online documentation 
+  </ul>
+  <h3>1/24/97</h3>
+  <ul>
+    <li>Fixed $purchase bug that caused canEmail, taxable, unitShipCost values 
+      to be lost. 
+  </ul>
+  <h3>1/22/97</h3>
+  <ul>
+    <li>Added link to online reference in Welcome page 
+    <li>Added [HTML1], [HTML2], and [HTML3] tags. 
+    <li>Improved 68K plugin compatibility 
+    <li>Improved memory usage when running under WebStar 2.0 
+    <li>Fixed AppleScript bug for plugins under WebStar 2.0 
+  </ul>
+  <h3>1/22/97</h3>
+  <ul>
+    <li>Added [ISDEMO] tag to show if app is in demo mode 
+  </ul>
+  <h3>1/21/97</h3>
+  <ul>
+    <li>Fixed 68K CGI [math] context so that doubles calculate correctly 
+    <li>Added shopping cart folder sweeper that clears out old cart files hourly 
+  </ul>
+  <h3>1/19/97</h3>
+  <ul>
+    <li>Enhanced database parser so that wrong # of tabs doesn't kill it 
+    <li>Added frames-based online reference 
+  </ul>
+  <h3>1/16/97</h3>
+  <ul>
+    <li>Fixed 68K plugin bug that didn't display [THISURL] properly 
+    <li>Added [IPADDRESS] expansion to plugin versions 
+  </ul>
+  <h3>1/15/97</h3>
+  <ul>
+    <li>Fixed Append/Replace bug that allowed carriage returns to be written to 
+      database (thus messing up the database format) 
+    <li>Added [ThisURL] tag to display the path to the current URL (helps with 
+      BeyondRealms/SiteEdit links being created automatically) 
+    <li>Normalized [ipaddress] so that comparisons work properly: all 4 numbers 
+      are 0-preceded, as in 207.067.003.014 
+    <li>[showif] and [hideif] now do numeric comparisons if both sides of the 
+      equation are numeric, otherwise text comparison is used. [showif b&gt;a] 
+      is text-based (alphabetical) comparison, [showif 9&gt;19] is numeric (would 
+      be wrong if alphabetical). 
+    <li>Added 68K version of plugin 
+    <li>Unknown [xxx] tags now display unchanged, rather than &quot;Error: uknown 
+      tag&quot; 
+  </ul>
+  <h3>1/10/97</h3>
+  <ul>
+    <li>Added &quot;begins with&quot; comparison to showif/hideif contexts: [showif 
+      Grant~Gr] reads &quot;show if the text 'Grant' begins with the text 'Gr'&quot;. 
+      Similar to ^ for &quot;contains&quot;. 
+  </ul>
+  <h3>1/4/97</h3>
+  <ul>
+    <li>Fixed DELETE bug that did not move last record down 
+    <li>Added [protect group1,group2] context for BeyondRealms&#153; compatibility 
+    <li>Added &quot;InterpretAll&quot; preference that turns off [xxx] interpretation 
+      unless the &lt;!WebCatalog&gt; tag is present in a file 
+    <li>Template Security: files can now be one level outside of WebCatalog2's 
+      folder without needing &lt;!WebCatalog&gt; tag. This allows us to keep the 
+      install clean by having all WebCatalog files neatly tucked inside a folder. 
+  </ul>
+  <h3>1/2/97</h3>
+  <ul>
+    <li>ADD to cart command now accepts price, quantity, textA-E as additional 
+      parameters (and requires password for price changes) 
+    <li>Added [email] context for sending emails. Not tested yet. Syntax is [email 
+      to=person.com&amp;from=you.com&amp;subject=hello]Body of email message[/email] 
+  </ul>
+  <h3>12/28/96</h3>
+  <ul>
+    <li>First draft of documentation 
+    <li>Added [append db=xxx.db]field1=xxx&amp;field2=yyy[/append] context for 
+      adding new records to a database 
+    <li>Enhanced template caching mechanism 
+    <li>Fixed bug that prevented [include] from working when template caching 
+      was turned off 
+  </ul>
+  <h3>12/17/96</h3>
+  <ul>
+    <li>Added [format]..[/format] context to help format numbers and text, to 
+      replace old-style [price 6.2] 
+    <li>Added priceField optional parameter to &quot;ADD&quot; command so you 
+      can specify a different field that contains the price information 
+    <li>Added ErrorMessages.db database that WebCatalog uses to display all errors 
+      (to facilitate language translations) 
+  </ul>
+  <h3>12/11/96</h3>
+  <ul>
+    <li>Added [input]..[/input] context to replace old-style [INPUTfieldname] 
+    <li>Added [ raw ]..[ /raw ] context that ignores all WebCatalog commands inside 
+      it, and displays the text literally with no interpretation 
+    <li>Enhanced [xxx] tag parser to ignore [ xxx ] (notice spaces) 
+  </ul>
+  <h3>12/10/96</h3>
+  <ul>
+    <li>Added significant error checking for proper parameters, including checking 
+      for existing order/problem/completed files. 
+    <li>Changed preference file to database format for remote administration 
+    <li>Significant leak fixes in equation parser and LineItems context 
+    <li>Fixed [lineItems] bug that tries to display stuff even when no items are 
+      in the cart. 
+    <li>Changed [URLfieldname] to new-style [url][fieldname][/url] to enhance 
+      generality and prevent name conflicts 
+    <li>Fixed AppleScript execution bug that could cause bombs 
+  </ul>
+  <h3>11/30/96</h3>
+  <ul>
+    <li>Added [boldwords WordList] context 
+    <li>Fixed some method=POST problems 
+    <li>Added extended error checking for missing templates and parameters 
+    <li>Added PURCHASE command 
+  </ul>
+  <h3>11/27/96</h3>
+  <ul>
+    <li>Fixed bug in [foundItems] that always showed all items regardless of max=N 
+    <li>Added error check to SEARCH command for template or db not found 
+  </ul>
+  <h3>11/26/96</h3>
+  <ul>
+    <li>Added [ShowNext] context (only valid inside a [search] context or command), 
+      like so: 
+    <li>[ShowNext] 
+    <li>&lt;a href=&quot;/WebCatalog.acgi$search?[searchString]&quot;&gt;Show 
+      Items [start]-[end]&lt;/a&gt; 
+    <li>[/ShowNext]<br>
+      <br>
+    <li>WebCatalog2.acgi$search command now has an extra parameter <b>max=N</b> 
+      that defines how many records should be displayed at once. Perform a search 
+      with template=<b>Test8.tpl</b> (provided in the Test Templates folder) to 
+      see the various uses of [ShowNext].<br>
+      <br>
+    <li>Added method=POST compatibility 
+    <li>Added WebStar plugin version (PPC) of WebCatalog 
+    <li>Added FileMaker Pro databases that document some features. 
+  </ul>
+  <h3>11/25/96</h3>
+  <ul>
+    <li>Added [ConvertChars] context that translates curly-quotes to straight 
+      quotes, etc. 
+    <li>[ConvertChars][text1][/ConvertChars] 
+  </ul>
+  <h3>11/23/96</h3>
+  <ul>
+    <li>Fat Binary 
+  </ul>
+  <h3>11/22/96</h3>
+  <ul>
+    <li>Rebuilt so that WebCatalog2 contains some shared libraries that the rest 
+      of the world doesn't have. 
+  </ul>
+  <h3>11/21/96<br>
+    <b>Converting existing databases and commands to WebCatalog2:</b></h3>
+  <p>WebCatalog2 can open any number of databases (actually 100, but that's a 
+    lot), each of which can have its own field structure. You are no longer limited 
+    to a file called Catalog.txt with 27 fields.<br>
+    <br>
+    To convert an existing Catalog.txt file, you must put the 27 field names (separated 
+    by tabs) on the very first line of the file (basically record #0 is the names 
+    of the fields). Here is an example of a database with a different field schema:<br>
+    <br>
+    Contents of AddressList.db file (the .db is a convention only-not necessary):</p>
+  <pre>--------------------------------
+name      address                    city        state  zip
+Grant     667 Corte Raquel           San Marcos  CA     92069
+PCS       11770 Bernardo Plaza Court San Diego   CA     92128
+--------------------------------</pre>
+  <p>Notice that the fields are separate by tabs, as usual, even though it may 
+    be hard to tell by just looking at the lines above using SimpleText.<br>
+    <br>
+    Because WebCatalog2 deals with more than one database, you must now tell it 
+    which database it is supposed to search when sending it commands, like so:<br>
+    <br>
+    WebCatalog2.acgi$search?template=results.html&amp;<b>db=AddressList.db</b>&amp;eqnamedata=Grant<br>
+    <br>
+    Notice that you use the same syntax for searching as always: eq<b>name</b>data=Grant 
+    or wo<b>city</b>data=Diego, but the fieldnames are now determined by you, 
+    not us.<br>
+    <br>
+    [CatalogItems] has been changed to [FoundItems] to reflect the fact that we 
+    are dealing with general databases now, not just catalogs:</p>
+  <pre>[FoundItems]
+[name], [address], [city], [state], [zip]&lt;br&gt;
+[/FoundItems]</pre>
+  <p><br>
+    <b>Handling &quot;Show Next xxx..xxx&quot;:</b><br>
+    WebCatalog2 gives you much greater control over the appearance of the &quot;Show 
+    Next...&quot; hyperlinks. The &quot;N&quot; in [CatalogItems N] has been moved 
+    to the search command, and now you must explicitly decide where you want the 
+    &quot;Show Next&quot; links to appear (WebCatalog 1.x would put them in for 
+    you). If you execute a search command as follows</p>
+  <pre>WebCatalog.acgi$search?db=database.db&amp;template=test.tpl&amp;<b>max=10</b></pre>
+  <p>...then [FoundItems] will only display 10 items even if more are found.<br>
+    <br>
+    Here is what the &quot;test.tpl&quot; template should look like:</p>
+  <pre>--------------------------
+[FoundItems]
+[someField]&lt;br&gt;
+[/FoundItems]
+
+[ShowNext]
+&lt;a href=&quot;WebCatalog.acgi$search?[SearchString]&quot;&gt;Show Items [start]-[end]&lt;/a&gt;&lt;br&gt;
+[/ShowNext]
+--------------------------</pre>
+  <p><br>
+    <b>URL and INPUT modifiers</b>:<br>
+    [URLfieldname] has gone away! Replace it with [url][fieldname][/url]<br>
+    [INPUTfieldname] has gone away! Replace it with [input][fieldname][/input]</p>
+  <h2><a name="Converting"></a><b>Converting existing sites from WebCatalog 1.6.1 
+    to 2.0</b></h2>
+  <p>Summary:</p>
+  <ol>
+    <li>Put field names at the top of your Catalog.txt file 
+    <li>Add &quot;db=Catalog.txt&quot; to all search, showcart, purchase, append, 
+      delete, replace, add, and remove commands (see #9 below) 
+    <li>Change [catalogItems 20] to [foundItems] (and add max=20 to search commands) 
+    <li>Add [shownext] tags 
+    <li>Change [URLfieldname] to [URL][fieldname][/URL] 
+    <li>Change [INPUTfieldname] to [INPUT][fieldname][/INPUT] 
+    <li>Change [float1 6.2] to [FORMAT 6.2f][float1][/FORMAT] 
+    <li>Change all &lt;!WebCatalog&gt; tags to &lt;!HAS_PCS_TAGS&gt; 
+    <li>Change all template and db references to URL-style relative paths. 
+    <li>If you need search logging, insert WebDNA commands into your search results 
+      templates 
+    <li>If you use [randomad], use a custom database to implement your own random 
+      ad scheme. Examples can be found at our <a href="http://dev.webdna.us/?swb=examples">WebDNA 
+      Examples</a> page 
+  </ol>
+  <p><br>
+    Detail:<br>
+    <b>1)</b> To convert an existing Catalog.txt file, you must put the 27 field 
+    names (separated by tabs) on the very first line of the file (basically record 
+    #0 is the names of the fields). Copy the following line and paste it into 
+    the first line of your Catalog.txt file:<br>
+    SKU TITLE DESCRIPTION PRICE TAXABLE CANEMAIL SHIPCOST FLOAT1 FLOAT2 FLOAT3 
+    FLOAT4 FLOAT5 INT1 INT2 INT3 INT4 INT5 TEXT1 TEXT2 TEXT3 TEXT4 TEXT5 TEXT6 
+    TEXT7 TEXT8 TEXT9 TEXT10<br>
+    <br>
+    <b>2)</b> Because WebCatalog3 deals with more than one database, you must 
+    now tell it which database it is supposed to use when sending it search / 
+    showcart / purchase / append / delete / replace / add / remove commands, like 
+    so:<br>
+    <br>
+    Results.tpl?command=search&amp;<b>db=Catalog.txt&amp;</b>max=20&amp;eqdescriptiondata=Grant<br>
+    <br>
+    <b>3)</b> [CatalogItems] has been changed to [FoundItems] to reflect the fact 
+    that we are dealing with general databases now, not just catalogs:<br>
+    <br>
+    [FoundItems]<br>
+    [sku], [title], [description]&lt;br&gt;<br>
+    [/FoundItems]<br>
+    <br>
+    The old way of specifying a maximum number of returned records [catalogItems 
+    20] has changed so that you must put &quot;max=20&quot; into the search command 
+    itself, as in:<br>
+    <br>
+    Results.tpl?command=search&amp;db=Catalog.txt&amp;<b>max=20</b>&amp;eqdescriptiondata=Grant<br>
+    <br>
+    <b>4)</b> WebCatalog3 gives you much greater control over the appearance of 
+    the &quot;Show Next...&quot; hyperlinks. The &quot;N&quot; in [CatalogItems 
+    N] has been moved to the search command, and now you must explicitly decide 
+    where you want the &quot;Show Next&quot; links to appear (WebCatalog 1.x would 
+    put them in for you). If you execute a search command as follows<br>
+    <br>
+    WebCatalog.acgi$search?db=database.db&amp;template=test.tpl&amp;<b>max=10</b><br>
+    <br>
+    ...then [FoundItems] will only display 10 items even if more are found.<br>
+    <br>
+    Here is what the &quot;test.tpl&quot; template should look like:</p>
+  <pre>--------------------------
+[FoundItems]
+[someField]&lt;br&gt;
+[/FoundItems]
+
+[ShowNext]
+&lt;a href=&quot;WebCatalog.acgi$search?[SearchString]&quot;&gt;Show Items [start]-[end]&lt;/a&gt;&lt;br&gt;
+[/ShowNext]
+--------------------------</pre>
+  <p><br>
+    <b>5)</b> [URLfieldname] has gone away! Replace it with [url][fieldname][/url], 
+    as in [url][sku][/url]. This more-general approach gives you the flexibility 
+    of 'URL-izing' anything, so [url]hello there[/url] becomes &quot;hello%20there&quot;<br>
+    <br>
+    <b>6)</b> [INPUTfieldname] has gone away! Replace it with [input][fieldname][/input], 
+    as in [input][description][/input]<br>
+    <br>
+    <b>7)</b> The old-style numeric format has changed, so [grandTotal 6.2] becomes 
+    [format 6.2f][grandTotal][/format]. This more-general approach gives you the 
+    flexibility of formatting anything, so [format 6.2f]12[/format] becomes &quot; 
+    12.00&quot;<br>
+    <br>
+    <b>8)</b> If you are using &lt;!WebCatalog&gt; to mark files that are allowed 
+    to be viewed outside the WebStar folder hierarchy, you need to change them 
+    to the more general &lt;!--HAS_WEBDNA_TAGS--&gt;. If you do not, then WebCatalog 
+    will tell you that you that the file is not allowed to be viewed.<br>
+    <br>
+    <b>9)</b> Databases and templates are now specified URL-relative to the template 
+    being displayed. In WebCatalog 1.6.1, you specified templates using Macintosh 
+    paths relative to WebCatalog.acgi (template=::hello.html looked &quot;up&quot; 
+    one folder from WebCatalog.acgi to find the file). Now you specify templates 
+    the same way you would in standard HTML, relative to the template you are 
+    looking at (template=../hello.html looks &quot;up&quot; one folder from the 
+    template being displayed).<br>
+    <br>
+    <b>10)</b> Because WebCatalog can open arbitrary databases now, it doesn't 
+    know what searches are important for you to store in its log file. Using WebDNA 
+    commands it is very easy to add your own custom log information every time 
+    someone searches a database. Just insert something like the following into 
+    your search results template:</p>
+  <pre>[AppendFile file=WebCatalog.log][date]	[time]	[command]	[SearchField]
+[/AppendFile]</pre>
+  <p><b>10)</b> Because WebCatalog can open arbitrary databases now, there is 
+    no longer a need for a custom random-ad database. WebDNA is much more flexible 
+    and a better solution for implementing banner ads. You can find some good 
+    examples of pre-built WebDNA Samples to do this at <a href="http://dev.webdna.us/?swb=samples">our samples site</a></p>
+  <p><!--[/Raw]--> 
+</ul>
+	</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!--last modified on Fri, Aug 14, 1998 5:45 PM-->
+<HTML>  
+<HEAD>
+  <META NAME="GENERATOR" CONTENT="Adobe PageMill 3.0 Mac">
+  <META HTTP-EQUIV="content-type" CONTENT="text/html;charset=iso-8859-1">
+  <TITLE>Delete Command</TITLE>
+  <!--[Raw]-->
+  <META NAME="Author" CONTENT="Grant Hulbert">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<P><FONT SIZE="+2">Delete?db=DatabaseName&amp;searchData=xx</FONT></P>
+
+<DL>
+  <DD>Deletes all matching records from the database.
+</DL>
+
+<P>To delete records from a database, use a web browser to link
+to a URL containing the <A HREF="DeleteCommand.html">Delete</A>
+command (alternately, you may embed a <A HREF="AllTags.html#Delete">[Delete]</A>
+tag into a template). Whenever WebDNA receives a Delete command,
+it immediately searches for all matching records and deletes them
+from the database.</P>
+
+<DL>
+  <DD><B>SQL/ODBC Note</B>: To append new records to the end of
+  an ODBC-compliant table, use the <A HREF="SQLContext.html">[SQL]</A>
+  context.
+</DL>
+
+<P><B>Example</B> (normally you would link to a URL or form containing
+the following information):</P>
+
+<DL>
+  <DD>http://yourserver.com/xx.tpl?command=<B>Delete</B>&amp;<B>db</B>=SomeDatabase.db&amp;<B>eqNAMEdata</B>=Grant
+</DL>
+
+<P>The database &quot;SomeDatabase.db&quot; opens, and all records
+whose <B>name</B> field is &quot;Grant&quot; are deleted. The
+page sent back to the browser will be xx.tpl</P>
+
+<P>Here are some other ways to send the same command: <TABLE 
+BORDER="1" CELLPADDING="0" CELLSPACING="2">
+  <TR HEIGHT="9">
+    <TH HEIGHT="9" BGCOLOR="#bbbbbb">HTML Source</TH> 
+    <TH HEIGHT="9" BGCOLOR="#bbbbbb">Description</TH> 
+  </TR>
+  <TR>
+    <TD VALIGN="TOP">
+      <DL>
+        <DT>&lt;a href=&quot;xx.tpl?command=Delete&amp;db=SomeDatabase.db&amp;eqNAMEdata=Grant&quot;&gt;
+      </DL>
+    </TD>
+    <TD>Hyperlink command</TD> 
+  </TR>
+  <TR>
+    <TD VALIGN="TOP">
+      <DL>
+        <DT>&lt;form method=&quot;POST&quot; action=&quot;xx.tpl&quot;&gt;<BR>
+        &lt;input type=&quot;hidden&quot; name=&quot;command&quot; value=&quot;Delete&quot;&gt;<BR>
+        &lt;&lt;input name=&quot;eqNAMEdata&quot;&gt;<BR>
+        &lt;input type=&quot;submit&quot;&gt;<BR>
+        &lt;/form&gt;
+      </DL>
+    </TD>
+    <TD>
+      <DL>
+        <DT>Form-based command
+      </DL>
+    </TD>
+  </TR>
+</TABLE><p></P>
+
+<DL>
+  <DD><font color="#000000"><b>Note:</b></font> Normally all database file paths 
+    are relative to the local template, or if they begin with &quot;/&quot; they 
+    are relative to the web server's virtual host root. You may optionally put 
+    &quot;^&quot; in front of the file path to indicate the file can be found 
+    in a global root folder called &quot;Globals&quot; inside the WebCatalogEngine 
+    folder. This global root folder is the same regardless of the virtual host. 
+</DL>
+
+<P><!--[/Raw]-->
+
+</BODY>
+</HTML>

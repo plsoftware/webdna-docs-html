@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!--last modified on Tue, Jun 24, 1997 11:10 PM-->
+<HTML>
+<HEAD>
+<!--HAS_WEBDNA_TAGS-->
+
+	<META NAME="Author" Content="Grant Hulbert">
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html;CHARSET=iso-8859-1">
+	<TITLE>Netscape Server Installation</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFE7BB">
+
+<P><FONT SIZE="6">Completing Netscape Server Installation</FONT><BR>
+To complete your Netscape installation, open "Administer Netscape Servers" from the
+Netscape program group, or go directly to the URL for Netscape
+administration.
+<ol>
+<li>Select the server to administer and click the "Programs"
+button in the top frame.
+<li>Click the "ShellCGI Directory" link in the left
+frame in order to create a new directory for shell CGI's.
+<li>Enter "cgi-bin" as the URL prefix and "C:\Netscape\Server\cgi-shl" as the path to your
+shell CGI directory (unless you chose to place your CGI files elsewhere
+during the WebDNA installation - enter the path you selected during
+installation).
+<li>Be sure NOT TO type a slash character at the end of the
+directory path. Click "OK" and then "Apply" in the top frame.
+</ol>
+
+Next, you must add a file extension mapping to the "mime.types" file found in
+your server's "config" directory. By default, the path to this file is
+similar to the following: "C:\Netscape\Server\httpd-XXX\config\mime.types"
+(replace XXX with your server name). Open the file with a text editor (like Notepad) and add the following line
+to the end of the file: "type=magnus-internal/shellcgi exts=tpl". Consult the Netscape
+instructions (by clicking "Help" from the Administration page) for updated
+or different instructions on creating extension mapping in the documents
+directory. After saving the file, restart your server. If the mapping
+doesn't seem to work correctly, you may have to restart your machine as
+well.
+<br><br>
+<a href="index.htm">Back to WebDNA Welcome Page</a>
+</body>
+</html>

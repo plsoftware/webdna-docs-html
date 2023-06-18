@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>  
+<HEAD>
+  <META NAME="GENERATOR" CONTENT="Adobe PageMill 3.0 Mac">
+  <META HTTP-EQUIV="content-type" CONTENT="text/html;charset=iso-8859-1">
+  <TITLE>Searching Dates</TITLE>
+  <!--[Raw]-->
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<P><FONT SIZE="+2">Searching - Dates or Times</FONT> <I><FONT
+ SIZE="+2">FieldName</FONT></I><B><FONT SIZE="+2">type=date </FONT></B><I><FONT
+ SIZE="+2">FieldName</FONT></I><B><FONT SIZE="+2">type=time</FONT></B></P>
+
+<DL>
+  <DD>Uses dates or times as part of a search.
+</DL>
+
+<P>WebDNA normally compares all fields in a database as though
+they were text, even if they look like dates to you. Unless you
+tell it to compare a field as a date (or as a time or a <A HREF="SearchNumbers.html">number</A>),
+all comparisons are alphabetical.</P>
+
+<P>If your database has a date field (SoldDate, for instance)
+that you wish to sort in date-order, you would put something like
+the following in the search criteria:</P>
+
+<P>http://Results.tpl?command=search&amp;<B>ge</B>SoldDate<B>data</B>=2/17/96&amp;SoldDate<B>type=date</B></P>
+
+<P>Alternately, if your database has a time field (SoldTime, for
+instance) that you wish to sort in time-order, you would put something
+like the following in the search criteria:</P>
+
+<P>http://Results.tpl?command=search&amp;<B>ge</B>SoldTime<B>data</B>=10:15:00&amp;SoldTime<B>type=time</B></P>
+
+<P>Why is this important? Imagine that WebDNA is comparing
+two fields that happen to contain dates in them:</P>
+
+<P>Compare &quot;2/12/1997&quot; to &quot;12/9/1997&quot; -- when
+compared alphabetically, WebDNA looks at the first letter
+in both fields and sees &quot;2&quot; and &quot;1&quot;, respectively.
+In this case, it would (wrongly) assume that &quot;2&quot; is
+greater than &quot;1&quot; (which in an alphabetical sense is
+true), and would sort &quot;12/9/1997&quot; <B>after</B> &quot;2/12/1997&quot;.
+This is probably not what you meant.</P>
+
+<P>When compared as dates, the two numbers would sort correctly.</P>
+
+<P>WebDNA accepts dates that look like &quot;month/day/year&quot;,
+as in &quot;4/19/97&quot; and &quot;4/19/1997&quot;. It uses the
+global date format preference to decide what order the month/day/year
+fields are stored (so you can use 1997/05/27 as long as you set
+the date preference to display dates in that format). All <A 
+HREF="SearchSorting.html">sorting</A>, <A HREF="SearchSummaries.html">summaries</A>,
+and <A HREF="SearchComparisons.html">comparisons</A> work correctly
+when you tell WebDNA which fields are to be treated as dates.</P>
+
+<P><!--[/Raw]-->
+
+</BODY>
+</HTML>

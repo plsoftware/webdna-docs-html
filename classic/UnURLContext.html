@@ -1,0 +1,29 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>UnURL Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+		<font size="5">[UnURL]Any URL Text[/UnURL]</font>
+		<dl>
+			<dd>Changes text from URL-compatible characters to plain text.
+		</dl>
+		<p>To automatically convert text containing URL characters such as %20, %3A, etc, put it inside a [UnURL] context. Certain letters, such as spaces, colons, and the equals sign (=) are not allowed inside URLs unless they are first converted to hexadecimal form -- the UnURL context converts them back. This is the opposite of <a href="URLContext.html">[URL]</a>.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[UnURL]Filename%20with%20spaces.gif[/UnURL]
+		</dl>
+		<p>In the example above, the displayed text will be</p>
+		<pre>Filename with spaces.gif</pre>
+		<p><B>Note:</B>By default, the [UnURL] context will not convert hex codes that contain lowercase letters.  So, %3A will be converted to a colon while %3a will not.  Starting with WebDNA version 402rc1, you can use the 'IGNORECASE' parameter to force the [UnURL] context to convert hex codes containing lowercase letters.  So [UnURL IGNORECASE=T]%3a[/UnURL] will convert %3a to a colon.
+		<p>This context is rarely needed, because most of the time WebDNA has already converted the text (in URL parameters, for instance) back to plain text. If you plan to store text with embedded unusual characters such as tabs or carriage returns into a field of a database, you might use [URL] to store them and [UnURL] to retrieve them.</p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!--last modified on Fri, Aug 14, 1998 5:41 PM-->
+<HTML>  
+<HEAD>
+  <META NAME="GENERATOR" CONTENT="Adobe PageMill 3.0 Mac">
+  <META HTTP-EQUIV="content-type" CONTENT="text/html;charset=iso-8859-1">
+  <TITLE>Append Command</TITLE>
+  <!--[Raw]-->
+  <META NAME="Author" CONTENT="Grant Hulbert">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<P><FONT SIZE="+2">Append?db=DatabaseName&amp;field1=xx&amp;field2=xx</FONT></P>
+
+<DL>
+  <DD>Appends a new record with the specified field values to the
+  end of a database.
+</DL>
+
+<P>To add new records to a database, use a web browser to link
+to a URL containing the Append command (alternately, you may embed
+an <A HREF="AppendContext.html">[Append]</A> context into a template).
+Whenever WebDNA receives an Append command, it immediately
+adds a new record to the end of the specified database given the
+named field values.</P>
+
+<DL>
+  <DD><B>SQL/ODBC Note</B>: To append new records to the end of
+  an ODBC-compliant table, use the <A HREF="SQLContext.html">[SQL]</A>
+  context.
+</DL>
+
+<P><B>Example</B> (normally you would link to a URL or form containing
+the following information):</P>
+
+<DL>
+  <DD>http://yourserver.com/xx.tpl?<B>command</B>=Append&amp;<B>db</B>=SomeDatabase.db&amp;<B>name</B>=Grant&amp;<B>address</B>=1492%20Somewhere%20Lane&amp;<B>zip</B>=90000
+</DL>
+
+<P>The database &quot;SomeDatabase.db&quot; opens, and a new record
+is added to the end. The field name &quot;<B>name</B>&quot; is
+set to &quot;Grant,&quot; the field name &quot;<B>address</B>&quot;
+is set to &quot;1492 Somewhere Lane,&quot; and the field name
+&quot;<B>zip</B>&quot; is set to &quot;90000.&quot; The page sent
+back to the browser will be xx.tpl.</P>
+
+<P>Any field names not existing in the database are ignored, and
+any fields you do not specify are left blank in the new record.
+Certain letters are illegal, such as &lt;tab&gt; or &lt;carriage
+return&gt;, so they are converted to &lt;space&gt; and &lt;soft
+return&gt; before being added to the database. Some computers
+use the two-character sequence &lt;carriage return&gt;&lt;line
+feed&gt; to indicate a single end of line, which is automatically
+converted to a single &lt;soft return&gt; character before being
+added to the database.<BR>
+<BR>
+You may specify a relative or full URL to the database file, as
+in &quot;/WebCatalog/Folder/SomeDatabase.db&quot; or &quot;../SomeDatabase.db.&quot;
+The path to the database is always relative to the template URL,
+so if the database is in the same folder as the template the path
+would be &quot;SomeDatabase.db&quot;, and if the database were
+one folder up then the path would be &quot;../SomeDatabase.db.&quot;</P>
+
+<DL>
+  <DD><B>Note:</B> normally all database file paths are relative
+  to the local template, or if they begin with &quot;/&quot; they
+  are relative to the web server's virtual host root. As of version
+  3.0, you may optionally put &quot;^&quot; in front of the file
+  path to indicate the file can be found in a global root folder
+  called &quot;Globals&quot; inside the WebCatalog folder. This
+  global root folder is the same regardless of the virtual host.
+  <P><B>Note</B>: You may force the visitor to enter something
+  into a field by using the <B>RequiredFields</B> parameter in
+  the URL. Setting <B>RequiredFields</B>=field1+field2+field3 displays
+  an error message if the visitor forgets to enter some text into
+  any of those 3 fields. <B>RequiredFields</B> works for all commands,
+  not just this one.
+</DL>
+
+<P>Here are some other ways to send the same command: <TABLE 
+BORDER="1" CELLPADDING="0" WIDTH="100%" CELLSPACING="2">
+  <TR HEIGHT="17">
+    <TD WIDTH="71%" HEIGHT="17" BGCOLOR="#bbbbbb">
+      <DL>
+        <P><CENTER><B>HTML Source</B></CENTER>
+      </DL>
+    </TD>
+    <TD WIDTH="29%" HEIGHT="17" BGCOLOR="#bbbbbb">
+      <P><CENTER><B>Description</B></CENTER></TD>
+  </TR>
+  <TR>
+    <TD WIDTH="71%">
+      <DL>
+        <DT>&lt;a href=&quot;xx.tpl?<B>command</B>=Append&amp;<B>db</B>=SomeDatabase.db&amp;<B>name</B>=Grant&amp;<B>address</B>=1234%20Somewhere&quot;&gt;
+      </DL>
+    </TD>
+    <TD WIDTH="29%">Hyperlink command</TD> 
+  </TR>
+  <TR>
+    <TD WIDTH="71%">
+      <DL>
+        <DT>&lt;form method=&quot;POST&quot; action=&quot;xx.tpl&quot;&gt;<BR>
+        &lt;input type=&quot;hidden&quot; name=&quot;<B>command</B>&quot;
+        value=&quot;Append&quot;&gt;<BR>
+        &lt;input type=&quot;hidden&quot; name=&quot;<B>db</B>&quot;
+        value=&quot;SomeDatabase.db&quot;&gt;<BR>
+        &lt;input name=&quot;<B>name</B>&quot;&gt;<BR>
+        &lt;input name=&quot;<B>address</B>&quot;&gt;<BR>
+        &lt;input type=&quot;submit&quot;&gt;<BR>
+        &lt;/form&gt;
+      </DL>
+    </TD>
+    <TD WIDTH="29%">
+      <DL>
+        <DT>Form-based command
+      </DL>
+    </TD>
+  </TR>
+</TABLE><!--[/Raw]-->
+
+</BODY>
+</HTML>

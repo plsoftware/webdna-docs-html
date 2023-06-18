@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Search Comparisons</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">Searching - Comparisons</font> <font size="5"><i>FieldName</i><b>comp=XX</b></font> 
+<dl>
+			<dd>Searches using comparisons of data.
+		</dl>
+		<p>You can compare data during a search in many different ways -- the field may match exactly, greater than, less than, in a range, etc. You tell WebDNA how to compare fields in a database by typing the field name followed by <b>comp</b> into a URL. As a shortcut, you can also put the two-letter comparison code in front of the fieldname's <b>data</b> specifier.</p>
+		<p>If your database has a field called &quot;FirstName&quot;, and you want to look for records that are alphabetically arranged after &quot;Grant&quot; in the FirstName field, then you would enter a URL something like this:</p>
+		<p>http://Results.tpl?command=search&amp;FirstName<b>data</b>=Grant&amp;FirstName<b>comp</b>=<b>gr</b>&amp;db=SomeDatabase.db</p>
+		<p>shortcut equivalent form for the search above:<br>
+		http://Results.tpl?command=search&amp;<b>gr</b>FirstName<b>data</b>=Grant&amp;db=SomeDatabase.db</p>
+		<p>The template &quot;Results.tpl&quot; displays after the search, and any <a href="FoundItemsContext.html">[FoundItems] </a>contexts will be filled with found records. &quot;gr&quot; stands for &quot;greater than,&quot; meaning the FirstName field must be greater than &quot;Grant,&quot; otherwise it will not be considered a match.</p>
+		<dl>
+			<dd><b>Note:</b> Probably the most commonly-used (and simplest) way to search a database is the &quot;Word Or&quot; search. This most closely matches Yahoo and Lycos' style of searching, because it finds all records matching at least one word entered by the visitor, and sorts the &quot;best match&quot; records to the top of the list. If you have a product database with a <b>Description</b> field, the search form might look like this:<br>
+			&nbsp;<br>
+			&lt;form method=&quot;POST&quot; action=&quot;Results.tpl&quot;&gt;<br>
+			&lt;input type=hidden name=&quot;<b>command</b>&quot; value=&quot;Search&quot;&gt;<br>
+			Description: &lt;input name=&quot;<b>wo</b>Description<b>data</b>&quot;&gt; &lt;input type=&quot;submit&quot;&gt;<br>
+			&lt;/form&gt;
+		</dl>
+		<p>Below is a list of all the different ways to compare information in a field. All comparisons are not case-sensitive (unless you force them to be), so &quot;JOE&quot; is the same as &quot;Joe&quot;:
+		<table border="1" cellpadding="0">
+			<tr>
+				<th bgcolor="#bbbbbb">Comp</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;ls</div>
+				</td>
+				<td><b>l</b>e<b>s</b>s than - lsFirstNamedata=Grant finds all records whose FirstName field is &quot;less than&quot; Grant. Comparisons can be alphabetic, numeric, or date, depending on the <b>type</b> you specify for the field.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;le</div>
+				</td>
+				<td><b>l</b>ess than or <b>e</b>qual to - leFirstNamedata=Grant finds all records whose FirstName field is &quot;less than or equal to&quot; Grant.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;eq</div>
+				</td>
+				<td><b>eq</b>ual to (default option for numbers) - eqFirstNamedata=Grant finds all records whose FirstName field is &quot;equal to&quot; Grant (upper and lower case do not matter unless you want them to: see <a href="SearchCaseSensitivity.html">Case Sensitivity</a>)</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;ge</div>
+				</td>
+				<td><b>g</b>reater than or <b>e</b>qual to - geFirstNamedata=Grant finds all records whose FirstName field is &quot;greater than or equal to&quot; Grant.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;gr</div>
+				</td>
+				<td><b>gr</b>eater than - grFirstNamedata=Grant finds all records whose FirstName field is &quot;greater than&quot; Grant.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;rn</div>
+				</td>
+				<td><b>r</b>a<b>n</b>ge: field contains two values separated by spaces (or any other delimiter specified by <a href="SearchWordBreaks.html"><b>wbrk</b></a>). The values may be <a href="SearchDates.html">dates</a>, <a href="SearchNumbers.html">numbers</a>, or text. You must specify what type of data the fields are by using <i>fieldname</i>type=xxx (where xxx is num or date).<br>
+					<br>
+					rnZipCodedata=92069 93090&amp;ZipCodetype=num finds all records whose ZipCode field is numerically in the range of 92069 - 93090<BR><BR>
+					Note:  When specifying a range, the smaller value must precede the larger value, i.e. rnZipCodedata=92069 93090, not rnZipCodedata=93090 92069.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;mr</div>
+				</td>
+				<td><b>m</b>inimum <b>r</b>ange value: if no maximum then <b>ge</b> is used instead</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;xr</div>
+				</td>
+				<td>ma<b>x</b>imum <b>r</b>ange value: if no minimum than <b>le</b> is used instead</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;ne</div>
+				</td>
+				<td><b>n</b>ot <b>e</b>qual - neFirstNamedata=Grant finds all records whose FirstName field is &quot;not equal&quot; Grant.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;bw</div>
+				</td>
+				<td><b>b</b>egins <b>w</b>ith - bwFirstNamedata=Jo finds all records whose FirstName field &quot;begins with&quot; Jo, as in &quot;Joe&quot;, &quot;Joseph&quot;, &quot;Josephine&quot;.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;cl</div>
+				</td>
+				<td><b>cl</b>ose to (numeric only). <b>cl</b>ZipCodedata=92069&amp;<b>cl</b>ZipCodedata=10 finds all records whose ZipCode field is within 10 of 92069 (92059 - 92079)</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;ws</div>
+				</td>
+				<td>Interpret the <b>w</b>ords as a single <b>s</b>tring to be matched (including spaces etc.) This lets you find entire phrases, like &quot;Joe enjoys butter&quot; only if those 3 words are next to each other in that order, including spaces (unlike <b>wa</b> and <b>wo</b>, below)</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;wa</div>
+				</td>
+				<td>Separate the <b>w</b>ords and &quot;<b>a</b>nd&quot; them together (all must match). Searching for 3 words using <b>wa</b> will match only if <b>all 3</b> are in the field, but not necessarily next to each other.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;wo</div>
+				</td>
+				<td>Separate the <b>w</b>ords and &quot;<b>o</b>r&quot; them together (at least one must match - default option for text). Search for 3 words using <b>wo</b> will match if any one of them matches.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;wn</div>
+				</td>
+				<td><b>w</b>ord <b>n</b>ot equal - none of the words match text in the specified field</td>
+			</tr>
+		</table>
+		<p></p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

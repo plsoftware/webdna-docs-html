@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"><!--last modified on Wed, Jul 8, 1998 6:11 PM-->
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>FormVariables Context</title>
+		<!--[Raw]-->
+		<meta name="Author" content="Grant Hulbert">
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[FormVariables]Form Variable Tags[/FormVariables]</font> 
+<dl>
+			<dd>Lists all the form variables and parameters passed to the current page.
+		</dl>
+		<p>To display a list of all the form variables available, put a [FormVariables] context into a template.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>The following are all the form variables available to this page:&lt;br&gt;
+			<dd>[FormVariables]
+			<dd>[index],[name],[value]&lt;br&gt;
+			<dd>[/FormVariables]
+		</dl>
+		<p>The [FormVariables] context has optional parameters placed within the beginning tag in order to modify the list of form variables produced.</p>
+		<p><b>Example</b>:</p>
+		<dl>
+			<dd>The following are the values of all the form variables with the name &quot;text&quot;:&lt;br&gt;<br>
+			[FormVariables name=text&amp;exact=T]<br>
+			[index],[value]&lt;br&gt;<br>
+			[/FormVariables]
+		</dl>
+		<p>Listing the variables with a given name is useful for getting the results of a multiple select list or multiple checkboxes with the same name.</p>
+		<p>The following parameters are optional to the [FormVariables] context:
+		<table border="1" cellpadding="0" cellspacing="2">
+			<tr>
+				<th bgcolor="#bbbbbb">Parameter</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						Name</div>
+				</td>
+				<td>(Optional) The name of the field to list.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;Exact</div>
+				</td>
+				<td>(Optional) T(rue) or F(alse) whether to exactly match the name of the parameter or match any name that contains the &quot;name&quot; value. (Default value is true).</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						Form</div>
+				</td>
+				<td>(Optional) Use form=include to retrieve the list of form variables from the [include file=xxx&amp;var1=yyy&amp;var2=zzz] tag in this template.</td>
+			</tr>
+		</table>
+		<p></p>
+		<p>The following tags are available inside a [FormVariables] context:
+		<table border="1" cellpadding="0" cellspacing="2">
+			<tr>
+				<th bgcolor="#bbbbbb">Tag</th>
+				<th bgcolor="#bbbbbb">Description</th>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[Name]</div>
+				</td>
+				<td>the name of the field.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						&nbsp;[Value]</div>
+				</td>
+				<td>the value associated with the field.</td>
+			</tr>
+			<tr>
+				<td>
+					<div align="right">
+						[Index]</div>
+				</td>
+				<td>A number from 1 to the total number of fields, indicating this field's index placement in the list.</td>
+			</tr>
+		</table>
+		<p></p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

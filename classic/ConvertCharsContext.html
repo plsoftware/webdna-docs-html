@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"><!--last modified on Fri, Aug 14, 1998 5:44 PM-->
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>ConvertChars Context</title>
+		<!--[Raw]-->
+		<meta name="Author" content="Grant Hulbert">
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[ConvertChars]Any Text[/ConvertChars]</font> 
+<dl>
+			
+  <dd>Changes 'illegal' characters into legal HTML. 
+</dl>
+		
+<p>To automatically convert certain characters such as the trademark symbol, copyright 
+  symbol, or curly-quotes into valid HTML, put the text inside a [ConvertChars] 
+  context. The illegal letters will be converted to legal HTML, such as (tm), 
+  &amp;copy; or &quot; (straight quotes).</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			<dd>[ConvertChars]Some Text that contains &copy; or other unusual letters[/ConvertChars]
+		</dl>
+		<p>The above line of WebDNA would produce the following:</p>
+		<pre>Some Text that contains &amp;copy; or other unusual letters</pre>
+		
+<p>Anywhere the illegal characters appear inside the context, they will be converted 
+  to equivalent HTML. You may put any [xxx] tags inside the context. For instance, 
+  you may use fields from a database, or even [include] the entire contents of 
+  another file. The character conversions are controlled by WebDNA's StandardConversions.db 
+  database file.</p>
+<p>To add your own conversions, to be applied to all WebDNA sites running on the same machine, edit the StandardConversions.db file and enter 
+  the character to be converted followed by a tab and the text you want to replace 
+  that letter with (up to 63 characters). Or, if you want to use your own conversion database to be used locally, you can use the db parameter described below</p>
+  
+<p>Special Cases:  It may be necessary to use hex codes in your conversion database.<BR>
+For example, to convert a space to a '+', your conversion database would look like this:<BR>
+<pre>
+FROM	TO
+%20	%2B
+</pre>
+</p>
+<table border="1" cellpadding="0">
+  <tr> 
+    <th bgcolor="#bbbbbb">&nbsp;Parameter</th>
+    <th bgcolor="#bbbbbb">&nbsp;Description</th>
+  </tr>
+  <tr>
+    <td>
+      <div align="right">db</div>
+    </td>
+    <td>(Optional) path to conversion database which contains list of &quot;from&quot; 
+      and &quot;to&quot; conversions.</td>
+  </tr>
+  <tr> 
+    <td> <div align="right"> &nbsp;table</div></td>
+    <td><b>New for WebDNA 5.x</b><br>In place of a db file, you can specify a named reference to a WebDNA <a href="Table.html">table</a> object.</td>
+  </tr>
+  <tr> 
+</table>
+
+
+<blockquote>
+  <p> <b>Note:</b> Normally all database file paths are relative to the local 
+    template, or if they begin with &quot;/&quot; they are relative to the web 
+    server's virtual host root. You may optionally put &quot;^&quot; in front 
+    of the file path to indicate the file can be found in a global root folder 
+    called &quot;Globals&quot; inside the WebCatalog folder. This global root 
+    folder is the same regardless of the virtual host. </p>
+</blockquote>
+<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

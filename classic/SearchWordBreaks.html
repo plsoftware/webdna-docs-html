@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Searching Word Breaks</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">Searching - Word Breaks</font> <font size="5"><i>FieldName</i><b>word=XX</b></font> 
+<dl>
+			<dd>Searches for whole words.
+		</dl>
+		
+<p>Normally WebDNA searches for any text in a field, regardless of where it 
+  is in a sentence or even if it is in the middle of a word. You can tell WebDNA 
+  to search for whole words (letters surround by spaces, commas, etc.) or only 
+  the beginning of a word by setting word-break options.</p>
+		<p>You can define your own custom list of word break characters with &lt;fieldname&gt;<b>wbrk</b>=&lt;list of chars&gt;. By adding Description<b>wbrk</b>=.,- to your search causes user-entered text surrounded by those characters in the HTML form field Description to be considered as individual words.</p>
+		<p>If your database has a field called &quot;Description,&quot; and you want to look for records containing &quot;graph&quot; <b>only at the beginning of words</b> in the Description field, the URL would look like this:</p>
+		<p>http://Results.tpl?command=search&amp;<b>wo</b>Description<b>data</b>=graph&amp;Description<b>word</b>=<b>sw</b>&amp;db=SomeDatabase.db</p>
+		<p>
+		<table border="1" cellpadding="0" width="100%" height="129">
+			<tr height="2">
+				<th width="8%" height="2" bgcolor="#cccccc">
+					<div align="right">
+						word</div>
+				</th>
+				<th width="92%" height="2" bgcolor="#cccccc">Description</th>
+			</tr>
+			<tr height="55">
+				<td width="8%" height="55">
+					<div align="right">
+						ss</div>
+				</td>
+				<td width="92%" height="55"><b>s</b>ub<b>s</b>tring match<br>
+					<br>
+					Description<b>word</b>=<b>ss</b> looks for &quot;graphic&quot; and finds it anywhere inside phrases such as: &quot;I like typo<b>graphic</b> conventions&quot; and &quot;This is a <b>graphic</b>&quot; and &quot;<b>Graphic</b>al user interfaces are cool.&quot;</td>
+			</tr>
+			<tr height="42">
+				<td width="8%" height="42">
+					<div align="right">
+						ww</div>
+				</td>
+				<td width="92%" height="42"><b>w</b>hole <b>w</b>ord match (can be modified with <b>wbrk</b> to define word-break characters)<br>
+					<br>
+					Description<b>word</b>=<b>ww</b> looks for &quot;graphic&quot; and will <b>not </b>find it inside phrases such as: &quot;I like typographic conventions&quot;. It <b>will</b> be found inside &quot;This is a <b>graphic.</b>&quot;</td>
+			</tr>
+			<tr height="17">
+				<td width="8%" height="17">
+					<div align="right">
+						sw</div>
+				</td>
+				<td width="92%" height="17"><b>s</b>tart of <b>w</b>ord (can be modified with <b>wbrk</b> to define word-break characters)<br>
+					<br>
+					Description<b>word</b>=<b>sw</b> looks for &quot;graphic&quot; at the beginning of words, like &quot;This is a <b>graphic</b>&quot; and &quot;<b>Graphic</b>al user interfaces are good&quot;, but will <b>not</b> find it inside &quot;I like typographic conventions.&quot;</td>
+			</tr>
+		</table>
+		<p></p>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>

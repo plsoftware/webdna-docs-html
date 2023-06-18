@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>Email File Format</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">File Formats - Email File Format</font><br>
+		<hr>
+		WebDNA does not actually send the email; it writes a special file into an EmailFolder which the separate Emailer program uses to send the email. If the Emailer program is not running, no emails will be sent. The Emailer program does not erase old outgoing email files until it has successfully completed sending the email.
+		<dl>
+			<dd>The email file format conforms to Unix SendMail and Macintosh SIMS/EIMS native mail format. You can add any extra MIME headers at the top of the file, followed by a blank line and then the body of the message. The format is basically what you see in a Eudora email message.
+		</dl>
+		
+<p>If you wish to send emails from your own CGIs or programs (without using WebDNA's 
+  built-in <a href="EmailContext.html">[SendMail]</a> context), you can write 
+  a text file into the EMailFolder specified in the EMailer preferences. The file 
+  must have the following format (only the text between the dashed lines goes 
+  into the email file):</p>
+		<pre>-----------Text file saved into EMail folder-------
+to: sales@webdna.us
+from: me@my domain.com
+subject: This is the subject line
+Date: Mon, 05 Jan 1998 15:59:33 -0500
+
+body...
+body...
+body...
+---------------------------------------------------</pre>
+		<p>An example:</p>
+		<pre>------- /WebCatalogEngine/EMailFolder/SomeFileName.txt -----
+to: support@webdna.us.com, sales@webdna.us
+from: WebMaster@YourDomain.com
+subject: This is the Subject Line
+Date: Mon, 05 Jan 1998 15:59:33 -0500
+
+line 1
+line 2
+line 3
+line 4
+------------------------------------------------------
+<!--[/Raw]--></pre>
+	</body>
+
+</html>

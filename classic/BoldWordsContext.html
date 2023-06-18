@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<meta name="generator" content="Adobe GoLive 4">
+		<title>BoldWords Context</title>
+		<!--[Raw]-->
+	</head>
+
+	<body bgcolor="white">
+<font size="5">[BoldWords <i>WordList</i>]Any Text[/BoldWords]</font> 
+<dl>
+			<dd>Highlights matching words with boldface HTML tags.
+		</dl>
+		<p>To automatically boldface matching words in portions of a template, put a BoldWords context around the text. Any words inside the context found to match words in the WordList will automatically be surrounded by the HTML &lt;B&gt;&lt;/B&gt; tags so they appear bold in the page.</p>
+		<p><b>Example</b> (normally you would put the following text into a .tpl file on your server and use a web browser to link to it):</p>
+		<dl>
+			
+  <dd>[BoldWords words=Grant,John]John and Grant helped write this product. John's 
+    cats are displayed on his personal web page.[/BoldWords] 
+</dl>
+		<p>Anywhere the words Grant or John appear in the contained text, they are wrapped with &lt;B&gt;Grant&lt;/B&gt; or &lt;B&gt;John&lt;/B&gt;, respectively. You may use any [xxx] tags in the WordList or the container, as in [BoldWords [name]]Please embolden this [name][/BoldWords]. All [xxx] tags inside the context are first substituted for their real values, then WebDNA searches for and boldfaces the matching words.</p>
+		<p>This context is handy for helping visitors easily see what they are searching for in a database. In the following example, the visitor has previously typed some text into a search form with a &lt;input name=&quot;wodescriptiondata&quot;&gt; form variable. The [foundItems] will loop through all the matching records in the database, and words matching the search text will be displayed boldface in the [description] field.</p>
+		<dl>
+			<dd>[FoundItems]<br>
+    Description: [BoldWords words=[wodescriptiondata]][description][/BoldWords]<br>
+			[/FoundItems]
+			<p><b>Note:</b> A maximum of 50 words is allowed in the WordList. You can put as many words as you like <i>inside</i> the context, and all occurrences of matching words will be bolded, but the list of words to look for is limited to 50.</p>
+		</dl>
+		<p><!--[/Raw]-->
+		
+	</body>
+
+</html>
